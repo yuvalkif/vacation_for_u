@@ -1,4 +1,4 @@
-package sample;
+package View;
 
 /**
  * Initialize everything needed to start the app
@@ -11,19 +11,26 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sample.Controller;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
+        //View view = new View();
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getResource("sample.fxml").openStream());
+        View view = loader.getController();
+        primaryStage.setTitle("Vacation4U");
        primaryStage.setScene(new Scene(root, 600, 500));
         Controller controller = new Controller();
-        controller.setView(new View());
+
+        controller.setView(view);
         controller.setModel(new Model());
         controller.setAll();
+        view.setCurrentStage(primaryStage);
+       view.setCurrentStage(primaryStage);
+       view.setController(controller);
        primaryStage.show();
 
 

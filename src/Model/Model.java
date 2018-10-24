@@ -61,7 +61,7 @@ public class Model implements ISQLModel{
     }
 
     @Override
-    public void insert(String userName, String password, String firstName, String lastName, String city, SQLData birthDate) {
+    public void insert(String userName, String password, String firstName, String lastName, String city, java.util.Date birthDate) {
         String sql = "INSERT INTO users(username, password, birth_date, first_name, last_name ,address) VALUES(?,?,?,?,?,?)";
 
         try (Connection conn = this.controller.openConnection();
@@ -75,6 +75,7 @@ public class Model implements ISQLModel{
             pstmt.setDate(6, (Date) birthDate);
 
             pstmt.executeUpdate();
+            System.out.println("userName = [" + userName + "], password = [" + password + "], firstName = [" + firstName + "], lastName = [" + lastName + "], city = [" + city + "], birthDate = [" + birthDate + "]");
             this.controller.closeConnection();
             Logger.getInstance().log("INSERT : " + userName + " , " + password + " - SUCCESS");
         } catch (SQLException e) {
