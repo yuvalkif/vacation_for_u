@@ -3,15 +3,28 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
 public class sqlLiteJDBCDriverConnection {
 
+    private static Connection conn;
+
+
+    /**
+     * close the connection
+     */
+    public void closeConnection(){
+        try{
+            this.conn.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+    }
 
     /**
      * Connect to a sample database
      */
-    public static Connection connect() {
-        Connection conn = null;
+    public Connection connect() {
+
         try {
             // db parameters
             String url = "jdbc:sqlite:vacation_for_u.db";
@@ -23,16 +36,8 @@ public class sqlLiteJDBCDriverConnection {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getStackTrace());
-                System.out.println(ex.getMessage());
-            }
         }
+
         return conn;
     }
 
