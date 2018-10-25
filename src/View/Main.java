@@ -17,7 +17,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //View view = new View();
+
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResource("sample.fxml").openStream());
         View view = loader.getController();
@@ -28,6 +28,7 @@ public class Main extends Application {
         controller.setView(view);
         controller.setModel(new Model());
         controller.setAll();
+        controller.createUsersTable();
         view.setCurrentStage(primaryStage);
        view.setCurrentStage(primaryStage);
        view.setController(controller);

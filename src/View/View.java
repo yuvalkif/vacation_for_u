@@ -59,11 +59,10 @@ public class View implements IView{
 
     }
 
-    //endregion
+    public void handleSeeAll(){
 
-    //region UI LOGIC
-
-
+    
+    }
 
     //endregion
 

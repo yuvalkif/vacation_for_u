@@ -18,7 +18,7 @@ public class LoginSceneController{
     }
 
     public void handleBack(){
-
+        StageHolder.getInstance().getStage().close();
     }
 
     public Record getToSubmit() {

@@ -5,7 +5,10 @@ package sample;
  */
 
 import java.sql.Connection;
+import java.sql.SQLException;
+
 import Connections.sqlLiteJDBCDriverConnection;
+import Logger.Logger;
 import Model.*;
 import Objects.Record;
 import View.IView;
@@ -22,10 +25,17 @@ public class Controller {
         this.driver = new sqlLiteJDBCDriverConnection();
     }
 
+    public void createUsersTable(){
+        model.createUsersTable();
+    }
+
     //region USER ACTIONS
     public void handleSubmitSignIn(Record submit){
-        this.model.insert(submit.getUsername(),submit.getPassword(),submit.getFirstname(),submit.getLastname(),submit.getCity(),null);
-        System.out.println("submit = [" + submit + "]");
+        try {
+            this.model.insert(submit.getUsername(), submit.getPassword(), submit.getFirstname(), submit.getLastname(), submit.getCity(), null);
+        }catch (NullPointerException e){
+            Logger.getInstance().log("NULL RECORD");
+        }
     }
 
     //endregion
@@ -66,16 +76,20 @@ public class Controller {
     public Connection openConnection(){
 
         Connection conn = driver.connect();
-        Logger.Logger.getInstance().log("connection opened" + System.currentTimeMillis());
+        Logger.getInstance().log("connection opened");
         return conn;
     }
 
     /**
      * close the connection to the database and log it
      */
-    public void closeConnection(){
-        this.driver.closeConnection();
-        Logger.Logger.getInstance().log("connection closed" + System.currentTimeMillis());
+    public void closeConnection(Connection connection){
+        try {
+            connection.close();
+            Logger.getInstance().log("connection closed");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     //endregion
