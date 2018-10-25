@@ -1,32 +1,38 @@
 package Logger;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Logger class for logging successful transactions and errors
  */
 
-public class Logger {
+public class Logger extends PrintStream {
 
-    private String path = "log.txt";
+    private static final String PATH = "log.txt";
+    private DateTimeFormatter dtf ;
+    private static Logger ourInstance;
 
-    private static Logger ourInstance = new Logger();
+    static {
+        try {
+            ourInstance = new Logger(new FileOutputStream(PATH));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static Logger getInstance() {
         return ourInstance;
     }
 
-    private Logger() {
-
+    private Logger(FileOutputStream out) {
+        super(out);
+        dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
     }
 
     public void log(String line){
-        try{
-            FileWriter writer = new FileWriter(this.path);
-            writer.write(line);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+        LocalDateTime now = LocalDateTime.now();
+        this.println(line + " " + dtf.format(now));
     }
 }

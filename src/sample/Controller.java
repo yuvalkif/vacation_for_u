@@ -4,39 +4,58 @@ package sample;
  * Controller class
  */
 
-import java.sql.Connection;
-import Connections.sqlLiteJDBCDriverConnection;
+import Logger.Logger;
 import Model.*;
 import Objects.Record;
 import View.IView;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class Controller {
 
     private IView view;
     private ISQLModel model;
-    private sqlLiteJDBCDriverConnection driver ;
     private Stage primaryStage;
 
     public Controller(){
-        this.driver = new sqlLiteJDBCDriverConnection();
+    }
+
+    public void createUsersTable(){
+        model.createUsersTable();
     }
 
     //region USER ACTIONS
     public void handleSubmitSignIn(Record submit){
-        this.model.insert(submit.getUsername(),submit.getPassword(),submit.getFirstname(),submit.getLastname(),submit.getCity(),null);
-        System.out.println("submit = [" + submit + "]");
+
+        if(submit == null)
+            return ;
+
+        try {
+            this.model.insert(submit.getUsername(), submit.getPassword(), submit.getFirstname(), submit.getLastname(), submit.getCity(), null);
+        }catch (NullPointerException e){
+            Logger.getInstance().log("NULL RECORD");
+        }
+    }
+
+    public List<Record> searchAllRecordsByFields(Record fields){
+        if(fields == null)
+            return null ;
+
+        return this.model.searchRecordsByFields(fields);
     }
 
     //endregion
 
-    //region SETS
+
+
+    //region PROGRAM FLOW
+
     /**
      * set MVC connections
      */
     public void setAll(){
         view.setController(this);
-        view.setModel(this.model);
         model.setController(this);
         model.setView(view);
     }
@@ -49,34 +68,8 @@ public class Controller {
         this.view = view;
     }
 
-    /**
-     * set the model of this controller
-     * @param model
-     */
-    public void setModel(ISQLModel model) {
+    public void setModel(ISQLModel model){
         this.model = model;
     }
-    //endregion
-
-    //region CONNECTIONS
-    /**
-     * open a connection to the database and log it
-     * @return new connection
-     */
-    public Connection openConnection(){
-
-        Connection conn = driver.connect();
-        Logger.Logger.getInstance().log("connection opened" + System.currentTimeMillis());
-        return conn;
-    }
-
-    /**
-     * close the connection to the database and log it
-     */
-    public void closeConnection(){
-        this.driver.closeConnection();
-        Logger.Logger.getInstance().log("connection closed" + System.currentTimeMillis());
-    }
-
     //endregion
 }
