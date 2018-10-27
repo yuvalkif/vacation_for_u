@@ -90,7 +90,22 @@ public class Model implements ISQLModel{
 
     @Override
     public void updateUsers() {
+            /*String sql = "UPDATE users SET name = ? , "
+                + "capacity = ? "
+                + "WHERE username = ?";
 
+        try (Connection conn = openConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the corresponding param
+            pstmt.setString(1, name);
+            pstmt.setDouble(2, capacity);
+            pstmt.setInt(3, id);
+            // update
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getInstance().log("FAILED UPDATE " +  userName);
+        }*/
     }
 
     public List<User> searchRecordsByFields(User fields){
