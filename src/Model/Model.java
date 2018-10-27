@@ -12,7 +12,6 @@ import View.*;
 
 public class Model implements ISQLModel{
 
-    private IView view;
     private Controller controller;
     private sqlLiteJDBCDriverConnection driver;
 
@@ -44,14 +43,6 @@ public class Model implements ISQLModel{
             System.out.println(e.getMessage());
             Logger.getInstance().log("failed to create new table users");
         }
-    }
-
-    public void setView(View view) {
-        this.view = view;
-    }
-
-    public void setView(IView view) {
-        this.view = view;
     }
 
     public void setController(Controller controller) {

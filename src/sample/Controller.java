@@ -57,7 +57,6 @@ public class Controller {
     public void setAll(){
         view.setController(this);
         model.setController(this);
-        model.setView(view);
     }
 
     /**
