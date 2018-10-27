@@ -13,7 +13,7 @@ public class LoginSceneController{
    public TextField username , password , firstname , lastname , city , date;
 
     public void handleSubmit(){
-        this.toSubmit = new Record(username.getText(),password.getText(),firstname.getText(),lastname.getText(),city.getText());
+        this.toSubmit = new Record(username.getText(),password.getText(),firstname.getText(),lastname.getText(),city.getText(),date.getText());
         StageHolder.getInstance().getStage().close();
     }
 

@@ -16,7 +16,7 @@ public class Record {
         this.city = record.city;
     }
 
-    public Record(String username , String password , String firstname , String lastname , String city ){
+    public Record(String username , String password , String firstname , String lastname , String city , String date ){
 
         this.username = username;
         this.password = password;
@@ -24,6 +24,13 @@ public class Record {
         this.lastname = lastname;
         this.city = city;
 
+    }
+
+    private String dateToString(){
+
+        String ans = "";
+
+        return ans;
     }
 
     public String getCity() {
@@ -46,11 +53,19 @@ public class Record {
         return username;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDate() {
+        return dateToString();
     }
 
     public String toString(){
         return "" + this.username;
+    }
+
+    /**
+     * check if its a null record
+     * @return if all fields are null return true
+     */
+    public boolean isNullRecord(){
+        return username == null && password == null && lastname == null && firstname == null && city == null && date == null;
     }
 }

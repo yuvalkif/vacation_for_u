@@ -22,7 +22,7 @@ public class Main extends Application {
         Parent root = loader.load(getClass().getResource("sample.fxml").openStream());
         View view = loader.getController();
         primaryStage.setTitle("Vacation4U");
-       primaryStage.setScene(new Scene(root, 600, 500));
+        primaryStage.setScene(new Scene(root, 600, 500));
         Controller controller = new Controller();
 
         controller.setView(view);
@@ -30,9 +30,8 @@ public class Main extends Application {
         controller.setAll();
         controller.createUsersTable();
         view.setCurrentStage(primaryStage);
-       view.setCurrentStage(primaryStage);
-       view.setController(controller);
-       primaryStage.show();
+        //view.setController(controller);
+        primaryStage.show();
 
 
     }

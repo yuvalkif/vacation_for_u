@@ -6,6 +6,6 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500" prefWidth="600" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.View">
    <children>
       <Button layoutX="200" layoutY="80" mnemonicParsing="false" onAction="#signInScene" text="Sign in" />
-      <Button layoutX="201.0" layoutY="160.0" mnemonicParsing="false" text="see all" onAction="#handleSeeAll"/>
+      <Button layoutX="201.0" layoutY="160.0" mnemonicParsing="false" text="see all" onAction="#handleRead"/>
    </children>
 </AnchorPane>
