@@ -1,12 +1,14 @@
 package Model;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.concurrent.ConcurrentNavigableMap;
 
 import Connections.sqlLiteJDBCDriverConnection;
 import Logger.Logger;
-import Objects.Record;
+import Objects.User;
 import sample.Controller;
 import View.*;
 
@@ -50,7 +52,7 @@ public class Model implements ISQLModel{
     }
 
     @Override
-    public void insert(String userName, String password, String firstName, String lastName, String city, java.util.Date birthDate) {
+    public void insert(String userName, String password, String firstName, String lastName, String city, java.sql.Date birthDate) {
         String sql = "INSERT INTO users(username, password, birth_date, first_name, last_name ,address) VALUES(?,?,?,?,?,?)";
 
         try {
@@ -91,9 +93,9 @@ public class Model implements ISQLModel{
 
     }
 
-    public List<Record> searchRecordsByFields(Record fields){
+    public List<User> searchRecordsByFields(User fields){
 
-        List<Record> result = null ;
+        List<User> result = null ;
         //code here
 
 
@@ -124,5 +126,28 @@ public class Model implements ISQLModel{
         }
     }
     //endregion
+
+
+
+    public void createUser(){
+
+    }
+
+
+    private Date dateConvertor(String sDate){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            java.util.Date jDate = dateFormat.parse(sDate);
+            java.sql.Date sqlDate = new java.sql.Date(jDate.getTime());
+            return sqlDate;
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            System.out.println("problem with parsing the date form string");
+            return null;
+        }
+
+    }
 
 }

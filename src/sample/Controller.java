@@ -6,7 +6,7 @@ package sample;
 
 import Logger.Logger;
 import Model.*;
-import Objects.Record;
+import Objects.User;
 import View.IView;
 import javafx.stage.Stage;
 
@@ -26,7 +26,7 @@ public class Controller {
     }
 
     //region USER ACTIONS
-    public void handleSubmitSignIn(Record submit){
+    public void handleSubmitSignIn(User submit){
 
         if(submit == null)
             return ;
@@ -38,7 +38,7 @@ public class Controller {
         }
     }
 
-    public List<Record> searchAllRecordsByFields(Record fields){
+    public List<User> searchAllRecordsByFields(User fields){
         if(fields == null)
             return null ;
 

@@ -1,7 +1,7 @@
 package View;
 
 import Logger.StageHolder;
-import Objects.Record;
+import Objects.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -19,7 +19,7 @@ public class View implements IView{
 
     private Controller controller;
     private Stage primaryStage;
-    private List<Record> searchResults;
+    private List<User> searchResults;
 
     public View(){}
     /**
@@ -97,7 +97,7 @@ public class View implements IView{
      * @param searchResults list of records that match the search fields
      * @param pane the pane to show the results in
      */
-    private void showSearchResults(List<Record> searchResults , ScrollPane pane){
+    private void showSearchResults(List<User> searchResults , ScrollPane pane){
 
         if(searchResults == null || pane == null)
             return;
@@ -105,7 +105,7 @@ public class View implements IView{
         double x = 10, y = 20 , xDelta = 10 , yDelta = 30;
         int counter = 1;
 
-        for (Record record : searchResults
+        for (User record : searchResults
              ) {
             Label username = new Label(record.getUsername());
             Label password = new Label(record.getPassword());

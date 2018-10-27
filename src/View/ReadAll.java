@@ -1,7 +1,7 @@
 package View;
 
 import Logger.StageHolder;
-import Objects.Record;
+import Objects.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
@@ -9,17 +9,17 @@ import java.util.List;
 
 public class ReadAll {
 
-    private Record searchFields;
+    private User searchFields;
     private boolean isDone;
     @FXML
     public TextField username , password , firstname , lastname , city , birthdate ;
 
 
     public void handleSearch(){
-        searchFields = new Record(username.getText(),password.getText(),firstname.getText(),lastname.getText(),city.getText(),birthdate.getText());
+        searchFields = new User(username.getText(),password.getText(),firstname.getText(),lastname.getText(),city.getText(),birthdate.getText());
 
-        if(searchFields.isNullRecord())
-            searchFields = null;
+//        if(searchFields.isNullRecord())
+//            searchFields = null;
 
         StageHolder.getInstance().getStage().close();
     }
@@ -34,7 +34,7 @@ public class ReadAll {
         return this.isDone;
     }
 
-    public Record getSearchFields(){
+    public User getSearchFields(){
         return searchFields;
     }
 
@@ -42,7 +42,7 @@ public class ReadAll {
      * show the search results . should be from the View
      * @param searchResults list of records that match the search fields
      */
-    public void showSearchResults(List<Record> searchResults){
+    public void showSearchResults(List<User> searchResults){
 
         if (searchResults == null)
             return;
