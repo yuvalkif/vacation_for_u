@@ -70,9 +70,9 @@ public class View implements IView{
         FXMLLoader loader = new FXMLLoader();
         try{
             Parent root = loader.load(getClass().getResource("readAllController.fxml").openStream());
-            SplitPane splitPane =(SplitPane) root.getChildrenUnmodifiable().get(0);
-            AnchorPane upperPane =(AnchorPane) splitPane.getItems().get(0);
-            Node scrollPane = (ScrollPane)upperPane.getChildren().get(0);
+//            SplitPane splitPane =(SplitPane) root.getChildrenUnmodifiable().get(0);
+//            AnchorPane upperPane =(AnchorPane) splitPane.getItems().get(0);
+//            Node scrollPane = (ScrollPane)upperPane.getChildren().get(0);
 
             Scene scene = new Scene(root,600,600);
             Stage stage = new Stage();
@@ -83,7 +83,11 @@ public class View implements IView{
                 primaryStage.hide();
                 StageHolder.getInstance().holdStage(stage);
                 stage.showAndWait();
-                showSearchResults(this.controller.searchAllRecordsByFields(readAll.getSearchFields()),(ScrollPane) scrollPane);
+//                showSearchResults(this.controller.findUser(readAll.getUserName()),(ScrollPane) scrollPane);
+//                System.out.println(this.controller.findUser(readAll.getUserName()).toString());
+                readAll.setSearchResults(this.controller.findUser(readAll.getUserName()));
+
+
             }
             primaryStage.show();
 

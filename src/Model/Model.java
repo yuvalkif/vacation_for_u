@@ -3,14 +3,18 @@ package Model;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentNavigableMap;
 
 import Connections.sqlLiteJDBCDriverConnection;
 import Logger.Logger;
 import Objects.User;
+import javafx.scene.control.ListView;
 import sample.Controller;
 import View.*;
+
+import javax.swing.*;
 
 public class Model implements ISQLModel{
 
@@ -63,7 +67,7 @@ public class Model implements ISQLModel{
             pstmt.setString(3, firstName);
             pstmt.setString(4, lastName);
             pstmt.setString(5, city);
-            pstmt.setDate(6, new Date(1,2,3));
+            pstmt.setDate(6, birthDate);
             pstmt.executeUpdate();
             System.out.println("userName = [" + userName + "], password = [" + password + "], firstName = [" + firstName + "], lastName = [" + lastName + "], city = [" + city + "], birthDate = [" + birthDate + "]");
             closeConnection(conn);
@@ -144,13 +148,15 @@ public class Model implements ISQLModel{
 
 
 
-    public void createUser(){
+    public void createUser(User user){
+        Date sqlUserBirthDate = dateConvertor(user.getDate());
+        insert(user.getUsername(),user.getPassword(),user.getFirstname(),user.getLastname(),user.getCity(),sqlUserBirthDate);
 
     }
 
 
     private Date dateConvertor(String sDate){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
         try {
             java.util.Date jDate = dateFormat.parse(sDate);
             java.sql.Date sqlDate = new java.sql.Date(jDate.getTime());
@@ -164,5 +170,56 @@ public class Model implements ISQLModel{
         }
 
     }
+
+
+
+    //search with params
+    public ArrayList<User> findUser(String userName){
+        ArrayList<User> searchResults = new ArrayList<>();
+        String sql = "SELECT *"
+                + "FROM users WHERE userName == ?";
+
+        try {
+            Connection conn = openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            // set the value
+            pstmt.setString(1, userName);
+            //
+            ResultSet rs = pstmt.executeQuery();
+
+            // loop through the result set
+            while (rs.next()) {
+//                System.out.println(rs.getString("birth_date"));
+
+                   User user = new User(rs.getString("userName"),rs.getString("password")
+                           ,rs.getString("first_name"),rs.getString("last_name"),rs.getString("address"),"19/02/1995");
+                   searchResults.add(user);
+//                System.out.println(rs.getString("userName") + "\t" +
+//                        rs.getString("password") + "\t"
+//                        +rs.getDate("birth_date")
+//                System.out.println(searchResults.get(0).getCity());
+            }
+
+            System.out.println(searchResults.get(0).getLastname());
+
+//            DefaultListModel<User> listModel = new DefaultListModel<User>();
+//            // add all words from wordList to model
+//            for(User u: searchResults){
+//                listModel.addElement(u);
+//            }
+//
+//            JList<User> userList = new JList<>(listModel);
+//            return userList;
+              return searchResults;
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+//        System.out.println(searchResults);
+        return null;
+
+    }
+
+
 
 }

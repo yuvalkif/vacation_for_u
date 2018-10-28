@@ -8,8 +8,11 @@ import Logger.Logger;
 import Model.*;
 import Objects.User;
 import View.IView;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
@@ -32,20 +35,32 @@ public class Controller {
             return ;
 
         try {
-            this.model.insert(submit.getUsername(), submit.getPassword(), submit.getFirstname(), submit.getLastname(), submit.getCity(), null);
+            ((Model)this.model).createUser(submit);
+//            this.model.insert(submit.getUsername(), submit.getPassword(), submit.getFirstname(), submit.getLastname(), submit.getCity(), null);
+//
         }catch (NullPointerException e){
             Logger.getInstance().log("NULL RECORD");
         }
     }
 
-    public List<User> searchAllRecordsByFields(User fields){
-        if(fields == null)
-            return null ;
+//    public List<User> searchAllRecordsByFields(User fields){
+//        if(fields == null)
+//            return null ;
+//
+//        return this.model.searchRecordsByFields(fields);
+//    }
 
-        return this.model.searchRecordsByFields(fields);
+    public void exFind(String userName){
+        if(userName == null)
+            return;
+        ((Model)this.model).findUser(userName);
     }
 
     //endregion
+
+    public ArrayList<User> findUser(String userName){
+        return ((Model)this.model).findUser(userName);
+    }
 
 
 
