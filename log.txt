@@ -1,1 +1,5 @@
-created new table users 2018/10/29 22:53:42
+created new table users 2018/10/30 00:02:38
+connection opened 2018/10/30 00:03:33
+connection closed 2018/10/30 00:03:33
+INSERT : fds , fds - SUCCESS 2018/10/30 00:03:33
+connection opened 2018/10/30 00:04:23

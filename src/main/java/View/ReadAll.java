@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package View;
 
 import Logger.StageHolder;
@@ -14,7 +9,7 @@ import javafx.scene.control.TextField;
 public class ReadAll {
     private User searchFields;
     private View view;
-    private boolean isDone;
+    //private boolean isDone;
     private ListView listView;
     @FXML
     public TextField username;
@@ -39,17 +34,17 @@ public class ReadAll {
     }
 
     public void handleBack() {
-        this.isDone = true;
+        //this.isDone = true;
         StageHolder.getInstance().getStage().close();
     }
 
-    public boolean getIsDone() {
+    /*public boolean getIsDone() {
         return this.isDone;
     }
 
     public User getSearchFields() {
         return this.searchFields;
-    }
+    }*/
 
     public void showSearchResults(ObservableList searchResults) {
         if (searchResults != null) {

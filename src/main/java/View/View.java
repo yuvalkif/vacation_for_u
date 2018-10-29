@@ -37,7 +37,7 @@ public class View implements IView {
         FXMLLoader loader = new FXMLLoader();
 
         try {
-            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("logInFXML.fxml").openStream());
+            Parent root = loader.load(this.getClass().getClassLoader().getResource("logInFXML.fxml").openStream());
             Scene scene = new Scene(root, 500.0D, 500.0D);
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
@@ -49,9 +49,9 @@ public class View implements IView {
             this.primaryStage.show();
             LoginSceneController sceneController = (LoginSceneController)loader.getController();
             this.controller.handleSubmitSignIn(sceneController.getToSubmit());
-        } catch (IOException var6) {
-            var6.getCause();
-            var6.printStackTrace();
+        } catch (IOException e) {
+            e.getCause();
+            e.printStackTrace();
         }
 
     }
@@ -60,7 +60,7 @@ public class View implements IView {
         FXMLLoader loader = new FXMLLoader();
 
         try {
-            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("readAllController.fxml").openStream());
+            Parent root = loader.load(this.getClass().getClassLoader().getResource("readAllController.fxml").openStream());
             SplitPane splitPane = (SplitPane)root.getChildrenUnmodifiable().get(0);
             AnchorPane upperPane = (AnchorPane)splitPane.getItems().get(0);
             ListView listView = (ListView)upperPane.getChildren().get(0);
@@ -84,7 +84,7 @@ public class View implements IView {
         FXMLLoader loader = new FXMLLoader();
 
         try {
-            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("UpdateController.fxml").openStream());
+            Parent root = loader.load(this.getClass().getClassLoader().getResource("UpdateController.fxml").openStream());
             Scene scene = new Scene(root, 500.0D, 500.0D);
             scene.getStylesheets().add(getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();

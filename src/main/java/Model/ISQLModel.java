@@ -19,4 +19,5 @@ public interface ISQLModel {
     void updateUsers(String username,String newUserName  , String password , String firstName, String lastName, String city, String Date);
     void createUsersTable();
     List<User> searchRecordsByFields(User fields);
+    void createUser(User user);
 }

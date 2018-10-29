@@ -31,7 +31,8 @@ public class Controller {
     public void handleSubmitSignIn(User submit) {
         if (submit != null) {
             try {
-                this.model.insert(submit.getUserName(), submit.getPassword(), submit.getFirstName(), submit.getLastName(), submit.getCity(), (Date)null);
+                //this.model.insert(submit.getUserName(), submit.getPassword(), submit.getFirstName(), submit.getLastName(), submit.getCity(), (Date)null);
+                model.createUser(submit);
             } catch (NullPointerException var3) {
                 Logger.getInstance().log("NULL RECORD");
             }

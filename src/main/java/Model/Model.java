@@ -251,7 +251,7 @@ public class Model implements ISQLModel {
     }
 
     private Date dateConvertor(String sDate){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("DD-MM-YYYY");
         try {
             java.util.Date jDate = dateFormat.parse(sDate);
             java.sql.Date sqlDate = new java.sql.Date(jDate.getTime());
