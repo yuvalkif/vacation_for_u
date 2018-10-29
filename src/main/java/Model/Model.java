@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.StringJoiner;
@@ -99,7 +100,7 @@ public class Model implements ISQLModel {
             pstmt.setString(3, firstName);
             pstmt.setString(4, lastName);
             pstmt.setString(5, city);
-            pstmt.setDate(6, new Date(1, 2, 3));
+            pstmt.setDate(6, birthDate);
             pstmt.executeUpdate();
             System.out.println("userName = [" + userName + "], password = [" + password + "], firstName = [" + firstName + "], lastName = [" + lastName + "], city = [" + city + "], birthDate = [" + birthDate + "]");
             this.closeConnection(conn);
@@ -113,56 +114,20 @@ public class Model implements ISQLModel {
     }
 
     public void deleteUsers(String userName) {
-        String sql = "DELETE FROM users WHERE username = ?";
-
-        try {
-            Connection connection = this.openConnection();
-            Throwable var4 = null;
-
-            try {
-                PreparedStatement pstmt = connection.prepareStatement(sql);
-                Throwable var6 = null;
-
-                try {
-                    pstmt.setString(1, userName);
-                    pstmt.executeUpdate();
-                } catch (Throwable var31) {
-                    var6 = var31;
-                    throw var31;
-                } finally {
-                    if (pstmt != null) {
-                        if (var6 != null) {
-                            try {
-                                pstmt.close();
-                            } catch (Throwable var30) {
-                                var6.addSuppressed(var30);
-                            }
-                        } else {
-                            pstmt.close();
-                        }
-                    }
-
-                }
-            } catch (Throwable var33) {
-                var4 = var33;
-                throw var33;
-            } finally {
-                if (connection != null) {
-                    if (var4 != null) {
-                        try {
-                            connection.close();
-                        } catch (Throwable var29) {
-                            var4.addSuppressed(var29);
-                        }
-                    } else {
-                        connection.close();
-                    }
-                }
+        String sql = "DELETE FROM users WHERE username = ? ";
+        try{
+            Connection conn = openConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1,userName);
+            stmt.executeUpdate();
+            Logger.getInstance().log("DELETED " + userName);
+            conn.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+            Logger.getInstance().log("FAILED TO DELETE " + userName);
 
             }
-        } catch (SQLException var35) {
-            Logger.getInstance().log("FAILED REMOVE " + userName);
-        }
+
 
     }
 
@@ -178,12 +143,12 @@ public class Model implements ISQLModel {
         try {
 
             Connection conn = this.openConnection();
-            if(!newUserName.trim().isEmpty()){joiner.add("username = ?");;}
-            if(!password.trim().isEmpty()){joiner.add("password = ?");;}
-            if(!firstName.trim().isEmpty()){joiner.add("first_name = ?");;}
-            if(!lastName.trim().isEmpty()){joiner.add("last_name = ?");;}
-            if(!city.trim().isEmpty()){joiner.add("address = ?");;}
-            if(!birthDate.trim().isEmpty()){joiner.add("birth_date = ?");;}
+            if(!newUserName.trim().isEmpty()){joiner.add("username = ?");}
+            if(!password.trim().isEmpty()){joiner.add("password = ?");}
+            if(!firstName.trim().isEmpty()){joiner.add("first_name = ?");}
+            if(!lastName.trim().isEmpty()){joiner.add("last_name = ?");}
+            if(!city.trim().isEmpty()){joiner.add("address = ?");}
+            if(!birthDate.trim().isEmpty()){joiner.add("birth_date = ?");}
             statementIdx[6]=sqlArgsCount;
             if(joiner.toString()!="") {String sqlArgs = joiner.toString(); sqlStatement = sqlStatementPreFix +sqlArgs + " WHERE username = ? ;";}
             else if(sqlStatement==""){return;}
@@ -254,7 +219,11 @@ public class Model implements ISQLModel {
 
         try {
             while(resultSet.next()) {
-                observableList.add(resultSet.getString(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3) + " " + resultSet.getString(4) + " " + resultSet.getString(5) + " " + resultSet.getString(6));
+                System.out.println(resultSet.getString(3));
+                System.out.println(resultSet.getDate(3));
+                System.out.println(dateToStringConvertor(resultSet.getDate(3)));
+
+                observableList.add(resultSet.getString(1) + " " + resultSet.getString(2) + " " + dateToStringConvertor(resultSet.getDate(3)) + " " + resultSet.getString(4) + " " + resultSet.getString(5) + " " + resultSet.getString(6));
             }
         } catch (SQLException var4) {
             var4.printStackTrace();
@@ -326,6 +295,12 @@ public class Model implements ISQLModel {
             return null;
         }
 
+    }
+
+    private String dateToStringConvertor(Date date){
+        DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
+        String ans = df.format(date);
+        return ans;
     }
 
 

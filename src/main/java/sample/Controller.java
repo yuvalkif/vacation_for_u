@@ -60,6 +60,10 @@ public class Controller {
         this.model.setController(this);
     }
 
+    public void deleteUser(String username){
+        this.model.deleteUsers(username);
+    }
+
     public void setView(IView view) {
         this.view = view;
     }

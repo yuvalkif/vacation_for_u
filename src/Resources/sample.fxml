@@ -11,6 +11,6 @@
       <Button fx:id="btn_signup" layoutX="6.0" layoutY="7.0" mnemonicParsing="false" onAction="#signInScene" prefHeight="108.0" prefWidth="199.0" text="SignUp" />
       <Button fx:id="btn_read" layoutX="6.0" layoutY="123.0" mnemonicParsing="false" onAction="#handleRead" prefHeight="108.0" prefWidth="199.0" text="Read" />
       <Button fx:id="btn_update" layoutX="212.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleUpdate" prefHeight="108.0" prefWidth="199.0" text="Update" />
-      <Button fx:id="btn_delete" layoutX="212.0" layoutY="123.0" mnemonicParsing="false" prefHeight="108.0" prefWidth="199.0" text="Delete" />
+      <Button fx:id="btn_delete" layoutX="212.0" layoutY="123.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="108.0" prefWidth="199.0" text="Delete" />
    </children>
 </AnchorPane>

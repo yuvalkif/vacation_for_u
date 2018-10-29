@@ -1,5 +1,6 @@
-created new table users 2018/10/29 19:52:27
-connection opened 2018/10/29 19:52:36
-connection closed 2018/10/29 19:52:36
-Update : Rookey ,  - SUCCESS 2018/10/29 19:52:36
-connection opened 2018/10/29 19:52:47
+created new table users 2018/10/29 21:25:40
+connection opened 2018/10/29 21:25:44
+connection opened 2018/10/29 21:26:10
+NULL RECORD 2018/10/29 21:26:10
+connection opened 2018/10/29 21:26:14
+connection opened 2018/10/29 21:26:18

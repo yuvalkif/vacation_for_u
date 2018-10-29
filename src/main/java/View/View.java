@@ -39,9 +39,10 @@ public class View implements IView {
         try {
             Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("logInFXML.fxml").openStream());
             Scene scene = new Scene(root, 500.0D, 500.0D);
-            scene.getStylesheets().add(this.getClass().getResource("Forms.css").toExternalForm());
+            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
+            stage.setResizable(false);
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
             stage.showAndWait();
@@ -64,14 +65,14 @@ public class View implements IView {
             AnchorPane upperPane = (AnchorPane)splitPane.getItems().get(0);
             ListView listView = (ListView)upperPane.getChildren().get(0);
             Scene scene = new Scene(root, 600.0D, 600.0D);
-            scene.getStylesheets().add(this.getClass().getResource("Forms.css").toExternalForm());
+            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             ReadAll readAll = (ReadAll)loader.getController();
             readAll.setListView(listView);
             readAll.setView(this);
             StageHolder.getInstance().holdStage(stage);
-            stage.show();
+            stage.showAndWait();
             this.primaryStage.show();
         } catch (IOException var9) {
             var9.printStackTrace();
@@ -101,6 +102,25 @@ public class View implements IView {
             var6.printStackTrace();
         }
 
+    }
+
+    public void handleDelete(){
+        FXMLLoader loader = new FXMLLoader();
+        try{
+            Parent root = loader.load(getClass().getClassLoader().getResource("Delete.fxml").openStream());
+            Scene scene = new Scene(root,400,270);
+            scene.getStylesheets().add(getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setScene(scene);
+            DeleteController deleteController = loader.getController();
+            StageHolder.getInstance().holdStage(stage);
+            stage.showAndWait();
+            String username = deleteController.getUsername();
+            controller.deleteUser(username);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
 
