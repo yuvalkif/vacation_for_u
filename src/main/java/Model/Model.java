@@ -4,7 +4,7 @@ package Model;
 
 import Connections.sqlLiteJDBCDriverConnection;
 import Logger.Logger;
-import Objects.User;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.StringJoiner;
 
+import View.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sample.Controller;
@@ -28,65 +29,35 @@ public class Model implements ISQLModel {
     public Model() {
     }
 
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
+
     public void createUsersTable() {
+        // SQLite connection string
         String url = "jdbc:sqlite:vacation_for_u.db";
-        String sql = "CREATE TABLE IF NOT EXISTS users (\n\tusername text PRIMARY KEY,\n\tpassword text NOT NULL,\n\tbirth_date DATE ,\n\tfirst_name text NOT NULL,\n\tlast_name text NOT NULL,\n\taddress text NOT NULL\n);";
 
-        try {
-            Connection conn = DriverManager.getConnection(url);
-            Throwable var4 = null;
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS users (\n"
+                + "	username text PRIMARY KEY,\n"
+                + "	password text NOT NULL,\n"
+                + "	birth_date DATE ,\n"
+                + "	first_name text NOT NULL,\n"
+                + "	last_name text NOT NULL,\n"
+                + "	address text NOT NULL\n"
+                + ");";
 
-            try {
-                Statement stmt = conn.createStatement();
-                Throwable var6 = null;
-
-                try {
-                    stmt.execute(sql);
-                    Logger.getInstance().log("created new table users");
-                } catch (Throwable var31) {
-                    var6 = var31;
-                    throw var31;
-                } finally {
-                    if (stmt != null) {
-                        if (var6 != null) {
-                            try {
-                                stmt.close();
-                            } catch (Throwable var30) {
-                                var6.addSuppressed(var30);
-                            }
-                        } else {
-                            stmt.close();
-                        }
-                    }
-
-                }
-            } catch (Throwable var33) {
-                var4 = var33;
-                throw var33;
-            } finally {
-                if (conn != null) {
-                    if (var4 != null) {
-                        try {
-                            conn.close();
-                        } catch (Throwable var29) {
-                            var4.addSuppressed(var29);
-                        }
-                    } else {
-                        conn.close();
-                    }
-                }
-
-            }
-        } catch (SQLException var35) {
-            var35.printStackTrace();
-            System.out.println(var35.getMessage());
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+            Logger.getInstance().log("created new table users");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
             Logger.getInstance().log("failed to create new table users");
         }
 
-    }
-
-    public void setController(Controller controller) {
-        this.controller = controller;
     }
 
     public void insert(String userName, String password, String firstName, String lastName, String city, Date birthDate) {
@@ -105,10 +76,10 @@ public class Model implements ISQLModel {
             System.out.println("userName = [" + userName + "], password = [" + password + "], firstName = [" + firstName + "], lastName = [" + lastName + "], city = [" + city + "], birthDate = [" + birthDate + "]");
             this.closeConnection(conn);
             Logger.getInstance().log("INSERT : " + userName + " , " + password + " - SUCCESS");
-        } catch (SQLException var10) {
-            var10.printStackTrace();
-            System.out.println(var10.getMessage());
-            Logger.getInstance().log(var10.getMessage());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            Logger.getInstance().log(e.getMessage());
         }
 
     }
@@ -234,20 +205,20 @@ public class Model implements ISQLModel {
 
     private String getFieldsForQuery(User fields) {
         String ans = "";
-        if (!fields.getUsername().equals("")) {
-            ans = ans + "username = '" + fields.getUsername() + "',";
+        if (!fields.getUserName().equals("")) {
+            ans = ans + "username = '" + fields.getUserName() + "',";
         }
 
         if (!fields.getPassword().equals("")) {
             ans = ans + "password = " + fields.getPassword() + ",";
         }
 
-        if (!fields.getFirstname().equals("")) {
-            ans = ans + "first_name = " + fields.getFirstname() + ",";
+        if (!fields.getFirstName().equals("")) {
+            ans = ans + "first_name = " + fields.getFirstName() + ",";
         }
 
-        if (!fields.getLastname().equals("")) {
-            ans = ans + "last_name = " + fields.getLastname() + ",";
+        if (!fields.getLastName().equals("")) {
+            ans = ans + "last_name = " + fields.getLastName() + ",";
         }
 
         if (!fields.getCity().equals("")) {
@@ -273,13 +244,11 @@ public class Model implements ISQLModel {
 
     }
 
-
     public void createUser(User user){
-        Date sqlUserBirthDate = dateConvertor(user.getDate());
-        insert(user.getUsername(),user.getPassword(),user.getFirstname(),user.getLastname(),user.getCity(),sqlUserBirthDate);
+        Date sqlUserBirthDate = dateConvertor(user.getBirthDate());
+        insert(user.getUserName(),user.getPassword(),user.getFirstName(),user.getLastName(),user.getCity(),sqlUserBirthDate);
 
     }
-
 
     private Date dateConvertor(String sDate){
         SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");

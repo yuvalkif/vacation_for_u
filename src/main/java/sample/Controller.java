@@ -8,10 +8,11 @@ package sample;
 import Logger.Logger;
 import Model.ISQLModel;
 import Model.Model;
-import Objects.User;
 import View.IView;
 import java.sql.Date;
 import java.util.List;
+
+import View.User;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
@@ -30,7 +31,7 @@ public class Controller {
     public void handleSubmitSignIn(User submit) {
         if (submit != null) {
             try {
-                this.model.insert(submit.getUsername(), submit.getPassword(), submit.getFirstname(), submit.getLastname(), submit.getCity(), (Date)null);
+                this.model.insert(submit.getUserName(), submit.getPassword(), submit.getFirstName(), submit.getLastName(), submit.getCity(), (Date)null);
             } catch (NullPointerException var3) {
                 Logger.getInstance().log("NULL RECORD");
             }

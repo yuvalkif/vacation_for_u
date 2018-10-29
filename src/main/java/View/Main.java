@@ -30,7 +30,6 @@ public class Main extends Application {
         controller.setAll();
         controller.createUsersTable();
         view.setCurrentStage(primaryStage);
-        //view.setController(controller);
         primaryStage.show();
 
 

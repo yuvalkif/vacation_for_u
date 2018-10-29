@@ -6,7 +6,6 @@
 package View;
 
 import Logger.StageHolder;
-import Objects.User;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
