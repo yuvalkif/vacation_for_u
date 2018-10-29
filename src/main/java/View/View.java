@@ -31,6 +31,8 @@ public class View implements IView {
         this.primaryStage = stage;
     }
 
+    //region SCENES
+
     public void signInScene() {
         FXMLLoader loader = new FXMLLoader();
 
@@ -76,6 +78,8 @@ public class View implements IView {
         }
 
     }
+
+    //endregion
 
     public ObservableList searchInDataBase(User user) {
         return this.controller.searchInDataBase(user);
