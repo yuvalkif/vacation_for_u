@@ -86,7 +86,7 @@ public class View implements IView {
         try {
             Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("UpdateController.fxml").openStream());
             Scene scene = new Scene(root, 500.0D, 500.0D);
-            scene.getStylesheets().add(this.getClass().getResource("Forms.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             this.primaryStage.hide();
