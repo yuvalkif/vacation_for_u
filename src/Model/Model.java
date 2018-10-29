@@ -1,151 +1,265 @@
-package Model;
 
-import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ConcurrentNavigableMap;
+
+package Model;
 
 import Connections.sqlLiteJDBCDriverConnection;
 import Logger.Logger;
 import Objects.User;
-import javafx.scene.control.ListView;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import sample.Controller;
-import View.*;
 
-import javax.swing.*;
-
-public class Model implements ISQLModel{
-
+public class Model implements ISQLModel {
     private Controller controller;
-    private sqlLiteJDBCDriverConnection driver;
+    private sqlLiteJDBCDriverConnection driver = new sqlLiteJDBCDriverConnection();
 
     public Model() {
-        driver = new sqlLiteJDBCDriverConnection();
     }
 
     public void createUsersTable() {
-        // SQLite connection string
         String url = "jdbc:sqlite:vacation_for_u.db";
+        String sql = "CREATE TABLE IF NOT EXISTS users (\n\tusername text PRIMARY KEY,\n\tpassword text NOT NULL,\n\tbirth_date DATE ,\n\tfirst_name text NOT NULL,\n\tlast_name text NOT NULL,\n\taddress text NOT NULL\n);";
 
-        // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS users (\n"
-                + "	username text PRIMARY KEY,\n"
-                + "	password text NOT NULL,\n"
-                + "	birth_date DATE ,\n"
-                + "	first_name text NOT NULL,\n"
-                + "	last_name text NOT NULL,\n"
-                + "	address text NOT NULL\n"
-                + ");";
+        try {
+            Connection conn = DriverManager.getConnection(url);
+            Throwable var4 = null;
 
-        try (Connection conn = DriverManager.getConnection(url);
-             Statement stmt = conn.createStatement()) {
-            // create a new table
-            stmt.execute(sql);
-            Logger.getInstance().log("created new table users");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
+            try {
+                Statement stmt = conn.createStatement();
+                Throwable var6 = null;
+
+                try {
+                    stmt.execute(sql);
+                    Logger.getInstance().log("created new table users");
+                } catch (Throwable var31) {
+                    var6 = var31;
+                    throw var31;
+                } finally {
+                    if (stmt != null) {
+                        if (var6 != null) {
+                            try {
+                                stmt.close();
+                            } catch (Throwable var30) {
+                                var6.addSuppressed(var30);
+                            }
+                        } else {
+                            stmt.close();
+                        }
+                    }
+
+                }
+            } catch (Throwable var33) {
+                var4 = var33;
+                throw var33;
+            } finally {
+                if (conn != null) {
+                    if (var4 != null) {
+                        try {
+                            conn.close();
+                        } catch (Throwable var29) {
+                            var4.addSuppressed(var29);
+                        }
+                    } else {
+                        conn.close();
+                    }
+                }
+
+            }
+        } catch (SQLException var35) {
+            var35.printStackTrace();
+            System.out.println(var35.getMessage());
             Logger.getInstance().log("failed to create new table users");
         }
+
     }
 
     public void setController(Controller controller) {
         this.controller = controller;
     }
 
-    @Override
-    public void insert(String userName, String password, String firstName, String lastName, String city, java.sql.Date birthDate) {
+    public void insert(String userName, String password, String firstName, String lastName, String city, Date birthDate) {
         String sql = "INSERT INTO users(username, password, birth_date, first_name, last_name ,address) VALUES(?,?,?,?,?,?)";
 
         try {
-            Connection conn = openConnection();
+            Connection conn = this.openConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, userName);
             pstmt.setString(2, password);
             pstmt.setString(3, firstName);
             pstmt.setString(4, lastName);
             pstmt.setString(5, city);
-            pstmt.setDate(6, birthDate);
+            pstmt.setDate(6, new Date(1, 2, 3));
             pstmt.executeUpdate();
             System.out.println("userName = [" + userName + "], password = [" + password + "], firstName = [" + firstName + "], lastName = [" + lastName + "], city = [" + city + "], birthDate = [" + birthDate + "]");
-            closeConnection(conn);
-            //this.controller.closeConnection();
+            this.closeConnection(conn);
             Logger.getInstance().log("INSERT : " + userName + " , " + password + " - SUCCESS");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-            Logger.getInstance().log(e.getMessage());
+        } catch (SQLException var10) {
+            var10.printStackTrace();
+            System.out.println(var10.getMessage());
+            Logger.getInstance().log(var10.getMessage());
         }
+
     }
 
-    @Override
     public void deleteUsers(String userName) {
-        String sql = "DELETE FROM users WHERE username = ?" ;
-        try(Connection connection = openConnection() ;
-        PreparedStatement pstmt = connection.prepareStatement(sql)){
-            pstmt.setString(1,userName);
-            pstmt.executeUpdate();
-        }catch (SQLException e){
-            Logger.getInstance().log("FAILED REMOVE " +  userName);
+        String sql = "DELETE FROM users WHERE username = ?";
+
+        try {
+            Connection connection = this.openConnection();
+            Throwable var4 = null;
+
+            try {
+                PreparedStatement pstmt = connection.prepareStatement(sql);
+                Throwable var6 = null;
+
+                try {
+                    pstmt.setString(1, userName);
+                    pstmt.executeUpdate();
+                } catch (Throwable var31) {
+                    var6 = var31;
+                    throw var31;
+                } finally {
+                    if (pstmt != null) {
+                        if (var6 != null) {
+                            try {
+                                pstmt.close();
+                            } catch (Throwable var30) {
+                                var6.addSuppressed(var30);
+                            }
+                        } else {
+                            pstmt.close();
+                        }
+                    }
+
+                }
+            } catch (Throwable var33) {
+                var4 = var33;
+                throw var33;
+            } finally {
+                if (connection != null) {
+                    if (var4 != null) {
+                        try {
+                            connection.close();
+                        } catch (Throwable var29) {
+                            var4.addSuppressed(var29);
+                        }
+                    } else {
+                        connection.close();
+                    }
+                }
+
+            }
+        } catch (SQLException var35) {
+            Logger.getInstance().log("FAILED REMOVE " + userName);
         }
+
     }
 
-    @Override
     public void updateUsers() {
-            /*String sql = "UPDATE users SET name = ? , "
-                + "capacity = ? "
-                + "WHERE username = ?";
-
-        try (Connection conn = openConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            // set the corresponding param
-            pstmt.setString(1, name);
-            pstmt.setDouble(2, capacity);
-            pstmt.setInt(3, id);
-            // update
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            Logger.getInstance().log("FAILED UPDATE " +  userName);
-        }*/
     }
 
-    public List<User> searchRecordsByFields(User fields){
+    public ObservableList selectAllDataBase() {
+        ResultSet resultSet = null;
+        String sql = "SELECT * FROM users";
+        ObservableList result = null;
 
-        List<User> result = null ;
-        //code here
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertResultsToObservableList(resultSet);
+            conn.close();
+        } catch (SQLException var6) {
+            System.out.println(var6.getMessage());
+            Logger.getInstance().log(var6.getMessage());
+        }
 
-
-        return result ;
+        return result;
     }
 
-    //region CONNECTIONS
-    /**
-     * open a connection to the database and log it
-     * @return new connection
-     */
-    public Connection openConnection(){
+    public ObservableList searchRecordsByFields(User fields) {
+        ResultSet resultSet = null;
+        String sql = "SELECT * FROM users\nWHERE ";
+        ObservableList result = null;
+        sql = sql + this.getFieldsForQuery(fields);
 
-        Connection conn = driver.connect();
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertResultsToObservableList(resultSet);
+            conn.close();
+        } catch (SQLException var7) {
+            System.out.println(var7.getMessage());
+            Logger.getInstance().log(var7.getMessage());
+        }
+
+        return result;
+    }
+
+    private ObservableList convertResultsToObservableList(ResultSet resultSet) {
+        ObservableList observableList = FXCollections.observableArrayList();
+
+        try {
+            while(resultSet.next()) {
+                observableList.add(resultSet.getString(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3) + " " + resultSet.getString(4) + " " + resultSet.getString(5) + " " + resultSet.getString(6));
+            }
+        } catch (SQLException var4) {
+            var4.printStackTrace();
+        }
+
+        return observableList;
+    }
+
+    private String getFieldsForQuery(User fields) {
+        String ans = "";
+        if (!fields.getUsername().equals("")) {
+            ans = ans + "username = '" + fields.getUsername() + "',";
+        }
+
+        if (!fields.getPassword().equals("")) {
+            ans = ans + "password = " + fields.getPassword() + ",";
+        }
+
+        if (!fields.getFirstname().equals("")) {
+            ans = ans + "first_name = " + fields.getFirstname() + ",";
+        }
+
+        if (!fields.getLastname().equals("")) {
+            ans = ans + "last_name = " + fields.getLastname() + ",";
+        }
+
+        if (!fields.getCity().equals("")) {
+            ans = ans + "address = " + fields.getCity() + ",";
+        }
+
+        return ans.substring(0, ans.length() - 1);
+    }
+
+    public Connection openConnection() {
+        Connection conn = this.driver.connect();
         Logger.getInstance().log("connection opened");
         return conn;
     }
 
-    /**
-     * close the connection to the database and log it
-     */
-    public void closeConnection(Connection connection){
+    public void closeConnection(Connection connection) {
         try {
             connection.close();
             Logger.getInstance().log("connection closed");
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException var3) {
+            var3.printStackTrace();
         }
-    }
-    //endregion
 
+    }
 
 
     public void createUser(User user){
@@ -168,55 +282,6 @@ public class Model implements ISQLModel{
             System.out.println("problem with parsing the date form string");
             return null;
         }
-
-    }
-
-
-
-    //search with params
-    public ArrayList<User> findUser(String userName){
-        ArrayList<User> searchResults = new ArrayList<>();
-        String sql = "SELECT *"
-                + "FROM users WHERE userName == ?";
-
-        try {
-            Connection conn = openConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-
-            // set the value
-            pstmt.setString(1, userName);
-            //
-            ResultSet rs = pstmt.executeQuery();
-
-            // loop through the result set
-            while (rs.next()) {
-//                System.out.println(rs.getString("birth_date"));
-
-                   User user = new User(rs.getString("userName"),rs.getString("password")
-                           ,rs.getString("first_name"),rs.getString("last_name"),rs.getString("address"),"19/02/1995");
-                   searchResults.add(user);
-//                System.out.println(rs.getString("userName") + "\t" +
-//                        rs.getString("password") + "\t"
-//                        +rs.getDate("birth_date")
-//                System.out.println(searchResults.get(0).getCity());
-            }
-
-            System.out.println(searchResults.get(0).getLastname());
-
-//            DefaultListModel<User> listModel = new DefaultListModel<User>();
-//            // add all words from wordList to model
-//            for(User u: searchResults){
-//                listModel.addElement(u);
-//            }
-//
-//            JList<User> userList = new JList<>(listModel);
-//            return userList;
-              return searchResults;
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        }
-//        System.out.println(searchResults);
-        return null;
 
     }
 

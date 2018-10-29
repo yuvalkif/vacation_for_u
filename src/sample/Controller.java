@@ -1,89 +1,65 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
 package sample;
 
-/**
- * Controller class
- */
-
 import Logger.Logger;
-import Model.*;
+import Model.ISQLModel;
+import Model.Model;
 import Objects.User;
 import View.IView;
-import javafx.scene.control.ListView;
+import java.sql.Date;
+import java.util.List;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
-
 public class Controller {
-
     private IView view;
     private ISQLModel model;
     private Stage primaryStage;
 
-    public Controller(){
+    public Controller() {
     }
 
-    public void createUsersTable(){
-        model.createUsersTable();
+    public void createUsersTable() {
+        this.model.createUsersTable();
     }
 
-    //region USER ACTIONS
-    public void handleSubmitSignIn(User submit){
+    public void handleSubmitSignIn(User submit) {
+        if (submit != null) {
+            try {
+                this.model.insert(submit.getUsername(), submit.getPassword(), submit.getFirstname(), submit.getLastname(), submit.getCity(), (Date)null);
+            } catch (NullPointerException var3) {
+                Logger.getInstance().log("NULL RECORD");
+            }
 
-        if(submit == null)
-            return ;
-
-        try {
-            ((Model)this.model).createUser(submit);
-//            this.model.insert(submit.getUsername(), submit.getPassword(), submit.getFirstname(), submit.getLastname(), submit.getCity(), null);
-//
-        }catch (NullPointerException e){
-            Logger.getInstance().log("NULL RECORD");
         }
     }
 
-//    public List<User> searchAllRecordsByFields(User fields){
-//        if(fields == null)
-//            return null ;
-//
-//        return this.model.searchRecordsByFields(fields);
-//    }
-
-    public void exFind(String userName){
-        if(userName == null)
-            return;
-        ((Model)this.model).findUser(userName);
+    public List<User> searchAllRecordsByFields(User fields) {
+        return fields == null ? null : this.model.searchRecordsByFields(fields);
     }
 
-    //endregion
-
-    public ArrayList<User> findUser(String userName){
-        return ((Model)this.model).findUser(userName);
+    public ObservableList searchInDataBase(User user) {
+        return ((Model)this.model).searchRecordsByFields(user);
     }
 
-
-
-    //region PROGRAM FLOW
-
-    /**
-     * set MVC connections
-     */
-    public void setAll(){
-        view.setController(this);
-        model.setController(this);
+    public ObservableList getAllDataBase() {
+        return ((Model)this.model).selectAllDataBase();
     }
 
-    /**
-     * set the view of this controller
-     * @param view
-     */
-    public void setView(IView view){
+    public void setAll() {
+        this.view.setController(this);
+        this.model.setController(this);
+    }
+
+    public void setView(IView view) {
         this.view = view;
     }
 
-    public void setModel(ISQLModel model){
+    public void setModel(ISQLModel model) {
         this.model = model;
     }
-    //endregion
 }
