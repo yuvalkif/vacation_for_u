@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.StringJoiner;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sample.Controller;
@@ -164,7 +166,43 @@ public class Model implements ISQLModel {
 
     }
 
-    public void updateUsers() {
+    public void updateUsers(String username ,String newUserName, String password , String firstName, String lastName, String city, String birthDate) {
+        String sqlStatement="";
+        String sqlStatementPreFix="UPDATE users SET ";
+        String usernewUserNameArg="",passowrdArg="",firstNameArg="",lastNameArg="",cityArg="",dateArg="";
+        StringJoiner joiner = new StringJoiner(", ");
+        int sqlArgsCount=1;
+        System.out.println(username +newUserName+password);
+
+        try {
+
+            Connection conn = this.openConnection();
+            if(!username.trim().isEmpty() ){joiner.add("username = ?");}
+            if(!password.trim().isEmpty()){joiner.add("password = ?");}
+            if(!firstName.trim().isEmpty()){joiner.add("first_name = ?");}
+            if(!lastName.trim().isEmpty()){joiner.add("last_name = ?");}
+            if(!city.trim().isEmpty()){joiner.add("address = ?");}
+            if(!birthDate.trim().isEmpty()){joiner.add("birth_date = ?");}
+            if(joiner.toString()!="") {String sqlArgs = joiner.toString(); sqlStatement = sqlStatementPreFix +sqlArgs + "WHERE username = ? ;";}
+            else if(sqlStatement==""){return;}
+
+            System.out.println(sqlStatement);
+            PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
+            if(!username.trim().isEmpty()){pstmt.setString(sqlArgsCount++, newUserName);}
+            if(!password.trim().isEmpty()){pstmt.setString(sqlArgsCount++, password);}
+            if(!firstName.trim().isEmpty()){pstmt.setString(sqlArgsCount++, firstName);}
+            if(!lastName.trim().isEmpty()){pstmt.setString(sqlArgsCount++, lastName);}
+            if(!city.trim().isEmpty()){pstmt.setString(sqlArgsCount++, city);}
+            if(!birthDate.trim().isEmpty()){pstmt.setDate(sqlArgsCount++, dateConvertor(birthDate));}
+            if(sqlStatement!="") {pstmt.setString(sqlArgsCount++, username);}
+                pstmt.executeUpdate();
+                System.out.println("Updated user, Those fields have changed: (nulls not changed) " + username + " To " + "userName = [" + newUserName + "], password = [" + password + "], firstName = [" + firstName + "], lastName = [" + lastName + "], city = [" + city + "], birthDate = [" + birthDate + "]");
+                this.closeConnection(conn);
+                Logger.getInstance().log("Update : " + username + " , " + password + " - SUCCESS");
+            } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+
     }
 
     public ObservableList selectAllDataBase() {

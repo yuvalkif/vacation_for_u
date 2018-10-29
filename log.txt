@@ -1,7 +1,4 @@
-created new table users 2018/10/29 15:49:58
-connection opened 2018/10/29 15:50:03
-connection opened 2018/10/29 15:50:06
-connection opened 2018/10/29 15:50:07
-connection opened 2018/10/29 15:50:11
-connection opened 2018/10/29 15:50:15
-connection opened 2018/10/29 15:50:25
+created new table users 2018/10/29 19:28:16
+connection opened 2018/10/29 19:28:40
+connection closed 2018/10/29 19:28:40
+Update : Roky , rookiesPassword - SUCCESS 2018/10/29 19:28:40

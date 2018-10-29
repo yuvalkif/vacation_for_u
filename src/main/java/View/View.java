@@ -37,7 +37,7 @@ public class View implements IView {
         FXMLLoader loader = new FXMLLoader();
 
         try {
-            Parent root = (Parent)loader.load(this.getClass().getResource("logInFXML.fxml").openStream());
+            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("logInFXML.fxml").openStream());
             Scene scene = new Scene(root, 500.0D, 500.0D);
             scene.getStylesheets().add(this.getClass().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
@@ -59,7 +59,7 @@ public class View implements IView {
         FXMLLoader loader = new FXMLLoader();
 
         try {
-            Parent root = (Parent)loader.load(this.getClass().getResource("readAllController.fxml").openStream());
+            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("readAllController.fxml").openStream());
             SplitPane splitPane = (SplitPane)root.getChildrenUnmodifiable().get(0);
             AnchorPane upperPane = (AnchorPane)splitPane.getItems().get(0);
             ListView listView = (ListView)upperPane.getChildren().get(0);
@@ -78,6 +78,32 @@ public class View implements IView {
         }
 
     }
+
+    public void handleUpdate() {
+        FXMLLoader loader = new FXMLLoader();
+
+        try {
+            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("UpdateController.fxml").openStream());
+            Scene scene = new Scene(root, 500.0D, 500.0D);
+            scene.getStylesheets().add(this.getClass().getResource("Forms.css").toExternalForm());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            this.primaryStage.hide();
+            StageHolder.getInstance().holdStage(stage);
+            stage.showAndWait();
+            this.primaryStage.show();
+            UpdateController uc = (UpdateController) loader.getController();
+            this.controller.updateUser(uc.getsUserName(),uc.getsNewUserName(),uc.getsPassword(),uc.getsFirstName(),uc.getsLastName(),
+                    uc.getsCity(),uc.getsDate());
+
+        } catch (IOException var6) {
+            var6.getCause();
+            var6.printStackTrace();
+        }
+
+    }
+
+
 
     //endregion
 
