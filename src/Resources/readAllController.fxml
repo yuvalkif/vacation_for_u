@@ -13,7 +13,7 @@
                     <children>
                         <ListView layoutX="2.0" layoutY="30.0" prefHeight="265.0" prefWidth="598.0" />
                     </children></AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                <AnchorPane styleClass="content-section" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                     <children>
                         <Label layoutX="224.0" layoutY="4.0" prefHeight="21.0" prefWidth="119.0" text="Seach Fields" />
                         <Button layoutX="132.0" layoutY="223.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="31.0" prefWidth="119.0" text="Search" />

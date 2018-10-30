@@ -1,18 +1,21 @@
 package View;
 
 import Logger.StageHolder;
-import Objects.User;
-import Objects.User;
+import Objects.ErrorBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+/**
+ * controller class for the update scene. controlled by 'UpdateController.fxml'
+ */
 
 public class UpdateController{
 
 
     @FXML
     public TextField username ,newUserName, password , firstname , lastname , city , date;
-    private String sUserName,sNewUserName,sPassword,sFirstName,sLastName,sCity,sDate;
+    private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="";
 
     public void handleExecuteUpdate(){
         sUserName = username.getText();
@@ -22,17 +25,20 @@ public class UpdateController{
         sLastName = lastname.getText();
         sCity = city.getText();
         sDate = date.getText();
+
+        if(sUserName.equals("")){
+            ErrorBox box = new ErrorBox();
+            Stage stage = box.getErrorBoxStage("Please pick a username to be updated");
+            StageHolder.getInstance().holdStage(stage);
+            stage.showAndWait();
+        }
+
         StageHolder.getInstance().getStage().close();
     }
 
     public void handleBack(){
         StageHolder.getInstance().getStage().close();
     }
-
-//    public User getToSubmit() {
-//        return toSubmit;
-//    }
-
 
     public String getsUserName() {
         return sUserName;

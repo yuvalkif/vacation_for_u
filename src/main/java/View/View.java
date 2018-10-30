@@ -6,9 +6,9 @@
 package View;
 
 import Logger.StageHolder;
-import Objects.User;
 import java.io.IOException;
-import java.util.List;
+
+import Objects.ErrorBox;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,7 +22,6 @@ import sample.Controller;
 public class View implements IView {
     private Controller controller;
     private Stage primaryStage;
-    private List<User> searchResults;
 
     public View() {
     }
@@ -38,7 +37,7 @@ public class View implements IView {
 
         try {
             Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("logInFXML.fxml").openStream());
-            Scene scene = new Scene(root, 500.0D, 500.0D);
+            Scene scene = new Scene(root, 500.0D, 450);
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
@@ -48,7 +47,12 @@ public class View implements IView {
             stage.showAndWait();
             this.primaryStage.show();
             LoginSceneController sceneController = (LoginSceneController)loader.getController();
-            this.controller.handleSubmitSignIn(sceneController.getToSubmit());
+
+            User toSubmit = sceneController.getToSubmit();
+            System.out.println(toSubmit);
+            if( toSubmit != null && !sceneController.getToSubmit().hasNullField())
+                this.controller.handleSubmitSignIn(toSubmit);
+
         } catch (IOException var6) {
             var6.getCause();
             var6.printStackTrace();
@@ -64,10 +68,11 @@ public class View implements IView {
             SplitPane splitPane = (SplitPane)root.getChildrenUnmodifiable().get(0);
             AnchorPane upperPane = (AnchorPane)splitPane.getItems().get(0);
             ListView listView = (ListView)upperPane.getChildren().get(0);
-            Scene scene = new Scene(root, 600.0D, 600.0D);
+            Scene scene = new Scene(root, 570, 550);
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
+            stage.setResizable(false);
             ReadAll readAll = (ReadAll)loader.getController();
             readAll.setListView(listView);
             readAll.setView(this);
@@ -85,8 +90,8 @@ public class View implements IView {
 
         try {
             Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("UpdateController.fxml").openStream());
-            Scene scene = new Scene(root, 500.0D, 500.0D);
-            scene.getStylesheets().add(this.getClass().getResource("Forms.css").toExternalForm());
+            Scene scene = new Scene(root, 600, 450);
+            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             this.primaryStage.hide();
@@ -94,8 +99,11 @@ public class View implements IView {
             stage.showAndWait();
             this.primaryStage.show();
             UpdateController uc = (UpdateController) loader.getController();
-            this.controller.updateUser(uc.getsUserName(),uc.getsNewUserName(),uc.getsPassword(),uc.getsFirstName(),uc.getsLastName(),
+            User toUpdate = new User(uc.getsUserName(),uc.getsPassword(),uc.getsFirstName(),uc.getsLastName(),
                     uc.getsCity(),uc.getsDate());
+            if(!toUpdate.nullRecord())
+                this.controller.updateUser(uc.getsUserName(),uc.getsNewUserName(),uc.getsPassword(),uc.getsFirstName(),uc.getsLastName(),
+                        uc.getsCity(),uc.getsDate());
 
         } catch (IOException var6) {
             var6.getCause();
@@ -117,7 +125,8 @@ public class View implements IView {
             StageHolder.getInstance().holdStage(stage);
             stage.showAndWait();
             String username = deleteController.getUsername();
-            controller.deleteUser(username);
+            if(!username.equals(""))
+                controller.deleteUser(username);
         }catch (IOException e){
             e.printStackTrace();
         }

@@ -5,12 +5,17 @@
 
 package View;
 
+/**
+ * controller class for the Read scene . controlled by 'readAllController.fxml'
+ */
+
 import Logger.StageHolder;
-import Objects.User;
+import Objects.ErrorBox;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class ReadAll {
     private User searchFields;
@@ -35,8 +40,20 @@ public class ReadAll {
 
     public void handleSearch() {
         this.searchFields = new User(this.username.getText(), this.password.getText(), this.firstname.getText(), this.lastname.getText(), this.city.getText(), this.birthdate.getText());
+        if(searchFields.getUsername().equals("")) {
+            raiseError("Must specify a username");
+            return;
+        }
         this.showSearchResults(this.view.searchInDataBase(this.searchFields));
-       // this.showSearchResults(this.view.getAllDataBase());
+
+        // this.showSearchResults(this.view.getAllDataBase());
+    }
+
+    private void raiseError(String errorMsg){
+        ErrorBox box = new ErrorBox();
+        Stage errorStage = box.getErrorBoxStage(errorMsg);
+        StageHolder.getInstance().holdStage(errorStage);
+        errorStage.showAndWait();
     }
 
     public void handleBack() {

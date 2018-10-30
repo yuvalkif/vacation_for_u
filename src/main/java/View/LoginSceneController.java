@@ -1,11 +1,14 @@
 package View;
 
 import Logger.StageHolder;
-import Objects.User;
-import Objects.User;
+import Objects.ErrorBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+/**
+ * controller class for the sign up scene . controlled by 'logInFXML.fxml'
+ */
 
 public class LoginSceneController{
 
@@ -15,6 +18,13 @@ public class LoginSceneController{
 
     public void handleSubmit(){
         this.toSubmit = new User(username.getText(),password.getText(),firstname.getText(),lastname.getText(),city.getText(),date.getText());
+        if(toSubmit.hasNullField()){
+            ErrorBox box = new ErrorBox();
+            Stage errorBoxStage = box.getErrorBoxStage("Must fill all fields");
+            StageHolder.getInstance().holdStage(errorBoxStage);
+            errorBoxStage.showAndWait();
+            return;
+        }
         StageHolder.getInstance().getStage().close();
     }
 

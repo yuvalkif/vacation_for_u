@@ -2,7 +2,10 @@ package View;
 
 import java.util.ArrayList;
 
-/*user of 6 fields*/
+/**
+ * class for holding record fields from the database as an object .
+ */
+
 public class User {
 
     private String userName;
@@ -12,10 +15,10 @@ public class User {
     private String lastName;
     private String city;
 
-    public User(String userName, String password, String birthDate, String firstName, String lastName, String city){
+    public User(String userName, String password, String firstName, String lastName, String city, String birthDate){
         this.userName = userName;
         this.password = password;
-        this .birthDate = birthDate;
+        this.birthDate = birthDate;
         this.firstName = firstName;
         this.lastName = lastName;
         this.city = city;
@@ -32,7 +35,7 @@ public class User {
         this.city = userParams.get(5);
     }
 
-    public String getUserName() {
+    public String getUsername() {
         return userName;
     }
 
@@ -40,20 +43,28 @@ public class User {
         return password;
     }
 
-    public String getBirthDate() {
+    public String getDate() {
         return birthDate;
     }
 
-    public String getFirstName() {
+    public String getFirstname() {
         return firstName;
     }
 
-    public String getLastName() {
+    public String getLastname() {
         return lastName;
     }
 
     public String getCity() {
         return city;
+    }
+
+    public boolean nullRecord(){
+        return userName.equals("") && password.equals("") && firstName.equals("") && lastName.equals("") && city.equals("") && birthDate.equals("");
+    }
+
+    public boolean hasNullField(){
+        return userName.equals("") || password.equals("") || firstName.equals("") || lastName.equals("") || city.equals("") || birthDate.equals("");
     }
 
     @Override

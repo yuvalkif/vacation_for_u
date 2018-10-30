@@ -1,7 +1,13 @@
 package View;
 
 import Logger.StageHolder;
+import Objects.ErrorBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+/**
+ * controller class for the Delete scene . controlled by 'Delete.fxml'
+ */
 
 public class DeleteController {
     public TextField txtfld_username;
@@ -9,6 +15,13 @@ public class DeleteController {
 
     public void handleDelete(){
         username = txtfld_username.getText();
+        if(username.equals("")){
+            ErrorBox box = new ErrorBox();
+            Stage stage = box.getErrorBoxStage("Must specify username to delete");
+            StageHolder.getInstance().holdStage(stage);
+            stage.showAndWait();
+            return;
+        }
         StageHolder.getInstance().getStage().close();
     }
 

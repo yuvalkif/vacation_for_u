@@ -4,19 +4,14 @@ package Model;
 
 import Connections.sqlLiteJDBCDriverConnection;
 import Logger.Logger;
-import Objects.User;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.StringJoiner;
 
+import java.util.StringJoiner;
+import View.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sample.Controller;
@@ -89,22 +84,22 @@ public class Model implements ISQLModel {
         this.controller = controller;
     }
 
-    public void insert(String userName, String password, String firstName, String lastName, String city, Date birthDate) {
-        String sql = "INSERT INTO users(username, password, birth_date, first_name, last_name ,address) VALUES(?,?,?,?,?,?)";
+    public void insert(User user) {
+        String sql = "INSERT INTO users(username, password,first_name,last_name,address,birth_date) VALUES(?,?,?,?,?,?)";
+        Date sqlDate = dateConvertor(user.getDate());
 
         try {
             Connection conn = this.openConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, userName);
-            pstmt.setString(2, password);
-            pstmt.setString(3, firstName);
-            pstmt.setString(4, lastName);
-            pstmt.setString(5, city);
-            pstmt.setDate(6, birthDate);
+            pstmt.setString(1, user.getUsername());
+            pstmt.setString(2, user.getPassword());
+            pstmt.setString(3, user.getFirstname());
+            pstmt.setString(4, user.getLastname());
+            pstmt.setString(5, user.getCity());
+            pstmt.setDate(6, sqlDate);
             pstmt.executeUpdate();
-            System.out.println("userName = [" + userName + "], password = [" + password + "], firstName = [" + firstName + "], lastName = [" + lastName + "], city = [" + city + "], birthDate = [" + birthDate + "]");
             this.closeConnection(conn);
-            Logger.getInstance().log("INSERT : " + userName + " , " + password + " - SUCCESS");
+            Logger.getInstance().log("INSERT : " + user.getUsername() + " , " + user.getPassword() + " - SUCCESS");
         } catch (SQLException var10) {
             var10.printStackTrace();
             System.out.println(var10.getMessage());
@@ -219,10 +214,6 @@ public class Model implements ISQLModel {
 
         try {
             while(resultSet.next()) {
-                System.out.println(resultSet.getString(3));
-                System.out.println(resultSet.getDate(3));
-                System.out.println(dateToStringConvertor(resultSet.getDate(3)));
-
                 observableList.add(resultSet.getString(1) + " " + resultSet.getString(2) + " " + dateToStringConvertor(resultSet.getDate(3)) + " " + resultSet.getString(4) + " " + resultSet.getString(5) + " " + resultSet.getString(6));
             }
         } catch (SQLException var4) {
@@ -270,13 +261,6 @@ public class Model implements ISQLModel {
         } catch (SQLException var3) {
             var3.printStackTrace();
         }
-
-    }
-
-
-    public void createUser(User user){
-        Date sqlUserBirthDate = dateConvertor(user.getDate());
-        insert(user.getUsername(),user.getPassword(),user.getFirstname(),user.getLastname(),user.getCity(),sqlUserBirthDate);
 
     }
 

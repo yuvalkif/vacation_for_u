@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.View">
    <children>
-      <Button id="submit" fx:id="submit" layoutX="476.0" layoutY="322.0" mnemonicParsing="false" onAction="#testHandleSubmitButton" text="Submit" />
+      <Button id="submit" fx:id="submit" layoutX="476.0" layoutY="322.0" mnemonicParsing="false" text="Submit" />
       <TextField id="username" fx:id="username" layoutX="69.0" layoutY="89.0" promptText="Username" />
       <TextField id="password" fx:id="password" layoutX="69.0" layoutY="147.0" promptText="Password" />
       <TextField id="date" fx:id="date" layoutX="69.0" layoutY="200.0" promptText="DD/MM/YYYY" />
