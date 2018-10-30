@@ -21,21 +21,22 @@ public class SignUpFormController {
         this.toSubmit = new User(username.getText(),password.getText(),firstname.getText(),lastname.getText(),city.getText(),date.getText());
 
         if(toSubmit.hasNullField()){
-            ErrorBox box = new ErrorBox();
-            Stage errorBoxStage = box.getErrorBoxStage("Must fill all fields");
-            StageHolder.getInstance().holdStage(errorBoxStage);
-            errorBoxStage.showAndWait();
+           raiseError("Must fill all the fields");
+           return;
+        }
+        if(controller.searchInDataBase(toSubmit).size()>0) {//check if username already exists
+            raiseError("Username already exists! Please choose \na new one");
             return;
         }
-//        if(controller.searchInDataBase(toSubmit).size()==0)
-//        {
-//            ErrorBox box = new ErrorBox();
-//            Stage errorBoxStage = box.getErrorBoxStage("Username exists");
-//            StageHolder.getInstance().holdStage(errorBoxStage);
-//            errorBoxStage.showAndWait();
-//            return;
-//        }
         StageHolder.getInstance().getStage().close();
+    }
+
+    private void raiseError(String msg){
+        ErrorBox box = new ErrorBox();
+        Stage errorBoxStage = box.getErrorBoxStage(msg);
+        StageHolder.getInstance().holdStage(errorBoxStage);
+        errorBoxStage.showAndWait();
+        return;
     }
 
     public void handleBack(){

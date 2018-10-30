@@ -18,7 +18,7 @@ public class ErrorBox {
         Label label = new Label(errorMsg);
         button_close.setLayoutX(120);
         button_close.setLayoutY(150);
-        label.setLayoutX(110);
+        label.setLayoutX(90);
         label.setLayoutY(50);
         button_close.setPrefWidth(150);
         button_close.setPrefHeight(40);

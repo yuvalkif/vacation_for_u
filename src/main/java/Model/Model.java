@@ -68,7 +68,6 @@ public class Model implements ISQLModel {
             this.closeConnection(conn);
             Logger.getInstance().log("INSERT : " + user.getUsername() + " , " + user.getPassword() + " - SUCCESS");
         } catch (SQLException e) {
-            e.printStackTrace();
             System.out.println(e.getMessage());
             Logger.getInstance().log(e.getMessage());
         }
@@ -100,7 +99,6 @@ public class Model implements ISQLModel {
         StringJoiner joiner = new StringJoiner(", ");
         int sqlArgsCount=1;
         int [] statementIdx = new int[7];
-        System.out.println(username +newUserName+password);
 
         try {
 
@@ -115,20 +113,17 @@ public class Model implements ISQLModel {
             if(joiner.toString()!="") {String sqlArgs = joiner.toString(); sqlStatement = sqlStatementPreFix +sqlArgs + " WHERE username = ? ;";}
             else if(sqlStatement==""){return;}
 
-            System.out.println(sqlStatement);
             PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
             if(!newUserName.trim().isEmpty() && newUserName!=null){pstmt.setString(sqlArgsCount++, newUserName);}
-            System.out.println(sqlArgsCount);
             if(!password.trim().isEmpty()){pstmt.setString(sqlArgsCount++, password);}
             if(!firstName.trim().isEmpty()){pstmt.setString(sqlArgsCount++, firstName);}
-            System.out.println(sqlArgsCount);
+
             if(!lastName.trim().isEmpty()){pstmt.setString(sqlArgsCount++, lastName);}
             if(!city.trim().isEmpty()){pstmt.setString(sqlArgsCount++, city);}
             if(!birthDate.trim().isEmpty()){pstmt.setDate(sqlArgsCount++, dateConvert(birthDate));}
             if(sqlStatement!="") {pstmt.setString(sqlArgsCount, username);}
             pstmt.executeUpdate();
-            System.out.println(sqlStatement);
-            System.out.println("Updated user, Those fields have changed: (nulls not changed) " + username + " To " + "userName = [" + newUserName + "], password = [" + password + "], firstName = [" + firstName + "], lastName = [" + lastName + "], city = [" + city + "], birthDate = [" + birthDate + "]");
+
             this.closeConnection(conn);
             Logger.getInstance().log("Update : " + username + " , " + password + " - SUCCESS");
         } catch (SQLException e1) {
@@ -156,16 +151,10 @@ public class Model implements ISQLModel {
         return result;
     }
 
-    public ObservableList<User> searchRecordsByFields(User fields) {
-        ResultSet resultSet = null;
+    public ObservableList<User> searchRecordsByFields(String username) {
+        ResultSet resultSet ;
         ObservableList result = null;
-        String sql = "SELECT * FROM users";
-        if(fields != null){
-            sql+="\nWHERE ";
-            sql = sql + this.getFieldsForQuery(fields);
-        }
-
-        System.out.println("searching with query: " +sql);
+        String sql = "SELECT * FROM users WHERE username = " + "'"+username+"'";
 
         try {
             Connection conn = this.openConnection();
@@ -187,7 +176,6 @@ public class Model implements ISQLModel {
         try {
             while(resultSet.next()) {
                 observableList.add(new User(resultSet.getString(1),resultSet.getString(2) , dateToStringConvert(resultSet.getDate(3)), resultSet.getString(4), resultSet.getString(5) ,resultSet.getString(6)));
-                System.out.println("In model created and added to Observable List: "+observableList.get(0).getUsername());
             }
         } catch (SQLException var4) {
             var4.printStackTrace();

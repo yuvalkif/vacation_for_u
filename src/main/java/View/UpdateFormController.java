@@ -1,5 +1,6 @@
 package View;
 
+import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import javafx.fxml.FXML;
@@ -17,6 +18,7 @@ public class UpdateFormController {
     public TextField username ,newUserName, password , firstname , lastname , city , date;
     private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="";
     private User user ;
+    private Controller controller ;
 
     public void handleExecuteUpdate(){
         user = new User(sNewUserName = newUserName.getText(),sPassword = password.getText(),sFirstName = firstname.getText(),sLastName = lastname.getText(),
@@ -30,9 +32,19 @@ public class UpdateFormController {
         }
 
         if(user.nullRecord()) {
-            showError("Please enter atleast 1 field \n" + "to be updated");
+            showError("Please fill atleast 1 field \n" + "to be updated");
             return;
         }
+
+        if(this.controller.searchInDataBase(user).size() > 0){
+            showError("Username already exists. please choose\n" +
+                    "a new one");
+            return ;
+        }
+        //the update if all ok
+        this.controller.updateUser(sUserName,user.getUsername(),user.getpPassword(),user.getFirstname(),user.getLastname(),
+        user.getCity(),user.getDate());
+
         StageHolder.getInstance().getStage().close();
     }
 
@@ -55,5 +67,9 @@ public class UpdateFormController {
 
     public User getUser(){
         return this.user;
+    }
+
+    public void setController(Controller controller){
+        this.controller = controller;
     }
 }

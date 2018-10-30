@@ -1,1 +1,2 @@
-created new table users 2018/10/30 16:36:04
+created new table users 2018/10/30 16:40:07
+connection opened 2018/10/30 16:40:21
