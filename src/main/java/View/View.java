@@ -78,6 +78,7 @@ public class View implements IView {
             SearchFormController searchFormController = (SearchFormController)loader.getController();
             searchFormController.setTableView(tableView);
             searchFormController.setView(this);
+            searchFormController.setController(this.controller);
             StageHolder.getInstance().holdStage(stage);
             stage.showAndWait();
             this.primaryStage.show();
@@ -120,6 +121,7 @@ public class View implements IView {
             stage.setResizable(false);
             stage.setScene(scene);
             DeleteFormController deleteFormController = loader.getController();
+            deleteFormController.setController(this.controller);
             StageHolder.getInstance().holdStage(stage);
             stage.showAndWait();
             String username = deleteFormController.getUsername();

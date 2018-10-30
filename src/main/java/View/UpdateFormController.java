@@ -3,6 +3,7 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -36,11 +37,17 @@ public class UpdateFormController {
             return;
         }
 
-        if(this.controller.searchInDataBase(user).size() > 0){
+        ObservableList result = controller.searchInDataBase(user);
+        if(result.size() > 0){
             showError("Username already exists. please choose\n" +
                     "a new one");
             return ;
         }
+        if(result.size() == 0){
+            showError("Username does not exist.");
+            return;
+        }
+
         //the update if all ok
         this.controller.updateUser(sUserName,user.getUsername(),user.getpPassword(),user.getFirstname(),user.getLastname(),
         user.getCity(),user.getDate());
@@ -51,9 +58,7 @@ public class UpdateFormController {
 
     private void showError(String msg){
         ErrorBox box = new ErrorBox();
-        Stage stage = box.getErrorBoxStage(msg);
-        StageHolder.getInstance().holdStage(stage);
-        stage.showAndWait();
+        box.showErrorStage(msg);
     }
 
 

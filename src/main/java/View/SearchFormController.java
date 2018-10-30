@@ -9,14 +9,12 @@ package View;
  * controller class for the Read scene . controlled by 'SearchForm.fxml'
  */
 
+import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class SearchFormController {
@@ -41,7 +39,7 @@ public class SearchFormController {
     private TableView<User> tableView;
     @FXML
     private TableColumn<User,String> userNameCol,passwordCol,firstNameCol,lastNameCol,cityCol,dateCol;
-
+    private Controller controller;
 
     public SearchFormController() {
     }
@@ -53,14 +51,17 @@ public class SearchFormController {
             return;
         }
 
+        if(this.controller.searchInDataBase(searchFields).size() == 0){
+            raiseError("Username does not exist.");
+            return;
+        }
+
          this.showSearchResults(this.view.getSearchResultsFromController(searchFields));
     }
 
     private void raiseError(String errorMsg){
         ErrorBox box = new ErrorBox();
-        Stage errorStage = box.getErrorBoxStage(errorMsg);
-        StageHolder.getInstance().holdStage(errorStage);
-        errorStage.showAndWait();
+        box.showErrorStage(errorMsg);
     }
 
     public void handleBack() {
@@ -70,6 +71,10 @@ public class SearchFormController {
 
 
     public void handleSearchAll(){
+        if(this.controller.getAllDataBase().size() == 0){
+            raiseError("No records in database");
+            return;
+        }
         showSearchResults(view.getAllDataBase());
     }
 
@@ -79,6 +84,7 @@ public class SearchFormController {
     }
 
     public void showSearchResults(ObservableList<User> searchResults) {
+
         if (searchResults != null) {
             userNameCol.setCellValueFactory(cellData -> cellData.getValue().pUserNameProperty());
             passwordCol.setCellValueFactory(cellData -> cellData.getValue().pPasswordProperty());
@@ -103,5 +109,9 @@ public class SearchFormController {
 
     public void setTableView(TableView<User> tableView) {
         this.tableView = tableView;
+    }
+
+    public void setController(Controller controller){
+        this.controller = controller;
     }
 }
