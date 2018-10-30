@@ -43,6 +43,10 @@ public class Controller {
         return ((Model)this.model).searchRecordsByFields(user.getUsername());
     }
 
+    public ObservableList searchInDataBase(String username){
+        return (ObservableList) model.searchRecordsByFields(username);
+    }
+
     public ObservableList getAllDataBase() {
         return this.model.selectAllDataBase();
     }
