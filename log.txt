@@ -3,3 +3,5 @@ connection opened 2018/10/30 16:45:32
 connection closed 2018/10/30 16:45:33
 Update : Roy ,  - SUCCESS 2018/10/30 16:45:33
 connection opened 2018/10/30 16:45:50
+created new table users 2018/10/30 16:40:07
+connection opened 2018/10/30 16:40:21

@@ -99,6 +99,8 @@ public class View implements IView {
             stage.setScene(scene);
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
+            UpdateFormController uc = (UpdateFormController) loader.getController();
+            uc.setController(this.controller);
             stage.showAndWait();
             this.primaryStage.show();
             UpdateFormController uc = (UpdateFormController) loader.getController();

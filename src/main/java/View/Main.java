@@ -22,7 +22,7 @@ public class Main extends Application {
         View view = loader.getController();
 
         primaryStage.setTitle("Vacation4U");
-        primaryStage.setScene(new Scene(root, 600, 500));
+        primaryStage.setScene(new Scene(root, 419.0, 320.0));
         primaryStage.getScene().getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
         primaryStage.setResizable(false);
         Controller controller = new Controller();

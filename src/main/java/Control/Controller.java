@@ -9,12 +9,8 @@ import Logger.Logger;
 import Model.ISQLModel;
 import Model.Model;
 import View.IView;
-
-import java.util.List;
-
 import View.User;
 import javafx.collections.ObservableList;
-import javafx.stage.Stage;
 
 public class Controller {
     private IView view;
@@ -45,11 +41,11 @@ public class Controller {
     }
 
     public ObservableList<User> searchInDataBase(User user) {
-        return ((Model)this.model).searchRecordsByFields(user);
+        return ((Model)this.model).searchRecordsByFields(user.getUsername());
     }
 
     public ObservableList getAllDataBase() {
-        return ((Model)this.model).searchRecordsByFields(null);
+        return this.model.selectAllDataBase();
     }
 
     public void setAll() {
