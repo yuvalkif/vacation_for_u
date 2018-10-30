@@ -10,7 +10,26 @@ import Control.Controller;
 public interface IView {
 
     void setController(Controller controller);
+
+    /**
+     * handle the signup scene
+     */
     void signInScene();
     void setCurrentStage(Stage stage);
+
+    /**
+     * handle deletion scene
+     */
+    void handleDelete();
+
+    /**
+     * handle update scene
+     */
+    void handleUpdate();
+
+    /**
+     * handle search scene
+     */
+    void handleRead();
 
 }

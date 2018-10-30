@@ -25,6 +25,9 @@ public class Model implements ISQLModel {
         this.controller = controller;
     }
 
+    /**
+     * create a new users table
+     */
     public void createUsersTable() {
         // SQLite connection string
         String url = "jdbc:sqlite:vacation_for_u.db";
@@ -51,6 +54,10 @@ public class Model implements ISQLModel {
         }
     }
 
+    /**
+     * insert a user to the database
+     * @param user a record with fields of the user
+     */
     public void insert(User user) {
         String sql = "INSERT INTO users(username, password,first_name,last_name,address,birth_date) VALUES(?,?,?,?,?,?)";
         Date sqlDate = dateConvert(user.getDate());
@@ -74,6 +81,10 @@ public class Model implements ISQLModel {
 
     }
 
+    /**
+     * delete a record from the data base
+     * @param userName the username of the user as it appears in the database
+     */
     public void deleteUsers(String userName) {
         String sql = "DELETE FROM users WHERE username = ? ";
         try{
@@ -92,6 +103,16 @@ public class Model implements ISQLModel {
 
     }
 
+    /**
+     * update a user in the database
+     * @param username the old username for which to update fields
+     * @param newUserName
+     * @param password
+     * @param firstName
+     * @param lastName
+     * @param city
+     * @param birthDate
+     */
     public void updateUsers(String username ,String newUserName, String password , String firstName, String lastName, String city, String birthDate) {
         String sqlStatement="";
         String sqlStatementPreFix="UPDATE users SET ";
@@ -131,6 +152,10 @@ public class Model implements ISQLModel {
 
     }
 
+    /**
+     * returns all the records in the database
+     * @return a list with all the records
+     */
     public ObservableList selectAllDataBase() {
         ResultSet resultSet = null;
         String sql = "SELECT * FROM users";
@@ -150,6 +175,11 @@ public class Model implements ISQLModel {
         return result;
     }
 
+    /**
+     * search a record by a field given
+     * @param username the username of the record
+     * @return a list with all the records
+     */
     public ObservableList<User> searchRecordsByFields(String username) {
         ResultSet resultSet ;
         ObservableList result = null;
@@ -169,8 +199,11 @@ public class Model implements ISQLModel {
         return result;
     }
 
-
-
+    /**
+     * check if a char is a digit
+     * @param c
+     * @return true if its a digit
+     */
     private boolean isDigit(char c){
 
         if(c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9' || c == '0')
@@ -179,6 +212,11 @@ public class Model implements ISQLModel {
         return false;
     }
 
+    /**
+     * converts a set of results from the database to a list
+     * @param resultSet set with results
+     * @return a list with records
+     */
     private ObservableList<User> convertResultsToObservableList(ResultSet resultSet) {
         ObservableList<User> observableList = FXCollections.observableArrayList();
 
@@ -194,6 +232,11 @@ public class Model implements ISQLModel {
         return observableList;
     }
 
+    /**
+     * get the relevant fields for a query based on if a field is empty or not
+     * @param fields all fields wanted for the query
+     * @return a string with the fields for the query
+     */
     private String getFieldsForQuery(User fields) {
         String ans = "";
         if (!fields.getUsername().equals("")) {
@@ -219,6 +262,11 @@ public class Model implements ISQLModel {
         return ans.substring(0, ans.length() - 1);
     }
 
+    /**
+     * convert a string to a date
+     * @param sDate
+     * @return
+     */
     private Date dateConvert(String sDate){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
         try {
@@ -235,18 +283,31 @@ public class Model implements ISQLModel {
 
     }
 
+    /**
+     * convert a date to a string
+     * @param date
+     * @return
+     */
     private String dateToStringConvert(Date date){
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
         String ans = df.format(date);
         return ans;
     }
 
+    /**
+     * open a connection to the database
+     * @return
+     */
     private Connection openConnection() {
         Connection conn = this.driver.connect();
         Logger.getInstance().log("connection opened");
         return conn;
     }
 
+    /**
+     * close connection to the database
+     * @param connection
+     */
     private void closeConnection(Connection connection) {
         try {
             connection.close();

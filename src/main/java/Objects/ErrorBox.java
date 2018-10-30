@@ -9,6 +9,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+/**
+ * A class to show an error stage. create a new object and use the show function with the wanted msg
+ */
+
 public class ErrorBox {
 
     private Stage errorStage;
@@ -49,6 +53,10 @@ public class ErrorBox {
 
     }
 
+    /**
+     * show the error stage with a ms
+     * @param errorMsg the msg wanted on the stage
+     */
     public void showErrorStage(String errorMsg){
         this.errorLabel.setText(errorMsg);
         StageHolder.getInstance().holdStage(this.errorStage);
