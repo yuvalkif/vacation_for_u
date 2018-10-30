@@ -1,21 +1,11 @@
-created new table users 2018/10/30 21:09:06
-connection opened 2018/10/30 21:09:14
-connection opened 2018/10/30 21:09:22
-connection opened 2018/10/30 21:09:24
-connection opened 2018/10/30 21:09:24
-connection opened 2018/10/30 21:09:33
-connection opened 2018/10/30 21:09:33
-connection opened 2018/10/30 21:09:36
-connection opened 2018/10/30 21:09:36
-connection opened 2018/10/30 21:09:50
-connection opened 2018/10/30 21:09:50
-connection opened 2018/10/30 21:09:50
-connection opened 2018/10/30 21:09:50
-connection closed 2018/10/30 21:09:50
-Update : adam ,  - SUCCESS 2018/10/30 21:09:50
-connection opened 2018/10/30 21:09:52
-connection opened 2018/10/30 21:09:52
-connection opened 2018/10/30 21:10:00
-connection opened 2018/10/30 21:10:03
-connection opened 2018/10/30 21:10:08
-connection opened 2018/10/30 21:10:10
+created new table users 2018/10/30 21:22:07
+connection opened 2018/10/30 21:22:15
+connection opened 2018/10/30 21:22:15
+connection opened 2018/10/30 21:22:15
+connection closed 2018/10/30 21:22:15
+Update : adam ,  - SUCCESS 2018/10/30 21:22:15
+connection opened 2018/10/30 21:22:20
+connection opened 2018/10/30 21:22:20
+connection opened 2018/10/30 21:22:24
+connection opened 2018/10/30 21:22:24
+connection opened 2018/10/30 21:22:26

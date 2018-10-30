@@ -23,7 +23,7 @@ public class UpdateFormController {
     private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="";
 
     public void handleExecuteUpdate() {
-        user = new User(sUserName =username.getText(), sPassword = password.getText(), sFirstName = firstname.getText(), sLastName = lastname.getText(),
+        user = new User(sNewUserName =newUserName.getText(), sPassword = password.getText(), sFirstName = firstname.getText(), sLastName = lastname.getText(),
                 sCity = city.getText(), sDate = date.getText());
         sUserName = username.getText();
 
@@ -39,24 +39,22 @@ public class UpdateFormController {
             return;
         }
 
+        if(controller.searchInDataBase(sUserName).size() == 0){
+            showError("User doesnt exist");
+            user=null;
+            return;
+        }
+
+
         ObservableList result = controller.searchInDataBase(user);
         if (result.size() > 0) {
             showError("Username already exists. please choose\n" +
-                    "a new one");
+                    "another one");
             user = null;
             return;
         }
 
-        if(controller.searchInDataBase(sUserName).size() == 0){
-            showError("User doesnt exist");
-            user=null;
-            return;
-        }
-        if(controller.searchInDataBase(sUserName).size() == 0){
-            showError("User doesnt exist");
-            user=null;
-            return;
-        }
+
         //date valid check
 
         if(user.getDate().length()>0 && !isValidDate(user.getDate())){
