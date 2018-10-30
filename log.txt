@@ -1,7 +1,5 @@
-created new table users 2018/10/30 16:45:23
-connection opened 2018/10/30 16:45:32
-connection closed 2018/10/30 16:45:33
-Update : Roy ,  - SUCCESS 2018/10/30 16:45:33
-connection opened 2018/10/30 16:45:50
-created new table users 2018/10/30 16:40:07
-connection opened 2018/10/30 16:40:21
+created new table users 2018/10/30 17:04:33
+connection opened 2018/10/30 17:05:36
+connection opened 2018/10/30 17:05:36
+connection closed 2018/10/30 17:05:36
+INSERT : Kpl , sad - SUCCESS 2018/10/30 17:05:36
