@@ -78,6 +78,8 @@ public class View implements IView {
             SearchFormController searchFormController = (SearchFormController)loader.getController();
             searchFormController.setController(controller);
             searchFormController.setTableView(tableView);
+            searchFormController.setView(this);
+            searchFormController.setController(this.controller);
             StageHolder.getInstance().holdStage(stage);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -132,6 +134,7 @@ public class View implements IView {
             stage.setResizable(false);
             stage.setScene(scene);
             DeleteFormController deleteFormController = loader.getController();
+            deleteFormController.setController(this.controller);
             StageHolder.getInstance().holdStage(stage);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override

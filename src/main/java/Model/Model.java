@@ -169,6 +169,32 @@ public class Model implements ISQLModel {
         return result;
     }
 
+    private boolean checkDateformat(String date){
+
+        if(date == null || date.length() != 10)
+            return false;
+
+        for(int i = 0 ; i < date.length() ; i++){
+            if(i == 5 || i == 8)
+                if(date.charAt(i) != '-')
+                    return false;
+
+            else
+                if(!isDigit(date.charAt(i)))
+                    return false;
+        }
+
+        return true;
+    }
+
+    private boolean isDigit(char c){
+
+        if(c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9' || c == '0')
+            return true;
+
+        return false;
+    }
+
     private ObservableList<User> convertResultsToObservableList(ResultSet resultSet) {
         ObservableList<User> observableList = FXCollections.observableArrayList();
 
