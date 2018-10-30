@@ -33,6 +33,7 @@ public class SignUpFormController {
         }
         if(!isValidDate(toSubmit.getDate())){
             raiseError("Please insert a valid date of format YYYY-MM-DD");
+            return;
         }
 
 
