@@ -102,11 +102,10 @@ public class View implements IView {
             stage.showAndWait();
             this.primaryStage.show();
             UpdateFormController uc = (UpdateFormController) loader.getController();
-            User toUpdate = new User(uc.getsUserName(),uc.getsPassword(),uc.getsFirstName(),uc.getsLastName(),
-                    uc.getsCity(),uc.getsDate());
+            User toUpdate = uc.getUser();
             if(!toUpdate.nullRecord())
-                this.controller.updateUser(uc.getsUserName(),uc.getsNewUserName(),uc.getsPassword(),uc.getsFirstName(),uc.getsLastName(),
-                        uc.getsCity(),uc.getsDate());
+                this.controller.updateUser(uc.getsUserName(),toUpdate.getUsername(),toUpdate.getpPassword(),toUpdate.getFirstname(),
+                        toUpdate.getLastname(),toUpdate.getCity(),toUpdate.getDate());
 
         } catch (IOException var6) {
             var6.getCause();

@@ -70,9 +70,11 @@ public class SearchFormController {
         StageHolder.getInstance().getStage().close();
     }
 
-    public boolean getIsDone() {
-        return this.isDone;
+
+    public void handleSearchAll(){
+        showSearchResults(view.getAllDataBase());
     }
+
 
     public User getSearchFields() {
         return this.searchFields;
