@@ -47,6 +47,10 @@ public class UpdateFormController {
             user=null;
             return;
         }
+
+        if(result.size() == 0){
+            showError("User doesnt exist");
+        }
         //date valid check
 
         if(user.getDate().length()>0 && !isValidDate(user.getDate())){
