@@ -12,7 +12,7 @@ import java.util.StringJoiner;
 import View.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import sample.Controller;
+import Control.Controller;
 
 public class Model implements ISQLModel {
     private Controller controller;
@@ -158,9 +158,14 @@ public class Model implements ISQLModel {
 
     public ObservableList<User> searchRecordsByFields(User fields) {
         ResultSet resultSet = null;
-        String sql = "SELECT * FROM users WHERE ";
         ObservableList result = null;
-        sql = sql + this.getFieldsForQuery(fields);
+        String sql = "SELECT * FROM users";
+        if(fields != null){
+            sql+="\nWHERE ";
+            sql = sql + this.getFieldsForQuery(fields);
+        }
+
+        System.out.println("searching with query: " +sql);
 
         try {
             Connection conn = this.openConnection();

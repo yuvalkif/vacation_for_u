@@ -6,13 +6,11 @@ package View;
 
 import Model.Model;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import sample.Controller;
+import Control.Controller;
 
 public class Main extends Application {
 
@@ -22,13 +20,15 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getClassLoader().getResource("sample.fxml").openStream());
         View view = loader.getController();
+
         primaryStage.setTitle("Vacation4U");
         primaryStage.setScene(new Scene(root, 600, 500));
+        primaryStage.getScene().getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+        primaryStage.setResizable(false);
         Controller controller = new Controller();
 
         controller.setView(view);
-        Model model = new Model();
-        controller.setModel(model);
+        controller.setModel(new Model());
         controller.setAll();
         controller.createUsersTable();
         view.setCurrentStage(primaryStage);

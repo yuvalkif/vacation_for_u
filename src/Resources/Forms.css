@@ -99,3 +99,11 @@
     -fx-opacity: 0;
 }
 
+.button{
+    -fx-text-fill: #006464;
+    -fx-background-color: #DFB951;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 5;
+}
+

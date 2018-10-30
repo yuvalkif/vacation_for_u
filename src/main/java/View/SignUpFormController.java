@@ -8,10 +8,10 @@ import javafx.stage.Stage;
 import sample.Controller;
 
 /**
- * controller class for the sign up scene . controlled by 'logInFXML.fxml'
+ * controller class for the sign up scene . controlled by 'SignUpForm.fxml'
  */
 
-public class LoginSceneController{
+public class SignUpFormController {
 
     private Controller controller;
    private User toSubmit;

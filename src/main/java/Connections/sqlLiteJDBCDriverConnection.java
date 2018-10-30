@@ -21,7 +21,7 @@ public class sqlLiteJDBCDriverConnection {
     }
 
     /**
-     * Connect to a sample database
+     * Connect to a Control database
      */
     public Connection connect() {
 
