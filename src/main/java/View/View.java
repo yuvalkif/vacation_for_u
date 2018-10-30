@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import sample.Controller;
@@ -67,14 +68,15 @@ public class View implements IView {
             Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("readAllController.fxml").openStream());
             SplitPane splitPane = (SplitPane)root.getChildrenUnmodifiable().get(0);
             AnchorPane upperPane = (AnchorPane)splitPane.getItems().get(0);
-            ListView listView = (ListView)upperPane.getChildren().get(0);
+//            ListView listView = (ListView)upperPane.getChildren().get(0);
+            TableView<User> tableView = (TableView<User>)upperPane.getChildren().get(0);
             Scene scene = new Scene(root, 570, 550);
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setResizable(false);
             ReadAll readAll = (ReadAll)loader.getController();
-            readAll.setListView(listView);
+            readAll.setTableView(tableView);
             readAll.setView(this);
             StageHolder.getInstance().holdStage(stage);
             stage.showAndWait();
@@ -136,7 +138,7 @@ public class View implements IView {
 
     //endregion
 
-    public ObservableList searchInDataBase(User user) {
+    public ObservableList<User> searchInDataBase(User user) {
         return this.controller.searchInDataBase(user);
     }
 

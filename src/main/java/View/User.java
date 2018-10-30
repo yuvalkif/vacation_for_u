@@ -1,5 +1,8 @@
 package View;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.util.ArrayList;
 
 /**
@@ -14,6 +17,13 @@ public class User {
     private String firstName;
     private String lastName;
     private String city;
+    private StringProperty pUserName;
+    private StringProperty pPassword;
+    private StringProperty pBirthDate;
+    private StringProperty pFirstName;
+    private StringProperty pLastName;
+    private StringProperty pCity;
+
 
     public User(String userName, String password, String firstName, String lastName, String city, String birthDate){
         this.userName = userName;
@@ -22,6 +32,12 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.city = city;
+        this.pUserName = new SimpleStringProperty(userName);
+        this.pPassword = new SimpleStringProperty(password);
+        this.pFirstName = new SimpleStringProperty(firstName);
+        this.pLastName = new SimpleStringProperty(lastName);
+        this.pCity = new SimpleStringProperty(city);
+        this.pBirthDate = new SimpleStringProperty(birthDate);
     }
 
     public User(ArrayList<String> userParams){
@@ -77,5 +93,53 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", city='" + city + '\'' +
                 '}';
+    }
+
+    public String getpUserName() {
+        return pUserName.get();
+    }
+
+    public StringProperty pUserNameProperty() {
+        return pUserName;
+    }
+
+    public String getpPassword() {
+        return pPassword.get();
+    }
+
+    public StringProperty pPasswordProperty() {
+        return pPassword;
+    }
+
+    public String getpBirthDate() {
+        return pBirthDate.get();
+    }
+
+    public StringProperty pBirthDateProperty() {
+        return pBirthDate;
+    }
+
+    public String getpFirstName() {
+        return pFirstName.get();
+    }
+
+    public StringProperty pFirstNameProperty() {
+        return pFirstName;
+    }
+
+    public String getpLastName() {
+        return pLastName.get();
+    }
+
+    public StringProperty pLastNameProperty() {
+        return pLastName;
+    }
+
+    public String getpCity() {
+        return pCity.get();
+    }
+
+    public StringProperty pCityProperty() {
+        return pCity;
     }
 }

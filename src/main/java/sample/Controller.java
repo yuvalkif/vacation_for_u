@@ -48,7 +48,7 @@ public class Controller {
         return fields == null ? null : this.model.searchRecordsByFields(fields);
     }
 
-    public ObservableList searchInDataBase(User user) {
+    public ObservableList<User> searchInDataBase(User user) {
         return ((Model)this.model).searchRecordsByFields(user);
     }
 

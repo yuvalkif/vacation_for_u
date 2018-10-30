@@ -187,7 +187,7 @@ public class Model implements ISQLModel {
         return result;
     }
 
-    public ObservableList searchRecordsByFields(User fields) {
+    public ObservableList<User> searchRecordsByFields(User fields) {
         ResultSet resultSet = null;
         String sql = "SELECT * FROM users\nWHERE ";
         ObservableList result = null;
@@ -207,12 +207,13 @@ public class Model implements ISQLModel {
         return result;
     }
 
-    private ObservableList convertResultsToObservableList(ResultSet resultSet) {
-        ObservableList observableList = FXCollections.observableArrayList();
+    private ObservableList<User> convertResultsToObservableList(ResultSet resultSet) {
+        ObservableList<User> observableList = FXCollections.observableArrayList();
 
         try {
             while(resultSet.next()) {
-                observableList.add(resultSet.getString(1) + " " + resultSet.getString(2) + " " + dateToStringConvertor(resultSet.getDate(3)) + " " + resultSet.getString(4) + " " + resultSet.getString(5) + " " + resultSet.getString(6));
+                observableList.add(new User(resultSet.getString(1),resultSet.getString(2) ,dateToStringConvertor(resultSet.getDate(3)), resultSet.getString(4), resultSet.getString(5) ,resultSet.getString(6)));
+                System.out.println("In model created and added to Observable List: "+observableList.get(0).getUsername());
             }
         } catch (SQLException var4) {
             var4.printStackTrace();
