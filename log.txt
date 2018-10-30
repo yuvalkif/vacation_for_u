@@ -1,5 +1,18 @@
-created new table users 2018/10/30 14:34:37
-created new table users 2018/10/30 14:00:48
-connection opened 2018/10/30 14:01:01
-connection opened 2018/10/30 14:01:07
-DELETED a 2018/10/30 14:01:07
+created new table users 2018/10/30 16:07:39
+connection opened 2018/10/30 16:07:54
+connection closed 2018/10/30 16:07:54
+INSERT : roy , password - SUCCESS 2018/10/30 16:07:54
+connection opened 2018/10/30 16:08:00
+connection opened 2018/10/30 16:08:11
+connection closed 2018/10/30 16:08:11
+Update : Roy ,  - SUCCESS 2018/10/30 16:08:11
+connection opened 2018/10/30 16:08:15
+connection opened 2018/10/30 16:08:19
+connection opened 2018/10/30 16:08:30
+connection closed 2018/10/30 16:08:30
+Update : roy ,  - SUCCESS 2018/10/30 16:08:30
+connection opened 2018/10/30 16:08:38
+connection opened 2018/10/30 16:08:41
+connection opened 2018/10/30 16:08:49
+DELETED Roy 2018/10/30 16:08:49
+connection opened 2018/10/30 16:08:51

@@ -52,10 +52,10 @@ public class SearchFormController {
             raiseError("Must specify a username");
             return;
         }
-//        this.showSearchResults(this.view.getSearchResultsFromController(this.searchFields));
+       this.showSearchResults(this.view.getSearchResultsFromController(this.searchFields));
 
 
-         this.showSearchResults(this.view.getAllDataBase());
+//         this.showSearchResults(this.view.getAllDataBase());
     }
 
     private void raiseError(String errorMsg){

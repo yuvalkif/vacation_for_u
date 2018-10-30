@@ -27,14 +27,14 @@ public class SignUpFormController {
             errorBoxStage.showAndWait();
             return;
         }
-        if(controller.searchInDataBase(toSubmit).size()>0)
-        {
-            ErrorBox box = new ErrorBox();
-            Stage errorBoxStage = box.getErrorBoxStage("Username exists");
-            StageHolder.getInstance().holdStage(errorBoxStage);
-            errorBoxStage.showAndWait();
-            return;
-        }
+//        if(controller.searchInDataBase(toSubmit).size()==0)
+//        {
+//            ErrorBox box = new ErrorBox();
+//            Stage errorBoxStage = box.getErrorBoxStage("Username exists");
+//            StageHolder.getInstance().holdStage(errorBoxStage);
+//            errorBoxStage.showAndWait();
+//            return;
+//        }
         StageHolder.getInstance().getStage().close();
     }
 

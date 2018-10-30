@@ -37,7 +37,7 @@ public class View implements IView {
         FXMLLoader loader = new FXMLLoader();
 
         try {
-            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("logInFXML.fxml").openStream());
+            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("SignUpForm.fxml").openStream());
             Scene scene = new Scene(root, 500.0D, 450);
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
