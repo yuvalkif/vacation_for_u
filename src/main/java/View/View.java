@@ -103,7 +103,7 @@ public class View implements IView {
             stage.showAndWait();
             this.primaryStage.show();
             User toUpdate = uc.getUser();
-//            if(!toUpdate.nullRecord())
+            if(toUpdate!=null && !toUpdate.nullRecord())
                 this.controller.updateUser(uc.getsUserName(),toUpdate.getUsername(),toUpdate.getpPassword(),toUpdate.getFirstname(),
                         toUpdate.getLastname(),toUpdate.getCity(),toUpdate.getDate());
 
