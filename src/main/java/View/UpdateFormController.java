@@ -33,6 +33,10 @@ public class UpdateFormController {
             showError("Please enter atleast 1 field \n" + "to be updated");
             return;
         }
+
+//        if(sNewUserName.trim().isEmpty()){
+//            showError("Please enter a userName to update");
+//        }
         StageHolder.getInstance().getStage().close();
     }
 
