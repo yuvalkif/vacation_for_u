@@ -2,10 +2,6 @@
     -fx-background-color:#DEB887;
 }
 
-.content-section{
-    -fx-background-color:#DEB887;
-}
-
 .text-field{
     fx-background-color:#000000;
 
@@ -23,10 +19,6 @@
 
 .button:hover{
     -fx-background-color:#F0F8FF;
-}
-
-.label{
-    -fx-text-fill : #282828;
 }
 
 /*
