@@ -169,23 +169,7 @@ public class Model implements ISQLModel {
         return result;
     }
 
-    private boolean checkDateformat(String date){
 
-        if(date == null || date.length() != 10)
-            return false;
-
-        for(int i = 0 ; i < date.length() ; i++){
-            if(i == 5 || i == 8)
-                if(date.charAt(i) != '-')
-                    return false;
-
-            else
-                if(!isDigit(date.charAt(i)))
-                    return false;
-        }
-
-        return true;
-    }
 
     private boolean isDigit(char c){
 
