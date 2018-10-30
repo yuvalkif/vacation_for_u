@@ -36,6 +36,8 @@ public class StageHolder {
      * @return the previous stage in a sequential order
      */
     public Stage getStage(){
-        return stageStack.pop();
+        if(!stageStack.empty())
+            return stageStack.pop();
+        return null;
     }
 }

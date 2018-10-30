@@ -15,7 +15,6 @@ import javafx.collections.ObservableList;
 public class Controller {
     private IView view;
     private ISQLModel model;
-    //private Stage primaryStage;
 
     public Controller() {
     }
