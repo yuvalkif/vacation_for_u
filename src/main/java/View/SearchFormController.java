@@ -22,7 +22,6 @@ import javafx.stage.Stage;
 
 public class SearchFormController {
     private User searchFields;
-    private Controller controller;
     private boolean isDone;
     private ListView listView;
 
@@ -42,7 +41,7 @@ public class SearchFormController {
     private TableView<User> tableView;
     @FXML
     private TableColumn<User,String> userNameCol,passwordCol,firstNameCol,lastNameCol,cityCol,dateCol;
-
+    private Controller controller;
 
     public SearchFormController() {
     }
@@ -51,13 +50,11 @@ public class SearchFormController {
         this.searchFields = new User(this.username.getText(), this.password.getText(), this.firstname.getText(), this.lastname.getText(), this.city.getText(), this.birthdate.getText());
         if(searchFields.getUsername().equals("")) {
             raiseError("Must specify a username");
-            searchFields=null;
             return;
         }
 
         if(this.controller.searchInDataBase(searchFields).size() == 0){
             raiseError("Username does not exist.");
-            searchFields = null;
             return;
         }
 

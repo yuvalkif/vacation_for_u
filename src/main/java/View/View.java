@@ -37,6 +37,7 @@ public class View implements IView {
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
+            stage.setTitle("Sign Up");
             stage.setResizable(false);
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
@@ -74,6 +75,7 @@ public class View implements IView {
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
+            stage.setTitle("Search");
             stage.setResizable(false);
             SearchFormController searchFormController = (SearchFormController)loader.getController();
             searchFormController.setController(controller);
@@ -103,6 +105,7 @@ public class View implements IView {
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
+            stage.setTitle("Update");
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
             UpdateFormController uc = (UpdateFormController) loader.getController();
@@ -131,6 +134,7 @@ public class View implements IView {
             scene.getStylesheets().add(getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setResizable(false);
+            stage.setTitle("Delete");
             stage.setScene(scene);
             DeleteFormController deleteFormController = loader.getController();
             deleteFormController.setController(this.controller);
