@@ -19,11 +19,11 @@
                   <TableView fx:id="tableView" layoutY="34.0" prefHeight="242.0" prefWidth="598.0">
                     <columns>
                         <TableColumn fx:id="userNameCol" prefWidth="110.0" text="username" />
-                      <TableColumn fx:id="passwordCol" prefWidth="99.0" text="Password" />
-                      <TableColumn fx:id="firstNameCol" prefWidth="73.0" text="Fname" />
-                        <TableColumn fx:id="lastNameCol" prefWidth="95.0" text="Lname" />
-                        <TableColumn fx:id="cityCol" prefWidth="99.0" text="City" />
-                        <TableColumn fx:id="dateCol" prefWidth="121.0" text="Bdate" />
+                      <TableColumn fx:id="passwordCol" prefWidth="89.0" text="Password" />
+                      <TableColumn fx:id="firstNameCol" prefWidth="111.0" text="Bdate" />
+                        <TableColumn fx:id="lastNameCol" text="Fname" />
+                        <TableColumn fx:id="cityCol" prefWidth="104.0" text="Lname" />
+                        <TableColumn fx:id="dateCol" prefWidth="103.0" text="City" />
                     </columns>
                   </TableView>
                </children></AnchorPane>
