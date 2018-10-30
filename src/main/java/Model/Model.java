@@ -21,70 +21,39 @@ public class Model implements ISQLModel {
     public Model() {
     }
 
-    public void createUsersTable() {
-        String url = "jdbc:sqlite:vacation_for_u.db";
-        String sql = "CREATE TABLE IF NOT EXISTS users (\n\tusername text PRIMARY KEY,\n\tpassword text NOT NULL,\n\tbirth_date DATE ,\n\tfirst_name text NOT NULL,\n\tlast_name text NOT NULL,\n\taddress text NOT NULL\n);";
-
-        try {
-            Connection conn = DriverManager.getConnection(url);
-            Throwable var4 = null;
-
-            try {
-                Statement stmt = conn.createStatement();
-                Throwable var6 = null;
-
-                try {
-                    stmt.execute(sql);
-                    Logger.getInstance().log("created new table users");
-                } catch (Throwable var31) {
-                    var6 = var31;
-                    throw var31;
-                } finally {
-                    if (stmt != null) {
-                        if (var6 != null) {
-                            try {
-                                stmt.close();
-                            } catch (Throwable var30) {
-                                var6.addSuppressed(var30);
-                            }
-                        } else {
-                            stmt.close();
-                        }
-                    }
-
-                }
-            } catch (Throwable var33) {
-                var4 = var33;
-                throw var33;
-            } finally {
-                if (conn != null) {
-                    if (var4 != null) {
-                        try {
-                            conn.close();
-                        } catch (Throwable var29) {
-                            var4.addSuppressed(var29);
-                        }
-                    } else {
-                        conn.close();
-                    }
-                }
-
-            }
-        } catch (SQLException var35) {
-            var35.printStackTrace();
-            System.out.println(var35.getMessage());
-            Logger.getInstance().log("failed to create new table users");
-        }
-
-    }
-
     public void setController(Controller controller) {
         this.controller = controller;
     }
 
+    public void createUsersTable() {
+        // SQLite connection string
+        String url = "jdbc:sqlite:vacation_for_u.db";
+
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS users (\n"
+                + "	username text PRIMARY KEY,\n"
+                + "	password text NOT NULL,\n"
+                + "	birth_date DATE ,\n"
+                + "	first_name text NOT NULL,\n"
+                + "	last_name text NOT NULL,\n"
+                + "	address text NOT NULL\n"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+            Logger.getInstance().log("created new table users");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            Logger.getInstance().log("failed to create new table users");
+        }
+    }
+
     public void insert(User user) {
         String sql = "INSERT INTO users(username, password,first_name,last_name,address,birth_date) VALUES(?,?,?,?,?,?)";
-        Date sqlDate = dateConvertor(user.getDate());
+        Date sqlDate = dateConvert(user.getDate());
 
         try {
             Connection conn = this.openConnection();
@@ -98,10 +67,10 @@ public class Model implements ISQLModel {
             pstmt.executeUpdate();
             this.closeConnection(conn);
             Logger.getInstance().log("INSERT : " + user.getUsername() + " , " + user.getPassword() + " - SUCCESS");
-        } catch (SQLException var10) {
-            var10.printStackTrace();
-            System.out.println(var10.getMessage());
-            Logger.getInstance().log(var10.getMessage());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            Logger.getInstance().log(e.getMessage());
         }
 
     }
@@ -155,7 +124,7 @@ public class Model implements ISQLModel {
             System.out.println(sqlArgsCount);
             if(!lastName.trim().isEmpty()){pstmt.setString(sqlArgsCount++, lastName);}
             if(!city.trim().isEmpty()){pstmt.setString(sqlArgsCount++, city);}
-            if(!birthDate.trim().isEmpty()){pstmt.setDate(sqlArgsCount++, dateConvertor(birthDate));}
+            if(!birthDate.trim().isEmpty()){pstmt.setDate(sqlArgsCount++, dateConvert(birthDate));}
             if(sqlStatement!="") {pstmt.setString(sqlArgsCount, username);}
             pstmt.executeUpdate();
             System.out.println(sqlStatement);
@@ -212,7 +181,7 @@ public class Model implements ISQLModel {
 
         try {
             while(resultSet.next()) {
-                observableList.add(new User(resultSet.getString(1),resultSet.getString(2) ,dateToStringConvertor(resultSet.getDate(3)), resultSet.getString(4), resultSet.getString(5) ,resultSet.getString(6)));
+                observableList.add(new User(resultSet.getString(1),resultSet.getString(2) , dateToStringConvert(resultSet.getDate(3)), resultSet.getString(4), resultSet.getString(5) ,resultSet.getString(6)));
                 System.out.println("In model created and added to Observable List: "+observableList.get(0).getUsername());
             }
         } catch (SQLException var4) {
@@ -247,24 +216,7 @@ public class Model implements ISQLModel {
         return ans.substring(0, ans.length() - 1);
     }
 
-    public Connection openConnection() {
-        Connection conn = this.driver.connect();
-        Logger.getInstance().log("connection opened");
-        return conn;
-    }
-
-    public void closeConnection(Connection connection) {
-        try {
-            connection.close();
-            Logger.getInstance().log("connection closed");
-        } catch (SQLException var3) {
-            var3.printStackTrace();
-        }
-
-    }
-
-
-    private Date dateConvertor(String sDate){
+    private Date dateConvert(String sDate){
         SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
         try {
             java.util.Date jDate = dateFormat.parse(sDate);
@@ -280,10 +232,26 @@ public class Model implements ISQLModel {
 
     }
 
-    private String dateToStringConvertor(Date date){
+    private String dateToStringConvert(Date date){
         DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
         String ans = df.format(date);
         return ans;
+    }
+
+    private Connection openConnection() {
+        Connection conn = this.driver.connect();
+        Logger.getInstance().log("connection opened");
+        return conn;
+    }
+
+    private void closeConnection(Connection connection) {
+        try {
+            connection.close();
+            Logger.getInstance().log("connection closed");
+        } catch (SQLException var3) {
+            var3.printStackTrace();
+        }
+
     }
 }
 
