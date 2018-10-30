@@ -1,5 +1,2 @@
-created new table users 2018/10/30 19:48:11
-connection opened 2018/10/30 19:48:15
-connection opened 2018/10/30 19:48:16
-connection closed 2018/10/30 19:48:16
-Update : fsdfaf , dsaf - SUCCESS 2018/10/30 19:48:16
+created new table users 2018/10/30 20:19:11
+connection opened 2018/10/30 20:19:17
