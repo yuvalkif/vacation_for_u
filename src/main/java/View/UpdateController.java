@@ -26,7 +26,7 @@ public class UpdateController{
         sCity = city.getText();
         sDate = date.getText();
 
-        if(sUserName.equals("")){
+        if(sUserName.equals("") || sUserName.trim().isEmpty()){
             ErrorBox box = new ErrorBox();
             Stage stage = box.getErrorBoxStage("Please pick a username to be updated");
             StageHolder.getInstance().holdStage(stage);

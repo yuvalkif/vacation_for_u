@@ -1,5 +1,3 @@
-
-
 package Model;
 
 import Connections.sqlLiteJDBCDriverConnection;
@@ -121,7 +119,7 @@ public class Model implements ISQLModel {
             e.printStackTrace();
             Logger.getInstance().log("FAILED TO DELETE " + userName);
 
-            }
+        }
 
 
     }
@@ -159,12 +157,12 @@ public class Model implements ISQLModel {
             if(!city.trim().isEmpty()){pstmt.setString(sqlArgsCount++, city);}
             if(!birthDate.trim().isEmpty()){pstmt.setDate(sqlArgsCount++, dateConvertor(birthDate));}
             if(sqlStatement!="") {pstmt.setString(sqlArgsCount, username);}
-                pstmt.executeUpdate();
+            pstmt.executeUpdate();
             System.out.println(sqlStatement);
             System.out.println("Updated user, Those fields have changed: (nulls not changed) " + username + " To " + "userName = [" + newUserName + "], password = [" + password + "], firstName = [" + firstName + "], lastName = [" + lastName + "], city = [" + city + "], birthDate = [" + birthDate + "]");
             this.closeConnection(conn);
             Logger.getInstance().log("Update : " + username + " , " + password + " - SUCCESS");
-            } catch (SQLException e1) {
+        } catch (SQLException e1) {
             e1.printStackTrace();
         }
 
@@ -286,7 +284,7 @@ public class Model implements ISQLModel {
         String ans = df.format(date);
         return ans;
     }
-
-
-
 }
+
+
+

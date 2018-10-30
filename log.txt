@@ -1,2 +1,11 @@
-created new table users 2018/10/30 10:42:40
-connection opened 2018/10/30 10:42:45
+created new table users 2018/10/30 11:50:24
+connection opened 2018/10/30 11:50:51
+connection closed 2018/10/30 11:50:51
+INSERT : Kev , pass - SUCCESS 2018/10/30 11:50:51
+connection opened 2018/10/30 11:50:58
+connection opened 2018/10/30 11:51:08
+connection closed 2018/10/30 11:51:08
+Update : Kev ,  - SUCCESS 2018/10/30 11:51:08
+connection opened 2018/10/30 11:51:15
+connection opened 2018/10/30 11:51:19
+DELETED Kev 2018/10/30 11:51:19
