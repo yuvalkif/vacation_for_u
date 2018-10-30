@@ -23,9 +23,8 @@ public class UpdateFormController {
     private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="";
 
     public void handleExecuteUpdate() {
-        user = new User(sNewUserName = newUserName.getText(), sPassword = password.getText(), sFirstName = firstname.getText(), sLastName = lastname.getText(),
+        user = new User(sUserName =username.getText(), sPassword = password.getText(), sFirstName = firstname.getText(), sLastName = lastname.getText(),
                 sCity = city.getText(), sDate = date.getText());
-
         sUserName = username.getText();
 
         if (sUserName.equals("")) {
@@ -48,6 +47,11 @@ public class UpdateFormController {
             return;
         }
 
+        if(controller.searchInDataBase(sUserName).size() == 0){
+            showError("User doesnt exist");
+            user=null;
+            return;
+        }
         if(controller.searchInDataBase(sUserName).size() == 0){
             showError("User doesnt exist");
             user=null;
