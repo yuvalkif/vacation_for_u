@@ -1,24 +1,19 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package View;
 
 import Logger.StageHolder;
 import java.io.IOException;
 
-import Objects.ErrorBox;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import Control.Controller;
+import javafx.stage.WindowEvent;
 
 public class View implements IView {
     private Controller controller;
@@ -47,6 +42,12 @@ public class View implements IView {
             StageHolder.getInstance().holdStage(stage);
             SignUpFormController sceneController = (SignUpFormController)loader.getController();
             sceneController.setController(controller);
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    handleXPress();
+                }
+            });
             stage.showAndWait();
             this.primaryStage.show();
             User toSubmit = sceneController.getToSubmit();
@@ -68,7 +69,6 @@ public class View implements IView {
             Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("SearchForm.fxml").openStream());
             SplitPane splitPane = (SplitPane)root.getChildrenUnmodifiable().get(0);
             AnchorPane upperPane = (AnchorPane)splitPane.getItems().get(0);
-//            ListView listView = (ListView)upperPane.getChildren().get(0);
             TableView<User> tableView = (TableView<User>)upperPane.getChildren().get(0);
             Scene scene = new Scene(root, 570, 550);
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
@@ -76,9 +76,16 @@ public class View implements IView {
             stage.setScene(scene);
             stage.setResizable(false);
             SearchFormController searchFormController = (SearchFormController)loader.getController();
+            searchFormController.setController(controller);
             searchFormController.setTableView(tableView);
             searchFormController.setView(this);
             StageHolder.getInstance().holdStage(stage);
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    handleXPress();
+                }
+            });
             stage.showAndWait();
             this.primaryStage.show();
         } catch (IOException var9) {
@@ -100,6 +107,12 @@ public class View implements IView {
             StageHolder.getInstance().holdStage(stage);
             UpdateFormController uc = (UpdateFormController) loader.getController();
             uc.setController(this.controller);
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    handleXPress();
+                }
+            });
             stage.showAndWait();
             this.primaryStage.show();
 
@@ -121,6 +134,12 @@ public class View implements IView {
             stage.setScene(scene);
             DeleteFormController deleteFormController = loader.getController();
             StageHolder.getInstance().holdStage(stage);
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    handleXPress();
+                }
+            });
             stage.showAndWait();
             String username = deleteFormController.getUsername();
             if(username != null && !username.equals(""))
@@ -129,8 +148,6 @@ public class View implements IView {
             e.printStackTrace();
         }
     }
-
-
 
     //endregion
 
@@ -144,5 +161,9 @@ public class View implements IView {
 
     public void setController(Controller controller) {
         this.controller = controller;
+    }
+
+    private void handleXPress(){
+        StageHolder.getInstance().getStage();
     }
 }
