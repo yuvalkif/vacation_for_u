@@ -12,13 +12,11 @@ import javafx.stage.Stage;
  */
 
 public class UpdateFormController {
-
-
+    private User user ;
+    private Controller controller ;
     @FXML
     public TextField username ,newUserName, password , firstname , lastname , city , date;
     private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="";
-    private User user ;
-    private Controller controller ;
 
     public void handleExecuteUpdate(){
         user = new User(sNewUserName = newUserName.getText(),sPassword = password.getText(),sFirstName = firstname.getText(),sLastName = lastname.getText(),

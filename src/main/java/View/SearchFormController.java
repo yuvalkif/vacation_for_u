@@ -9,6 +9,7 @@ package View;
  * controller class for the Read scene . controlled by 'SearchForm.fxml'
  */
 
+import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import javafx.collections.ObservableList;
@@ -21,9 +22,7 @@ import javafx.stage.Stage;
 
 public class SearchFormController {
     private User searchFields;
-    private View view;
-    private boolean isDone;
-    private ListView listView;
+    private Controller controller;
 
     @FXML
     public TextField username;
@@ -46,6 +45,11 @@ public class SearchFormController {
     public SearchFormController() {
     }
 
+    public void setController(Controller c)
+    {
+        controller = c;
+    }
+
     public void handleSearch() {
         this.searchFields = new User(this.username.getText(), this.password.getText(), this.firstname.getText(), this.lastname.getText(), this.city.getText(), this.birthdate.getText());
         if(searchFields.getUsername().equals("")) {
@@ -53,7 +57,7 @@ public class SearchFormController {
             return;
         }
 
-         this.showSearchResults(this.view.getSearchResultsFromController(searchFields));
+         this.showSearchResults(controller.searchInDataBase(searchFields));
     }
 
     private void raiseError(String errorMsg){
@@ -64,21 +68,18 @@ public class SearchFormController {
     }
 
     public void handleBack() {
-        this.isDone = true;
         StageHolder.getInstance().getStage().close();
     }
 
-
     public void handleSearchAll(){
-        showSearchResults(view.getAllDataBase());
+        showSearchResults(controller.getAllDataBase());
     }
-
 
     public User getSearchFields() {
         return this.searchFields;
     }
 
-    public void showSearchResults(ObservableList<User> searchResults) {
+    private void showSearchResults(ObservableList<User> searchResults) {
         if (searchResults != null) {
             userNameCol.setCellValueFactory(cellData -> cellData.getValue().pUserNameProperty());
             passwordCol.setCellValueFactory(cellData -> cellData.getValue().pPasswordProperty());
@@ -87,19 +88,8 @@ public class SearchFormController {
             cityCol.setCellValueFactory(cellData -> cellData.getValue().pCityProperty());
             dateCol.setCellValueFactory(cellData -> cellData.getValue().pBirthDateProperty());
             this.tableView.setItems(searchResults);
-
-//            this.listView.setItems(searchResults);
         }
     }
-
-    public void setListView(ListView listView) {
-        this.listView = listView;
-    }
-
-    public void setView(View view) {
-        this.view = view;
-    }
-
 
     public void setTableView(TableView<User> tableView) {
         this.tableView = tableView;
