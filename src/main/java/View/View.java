@@ -18,7 +18,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import sample.Controller;
+import Control.Controller;
 
 public class View implements IView {
     private Controller controller;
@@ -45,7 +45,7 @@ public class View implements IView {
             stage.setResizable(false);
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
-            LoginSceneController sceneController = (LoginSceneController)loader.getController();
+            SignUpFormController sceneController = (SignUpFormController)loader.getController();
             sceneController.setController(controller);
             stage.showAndWait();
             this.primaryStage.show();

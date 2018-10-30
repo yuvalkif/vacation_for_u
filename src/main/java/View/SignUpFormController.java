@@ -1,18 +1,17 @@
 package View;
 
+import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sample.Controller;
 
 /**
  * controller class for the sign up scene . controlled by 'SignUpForm.fxml'
  */
 
 public class SignUpFormController {
-
     private Controller controller;
    private User toSubmit;
    @FXML
