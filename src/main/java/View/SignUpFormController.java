@@ -1,5 +1,6 @@
 package View;
 
+import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import javafx.fxml.FXML;
@@ -11,16 +12,25 @@ import javafx.stage.Stage;
  */
 
 public class SignUpFormController {
-
+    private Controller controller;
    private User toSubmit;
    @FXML
    public TextField username , password , firstname , lastname , city , date;
 
     public void handleSubmit(){
         this.toSubmit = new User(username.getText(),password.getText(),firstname.getText(),lastname.getText(),city.getText(),date.getText());
+
         if(toSubmit.hasNullField()){
             ErrorBox box = new ErrorBox();
             Stage errorBoxStage = box.getErrorBoxStage("Must fill all fields");
+            StageHolder.getInstance().holdStage(errorBoxStage);
+            errorBoxStage.showAndWait();
+            return;
+        }
+        if(controller.searchInDataBase(toSubmit).size()>0)
+        {
+            ErrorBox box = new ErrorBox();
+            Stage errorBoxStage = box.getErrorBoxStage("Username exists");
             StageHolder.getInstance().holdStage(errorBoxStage);
             errorBoxStage.showAndWait();
             return;
@@ -34,5 +44,9 @@ public class SignUpFormController {
 
     public User getToSubmit() {
         return toSubmit;
+    }
+
+    public void setController(Controller controller){
+        this.controller = controller;
     }
 }

@@ -8,10 +8,12 @@ package View;
 import Logger.StageHolder;
 import java.io.IOException;
 
+import Objects.ErrorBox;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
@@ -35,7 +37,7 @@ public class View implements IView {
         FXMLLoader loader = new FXMLLoader();
 
         try {
-            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("SignUpForm.fxml").openStream());
+            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("logInFXML.fxml").openStream());
             Scene scene = new Scene(root, 500.0D, 450);
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
@@ -43,9 +45,10 @@ public class View implements IView {
             stage.setResizable(false);
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
+            SignUpFormController sceneController = (SignUpFormController)loader.getController();
+            sceneController.setController(controller);
             stage.showAndWait();
             this.primaryStage.show();
-            SignUpFormController sceneController = (SignUpFormController)loader.getController();
 
             User toSubmit = sceneController.getToSubmit();
             System.out.println(toSubmit);
