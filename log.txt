@@ -1,6 +1,2 @@
-created new table users 2018/10/30 17:04:33
-connection opened 2018/10/30 17:05:36
-connection opened 2018/10/30 17:05:36
-connection closed 2018/10/30 17:05:36
-INSERT : Kpl , sad - SUCCESS 2018/10/30 17:05:36
-created new table users 2018/10/30 17:05:08
+created new table users 2018/10/30 17:24:19
+connection opened 2018/10/30 17:24:21

@@ -175,7 +175,6 @@ public class Model implements ISQLModel {
         try {
             while(resultSet.next()) {
                 java.util.Date myDate = resultSet.getDate("birth_date");
-                System.out.println(myDate.toString());
                 observableList.add(new User(resultSet.getString(1),resultSet.getString(2) , dateToStringConvert(resultSet.getDate(3)), resultSet.getString(4), resultSet.getString(5) ,resultSet.getString(6)));
             }
         } catch (SQLException var4) {

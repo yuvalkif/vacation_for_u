@@ -34,7 +34,7 @@
                 <Label text="Password" GridPane.rowIndex="1" />
                 <Label text="First name" GridPane.rowIndex="2" />
                 <Label text="Last name" GridPane.rowIndex="3" />
-                <Label text="Birth date(dd-mm-yyyy)" GridPane.rowIndex="4" />
+                <Label text="Birth date(yyyy-dd-mm)" GridPane.rowIndex="4" />
                 <Label text="City" GridPane.rowIndex="5" />
             </children>
         </GridPane>
