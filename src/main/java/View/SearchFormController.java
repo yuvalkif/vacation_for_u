@@ -22,7 +22,6 @@ import javafx.stage.Stage;
 
 public class SearchFormController {
     private User searchFields;
-    private View view;
     private Controller controller;
     private boolean isDone;
     private ListView listView;
@@ -62,7 +61,7 @@ public class SearchFormController {
             return;
         }
 
-         this.showSearchResults(this.view.getSearchResultsFromController(searchFields));
+         this.showSearchResults(this.controller.searchInDataBase(searchFields));
     }
 
     private void raiseError(String errorMsg){
@@ -82,7 +81,7 @@ public class SearchFormController {
             raiseError("No records in database");
             return;
         }
-        showSearchResults(view.getAllDataBase());
+        showSearchResults(this.controller.getAllDataBase());
     }
 
 
@@ -109,9 +108,9 @@ public class SearchFormController {
         this.listView = listView;
     }
 
-    public void setView(View view) {
-        this.view = view;
-    }
+//    public void setView(View view) {
+//        this.view = view;
+//    }
 
 
     public void setTableView(TableView<User> tableView) {
