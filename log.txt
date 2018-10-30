@@ -1,8 +1,1 @@
-created new table users 2018/10/30 21:24:20
-connection opened 2018/10/30 21:24:32
-connection opened 2018/10/30 21:24:32
-connection opened 2018/10/30 21:24:38
-connection opened 2018/10/30 21:25:02
-connection opened 2018/10/30 21:25:02
-connection closed 2018/10/30 21:25:02
-INSERT : afs , sd - SUCCESS 2018/10/30 21:25:02
+created new table users 2018/10/30 21:31:12
