@@ -33,7 +33,7 @@ public class View implements IView {
 
         try {
             Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("SignUpForm.fxml").openStream());
-            Scene scene = new Scene(root, 500.0D, 450);
+            Scene scene = new Scene(root);
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
@@ -78,7 +78,6 @@ public class View implements IView {
             SearchFormController searchFormController = (SearchFormController)loader.getController();
             searchFormController.setController(controller);
             searchFormController.setTableView(tableView);
-            searchFormController.setView(this);
             searchFormController.setController(this.controller);
             StageHolder.getInstance().holdStage(stage);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -100,7 +99,7 @@ public class View implements IView {
 
         try {
             Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("UpdateForm.fxml").openStream());
-            Scene scene = new Scene(root, 600, 450);
+            Scene scene = new Scene(root);
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
@@ -128,13 +127,12 @@ public class View implements IView {
         FXMLLoader loader = new FXMLLoader();
         try{
             Parent root = loader.load(getClass().getClassLoader().getResource("DeleteForm.fxml").openStream());
-            Scene scene = new Scene(root,400,270);
+            Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setResizable(false);
             stage.setScene(scene);
             DeleteFormController deleteFormController = loader.getController();
-            deleteFormController.setController(this.controller);
             StageHolder.getInstance().holdStage(stage);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override

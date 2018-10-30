@@ -1,3 +1,4 @@
 created new table users 2018/10/30 19:06:07
 connection opened 2018/10/30 19:06:09
 connection opened 2018/10/30 19:06:09
+created new table users 2018/10/30 19:02:32
