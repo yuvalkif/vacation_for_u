@@ -95,7 +95,6 @@ public class Model implements ISQLModel {
     public void updateUsers(String username ,String newUserName, String password , String firstName, String lastName, String city, String birthDate) {
         String sqlStatement="";
         String sqlStatementPreFix="UPDATE users SET ";
-        String usernewUserNameArg="",passowrdArg="",firstNameArg="",lastNameArg="",cityArg="",dateArg="";
         StringJoiner joiner = new StringJoiner(", ");
         int sqlArgsCount=1;
         int [] statementIdx = new int[7];
@@ -175,6 +174,8 @@ public class Model implements ISQLModel {
 
         try {
             while(resultSet.next()) {
+                java.util.Date myDate = resultSet.getDate("birth_date");
+                System.out.println(myDate.toString());
                 observableList.add(new User(resultSet.getString(1),resultSet.getString(2) , dateToStringConvert(resultSet.getDate(3)), resultSet.getString(4), resultSet.getString(5) ,resultSet.getString(6)));
             }
         } catch (SQLException var4) {
@@ -210,7 +211,7 @@ public class Model implements ISQLModel {
     }
 
     private Date dateConvert(String sDate){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
         try {
             java.util.Date jDate = dateFormat.parse(sDate);
             java.sql.Date sqlDate = new java.sql.Date(jDate.getTime());
@@ -226,7 +227,7 @@ public class Model implements ISQLModel {
     }
 
     private String dateToStringConvert(Date date){
-        DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
         String ans = df.format(date);
         return ans;
     }
