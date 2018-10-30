@@ -4,6 +4,7 @@ import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -20,6 +21,7 @@ public class UpdateFormController {
     @FXML
     public TextField username ,newUserName, password , firstname , lastname , city , date;
     private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="";
+
 
     public void handleExecuteUpdate(){
         user = new User(sNewUserName = newUserName.getText(),sPassword = password.getText(),sFirstName = firstname.getText(),sLastName = lastname.getText(),
@@ -43,7 +45,8 @@ public class UpdateFormController {
             return ;
         }
         //date valid check
-        if(!isValidDate(user.getDate())){
+        System.out.println(user.getDate());
+        if(!isValidDate(user.getDate()) && user.getDate().length()>0){
             showError("Please insert a valid date of format YYYY-MM-DD");
             return;
         }
@@ -91,5 +94,6 @@ public class UpdateFormController {
         }
         return true;
     }
+
 
 }
