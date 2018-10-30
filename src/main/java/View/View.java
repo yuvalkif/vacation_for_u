@@ -77,7 +77,6 @@ public class View implements IView {
             stage.setResizable(false);
             SearchFormController searchFormController = (SearchFormController)loader.getController();
             searchFormController.setController(controller);
-            searchFormController.setView(this);
             searchFormController.setTableView(tableView);
             searchFormController.setController(this.controller);
             StageHolder.getInstance().holdStage(stage);
