@@ -33,9 +33,9 @@
  * Empty Stylesheet file.
  */
 
-.root{
-    -fx-background-color: #262626;
-}
+/*.root{*/
+    /*-fx-background-color: #262626;*/
+/*}*/
 
 .table-view{
     -fx-background-color: transparent;
