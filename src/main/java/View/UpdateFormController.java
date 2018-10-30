@@ -46,9 +46,11 @@ public class UpdateFormController {
         }
         if (result.size() == 0) {
             showError("Username does not exist.");
+            return;
+        }
             //date valid check
-            if (!isValidDate(user.getDate())) {
-                showError("Please insert a valid date of format YYYY-MM-DD");
+            if (!user.getDate().equals("") && !isValidDate(user.getDate())) {
+                showError("Please insert a valid date of \nformat YYYY-MM-DD");
                 return;
             }
 
@@ -58,7 +60,6 @@ public class UpdateFormController {
 
             StageHolder.getInstance().getStage().close();
         }
-    }
 
 
     private void showError(String msg){
