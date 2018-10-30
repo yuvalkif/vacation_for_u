@@ -102,10 +102,6 @@ public class View implements IView {
             uc.setController(this.controller);
             stage.showAndWait();
             this.primaryStage.show();
-            User toUpdate = uc.getUser();
-            if(toUpdate!=null && !toUpdate.nullRecord())
-                this.controller.updateUser(uc.getsUserName(),toUpdate.getUsername(),toUpdate.getpPassword(),toUpdate.getFirstname(),
-                        toUpdate.getLastname(),toUpdate.getCity(),toUpdate.getDate());
 
         } catch (IOException var6) {
             var6.getCause();
