@@ -52,8 +52,6 @@ public class SearchFormController {
             raiseError("Must specify a username");
             return;
         }
-//        this.showSearchResults(this.view.getSearchResultsFromController(this.searchFields));
-
 
          this.showSearchResults(this.view.getAllDataBase());
     }
@@ -70,9 +68,11 @@ public class SearchFormController {
         StageHolder.getInstance().getStage().close();
     }
 
-    public boolean getIsDone() {
-        return this.isDone;
+
+    public void handleSearchAll(){
+        showSearchResults(view.getAllDataBase());
     }
+
 
     public User getSearchFields() {
         return this.searchFields;
