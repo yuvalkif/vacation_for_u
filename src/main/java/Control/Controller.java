@@ -3,13 +3,13 @@
 // (powered by Fernflower decompiler)
 //
 
-package sample;
+package Control;
 
 import Logger.Logger;
 import Model.ISQLModel;
 import Model.Model;
 import View.IView;
-import java.sql.Date;
+
 import java.util.List;
 
 import View.User;
@@ -53,7 +53,7 @@ public class Controller {
     }
 
     public ObservableList getAllDataBase() {
-        return ((Model)this.model).selectAllDataBase();
+        return ((Model)this.model).searchRecordsByFields(null);
     }
 
     public void setAll() {

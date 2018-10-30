@@ -6,10 +6,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * controller class for the Delete scene . controlled by 'Delete.fxml'
+ * controller class for the Delete scene . controlled by 'DeleteForm.fxml'
  */
 
-public class DeleteController {
+public class DeleteFormController {
     public TextField txtfld_username;
     private String username;
 

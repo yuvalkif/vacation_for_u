@@ -7,10 +7,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * controller class for the sign up scene . controlled by 'logInFXML.fxml'
+ * controller class for the sign up scene . controlled by 'SignUpForm.fxml'
  */
 
-public class LoginSceneController{
+public class SignUpFormController {
 
    private User toSubmit;
    @FXML

@@ -8,17 +8,15 @@ package View;
 import Logger.StageHolder;
 import java.io.IOException;
 
-import Objects.ErrorBox;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import sample.Controller;
+import Control.Controller;
 
 public class View implements IView {
     private Controller controller;
@@ -37,7 +35,7 @@ public class View implements IView {
         FXMLLoader loader = new FXMLLoader();
 
         try {
-            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("logInFXML.fxml").openStream());
+            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("SignUpForm.fxml").openStream());
             Scene scene = new Scene(root, 500.0D, 450);
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
@@ -47,7 +45,7 @@ public class View implements IView {
             StageHolder.getInstance().holdStage(stage);
             stage.showAndWait();
             this.primaryStage.show();
-            LoginSceneController sceneController = (LoginSceneController)loader.getController();
+            SignUpFormController sceneController = (SignUpFormController)loader.getController();
 
             User toSubmit = sceneController.getToSubmit();
             System.out.println(toSubmit);
@@ -65,7 +63,7 @@ public class View implements IView {
         FXMLLoader loader = new FXMLLoader();
 
         try {
-            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("readAllController.fxml").openStream());
+            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("SearchForm.fxml").openStream());
             SplitPane splitPane = (SplitPane)root.getChildrenUnmodifiable().get(0);
             AnchorPane upperPane = (AnchorPane)splitPane.getItems().get(0);
 //            ListView listView = (ListView)upperPane.getChildren().get(0);
@@ -75,9 +73,9 @@ public class View implements IView {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setResizable(false);
-            ReadAll readAll = (ReadAll)loader.getController();
-            readAll.setTableView(tableView);
-            readAll.setView(this);
+            SearchFormController searchFormController = (SearchFormController)loader.getController();
+            searchFormController.setTableView(tableView);
+            searchFormController.setView(this);
             StageHolder.getInstance().holdStage(stage);
             stage.showAndWait();
             this.primaryStage.show();
@@ -91,7 +89,7 @@ public class View implements IView {
         FXMLLoader loader = new FXMLLoader();
 
         try {
-            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("UpdateController.fxml").openStream());
+            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("UpdateForm.fxml").openStream());
             Scene scene = new Scene(root, 600, 450);
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
@@ -100,7 +98,7 @@ public class View implements IView {
             StageHolder.getInstance().holdStage(stage);
             stage.showAndWait();
             this.primaryStage.show();
-            UpdateController uc = (UpdateController) loader.getController();
+            UpdateFormController uc = (UpdateFormController) loader.getController();
             User toUpdate = new User(uc.getsUserName(),uc.getsPassword(),uc.getsFirstName(),uc.getsLastName(),
                     uc.getsCity(),uc.getsDate());
             if(!toUpdate.nullRecord())
@@ -117,17 +115,17 @@ public class View implements IView {
     public void handleDelete(){
         FXMLLoader loader = new FXMLLoader();
         try{
-            Parent root = loader.load(getClass().getClassLoader().getResource("Delete.fxml").openStream());
+            Parent root = loader.load(getClass().getClassLoader().getResource("DeleteForm.fxml").openStream());
             Scene scene = new Scene(root,400,270);
             scene.getStylesheets().add(getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setResizable(false);
             stage.setScene(scene);
-            DeleteController deleteController = loader.getController();
+            DeleteFormController deleteFormController = loader.getController();
             StageHolder.getInstance().holdStage(stage);
             stage.showAndWait();
-            String username = deleteController.getUsername();
-            if(!username.equals(""))
+            String username = deleteFormController.getUsername();
+            if(!username.equals("") && !username.trim().isEmpty())
                 controller.deleteUser(username);
         }catch (IOException e){
             e.printStackTrace();
@@ -138,7 +136,7 @@ public class View implements IView {
 
     //endregion
 
-    public ObservableList<User> searchInDataBase(User user) {
+    public ObservableList<User> getSearchResultsFromController(User user) {
         return this.controller.searchInDataBase(user);
     }
 

@@ -7,10 +7,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * controller class for the update scene. controlled by 'UpdateController.fxml'
+ * controller class for the update scene. controlled by 'UpdateFormController.fxml'
  */
 
-public class UpdateController{
+public class UpdateFormController {
 
 
     @FXML

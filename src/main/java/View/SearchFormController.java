@@ -6,7 +6,7 @@
 package View;
 
 /**
- * controller class for the Read scene . controlled by 'readAllController.fxml'
+ * controller class for the Read scene . controlled by 'SearchForm.fxml'
  */
 
 import Logger.StageHolder;
@@ -19,7 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class ReadAll {
+public class SearchFormController {
     private User searchFields;
     private View view;
     private boolean isDone;
@@ -43,7 +43,7 @@ public class ReadAll {
     private TableColumn<User,String> userNameCol,passwordCol,firstNameCol,lastNameCol,cityCol,dateCol;
 
 
-    public ReadAll() {
+    public SearchFormController() {
     }
 
     public void handleSearch() {
@@ -52,9 +52,10 @@ public class ReadAll {
             raiseError("Must specify a username");
             return;
         }
-        this.showSearchResults(this.view.searchInDataBase(this.searchFields));
+//        this.showSearchResults(this.view.getSearchResultsFromController(this.searchFields));
 
-        // this.showSearchResults(this.view.getAllDataBase());
+
+         this.showSearchResults(this.view.getAllDataBase());
     }
 
     private void raiseError(String errorMsg){

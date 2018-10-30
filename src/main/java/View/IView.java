@@ -1,7 +1,7 @@
 package View;
 
 import javafx.stage.Stage;
-import sample.Controller;
+import Control.Controller;
 
 /**
  * interface for GUI view classes
