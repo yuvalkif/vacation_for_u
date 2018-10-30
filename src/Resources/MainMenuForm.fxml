@@ -9,9 +9,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="419.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.View">
    <children>
-      <ImageView fitHeight="320.0" fitWidth="430.0" pickOnBounds="true">
+      <ImageView fitHeight="335.0" fitWidth="430.0" pickOnBounds="true">
          <image>
-            <Image url="@back.jpg" />
+            <Image url="back.jpg" />
          </image>
       </ImageView>
       <Button fx:id="btn_signup" layoutX="6.0" layoutY="77.0" mnemonicParsing="false" onAction="#signInScene" opacity="0.69" prefHeight="108.0" prefWidth="199.0" text="SignUp">

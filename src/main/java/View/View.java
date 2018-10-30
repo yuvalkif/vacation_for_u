@@ -49,9 +49,8 @@ public class View implements IView {
             sceneController.setController(controller);
             stage.showAndWait();
             this.primaryStage.show();
-
             User toSubmit = sceneController.getToSubmit();
-            System.out.println(toSubmit);
+
             if( toSubmit != null && !sceneController.getToSubmit().hasNullField())
                 this.controller.handleSubmitSignIn(toSubmit);
 
@@ -124,7 +123,7 @@ public class View implements IView {
             StageHolder.getInstance().holdStage(stage);
             stage.showAndWait();
             String username = deleteFormController.getUsername();
-            if(!username.equals("") && !username.trim().isEmpty())
+            if(username != null && !username.equals(""))
                 controller.deleteUser(username);
         }catch (IOException e){
             e.printStackTrace();
