@@ -21,11 +21,13 @@ public class DeleteFormController {
 
         if(username.equals("")) {
             raiseError("Must specify username to delete");
+            username=null;
             return;
         }
 
         if(controller.searchInDataBase(new User(username,"","","","","")).size() == 0){
             raiseError("Username does not exist.");
+            username = null;
             return;
         }
 

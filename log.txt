@@ -1,5 +1,1 @@
-created new table users 2018/10/30 18:31:03
-connection opened 2018/10/30 18:31:07
-connection opened 2018/10/30 18:31:07
-connection closed 2018/10/30 18:31:07
-Update : Wer ,  - SUCCESS 2018/10/30 18:31:07
+created new table users 2018/10/30 19:57:40

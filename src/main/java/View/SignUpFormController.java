@@ -25,14 +25,22 @@ public class SignUpFormController {
 
         if (toSubmit.hasNullField()) {
             raiseError("Must fill all the fields");
-            return;
-        }
-        if (controller.searchInDataBase(toSubmit).size() > 0) {//check if username already exists
-            raiseError("Username already exists! Please choose \na new one");
+            toSubmit=null;
             return;
         }
         if(!isValidDate(toSubmit.getDate())){
             raiseError("Please insert a valid date of format YYYY-MM-DD");
+            toSubmit=null;
+            return;
+        }
+        if (controller.searchInDataBase(toSubmit).size() > 0) {//check if username already exists
+            raiseError("Username already exists! Please choose \na new one");
+            toSubmit=null;
+            return;
+        }
+        if(!isValidDate(toSubmit.getDate())){
+            raiseError("Please insert a valid date of format YYYY-MM-DD");
+            return;
         }
 
 
