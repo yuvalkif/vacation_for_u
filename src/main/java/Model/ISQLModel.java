@@ -2,9 +2,11 @@ package Model;
 
 import View.User;
 import Control.Controller;
+import javafx.collections.ObservableList;
 
 
 import java.util.List;
+import java.util.Observable;
 
 
 /**
@@ -47,8 +49,10 @@ public interface ISQLModel {
 
     /**
      * search records by username
-     * @param fields
+     * @param username
      * @return
      */
-    List<User> searchRecordsByFields(User fields);
+    List<User> searchRecordsByFields(String username);
+
+    ObservableList selectAllDataBase();
 }

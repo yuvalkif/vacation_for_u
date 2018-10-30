@@ -28,11 +28,7 @@ public class sqlLiteJDBCDriverConnection {
         try {
             // db parameters
             String url = "jdbc:sqlite:vacation_for_u.db";
-
-
             conn = DriverManager.getConnection(url);
-
-            System.out.println("Connection to SQLite has been established.");
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -37,7 +37,7 @@ public class View implements IView {
         FXMLLoader loader = new FXMLLoader();
 
         try {
-            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("logInFXML.fxml").openStream());
+            Parent root = (Parent)loader.load(this.getClass().getClassLoader().getResource("SignUpForm.fxml").openStream());
             Scene scene = new Scene(root, 500.0D, 450);
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
@@ -99,13 +99,10 @@ public class View implements IView {
             stage.setScene(scene);
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
+            UpdateFormController uc = (UpdateFormController) loader.getController();
+            uc.setController(this.controller);
             stage.showAndWait();
             this.primaryStage.show();
-            UpdateFormController uc = (UpdateFormController) loader.getController();
-            User toUpdate = uc.getUser();
-            if(!toUpdate.nullRecord())
-                this.controller.updateUser(uc.getsUserName(),toUpdate.getUsername(),toUpdate.getpPassword(),toUpdate.getFirstname(),
-                        toUpdate.getLastname(),toUpdate.getCity(),toUpdate.getDate());
 
         } catch (IOException var6) {
             var6.getCause();

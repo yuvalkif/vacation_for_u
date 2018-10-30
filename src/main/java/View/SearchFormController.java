@@ -53,7 +53,7 @@ public class SearchFormController {
             return;
         }
 
-         this.showSearchResults(this.view.getAllDataBase());
+         this.showSearchResults(this.view.getSearchResultsFromController(searchFields));
     }
 
     private void raiseError(String errorMsg){
