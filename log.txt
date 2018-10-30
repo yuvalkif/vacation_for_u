@@ -1,3 +1,6 @@
-created new table users 2018/10/30 18:17:22
-connection opened 2018/10/30 18:17:26
-connection opened 2018/10/30 18:17:31
+created new table users 2018/10/30 18:23:01
+connection opened 2018/10/30 18:23:05
+connection opened 2018/10/30 18:23:06
+DELETED gggg 2018/10/30 18:23:06
+connection opened 2018/10/30 18:23:08
+connection opened 2018/10/30 18:23:11
