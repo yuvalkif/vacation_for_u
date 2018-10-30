@@ -39,6 +39,7 @@ public class Controller {
         }
     }
 
+
     public void updateUser(String username, String newUserName, String password, String firstName, String lastName, String city, String date){
         this.model.updateUsers(username,newUserName,password,firstName,lastName,city,date);
 
@@ -63,6 +64,10 @@ public class Controller {
 
     public void deleteUser(String username){
         this.model.deleteUsers(username);
+    }
+
+    public void raiseError(String msg){
+        this.view.raiseError(msg);
     }
 
     public void setView(IView view) {

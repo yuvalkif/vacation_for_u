@@ -1,2 +1,6 @@
-created new table users 2018/10/30 10:42:40
-connection opened 2018/10/30 10:42:45
+created new table users 2018/10/30 12:43:52
+connection opened 2018/10/30 12:43:54
+connection opened 2018/10/30 12:44:01
+connection closed 2018/10/30 12:44:01
+Update : adam ,  - SUCCESS 2018/10/30 12:44:01
+connection opened 2018/10/30 12:44:04

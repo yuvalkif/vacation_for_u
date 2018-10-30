@@ -45,8 +45,10 @@ public class ReadAll {
             return;
         }
         this.showSearchResults(this.view.searchInDataBase(this.searchFields));
+    }
 
-        // this.showSearchResults(this.view.getAllDataBase());
+    public void handleSearchAll(){
+        showSearchResults(view.getAllDataBase());
     }
 
     private void raiseError(String errorMsg){

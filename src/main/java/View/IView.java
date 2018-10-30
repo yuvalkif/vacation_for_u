@@ -12,4 +12,5 @@ public interface IView {
     void setController(Controller controller);
     void signInScene();
     void setCurrentStage(Stage stage);
+    void raiseError(String msg);
 }

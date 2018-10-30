@@ -99,11 +99,10 @@ public class View implements IView {
             stage.showAndWait();
             this.primaryStage.show();
             UpdateController uc = (UpdateController) loader.getController();
-            User toUpdate = new User(uc.getsUserName(),uc.getsPassword(),uc.getsFirstName(),uc.getsLastName(),
-                    uc.getsCity(),uc.getsDate());
+            User toUpdate = uc.getUpdatedUser();
             if(!toUpdate.nullRecord())
-                this.controller.updateUser(uc.getsUserName(),uc.getsNewUserName(),uc.getsPassword(),uc.getsFirstName(),uc.getsLastName(),
-                        uc.getsCity(),uc.getsDate());
+                this.controller.updateUser(uc.getsUserName(),toUpdate.getUsername(),toUpdate.getPassword(),toUpdate.getFirstname(),
+                        toUpdate.getLastname(),toUpdate.getCity(),toUpdate.getDate());
 
         } catch (IOException var6) {
             var6.getCause();
@@ -135,6 +134,13 @@ public class View implements IView {
 
 
     //endregion
+
+    public void raiseError(String msg){
+        ErrorBox errorBox = new ErrorBox();
+        Stage stage = errorBox.getErrorBoxStage(msg);
+        StageHolder.getInstance().holdStage(stage);
+        stage.showAndWait();
+    }
 
     public ObservableList searchInDataBase(User user) {
         return this.controller.searchInDataBase(user);

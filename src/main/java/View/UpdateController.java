@@ -16,55 +16,43 @@ public class UpdateController{
     @FXML
     public TextField username ,newUserName, password , firstname , lastname , city , date;
     private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="";
+    private User user ;
 
     public void handleExecuteUpdate(){
+        user = new User(sNewUserName = newUserName.getText(),sPassword = password.getText(),sFirstName = firstname.getText(),sLastName = lastname.getText(),
+                sCity = city.getText(), sDate = date.getText());
+
         sUserName = username.getText();
-        sNewUserName = newUserName.getText();
-        sPassword = password.getText();
-        sFirstName = firstname.getText();
-        sLastName = lastname.getText();
-        sCity = city.getText();
-        sDate = date.getText();
 
         if(sUserName.equals("")){
-            ErrorBox box = new ErrorBox();
-            Stage stage = box.getErrorBoxStage("Please pick a username to be updated");
-            StageHolder.getInstance().holdStage(stage);
-            stage.showAndWait();
+            showError("Please enter a username to be updated");
+            return;
         }
 
+        if(user.nullRecord()) {
+            showError("Please enter atleast 1 field \n" + "to be updated");
+            return;
+        }
         StageHolder.getInstance().getStage().close();
+    }
+
+    private void showError(String msg){
+        ErrorBox box = new ErrorBox();
+        Stage stage = box.getErrorBoxStage(msg);
+        StageHolder.getInstance().holdStage(stage);
+        stage.showAndWait();
     }
 
     public void handleBack(){
         StageHolder.getInstance().getStage().close();
     }
 
+
     public String getsUserName() {
         return sUserName;
     }
 
-    public String getsNewUserName() {
-        return sNewUserName;
-    }
-
-    public String getsPassword() {
-        return sPassword;
-    }
-
-    public String getsFirstName() {
-        return sFirstName;
-    }
-
-    public String getsLastName() {
-        return sLastName;
-    }
-
-    public String getsCity() {
-        return sCity;
-    }
-
-    public String getsDate() {
-        return sDate;
+    public User getUpdatedUser(){
+        return this.user;
     }
 }

@@ -127,6 +127,11 @@ public class Model implements ISQLModel {
     }
 
     public void updateUsers(String username ,String newUserName, String password , String firstName, String lastName, String city, String birthDate) {
+
+        if(!birthDate.equals("") && !birthDateValid(birthDate)){
+            controller.raiseError("Invalid date format .\nPlease insert in the format yyyy-mm-dd");
+            return;
+        }
         String sqlStatement="";
         String sqlStatementPreFix="UPDATE users SET ";
         String usernewUserNameArg="",passowrdArg="",firstNameArg="",lastNameArg="",cityArg="",dateArg="";
@@ -264,6 +269,28 @@ public class Model implements ISQLModel {
 
     }
 
+    private boolean birthDateValid(String date){
+        if(date.length() != 10)
+            return false;
+
+        for(int i = 0 ; i < date.length() ; i++)
+            if(i == 5 || i== 8)
+                if(date.charAt(i) != '-')
+                    return false;
+             else
+                 if(!isDigit(date.charAt(i)))
+                     return false;
+
+        return true;
+    }
+
+    private boolean isDigit(char c){
+
+        if(c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9' || c == '0')
+            return true;
+
+        return false;
+    }
 
     private Date dateConvertor(String sDate){
         SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
@@ -286,7 +313,6 @@ public class Model implements ISQLModel {
         String ans = df.format(date);
         return ans;
     }
-
 
 
 }
