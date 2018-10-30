@@ -13,12 +13,12 @@
 
 <AnchorPane prefHeight="453.0" prefWidth="738.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UpdateFormController">
     <children>
-      <ImageView fitHeight="453.0" fitWidth="738.0" pickOnBounds="true">
+      <ImageView fitHeight="453.0" fitWidth="765.0" pickOnBounds="true">
          <image>
             <Image url="backUpDate.jpg" />
          </image>
       </ImageView>
-        <GridPane layoutX="3.0" layoutY="1.0" prefHeight="355.0" prefWidth="371.0">
+        <GridPane layoutX="3.0" layoutY="1.0" prefHeight="355.0" prefWidth="390.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="242.0" minWidth="10.0" prefWidth="153.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="392.0" minWidth="10.0" prefWidth="218.0" />

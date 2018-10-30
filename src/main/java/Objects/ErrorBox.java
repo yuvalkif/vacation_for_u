@@ -7,6 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+
 public class ErrorBox {
 
     private Stage errorStage;
@@ -35,6 +37,14 @@ public class ErrorBox {
         stage.setTitle("Error");
         stage.setResizable(false);
         stage.setScene(scene);
+
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                StageHolder.getInstance().getStage().close();
+            }
+        });
+
         this.errorStage = stage;
 
     }
