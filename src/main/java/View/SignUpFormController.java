@@ -41,9 +41,7 @@ public class SignUpFormController {
 
     private void raiseError(String msg) {
         ErrorBox box = new ErrorBox();
-        Stage errorBoxStage = box.getErrorBoxStage(msg);
-        StageHolder.getInstance().holdStage(errorBoxStage);
-        errorBoxStage.showAndWait();
+        box.showErrorStage(msg);
     }
 
     public void handleBack() {

@@ -22,7 +22,9 @@ import javafx.stage.Stage;
 
 public class SearchFormController {
     private User searchFields;
-    private Controller controller;
+    private View view;
+    private boolean isDone;
+    private ListView listView;
 
     @FXML
     public TextField username;
@@ -40,14 +42,9 @@ public class SearchFormController {
     private TableView<User> tableView;
     @FXML
     private TableColumn<User,String> userNameCol,passwordCol,firstNameCol,lastNameCol,cityCol,dateCol;
-
+    private Controller controller;
 
     public SearchFormController() {
-    }
-
-    public void setController(Controller c)
-    {
-        controller = c;
     }
 
     public void handleSearch() {
@@ -57,29 +54,41 @@ public class SearchFormController {
             return;
         }
 
-         this.showSearchResults(controller.searchInDataBase(searchFields));
+        if(this.controller.searchInDataBase(searchFields).size() == 0){
+            raiseError("Username does not exist.");
+            return;
+        }
+
+         this.showSearchResults(this.view.getSearchResultsFromController(searchFields));
     }
 
     private void raiseError(String errorMsg){
         ErrorBox box = new ErrorBox();
-        Stage errorStage = box.getErrorBoxStage(errorMsg);
-        StageHolder.getInstance().holdStage(errorStage);
-        errorStage.showAndWait();
+        box.showErrorStage(errorMsg);
+
     }
 
     public void handleBack() {
+        this.isDone = true;
         StageHolder.getInstance().getStage().close();
     }
 
+
     public void handleSearchAll(){
-        showSearchResults(controller.getAllDataBase());
+        if(this.controller.getAllDataBase().size() == 0){
+            raiseError("No records in database");
+            return;
+        }
+        showSearchResults(view.getAllDataBase());
     }
+
 
     public User getSearchFields() {
         return this.searchFields;
     }
 
-    private void showSearchResults(ObservableList<User> searchResults) {
+    public void showSearchResults(ObservableList<User> searchResults) {
+
         if (searchResults != null) {
             userNameCol.setCellValueFactory(cellData -> cellData.getValue().pUserNameProperty());
             passwordCol.setCellValueFactory(cellData -> cellData.getValue().pPasswordProperty());
@@ -88,10 +97,25 @@ public class SearchFormController {
             cityCol.setCellValueFactory(cellData -> cellData.getValue().pCityProperty());
             dateCol.setCellValueFactory(cellData -> cellData.getValue().pBirthDateProperty());
             this.tableView.setItems(searchResults);
+
+//            this.listView.setItems(searchResults);
         }
     }
 
+    public void setListView(ListView listView) {
+        this.listView = listView;
+    }
+
+    public void setView(View view) {
+        this.view = view;
+    }
+
+
     public void setTableView(TableView<User> tableView) {
         this.tableView = tableView;
+    }
+
+    public void setController(Controller controller){
+        this.controller = controller;
     }
 }

@@ -8,18 +8,20 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 public class ErrorBox {
+
+    private Stage errorStage;
+    private Label errorLabel;
+
     public ErrorBox(){
-    }
-    public Stage getErrorBoxStage(String errorMsg){
         AnchorPane pane = new AnchorPane();
         Scene scene = new Scene(pane,400,200);
         scene.getStylesheets().add(getClass().getClassLoader().getResource("Forms.css").toExternalForm());
         Button button_close = new Button("Close");
-        Label label = new Label(errorMsg);
+        this.errorLabel = new Label();
         button_close.setLayoutX(120);
         button_close.setLayoutY(150);
-        label.setLayoutX(90);
-        label.setLayoutY(50);
+        this.errorLabel.setLayoutX(90);
+        this.errorLabel.setLayoutY(50);
         button_close.setPrefWidth(150);
         button_close.setPrefHeight(40);
         button_close.setOnAction(new EventHandler<ActionEvent>() {
@@ -28,11 +30,23 @@ public class ErrorBox {
                 StageHolder.getInstance().getStage().close();
             }
         });
-        pane.getChildren().addAll(button_close,label);
+        pane.getChildren().addAll(button_close,errorLabel);
         Stage stage = new Stage();
         stage.setTitle("Error");
         stage.setResizable(false);
         stage.setScene(scene);
-        return stage;
+        this.errorStage = stage;
+
     }
+
+
+
+
+    public void showErrorStage(String errorMsg){
+        this.errorLabel.setText(errorMsg);
+        StageHolder.getInstance().holdStage(this.errorStage);
+        this.errorStage.showAndWait();
+
+    }
+
 }

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -9,6 +13,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UpdateFormController">
@@ -32,27 +37,22 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField fx:id="newUserName" GridPane.columnIndex="1" />
-                <TextField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="firstname" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="lastname" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <TextField fx:id="date" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <TextField fx:id="city" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                <Label text="User name" />
-                <Label text="Password" GridPane.rowIndex="1" />
-                <Label text="First name" GridPane.rowIndex="2" />
-                <Label text="Last name" GridPane.rowIndex="3" />
-                <Label text="Birth date (YYYY-DD-MM)" GridPane.rowIndex="4" />
-                <Label text="City" GridPane.rowIndex="5" />
+                <TextField fx:id="newUserName" promptText="Insert new Username" GridPane.columnIndex="1" />
+                <TextField fx:id="password" promptText="Insert new Password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="firstname" promptText="Insert new First Name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="lastname" promptText="Insert new Last Name" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="date" promptText="Insert new Birth Date" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <TextField fx:id="city" promptText="Insert new City" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             </children>
         </GridPane>
-        <Button layoutX="114.0" layoutY="373.0" mnemonicParsing="false" onAction="#handleExecuteUpdate" prefHeight="31.0" prefWidth="109.0" text="Update" />
-        <Button layoutX="300.0" layoutY="371.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="31.0" prefWidth="109.0" text="Back" />
-      <Label layoutX="473.0" layoutY="22.0" text="Update" />
-      <TextField fx:id="username" layoutX="396.0" layoutY="73.0" prefHeight="39.0" prefWidth="190.0" promptText="Enter username to update">
+        <Button layoutX="210.0" layoutY="354.0" mnemonicParsing="false" onAction="#handleExecuteUpdate" prefHeight="31.0" prefWidth="109.0" text="Update" />
+        <Button layoutX="333.0" layoutY="354.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="31.0" prefWidth="109.0" text="Back" />
+      <Label layoutX="338.0" layoutY="7.0" text="Update" />
+      <TextField fx:id="username" layoutX="249.0" layoutY="41.0" prefHeight="39.0" prefWidth="334.0" promptText="Enter the username of the user you wish to update">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
+      <Label layoutX="271.0" layoutY="107.0" prefHeight="151.0" prefWidth="258.0" text="Fill the fields you wish to update.  fields that remained untouched will not get changed." wrapText="true" />
     </children>
 </AnchorPane>

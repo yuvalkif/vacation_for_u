@@ -3,6 +3,7 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -21,46 +22,47 @@ public class UpdateFormController {
     public TextField username ,newUserName, password , firstname , lastname , city , date;
     private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="";
 
-    public void handleExecuteUpdate(){
-        user = new User(sNewUserName = newUserName.getText(),sPassword = password.getText(),sFirstName = firstname.getText(),sLastName = lastname.getText(),
+    public void handleExecuteUpdate() {
+        user = new User(sNewUserName = newUserName.getText(), sPassword = password.getText(), sFirstName = firstname.getText(), sLastName = lastname.getText(),
                 sCity = city.getText(), sDate = date.getText());
 
         sUserName = username.getText();
 
-        if(sUserName.equals("")){
+        if (sUserName.equals("")) {
             showError("Please enter a username to be updated");
             return;
         }
 
-        if(user.nullRecord()) {
+        if (user.nullRecord()) {
             showError("Please fill atleast 1 field \n" + "to be updated");
             return;
         }
 
-        if(this.controller.searchInDataBase(user).size() > 0){
+        ObservableList result = controller.searchInDataBase(user);
+        if (result.size() > 0) {
             showError("Username already exists. please choose\n" +
                     "a new one");
-            return ;
+            return;
         }
         //date valid check
-        if(!isValidDate(user.getDate())){
+
+        if(!isValidDate(user.getDate()) && user.getDate().length()>0){
             showError("Please insert a valid date of format YYYY-MM-DD");
             return;
         }
 
-        //the update if all ok
-        this.controller.updateUser(sUserName,user.getUsername(),user.getpPassword(),user.getFirstname(),user.getLastname(),
-        user.getCity(),user.getDate());
+            //the update if all ok
+            this.controller.updateUser(sUserName, user.getUsername(), user.getpPassword(), user.getFirstname(), user.getLastname(),
+                    user.getCity(), user.getDate());
 
-        StageHolder.getInstance().getStage().close();
+            StageHolder.getInstance().getStage().close();
+        }
     }
 
 
     private void showError(String msg){
         ErrorBox box = new ErrorBox();
-        Stage stage = box.getErrorBoxStage(msg);
-        StageHolder.getInstance().holdStage(stage);
-        stage.showAndWait();
+        box.showErrorStage(msg);
     }
 
 
@@ -91,5 +93,6 @@ public class UpdateFormController {
         }
         return true;
     }
+
 
 }
