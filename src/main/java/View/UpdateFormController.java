@@ -30,11 +30,13 @@ public class UpdateFormController {
 
         if (sUserName.equals("")) {
             showError("Please enter a username to be updated");
+            user=null;
             return;
         }
 
         if (user.nullRecord()) {
             showError("Please fill atleast 1 field \n" + "to be updated");
+            user=null;
             return;
         }
 
@@ -42,12 +44,14 @@ public class UpdateFormController {
         if (result.size() > 0) {
             showError("Username already exists. please choose\n" +
                     "a new one");
+            user=null;
             return;
         }
         //date valid check
 
         if(user.getDate().length()>0 && !isValidDate(user.getDate())){
             showError("Please insert a valid date of format YYYY-MM-DD");
+            user=null;
             return;
         }
 
