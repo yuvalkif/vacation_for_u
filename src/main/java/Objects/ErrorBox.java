@@ -39,9 +39,6 @@ public class ErrorBox {
 
     }
 
-
-
-
     public void showErrorStage(String errorMsg){
         this.errorLabel.setText(errorMsg);
         StageHolder.getInstance().holdStage(this.errorStage);

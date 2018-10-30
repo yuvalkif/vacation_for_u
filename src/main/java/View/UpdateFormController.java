@@ -30,13 +30,13 @@ public class UpdateFormController {
 
         if (sUserName.equals("")) {
             showError("Please enter a username to be updated");
-            user=null;
+            user = null;
             return;
         }
 
         if (user.nullRecord()) {
             showError("Please fill atleast 1 field \n" + "to be updated");
-            user=null;
+            user = null;
             return;
         }
 
@@ -44,7 +44,7 @@ public class UpdateFormController {
         if (result.size() > 0) {
             showError("Username already exists. please choose\n" +
                     "a new one");
-            user=null;
+            user = null;
             return;
         }
 

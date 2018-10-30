@@ -31,11 +31,7 @@ public class Main extends Application {
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                Stage s = StageHolder.getInstance().getStage();
-                do {
-                    s.close();
-                    s = StageHolder.getInstance().getStage();
-                }while(s!=null);
+                System.exit(1);
             }
         });
         Controller controller = new Controller();
