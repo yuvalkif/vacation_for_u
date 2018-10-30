@@ -60,6 +60,7 @@ public class UpdateFormController {
 
             StageHolder.getInstance().getStage().close();
         }
+    }
 
 
     private void showError(String msg){
