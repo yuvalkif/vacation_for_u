@@ -48,7 +48,7 @@ public class UpdateFormController {
             return;
         }
 
-        if(result.size() == 0){
+        if(controller.searchInDataBase(sUserName).size() == 0){
             showError("User doesnt exist");
             user=null;
             return;
