@@ -46,7 +46,7 @@ public class UpdateFormController {
         }
         //date valid check
 
-        if(!isValidDate(user.getDate()) && user.getDate().length()>0){
+        if(user.getDate().length()>0 && !isValidDate(user.getDate())){
             showError("Please insert a valid date of format YYYY-MM-DD");
             return;
         }
@@ -57,7 +57,7 @@ public class UpdateFormController {
 
             StageHolder.getInstance().getStage().close();
         }
-    }
+
 
 
     private void showError(String msg){
