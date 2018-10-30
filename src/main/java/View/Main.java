@@ -32,10 +32,12 @@ public class Main extends Application {
             @Override
             public void handle(WindowEvent event) {
                 Stage s = StageHolder.getInstance().getStage();
-                do {
-                    s.close();
-                    s = StageHolder.getInstance().getStage();
-                }while(s!=null);
+                if(s!=null) {
+                    do {
+                        s.close();
+                        s = StageHolder.getInstance().getStage();
+                    } while (s != null);
+                }
             }
         });
         Controller controller = new Controller();
