@@ -7,6 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  * controller class for the update scene. controlled by 'UpdateFormController.fxml'
  */
@@ -41,6 +44,12 @@ public class UpdateFormController {
                     "a new one");
             return ;
         }
+        //date valid check
+        if(!isValidDate(user.getDate())){
+            showError("Please insert a valid date of format YYYY-MM-DD");
+            return;
+        }
+
         //the update if all ok
         this.controller.updateUser(sUserName,user.getUsername(),user.getpPassword(),user.getFirstname(),user.getLastname(),
         user.getCity(),user.getDate());
@@ -72,4 +81,17 @@ public class UpdateFormController {
     public void setController(Controller controller){
         this.controller = controller;
     }
+
+
+    private boolean isValidDate(String inDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        try {
+            dateFormat.parse(inDate.trim());
+        } catch (ParseException pe) {
+            return false;
+        }
+        return true;
+    }
+
 }

@@ -7,6 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  * controller class for the sign up scene . controlled by 'SignUpForm.fxml'
  */
@@ -28,6 +31,11 @@ public class SignUpFormController {
             raiseError("Username already exists! Please choose \na new one");
             return;
         }
+        if(!isValidDate(toSubmit.getDate())){
+            raiseError("Please insert a valid date of format YYYY-MM-DD");
+        }
+
+
         StageHolder.getInstance().getStage().close();
     }
 
@@ -49,5 +57,16 @@ public class SignUpFormController {
 
     public void setController(Controller controller){
         this.controller = controller;
+    }
+
+    private boolean isValidDate(String inDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        try {
+            dateFormat.parse(inDate.trim());
+        } catch (ParseException pe) {
+            return false;
+        }
+        return true;
     }
 }
