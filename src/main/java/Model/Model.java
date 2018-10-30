@@ -158,7 +158,7 @@ public class Model implements ISQLModel {
 
     public ObservableList<User> searchRecordsByFields(User fields) {
         ResultSet resultSet = null;
-        String sql = "SELECT * FROM users\nWHERE ";
+        String sql = "SELECT * FROM users WHERE ";
         ObservableList result = null;
         sql = sql + this.getFieldsForQuery(fields);
 

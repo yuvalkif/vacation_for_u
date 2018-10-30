@@ -45,9 +45,10 @@ public class View implements IView {
             stage.setResizable(false);
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
+            LoginSceneController sceneController = (LoginSceneController)loader.getController();
+            sceneController.setController(controller);
             stage.showAndWait();
             this.primaryStage.show();
-            LoginSceneController sceneController = (LoginSceneController)loader.getController();
 
             User toSubmit = sceneController.getToSubmit();
             System.out.println(toSubmit);

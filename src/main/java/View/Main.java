@@ -6,10 +6,12 @@ package View;
 
 import Model.Model;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import sample.Controller;
 
 public class Main extends Application {
@@ -25,7 +27,8 @@ public class Main extends Application {
         Controller controller = new Controller();
 
         controller.setView(view);
-        controller.setModel(new Model());
+        Model model = new Model();
+        controller.setModel(model);
         controller.setAll();
         controller.createUsersTable();
         view.setCurrentStage(primaryStage);
