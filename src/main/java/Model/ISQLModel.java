@@ -104,7 +104,8 @@ public interface ISQLModel {
                            Purchase purchaseOfferDetails);
 
 
-
+    void freezeVacation(int vacationId);
+    void unFreezeVacation(int vacationId);
 
 
     ObservableList selectAllDataBase();

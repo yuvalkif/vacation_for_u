@@ -556,6 +556,8 @@ public class Model implements ISQLModel {
 
             pstmt.executeUpdate();
             this.closeConnection(conn);
+            this.insertPurchase(purchaseOfferDetails,vacationId);
+            markVacationAsSold(vacationId);
             Logger.getInstance().log("INSERT Buying Offer on vacationID: " + vacationId+ " By user: "+buyerUsername+ " - SUCCESS");
             return true;
         } catch (SQLException e) {
@@ -590,7 +592,7 @@ public class Model implements ISQLModel {
     }
 
 
-
+    @Override
     public void freezeVacation(int vacationId) {
         String sqlStatement = "UPDATE vacations SET freeze = 1 WHERE vacationId = " + vacationId;
         try {
@@ -609,6 +611,9 @@ public class Model implements ISQLModel {
         }
     }
 
+
+
+    @Override
     public void unFreezeVacation(int vacationId){
         String sqlStatement = "UPDATE vacations SET freeze = 0 WHERE vacationId = " + vacationId;
         try {
@@ -625,6 +630,26 @@ public class Model implements ISQLModel {
             e.printStackTrace();
             Logger.getInstance().log("Update  , unfreezing vacation : " + vacationId + " - Failed");
         }
+    }
+
+
+    private void markVacationAsSold(int vacationId){
+        String sqlStatement = "UPDATE vacations SET sold = 1 WHERE vacationId = " + vacationId;
+        try {
+
+            Connection conn = this.openConnection();
+
+            PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
+
+            pstmt.executeUpdate();
+
+            this.closeConnection(conn);
+            Logger.getInstance().log("Update  , mark as sold vacation : " + vacationId + " - SUCCESS");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Logger.getInstance().log("Update  , mark as sold vacation : " + vacationId + " - Failed");
+        }
+
     }
 }
 
