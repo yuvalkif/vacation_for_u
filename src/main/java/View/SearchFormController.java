@@ -12,13 +12,13 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
+import dbObjects.User;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class SearchFormController {
     private User searchFields;

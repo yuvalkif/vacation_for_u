@@ -9,7 +9,7 @@ import Logger.Logger;
 import Model.ISQLModel;
 import Model.Model;
 import View.IView;
-import View.User;
+import dbObjects.User;
 import javafx.collections.ObservableList;
 
 public class Controller {
@@ -22,11 +22,17 @@ public class Controller {
     public void createUsersTable() {
         this.model.createUsersTable();
     }
+    public void createVacationsTable() {
+        this.model.createVacationsTable();
+    }
+    public void createPurchaseTable() {
+        this.model.createPurchaseTable();
+    }
 
     public void handleSubmitSignIn(User submit) {
         if (submit != null) {
             try {
-                model.insert(submit);
+                model.insertUser(submit);
             } catch (NullPointerException var3) {
                 Logger.getInstance().log("NULL RECORD");
             }

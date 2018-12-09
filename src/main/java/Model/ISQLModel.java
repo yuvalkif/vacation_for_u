@@ -1,12 +1,13 @@
 package Model;
 
-import View.User;
+import dbObjects.Purchase;
+import dbObjects.User;
 import Control.Controller;
 import javafx.collections.ObservableList;
 
 
+import java.sql.Timestamp;
 import java.util.List;
-import java.util.Observable;
 
 
 /**
@@ -22,7 +23,7 @@ public interface ISQLModel {
     /**
      * insert a record to the database
      */
-    void insert(User user);
+    void insertUser(User user);
 
     /**
      * delete a user from the database
@@ -48,11 +49,63 @@ public interface ISQLModel {
     void createUsersTable();
 
     /**
+     *  create a new vacations in the database
+     */
+    void createVacationsTable();
+
+    /**
+     *  create a new purchases in the database
+     */
+    void createPurchaseTable();
+
+    void createOffersTable();
+
+    /**
      * search records by username
      * @param username
      * @return
      */
+
+
     List<User> searchRecordsByFields(String username);
+
+    /**
+     * return wither a user is logged in or not
+     */
+
+    boolean checkLogin(String username);
+
+    /**
+     *
+     * @return all the db vacations
+     */
+    ObservableList getAllVacations();
+
+
+    /**
+     * VERY importent to keep the order of the fields and their values
+     * @param criteria the fields which the search will be by them
+     * @param Values    the values of those fields
+     * @return  a collection of vacations that meet the criterias.
+     */
+    ObservableList getVacations(String [] criteria , String [] Values);
+
+
+    /**
+     *
+     * @param vacationValues vacation fields
+     * @return  success to store in db or not
+     */
+    boolean insertVacation(String [] vacationValues);
+
+    boolean insertBuyingOffer(int vacationId ,
+                           String buyerUsername ,
+                           Timestamp purchseOfferTime,
+                           Purchase purchaseOfferDetails);
+
+
+
+
 
     ObservableList selectAllDataBase();
 }

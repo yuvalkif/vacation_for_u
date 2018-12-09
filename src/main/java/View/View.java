@@ -3,6 +3,7 @@ package View;
 import Logger.StageHolder;
 import java.io.IOException;
 
+import dbObjects.User;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;

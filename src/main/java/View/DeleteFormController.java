@@ -3,8 +3,8 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
+import dbObjects.User;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 /**
  * controller class for the Delete scene . controlled by 'DeleteForm.fxml'

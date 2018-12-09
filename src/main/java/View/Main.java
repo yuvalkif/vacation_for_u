@@ -40,6 +40,8 @@ public class Main extends Application {
         controller.setModel(new Model());
         controller.setAll();
         controller.createUsersTable();
+        controller.createVacationsTable();
+        controller.createPurchaseTable();
         view.setCurrentStage(primaryStage);
         primaryStage.show();
 

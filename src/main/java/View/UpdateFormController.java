@@ -3,10 +3,10 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
+import dbObjects.User;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

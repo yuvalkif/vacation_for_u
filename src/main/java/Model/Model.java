@@ -9,7 +9,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.StringJoiner;
-import View.User;
+
+import dbObjects.Purchase;
+import dbObjects.User;
+import dbObjects.Vacation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import Control.Controller;
@@ -54,11 +57,102 @@ public class Model implements ISQLModel {
         }
     }
 
+
+    public void createVacationsTable() {
+        // SQLite connection string
+        String url = "jdbc:sqlite:vacation_for_u.db";
+
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS vacations (\n"
+                + "	publisherUserName text NOT NULL,\n"
+                + "	flightCompany text NOT NULL,\n"
+                + "	fromDate DATE ,\n"
+                + "	untilDate DATE ,\n"
+                + "	baggageIncluded text NOT NULL,\n"
+                + "	numberOfTickets INTEGER NOT NULL,\n"
+                + "	destination text NOT NULL,\n"
+                + "	twoDirections INTEGER NOT NULL,\n"
+                + "	ticketType text NOT NULL,\n"
+                + "	vacationType text NOT NULL,\n"
+                + "	includeSleep INTEGER NOT NULL,\n"
+                + "	hotelName text ,\n"
+                + "	hotelName text \n"
+                + " vacationId INTEGER PRIMARY KEY AUTOINCREMENT \n"
+                + " sold Integer NOT NULL\n"
+                + " freezed INTEGER NOT NULL\n"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+            Logger.getInstance().log("created new table vacations");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            Logger.getInstance().log("failed to create new table vacations");
+        }
+    }
+
+    @Override
+    public void createPurchaseTable() {
+        // SQLite connection string
+        String url = "jdbc:sqlite:vacation_for_u.db";
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS purchases (\n"
+                + "	cardOwnerUserName text PRIMARY KEY,\n"
+                + "	cardOwnerName text NOT NULL,\n"
+                + "	cardType text NOT NULL ,\n"
+                + "	cardNumber text NOT NULL,\n"
+                + "	cardCvv text NOT NULL,\n"
+                + "	cardExpireDate DATE NOT NULL\n"
+                +  "targetVacation INTEGER NOT NULL"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+            Logger.getInstance().log("created new table purchases");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            Logger.getInstance().log("failed to create new table purchases");
+        }
+
+    }
+
+    @Override
+    public void createOffersTable() {
+        // SQLite connection string
+        String url = "jdbc:sqlite:vacation_for_u.db";
+
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS offers (\n"
+                + "	vacationId text NOT NULL,\n"
+                + "	buyerUserName text NOT NULL,\n"
+                + "	purchseOfferTime text NOT NULL ,\n"
+                + " PRIMARY KEY (vacationId, buyerUserName)"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+            Logger.getInstance().log("created new table purchases");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            Logger.getInstance().log("failed to create new table purchases");
+        }
+
+    }
+
     /**
      * insert a user to the database
      * @param user a record with fields of the user
      */
-    public void insert(User user) {
+    public void insertUser(User user) {
         String sql = "INSERT INTO users(username, password,first_name,last_name,address,birth_date) VALUES(?,?,?,?,?,?)";
         Date sqlDate = dateConvert(user.getDate());
 
@@ -165,7 +259,7 @@ public class Model implements ISQLModel {
             Connection conn = this.openConnection();
             Statement stmt = conn.createStatement();
             resultSet = stmt.executeQuery(sql);
-            result = this.convertResultsToObservableList(resultSet);
+            result = this.convertUsersResultsToObservableList(resultSet);
             conn.close();
         } catch (SQLException var6) {
             System.out.println(var6.getMessage());
@@ -189,7 +283,7 @@ public class Model implements ISQLModel {
             Connection conn = this.openConnection();
             Statement stmt = conn.createStatement();
             resultSet = stmt.executeQuery(sql);
-            result = this.convertResultsToObservableList(resultSet);
+            result = this.convertUsersResultsToObservableList(resultSet);
             conn.close();
         } catch (SQLException var7) {
             System.out.println(var7.getMessage());
@@ -217,13 +311,50 @@ public class Model implements ISQLModel {
      * @param resultSet set with results
      * @return a list with records
      */
-    private ObservableList<User> convertResultsToObservableList(ResultSet resultSet) {
+    private ObservableList<User> convertUsersResultsToObservableList(ResultSet resultSet) {
         ObservableList<User> observableList = FXCollections.observableArrayList();
 
         try {
             while(resultSet.next()) {
                 java.util.Date myDate = resultSet.getDate("birth_date");
                 observableList.add(new User(resultSet.getString(1),resultSet.getString(2) , dateToStringConvert(resultSet.getDate(3)), resultSet.getString(4), resultSet.getString(5) ,resultSet.getString(6)));
+            }
+        } catch (SQLException var4) {
+            var4.printStackTrace();
+        }
+
+        return observableList;
+    }
+
+
+    private ObservableList<Vacation> convertVacationResultsToObservableList(ResultSet resultSet) {
+        ObservableList<Vacation> observableList = FXCollections.observableArrayList();
+
+        try {
+            while(resultSet.next()) {
+                Date fromDate = resultSet.getDate("startDate");
+                Date untilDate = resultSet.getDate("untilDate");
+                int numberOfTickets = resultSet.getInt("numberOfTickets");
+                boolean twoDirections = (resultSet.getInt("numberOfTickets") == 1) ? true : false;
+                boolean includeSleep = (resultSet.getInt("includeSleep") == 1) ? true : false;
+                boolean sold = (resultSet.getInt("sold") == 1) ? true : false;
+                int hotelRank = resultSet.getInt("hotelRank");
+                boolean freezed = (resultSet.getInt("freezed") == 1) ? true : false;
+                Vacation v = new Vacation(resultSet.getInt(14),resultSet.getString(1),
+                        resultSet.getString(2) ,
+                        fromDate,
+                        untilDate,
+                        resultSet.getString(5) ,
+                        numberOfTickets,
+                        resultSet.getString(7),
+                        twoDirections,
+                        resultSet.getString(9),
+                        resultSet.getString(10),
+                        includeSleep,
+                        resultSet.getString(12),
+                        hotelRank,sold,freezed);
+                if(!v.isFreezed() && !v.isSold())
+                observableList.add(v);
             }
         } catch (SQLException var4) {
             var4.printStackTrace();
@@ -316,6 +447,184 @@ public class Model implements ISQLModel {
             var3.printStackTrace();
         }
 
+    }
+
+    @Override
+    public boolean checkLogin(String username) {
+        return false;
+    }
+
+
+
+    @Override
+    public boolean insertVacation(String[] vacationValues) {
+
+            String sql = "INSERT INTO vacations(publisherUserName,flightCompany,fromDate,untilDate,baggageIncluded,numberOfTickets,destination,twoDirections,ticketType,vacationType,includeSleep,hotelName,hotelRank,sold,freezed) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+            //processing dates
+            Date fromDate = dateConvert(vacationValues[2]);
+            Date untilDate = dateConvert(vacationValues[3]);
+            int numberOfTickets = Integer.parseInt(vacationValues[5]);
+            int twoDirections = ((vacationValues[7].equals("true")) ? 1 : 0);
+            int includeSleep = ((vacationValues[10].equals("true")) ? 1 : 0);
+            int hotelRank = Integer.parseInt(vacationValues[12]);
+            int sold = ((vacationValues[13].equals("true")) ? 1 : 0);
+            int freezed = ((vacationValues[14].equals("true")) ? 1 : 0);
+
+            try {
+                Connection conn = this.openConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, vacationValues[0]);
+                pstmt.setString(2, vacationValues[1]);
+                pstmt.setDate(3, fromDate);
+                pstmt.setDate(4, untilDate);
+                pstmt.setString(5, vacationValues[4]);
+                pstmt.setInt(6, numberOfTickets);
+                pstmt.setString(7, vacationValues[6]);
+                pstmt.setInt(8,twoDirections );
+                pstmt.setString(9, vacationValues[8]);
+                pstmt.setString(10, vacationValues[9]);
+                pstmt.setInt(11,includeSleep);
+                pstmt.setString(12, vacationValues[11]);
+                pstmt.setInt(13, hotelRank);
+                pstmt.setInt(14,sold);
+                //by default freeze is off
+                pstmt.setInt(15,freezed);
+                pstmt.executeUpdate();
+                this.closeConnection(conn);
+                Logger.getInstance().log("INSERT : " + vacationValues.toString() +"- SUCCESS");
+                return true;
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                Logger.getInstance().log(e.getMessage());
+                return false;
+            }
+
+    }
+
+
+    @Override
+    public ObservableList getAllVacations() {
+        ResultSet resultSet = null;
+        String sql = "SELECT * FROM vacations";
+        ObservableList result = null;
+
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertVacationResultsToObservableList(resultSet);
+            conn.close();
+        } catch (SQLException var6) {
+            System.out.println(var6.getMessage());
+            Logger.getInstance().log(var6.getMessage());
+        }
+
+        return result;
+    }
+
+    @Override
+    public ObservableList getVacations(String[] criteria, String[] Values) {
+        return null;
+    }
+
+
+
+
+
+
+        /**
+         * this will add the requested vacation by id to the currently offerd table.
+         * @param vacationId
+         * @param buyerUsername
+         * @param purchseOfferTime
+         * @param purchaseOfferDetails
+         * @return success or not
+         */
+    @Override
+    public boolean insertBuyingOffer(int vacationId, String buyerUsername, Timestamp purchseOfferTime, Purchase purchaseOfferDetails) {
+
+        String sqlStatement="INSERT INTO offers(vacationId, buyerUsername,purchseOfferTime) VALUES(?,?,?)";
+
+
+        try {
+            Connection conn = this.openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
+            pstmt.setInt(1,vacationId);
+            pstmt.setString(2, buyerUsername);
+            pstmt.setString(3, purchseOfferTime.toString());
+
+            pstmt.executeUpdate();
+            this.closeConnection(conn);
+            Logger.getInstance().log("INSERT Buying Offer on vacationID: " + vacationId+ " By user: "+buyerUsername+ " - SUCCESS");
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Logger.getInstance().log("INSERT Buying Offer on vacationID: " + vacationId+ " By user: "+buyerUsername+ " - FAILED");
+            return false;
+        }
+
+    }
+
+    private void insertPurchase(Purchase purchase,int vacationId){
+        String sqlStatement="INSERT INTO purchases(cardOwnerUserName, cardOwnerName,cardType,cardNumber,cardCvv,cardExpireDate,targetVacation) VALUES(?,?,?,?,?,?,?)";
+
+
+        try {
+            Connection conn = this.openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
+            pstmt.setString(1, purchase.getCardOwnerUserName());
+            pstmt.setString(2, purchase.getCardOwnerName());
+            pstmt.setString(3, purchase.getCardType());
+            pstmt.setString(4, purchase.getCardNumber());
+            pstmt.setString(5, purchase.getCardCvv());
+            pstmt.setDate(6, purchase.getCardExpireDate());
+            pstmt.setInt(7,vacationId);
+            pstmt.executeUpdate();
+            this.closeConnection(conn);
+            Logger.getInstance().log("INSERT : " + purchase.toString()+ " - SUCCESS");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Logger.getInstance().log("INSERT : " + purchase.toString()+ " - FAILED");
+        }
+    }
+
+
+
+    public void freezeVacation(int vacationId) {
+        String sqlStatement = "UPDATE vacations SET freeze = 1 WHERE vacationId = " + vacationId;
+        try {
+
+            Connection conn = this.openConnection();
+
+            PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
+
+            pstmt.executeUpdate();
+
+            this.closeConnection(conn);
+            Logger.getInstance().log("Update  , freezing vacation : " + vacationId + " - SUCCESS");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Logger.getInstance().log("Update  , freezing vacation : " + vacationId + " - Failed");
+        }
+    }
+
+    public void unFreezeVacation(int vacationId){
+        String sqlStatement = "UPDATE vacations SET freeze = 0 WHERE vacationId = " + vacationId;
+        try {
+
+            Connection conn = this.openConnection();
+
+            PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
+
+            pstmt.executeUpdate();
+
+            this.closeConnection(conn);
+            Logger.getInstance().log("Update  , unfreezing vacation : " + vacationId + " - SUCCESS");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Logger.getInstance().log("Update  , unfreezing vacation : " + vacationId + " - Failed");
+        }
     }
 }
 
