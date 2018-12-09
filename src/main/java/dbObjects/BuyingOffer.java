@@ -2,15 +2,16 @@ package dbObjects;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class BuyingOffer {
     private String BuyerUserName;
-    private Timestamp PurchseOfferTime;
+    private String PurchseOfferTime;
     private Purchase PurchaseOfferDetails;
 
     public BuyingOffer(String buyerUserName, Timestamp purchseOfferTime, Purchase purchaseOfferDetails) {
         BuyerUserName = buyerUserName;
-        PurchseOfferTime = purchseOfferTime;
+        PurchseOfferTime = new SimpleDateFormat("yyyy-mm-dd-HH-mm-ss").format(new java.util.Date());
         PurchaseOfferDetails = purchaseOfferDetails;
     }
 
@@ -18,7 +19,7 @@ public class BuyingOffer {
         return BuyerUserName;
     }
 
-    public Timestamp getPurchseOfferTime() {
+    public String getPurchseOfferTime() {
         return PurchseOfferTime;
     }
 

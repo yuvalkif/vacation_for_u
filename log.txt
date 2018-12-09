@@ -1,4 +1,3 @@
-created new table users 2018/12/09 15:46:25
-failed to create new table vacations 2018/12/09 15:46:25
-connection opened 2018/12/09 15:46:35
-connection opened 2018/12/09 15:46:35
+created new table users 2018/12/09 18:49:33
+failed to create new table vacations 2018/12/09 18:49:33
+failed to create new table purchases 2018/12/09 18:49:33

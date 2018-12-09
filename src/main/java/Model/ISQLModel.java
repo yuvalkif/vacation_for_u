@@ -60,6 +60,8 @@ public interface ISQLModel {
 
     void createOffersTable();
 
+    void createMessageTable();
+
     /**
      * search records by username
      * @param username
@@ -73,7 +75,7 @@ public interface ISQLModel {
      * return wither a user is logged in or not
      */
 
-    boolean checkLogin(String username);
+    boolean login(String username,String password);
 
     /**
      *
@@ -100,12 +102,13 @@ public interface ISQLModel {
 
     boolean insertBuyingOffer(int vacationId ,
                            String buyerUsername ,
-                           Timestamp purchseOfferTime,
+                           String purchseOfferTime,
                            Purchase purchaseOfferDetails);
 
 
     void freezeVacation(int vacationId);
     void unFreezeVacation(int vacationId);
+
 
 
     ObservableList selectAllDataBase();
