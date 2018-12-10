@@ -18,7 +18,7 @@ public class VacationFormController {
     private Vacation vacation;
 
     @FXML
-    public TextField baggage ,username ,flightComp ,  numberOfTickets , destination,ticketType,vacationTye,hotelName,hotelRank;
+    public TextField baggage ,flightComp ,  numberOfTickets , destination,ticketType,vacationTye,hotelName,hotelRank;
 
     @FXML
     public CheckBox  nightsIncluded , roundTrip;
@@ -45,13 +45,14 @@ public class VacationFormController {
             hotelRank = Double.parseDouble(this.hotelRank.getText());
 
 
-           this.vacation = new Vacation(1,username.getText(),flightComp.getText(),sqlFromDate,sqlToDate,baggage.getText(),numOfTickets,destination.getText(),roundTrip.isSelected(),ticketType.getText(),
+           this.vacation = new Vacation(1,controller.getLoggedUser(),flightComp.getText(),sqlFromDate,sqlToDate,baggage.getText(),numOfTickets,destination.getText(),roundTrip.isSelected(),ticketType.getText(),
                    vacationTye.getText(),nightsIncluded.isSelected(),hotelName.getText(),hotelRank,false,false);
 
 
         }catch (Exception e){
             this.vacation = null ;
         }
+        StageHolder.getInstance().getStage().close();
     }
 
     public void handleBack(){

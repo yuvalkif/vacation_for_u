@@ -22,6 +22,7 @@ import Control.Controller;
 public class Model implements ISQLModel {
     private Controller controller;
     private sqlLiteJDBCDriverConnection driver = new sqlLiteJDBCDriverConnection();
+    private String loggedUser = "";
 
     public Model() {
     }
@@ -29,9 +30,6 @@ public class Model implements ISQLModel {
     public void setController(Controller controller) {
         this.controller = controller;
     }
-
-
-
 
 
     /****************************************** TABLES CREATION ************************************************/
@@ -65,7 +63,6 @@ public class Model implements ISQLModel {
             Logger.getInstance().log("failed to create new table users");
         }
     }
-
 
     public void createVacationsTable() {
         // SQLite connection string
@@ -102,7 +99,9 @@ public class Model implements ISQLModel {
         }
     }
 
-
+    public String getLoggedUser() {
+        return loggedUser;
+    }
 
     public void createPurchasedVacationsTable() {
         // SQLite connection string
@@ -194,7 +193,7 @@ public class Model implements ISQLModel {
     }
 
     @Override
-    public void createConfirmMessageTable(){
+    public void createConfirmMessageTable() {
         String url = "jdbc:sqlite:vacation_for_u.db";
 
         // SQL statement for creating a new table
@@ -227,7 +226,7 @@ public class Model implements ISQLModel {
 
 
 
-    /**
+     /**
      * insert a user to the database
      * @param user a record with fields of the user
      */
@@ -262,34 +261,34 @@ public class Model implements ISQLModel {
         //processing dates
 
         int includeSleep = (vacationValues.isIncludeSleep()) ? 1 : 0;
-        int roundTrip = (vacationValues.isTwoDirections()) ? 1 : 0 ;
-        int sold = (vacationValues.isSold() == true) ? 1 : 0 ;
-        int freezed = (vacationValues.isFreezed()) ? 1 : 0 ;
+        int roundTrip = (vacationValues.isTwoDirections()) ? 1 : 0;
+        int sold = (vacationValues.isSold() == true) ? 1 : 0;
+        int freezed = (vacationValues.isFreezed()) ? 1 : 0;
 
         try {
             Connection conn = this.openConnection();
-            int index = 0 ;
+            int index = 0;
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, vacationValues.getPublisherUserName());
             pstmt.setString(2, vacationValues.getFlightCompany());
             pstmt.setDate(3, vacationValues.getFromDate());
             pstmt.setDate(4, vacationValues.getUntilDate());
-            pstmt.setString(5,vacationValues.getBaggageIncluded());
+            pstmt.setString(5, vacationValues.getBaggageIncluded());
             pstmt.setInt(6, vacationValues.getNumberOfTickets());
             pstmt.setString(7, vacationValues.getDestination());
             pstmt.setInt(8, roundTrip);
             pstmt.setString(9, vacationValues.getTicketType());
             pstmt.setString(10, vacationValues.getVacationType());
-            pstmt.setInt(11,includeSleep);
+            pstmt.setInt(11, includeSleep);
             pstmt.setString(12, vacationValues.getHotelName());
             pstmt.setDouble(13, vacationValues.getHotelRank());
-            pstmt.setInt(14,sold);
+            pstmt.setInt(14, sold);
             //by default freeze is off
-            pstmt.setInt(15,freezed);
+            pstmt.setInt(15, freezed);
             pstmt.executeUpdate();
             this.closeConnection(conn);
-            Logger.getInstance().log("INSERT : " + vacationValues.toString() +"- SUCCESS");
+            Logger.getInstance().log("INSERT : " + vacationValues.toString() + "- SUCCESS");
             return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -301,6 +300,7 @@ public class Model implements ISQLModel {
 
     /**
      * this will add the requested vacation by id to the currently offerd table.
+     *
      * @param vacationId
      * @param buyerUsername
      * @param purchseOfferTime
@@ -310,32 +310,33 @@ public class Model implements ISQLModel {
     @Override
     public boolean insertBuyingOffer(int vacationId, String buyerUsername, String purchseOfferTime, Purchase purchaseOfferDetails) {
 
-        String sqlStatement="INSERT INTO offers(vacationId, buyerUsername,purchseOfferTime) VALUES(?,?,?)";
+        String sqlStatement = "INSERT INTO offers(vacationId, buyerUsername,purchseOfferTime) VALUES(?,?,?)";
 
 
         try {
             Connection conn = this.openConnection();
             PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
-            pstmt.setInt(1,vacationId);
+            pstmt.setInt(1, vacationId);
             pstmt.setString(2, buyerUsername);
             pstmt.setString(3, purchseOfferTime);
 
             pstmt.executeUpdate();
-            this.closeConnection(conn);
-            this.insertPurchase(purchaseOfferDetails,vacationId);
+
+//            this.insertMessage(new ConfirmOfferMessage(buyerUsername,"SHMULIK",LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"),
+//                    null,"standby")));
             markVacationAsSold(vacationId);
-            Logger.getInstance().log("INSERT Buying Offer on vacationID: " + vacationId+ " By user: "+buyerUsername+ " - SUCCESS");
+            Logger.getInstance().log("INSERT Buying Offer on vacationID: " + vacationId + " By user: " + buyerUsername + " - SUCCESS");
             return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Logger.getInstance().log("INSERT Buying Offer on vacationID: " + vacationId+ " By user: "+buyerUsername+ " - FAILED");
+            Logger.getInstance().log("INSERT Buying Offer on vacationID: " + vacationId + " By user: " + buyerUsername + " - FAILED");
             return false;
         }
 
     }
 
-    private void insertPurchase(Purchase purchase,int vacationId){
-        String sqlStatement="INSERT INTO purchases(cardOwnerUserName, cardOwnerName,cardType,cardNumber,cardCvv,cardExpireDate,targetVacation) VALUES(?,?,?,?,?,?,?)";
+    private void insertPurchase(Purchase purchase, int vacationId) {
+        String sqlStatement = "INSERT INTO purchases(cardOwnerUserName, cardOwnerName,cardType,cardNumber,cardCvv,cardExpireDate,targetVacation) VALUES(?,?,?,?,?,?,?)";
 
 
         try {
@@ -347,27 +348,19 @@ public class Model implements ISQLModel {
             pstmt.setString(4, purchase.getCardNumber());
             pstmt.setString(5, purchase.getCardCvv());
             pstmt.setDate(6, purchase.getCardExpireDate());
-            pstmt.setInt(7,vacationId);
+            pstmt.setInt(7, vacationId);
             pstmt.executeUpdate();
             this.closeConnection(conn);
-            Logger.getInstance().log("INSERT : " + purchase.toString()+ " - SUCCESS");
+            Logger.getInstance().log("INSERT : " + purchase.toString() + " - SUCCESS");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Logger.getInstance().log("INSERT : " + purchase.toString()+ " - FAILED");
+            Logger.getInstance().log("INSERT : " + purchase.toString() + " - FAILED");
         }
     }
 
-
-
-    public void insertMessage(AMessage msg){
+    public void insertMessage(AMessage msg) {
 
     }
-
-
-
-
-
-
 
 
     /***************************************** UPDATE FUNCTIONS *********************************************
@@ -382,35 +375,65 @@ public class Model implements ISQLModel {
      * @param city
      * @param birthDate
      */
-    public void updateUsers(String username ,String newUserName, String password , String firstName, String lastName, String city, String birthDate) {
-        String sqlStatement="";
-        String sqlStatementPreFix="UPDATE users SET ";
+    public void updateUsers(String username, String newUserName, String password, String firstName, String lastName, String city, String birthDate) {
+        String sqlStatement = "";
+        String sqlStatementPreFix = "UPDATE users SET ";
         StringJoiner joiner = new StringJoiner(", ");
-        int sqlArgsCount=1;
-        int [] statementIdx = new int[7];
+        int sqlArgsCount = 1;
+        int[] statementIdx = new int[7];
 
         try {
 
             Connection conn = this.openConnection();
-            if(!newUserName.trim().isEmpty()){joiner.add("username = ?");}
-            if(!password.trim().isEmpty()){joiner.add("password = ?");}
-            if(!firstName.trim().isEmpty()){joiner.add("first_name = ?");}
-            if(!lastName.trim().isEmpty()){joiner.add("last_name = ?");}
-            if(!city.trim().isEmpty()){joiner.add("address = ?");}
-            if(!birthDate.trim().isEmpty()){joiner.add("birth_date = ?");}
-            statementIdx[6]=sqlArgsCount;
-            if(joiner.toString()!="") {String sqlArgs = joiner.toString(); sqlStatement = sqlStatementPreFix +sqlArgs + " WHERE username = ? ;";}
-            else if(sqlStatement==""){return;}
+            if (!newUserName.trim().isEmpty()) {
+                joiner.add("username = ?");
+            }
+            if (!password.trim().isEmpty()) {
+                joiner.add("password = ?");
+            }
+            if (!firstName.trim().isEmpty()) {
+                joiner.add("first_name = ?");
+            }
+            if (!lastName.trim().isEmpty()) {
+                joiner.add("last_name = ?");
+            }
+            if (!city.trim().isEmpty()) {
+                joiner.add("address = ?");
+            }
+            if (!birthDate.trim().isEmpty()) {
+                joiner.add("birth_date = ?");
+            }
+            statementIdx[6] = sqlArgsCount;
+            if (joiner.toString() != "") {
+                String sqlArgs = joiner.toString();
+                sqlStatement = sqlStatementPreFix + sqlArgs + " WHERE username = ? ;";
+            } else if (sqlStatement == "") {
+                return;
+            }
 
             PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
-            if(!newUserName.trim().isEmpty() && newUserName!=null){pstmt.setString(sqlArgsCount++, newUserName);}
-            if(!password.trim().isEmpty()){pstmt.setString(sqlArgsCount++, password);}
-            if(!firstName.trim().isEmpty()){pstmt.setString(sqlArgsCount++, firstName);}
+            if (!newUserName.trim().isEmpty() && newUserName != null) {
+                pstmt.setString(sqlArgsCount++, newUserName);
+            }
+            if (!password.trim().isEmpty()) {
+                pstmt.setString(sqlArgsCount++, password);
+            }
+            if (!firstName.trim().isEmpty()) {
+                pstmt.setString(sqlArgsCount++, firstName);
+            }
 
-            if(!lastName.trim().isEmpty()){pstmt.setString(sqlArgsCount++, lastName);}
-            if(!city.trim().isEmpty()){pstmt.setString(sqlArgsCount++, city);}
-            if(!birthDate.trim().isEmpty()){pstmt.setDate(sqlArgsCount++, dateConvert(birthDate));}
-            if(sqlStatement!="") {pstmt.setString(sqlArgsCount, username);}
+            if (!lastName.trim().isEmpty()) {
+                pstmt.setString(sqlArgsCount++, lastName);
+            }
+            if (!city.trim().isEmpty()) {
+                pstmt.setString(sqlArgsCount++, city);
+            }
+            if (!birthDate.trim().isEmpty()) {
+                pstmt.setDate(sqlArgsCount++, dateConvert(birthDate));
+            }
+            if (sqlStatement != "") {
+                pstmt.setString(sqlArgsCount, username);
+            }
             pstmt.executeUpdate();
 
             this.closeConnection(conn);
@@ -421,15 +444,9 @@ public class Model implements ISQLModel {
 
     }
 
-
-
-
-
-
-
     @Override
     public void freezeVacation(int vacationId) {
-        String sqlStatement = "UPDATE vacations SET freeze = 1 WHERE vacationId = " + "'"+vacationId+"'";
+        String sqlStatement = "UPDATE vacations SET freeze = 1 WHERE vacationId = " + "'" + vacationId + "'";
         try {
 
             Connection conn = this.openConnection();
@@ -446,11 +463,9 @@ public class Model implements ISQLModel {
         }
     }
 
-
-
     @Override
-    public void unFreezeVacation(int vacationId){
-        String sqlStatement = "UPDATE vacations SET freeze = 0 WHERE vacationId = " + "'"+vacationId+"'";
+    public void unFreezeVacation(int vacationId) {
+        String sqlStatement = "UPDATE vacations SET freeze = 0 WHERE vacationId = " + "'" + vacationId + "'";
         try {
 
             Connection conn = this.openConnection();
@@ -468,8 +483,8 @@ public class Model implements ISQLModel {
     }
 
 
-    private void markVacationAsSold(int vacationId){
-        String sqlStatement = "UPDATE vacations SET sold = 1 WHERE vacationId = " +"'"+vacationId+"'";
+    private void markVacationAsSold(int vacationId) {
+        String sqlStatement = "UPDATE vacations SET sold = 1 WHERE vacationId = " + "'" + vacationId + "'";
         try {
 
             Connection conn = this.openConnection();
@@ -488,48 +503,42 @@ public class Model implements ISQLModel {
     }
 
 
+    /*********************************************** SEARCHING FUNCTIONS************************************************
 
 
+     /**
+     * returns all the records in the database
+     * @return a list with all the records
+     */
+    public ObservableList selectAllDataBase() {
+        ResultSet resultSet = null;
+        String sql = "SELECT * FROM users";
+        ObservableList result = null;
 
-/*********************************************** SEARCHING FUNCTIONS************************************************
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertUsersResultsToObservableList(resultSet);
+            conn.close();
+        } catch (SQLException var6) {
+            System.out.println(var6.getMessage());
+            Logger.getInstance().log(var6.getMessage());
+        }
 
-
-
-
-
-
- /**
- * returns all the records in the database
- * @return a list with all the records
- */
-public ObservableList selectAllDataBase() {
-    ResultSet resultSet = null;
-    String sql = "SELECT * FROM users";
-    ObservableList result = null;
-
-    try {
-        Connection conn = this.openConnection();
-        Statement stmt = conn.createStatement();
-        resultSet = stmt.executeQuery(sql);
-        result = this.convertUsersResultsToObservableList(resultSet);
-        conn.close();
-    } catch (SQLException var6) {
-        System.out.println(var6.getMessage());
-        Logger.getInstance().log(var6.getMessage());
+        return result;
     }
-
-    return result;
-}
 
     /**
      * search a record by a field given
+     *
      * @param username the username of the record
      * @return a list with all the records
      */
     public ObservableList<User> searchRecordsByFields(String username) {
-        ResultSet resultSet ;
+        ResultSet resultSet;
         ObservableList result = null;
-        String sql = "SELECT * FROM users WHERE username = " + "'"+username+"'";
+        String sql = "SELECT * FROM users WHERE username = " + "'" + username + "'";
 
         try {
             Connection conn = this.openConnection();
@@ -544,8 +553,6 @@ public ObservableList selectAllDataBase() {
 
         return result;
     }
-
-
 
     @Override
     public ObservableList getAllVacations() {
@@ -568,36 +575,45 @@ public ObservableList selectAllDataBase() {
     }
 
     @Override
-    public ObservableList getVacations(String[] criteria, String[] Values) {
-        return null;
+    public ObservableList<Vacation> getVacations(String dest) {
+
+        String sql = "SELECT * FROM vacations WHERE destination = ? ";
+        ResultSet resultSet;
+        ObservableList result = null;
+        try {
+            Connection conn = openConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, dest);
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertUsersResultsToObservableList(resultSet);
+            Logger.getInstance().log("retrived vacations to dest: " + dest);
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Logger.getInstance().log("FAILED TO retrive vacations to dest: " + dest);
+
+        }
+        return result;
     }
-
-
-
-
-
-
 
 
     /******************************************** DELETE FUNCS****************************************
 
 
-
-
-    /**
+     /**
      * delete a record from the data base
      * @param userName the username of the user as it appears in the database
      */
     public void deleteUsers(String userName) {
         String sql = "DELETE FROM users WHERE username = ? ";
-        try{
+        try {
             Connection conn = openConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1,userName);
+            stmt.setString(1, userName);
             stmt.executeUpdate();
             Logger.getInstance().log("DELETED " + userName);
             conn.close();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             Logger.getInstance().log("FAILED TO DELETE " + userName);
 
@@ -605,8 +621,6 @@ public ObservableList selectAllDataBase() {
 
 
     }
-
-
     /**
      * check if a char is a digit
      * @param c
@@ -614,67 +628,53 @@ public ObservableList selectAllDataBase() {
      */
 
 
-
-
-
     /********************************************   LOGIN *************************************************/
 
 
+    @Override
+    public AUserData login(String username, String password) {
+        ResultSet resultSet;
+        ObservableList<User> result;
+        boolean auth = false;
+        String sql = "SELECT * FROM users WHERE username = ?";
 
-     @Override
-     public AUserData login(String username, String password) {
-     ResultSet resultSet ;
-     boolean auth = false;
-     String sql = "SELECT * FROM users WHERE username = " + "'"+username+"'";
+        try {
+            Connection conn = this.openConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, username);
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertUsersResultsToObservableList(resultSet);
+            conn.close();
+            if (result.size() > 0) {
+                if (resultSet.getString("password").equals(password)) {
+                    auth = true;
+                    AUserData serverResponse = getUserData(username);
+                    return serverResponse;
+                }
+            }
 
-     try {
-     Connection conn = this.openConnection();
-     Statement stmt = conn.createStatement();
-     resultSet = stmt.executeQuery(sql);
-     conn.close();
-     if(resultSet.next()) {
-         if (resultSet.getString("password").equals(password)) {
-             auth = true;
-             AUserData serverResponse = getUserData(username);
-             return serverResponse;
-         }
-     }
+            return null;
 
-     return null;
+        } catch (SQLException var7) {
+            System.out.println(var7.getMessage());
+            Logger.getInstance().log(var7.getMessage());
+            return null;
 
-     } catch (SQLException var7) {
-     System.out.println(var7.getMessage());
-     Logger.getInstance().log(var7.getMessage());
-     return null;
+        }
 
-     }
-
-     }
-
-
-
-
-
-
-
+    }
 
 
     /***************************************  RESULTSET TO OBSERVABLE LIST   ****************************/
-
-
-
-
-
-
 
 
     private ObservableList<User> convertUsersResultsToObservableList(ResultSet resultSet) {
         ObservableList<User> observableList = FXCollections.observableArrayList();
 
         try {
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 java.util.Date myDate = resultSet.getDate("birth_date");
-                observableList.add(new User(resultSet.getString(1),resultSet.getString(2) , dateToStringConvert(resultSet.getDate(3)), resultSet.getString(4), resultSet.getString(5) ,resultSet.getString(6)));
+                observableList.add(new User(resultSet.getString(1), resultSet.getString(2), dateToStringConvert(resultSet.getDate(3)), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6)));
             }
         } catch (SQLException var4) {
             var4.printStackTrace();
@@ -688,7 +688,7 @@ public ObservableList selectAllDataBase() {
         ObservableList<Vacation> observableList = FXCollections.observableArrayList();
 
         try {
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 Date fromDate = resultSet.getDate("startDate");
                 Date untilDate = resultSet.getDate("untilDate");
                 int numberOfTickets = resultSet.getInt("numberOfTickets");
@@ -697,11 +697,11 @@ public ObservableList selectAllDataBase() {
                 boolean sold = (resultSet.getInt("sold") == 1) ? true : false;
                 int hotelRank = resultSet.getInt("hotelRank");
                 boolean freezed = (resultSet.getInt("freezed") == 1) ? true : false;
-                Vacation v = new Vacation(resultSet.getInt(14),resultSet.getString(1),
-                        resultSet.getString(2) ,
+                Vacation v = new Vacation(resultSet.getInt(14), resultSet.getString(1),
+                        resultSet.getString(2),
                         fromDate,
                         untilDate,
-                        resultSet.getString(5) ,
+                        resultSet.getString(5),
                         numberOfTickets,
                         resultSet.getString(7),
                         twoDirections,
@@ -709,8 +709,8 @@ public ObservableList selectAllDataBase() {
                         resultSet.getString(10),
                         includeSleep,
                         resultSet.getString(12),
-                        hotelRank,sold,freezed);
-                if(!v.isFreezed() && !v.isSold())
+                        hotelRank, sold, freezed);
+                if (!v.isFreezed() && !v.isSold())
                     observableList.add(v);
             }
         } catch (SQLException var4) {
@@ -721,37 +721,33 @@ public ObservableList selectAllDataBase() {
     }
 
 
-
-
     private ObservableList<AMessage> convertInMessageResultsToObservableList(ResultSet resultSet) {
         ObservableList<AMessage> observableList = FXCollections.observableArrayList();
         LocalDateTime now = LocalDateTime.now();
         try {
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 LocalDateTime creationTime = convertStringToLocalDateTime(resultSet.getString("creationTime"));
                 String sender = resultSet.getString("senderUserName");
                 String reciver = resultSet.getString("reciverUserName");
                 String content = resultSet.getString("messageContent");
                 String msgType = resultSet.getString("messageType");
-                String status  = resultSet.getString("status");
+                String status = resultSet.getString("status");
                 int vacationId = resultSet.getInt("vacationId");
                 boolean expired = false;
-                if(getHoursGap(creationTime,now)>48)
+                if (getHoursGap(creationTime, now) > 48)
                     expired = true;
                 AMessage msg = null;
-                Vacation v =getVacationAsObjectById(vacationId);
-                if(!expired)   //the vaction will be set from vacation table;
-                    msg = new ConfirmOfferMessage(sender,reciver,content,v,status);
+                Vacation v = getVacationAsObjectById(vacationId);
+                if (!expired)   //the vaction will be set from vacation table;
+                    msg = new ConfirmOfferMessage(sender, reciver, content, v, status);
                 else {
-                    String expireExplain = "user: +"+sender+" tried to buy vacation: "+v.toString()+" but 48 have passed" +
+                    String expireExplain = "user: +" + sender + " tried to buy vacation: " + v.toString() + " but 48 have passed" +
                             "so offer is expired";
                     msg = new ExpiredOfferMessage(sender, reciver, expireExplain);
                 }
 
 
-
-
-                    observableList.add(msg);
+                observableList.add(msg);
             }
         } catch (SQLException var4) {
             var4.printStackTrace();
@@ -761,17 +757,12 @@ public ObservableList selectAllDataBase() {
     }
 
 
-
-
-
-
-
     /*******************************************  FROM DB TO OBJECT **********************************************/
 
-    private Vacation getVacationAsObjectById (int vacationId){
-        ResultSet resultSet ;
-        ObservableList <Vacation> result = null;
-        String sql = "SELECT * FROM vacations WHERE vacationId = " + "'"+vacationId+"'";
+    private Vacation getVacationAsObjectById(int vacationId) {
+        ResultSet resultSet;
+        ObservableList<Vacation> result = null;
+        String sql = "SELECT * FROM vacations WHERE vacationId = " + "'" + vacationId + "'";
         Vacation ans = null;
         try {
             Connection conn = this.openConnection();
@@ -779,7 +770,7 @@ public ObservableList selectAllDataBase() {
             resultSet = stmt.executeQuery(sql);
             result = this.convertVacationResultsToObservableList(resultSet);
             conn.close();
-             ans = result.get(0);
+            ans = result.get(0);
         } catch (SQLException var7) {
             System.out.println(var7.getMessage());
             Logger.getInstance().log(var7.getMessage());
@@ -791,13 +782,6 @@ public ObservableList selectAllDataBase() {
     }
 
 
-
-
-
-
-
-
-
     /******************************************** PRIVATE FUNCTIONS ***********************************************/
 
 
@@ -805,43 +789,43 @@ public ObservableList selectAllDataBase() {
      * this is the server response with all the user data
      * this will sent after user login so the controller can set the view the right contents
      * c
+     *
      * @param username
      * @return
      */
-    private AUserData getUserData(String username){
+    private AUserData getUserData(String username) {
         //get user inMessages
-        ResultSet resultSet ;
-        ObservableList inboundMessages = null;
-        String sqlInboundMessages = "SELECT * FROM messages WHERE reciver = " + "'"+username+"'";
+        ResultSet resultSet;
+        ObservableList<AMessage> inboundMessages = null;
+        String sqlInboundMessages = "SELECT * FROM messages WHERE reciver = ?";
 
         try {
             Connection conn = this.openConnection();
-            Statement stmt = conn.createStatement();
+            PreparedStatement stmt = conn.prepareStatement(sqlInboundMessages);
+            stmt.setString(1, username);
             resultSet = stmt.executeQuery(sqlInboundMessages);
             inboundMessages = this.convertInMessageResultsToObservableList(resultSet);
             conn.close();
         } catch (SQLException var7) {
             System.out.println(var7.getMessage());
             Logger.getInstance().log(var7.getMessage());
+            return null;
         }
-        /** NEED TO FINISH IT **/
 
-
+        /***** NEED TO ADD OUTBOUND MESSAGES ****************/
+        return new UserData(username, inboundMessages, null);
         //check if they are not expired
 
         //if not , add as it is to user messages
 
         //else return an expire message
 
-        ObservableList<AMessage> userMessages;
-        return null;
     }
 
 
+    private boolean isDigit(char c) {
 
-    private boolean isDigit(char c){
-
-        if(c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9' || c == '0')
+        if (c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9' || c == '0')
             return true;
 
         return false;
@@ -854,11 +838,9 @@ public ObservableList selectAllDataBase() {
      */
 
 
-
-
-
     /**
      * get the relevant fields for a query based on if a field is empty or not
+     *
      * @param fields all fields wanted for the query
      * @return a string with the fields for the query
      */
@@ -889,10 +871,11 @@ public ObservableList selectAllDataBase() {
 
     /**
      * convert a string to a date
+     *
      * @param sDate
      * @return
      */
-    private Date dateConvert(String sDate){
+    private Date dateConvert(String sDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
         try {
             java.util.Date jDate = dateFormat.parse(sDate);
@@ -910,11 +893,12 @@ public ObservableList selectAllDataBase() {
 
     /**
      * convert from string to local date time so we can subtract with Period
+     *
      * @param sDate time
      * @return time in LocalDateTime object
      */
 
-    private  LocalDateTime convertStringToLocalDateTime(String sDate) {
+    private LocalDateTime convertStringToLocalDateTime(String sDate) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -923,35 +907,35 @@ public ObservableList selectAllDataBase() {
         return formatDateTime;
     }
 
-    private long getHoursGap(LocalDateTime start , LocalDateTime end){
+    private long getHoursGap(LocalDateTime start, LocalDateTime end) {
         Duration duration = Duration.between(start, end);
-        return duration.getSeconds()/60/60;
+        return duration.getSeconds() / 60 / 60;
 
     }
 
 
-    private long getMinutesgap(LocalDateTime start , LocalDateTime end){
+    private long getMinutesgap(LocalDateTime start, LocalDateTime end) {
         Duration duration = Duration.between(start, end);
-        return duration.getSeconds()/60;
+        return duration.getSeconds() / 60;
 
     }
 
     /**
      * convert a date to a string
+     *
      * @param date
      * @return
      */
-    private String dateToStringConvert(Date date){
+    private String dateToStringConvert(Date date) {
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
         String ans = df.format(date);
         return ans;
     }
 
 
-
-
     /**
      * open a connection to the database
+     *
      * @return
      */
     private Connection openConnection() {
@@ -962,6 +946,7 @@ public ObservableList selectAllDataBase() {
 
     /**
      * close connection to the database
+     *
      * @param connection
      */
     private void closeConnection(Connection connection) {
@@ -979,11 +964,6 @@ public ObservableList selectAllDataBase() {
      * @param username
      * @return
      */
-
-
-
-
-
 
 
 }

@@ -88,11 +88,10 @@ public interface ISQLModel {
 
     /**
      * VERY importent to keep the order of the fields and their values
-     * @param criteria the fields which the search will be by them
-     * @param Values    the values of those fields
+     * @param dest destionation of the flight
      * @return  a collection of vacations that meet the criterias.
      */
-    ObservableList getVacations(String [] criteria , String [] Values);
+    ObservableList getVacations(String dest);
 
 
     /**
@@ -114,4 +113,6 @@ public interface ISQLModel {
 
 
     ObservableList selectAllDataBase();
+
+    String getLoggedUser();
 }
