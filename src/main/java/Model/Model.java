@@ -324,8 +324,9 @@ public class Model implements ISQLModel {
             pstmt.setString(3, purchseOfferTime);
 
             pstmt.executeUpdate();
-            this.closeConnection(conn);
-            this.insertPurchase(purchaseOfferDetails,vacationId);
+
+//            this.insertMessage(new ConfirmOfferMessage(buyerUsername,"SHMULIK",LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"),
+//                    null,"standby")));
             markVacationAsSold(vacationId);
             Logger.getInstance().log("INSERT Buying Offer on vacationID: " + vacationId+ " By user: "+buyerUsername+ " - SUCCESS");
             return true;
@@ -644,15 +645,18 @@ public ObservableList selectAllDataBase() {
      @Override
      public AUserData login(String username, String password) {
      ResultSet resultSet ;
+     ObservableList<User>result;
      boolean auth = false;
-     String sql = "SELECT * FROM users WHERE username = " + "'"+username+"'";
+     String sql = "SELECT * FROM users WHERE username = ?";
 
      try {
      Connection conn = this.openConnection();
-     Statement stmt = conn.createStatement();
+     PreparedStatement stmt = conn.prepareStatement(sql);
+     stmt.setString(1,username);
      resultSet = stmt.executeQuery(sql);
+     result = this.convertUsersResultsToObservableList(resultSet);
      conn.close();
-     if(resultSet.next()) {
+     if(result.size() > 0) {
          if (resultSet.getString("password").equals(password)) {
              auth = true;
              AUserData serverResponse = getUserData(username);
@@ -831,30 +835,30 @@ public ObservableList selectAllDataBase() {
     private AUserData getUserData(String username){
         //get user inMessages
         ResultSet resultSet ;
-        ObservableList inboundMessages = null;
-        String sqlInboundMessages = "SELECT * FROM messages WHERE reciver = " + "'"+username+"'";
+        ObservableList <AMessage> inboundMessages = null;
+        String sqlInboundMessages = "SELECT * FROM messages WHERE reciver = ?";
 
         try {
             Connection conn = this.openConnection();
-            Statement stmt = conn.createStatement();
+            PreparedStatement stmt = conn.prepareStatement(sqlInboundMessages);
+            stmt.setString(1,username);
             resultSet = stmt.executeQuery(sqlInboundMessages);
             inboundMessages = this.convertInMessageResultsToObservableList(resultSet);
             conn.close();
         } catch (SQLException var7) {
             System.out.println(var7.getMessage());
             Logger.getInstance().log(var7.getMessage());
+            return null;
         }
-        /** NEED TO FINISH IT **/
 
-
+        /***** NEED TO ADD OUTBOUND MESSAGES ****************/
+        return  new UserData(username,inboundMessages,null);
         //check if they are not expired
 
         //if not , add as it is to user messages
 
         //else return an expire message
 
-        ObservableList<AMessage> userMessages;
-        return null;
     }
 
 
