@@ -82,7 +82,7 @@ public class Model implements ISQLModel {
                 + "	vacationType text NOT NULL,\n"
                 + "	includeSleep INTEGER NOT NULL,\n"
                 + "	hotelName text,\n"
-                + " hotelRank DOUBLE , \n"
+                + " hotelRank DOUBLE,\n"
                 + " vacationId INTEGER PRIMARY KEY AUTOINCREMENT,\n"
                 + " sold Integer NOT NULL,\n"
                 + " freezed INTEGER NOT NULL\n"

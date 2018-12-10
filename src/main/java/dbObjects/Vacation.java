@@ -1,5 +1,6 @@
 package dbObjects;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.sql.Date;
@@ -35,6 +36,15 @@ public class Vacation {
     private StringProperty PvacationType;
     private StringProperty PincludeSleep;
     private StringProperty PhotelName;
+    private StringProperty PhotelRank;
+
+    public String getPhotelRank() {
+        return PhotelRank.get();
+    }
+
+    public StringProperty photelRankProperty() {
+        return PhotelRank;
+    }
 
     public String getPdestination() {
         return Pdestination.get();
@@ -157,6 +167,21 @@ public class Vacation {
         this.hotelRank = hotelRank;
         this.sold = sold;
         this.freezed = freezed;
+        PVacationID = new SimpleStringProperty(""+vacationID);
+        PpublisherUserName = new SimpleStringProperty(publisherUserName);
+        PflightCompany = new SimpleStringProperty(flightCompany);
+        PfromDate = new SimpleStringProperty(fromDate.toString());
+        PuntilDate =new SimpleStringProperty(untilDate.toString()) ;
+        PbaggageIncluded=new SimpleStringProperty(baggageIncluded);
+        PnumberOfTickets=new SimpleStringProperty(""+numberOfTickets);
+        PtwoDirections=new SimpleStringProperty(""+twoDirections);
+        Pdestination=new SimpleStringProperty(destination);
+        PticketType=new SimpleStringProperty(ticketType);
+        PvacationType=new SimpleStringProperty(vacationType);
+        PincludeSleep=new SimpleStringProperty(""+includeSleep);
+        PhotelName=new SimpleStringProperty(hotelName);
+        PhotelRank=new SimpleStringProperty(""+hotelRank);
+
     }
 
     public boolean isFreezed() {

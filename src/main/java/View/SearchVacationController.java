@@ -22,7 +22,7 @@ public class SearchVacationController {
     private Controller controller;
     private Stage primaryStage;
     public TableView tableView;
-    public TableColumn<Vacation,String> publisherUserName,flightCompany,fromDate,untilDate,baggageIncluded,numberOfTickets,destination,twoDirections,ticketType,vacationType,includeSleep,hotelName,vacationId;
+    public TableColumn<Vacation,String> publisherUserName,flightCompany,fromDate,untilDate,baggageIncluded,numberOfTickets,destination,twoDirections,ticketType,vacationType,includeSleep,hotelName,vacationId,hotelRank;
 
     public void showResults(ObservableList<Vacation> searchResults) {
 
@@ -40,6 +40,7 @@ public class SearchVacationController {
             vacationType.setCellValueFactory(cellData -> cellData.getValue().pvacationTypeProperty());
             includeSleep.setCellValueFactory(cellData -> cellData.getValue().pincludeSleepProperty());
             hotelName.setCellValueFactory(cellData -> cellData.getValue().photelNameProperty());
+            hotelRank.setCellValueFactory(cellData -> cellData.getValue().photelRankProperty());
             this.tableView.setItems(searchResults);
         }
     }
@@ -62,7 +63,7 @@ public class SearchVacationController {
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("SubmitRequest.fxml").openStream());
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+          //  scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Submit Request");

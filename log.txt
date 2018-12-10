@@ -1,5 +1,5 @@
-created new table users 2018/12/11 00:24:14
-created new table vacations 2018/12/11 00:24:14
-created new table purchases 2018/12/11 00:24:14
-connection opened 2018/12/11 00:24:55
-SUCCSSES retrive vacations to dest: Paris 2018/12/11 00:24:55
+created new table users 2018/12/11 00:47:38
+created new table vacations 2018/12/11 00:47:38
+created new table purchases 2018/12/11 00:47:38
+connection opened 2018/12/11 00:47:42
+SUCCSSES retrive vacations to dest: df 2018/12/11 00:47:42
