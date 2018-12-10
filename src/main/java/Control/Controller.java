@@ -85,14 +85,14 @@ public class Controller {
     }
 
     public boolean correctUserAndPassword(String username, String password){
-        AUserData logged = model.login(username,password);
+        /*AUserData logged = model.login(username,password);
         if(logged==null)
             return false;
         loggedUser = logged.getUserName();
-        return true;
-        /*loggedUser = "ALON";
-        sp_loggedUser.set(loggedUser);
         return true;*/
+        loggedUser = "ALON";
+        sp_loggedUser.set(loggedUser);
+        return true;
     }
 
     public String getLoggedUser() {
