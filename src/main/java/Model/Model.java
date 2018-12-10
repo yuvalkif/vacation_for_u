@@ -37,10 +37,6 @@ public class Model implements ISQLModel {
     /****************************************** TABLES CREATION ************************************************/
 
 
-
-
-
-
     /**
      * create a new users table
      */
@@ -197,7 +193,6 @@ public class Model implements ISQLModel {
 
     }
 
-
     @Override
     public void createConfirmMessageTable(){
         String url = "jdbc:sqlite:vacation_for_u.db";
@@ -226,12 +221,6 @@ public class Model implements ISQLModel {
         }
 
     }
-
-
-
-
-
-
 
     /*****************************************  INSERTION TO DB FUNCTIONS *****************************
 
@@ -311,10 +300,6 @@ public class Model implements ISQLModel {
         }
 
     }
-
-
-
-
 
     /**
      * this will add the requested vacation by id to the currently offerd table.

@@ -74,4 +74,7 @@ public class Controller {
         this.model = model;
     }
 
+    public boolean correctUserAndPassword(String username, String password){
+        return model.login(username,password);
+    }
 }
