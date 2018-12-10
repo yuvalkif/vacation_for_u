@@ -72,6 +72,7 @@ public class Main extends Application {
         controller.createUsersTable();
         controller.createVacationsTable();
         controller.createPurchaseTable();
+        controller.createConfirmMessageTable();
         mainView.setCurrentStage(primaryStage);
         primaryStage.show();
 
