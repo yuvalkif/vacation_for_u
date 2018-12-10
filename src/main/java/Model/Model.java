@@ -82,7 +82,7 @@ public class Model implements ISQLModel {
                 + "	vacationType text NOT NULL,\n"
                 + "	includeSleep INTEGER NOT NULL,\n"
                 + "	hotelName text,\n"
-                + " hotelRank text, \n"
+                + " hotelRank DOUBLE , \n"
                 + " vacationId INTEGER PRIMARY KEY AUTOINCREMENT,\n"
                 + " sold Integer NOT NULL,\n"
                 + " freezed INTEGER NOT NULL\n"
@@ -637,19 +637,21 @@ public class Model implements ISQLModel {
         ResultSet resultSet;
         ObservableList<User> result;
         boolean auth = false;
-        String sql = "SELECT * FROM users WHERE username = ?";
+        String sql = "SELECT * FROM users WHERE username = " + "'" + username + "'";;
 
         try {
             Connection conn = this.openConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, username);
+            Statement stmt = conn.createStatement();
+//            resultSet = stmt.executeQuery(sql)
+//            PreparedStatement stmt = conn.prepareStatement(sql);
             resultSet = stmt.executeQuery(sql);
             result = this.convertUsersResultsToObservableList(resultSet);
             conn.close();
             if (result.size() > 0) {
-                if (resultSet.getString("password").equals(password)) {
+                if (result.get(0).getPassword().equals(password)) {
                     auth = true;
-                    AUserData serverResponse = getUserData(username);
+                   AUserData serverResponse = getUserData(username);
+
                     return serverResponse;
                 }
             }
@@ -657,6 +659,7 @@ public class Model implements ISQLModel {
             return null;
 
         } catch (SQLException var7) {
+            System.out.println("in login");
             System.out.println(var7.getMessage());
             Logger.getInstance().log(var7.getMessage());
             return null;
@@ -696,7 +699,7 @@ public class Model implements ISQLModel {
                 boolean twoDirections = (resultSet.getInt("numberOfTickets") == 1) ? true : false;
                 boolean includeSleep = (resultSet.getInt("includeSleep") == 1) ? true : false;
                 boolean sold = (resultSet.getInt("sold") == 1) ? true : false;
-                int hotelRank = resultSet.getInt("hotelRank");
+                double hotelRank = resultSet.getDouble("hotelRank");
                 boolean freezed = (resultSet.getInt("freezed") == 1) ? true : false;
                 Vacation v = new Vacation(resultSet.getInt(14), resultSet.getString(1),
                         resultSet.getString(2),
@@ -798,12 +801,11 @@ public class Model implements ISQLModel {
         //get user inMessages
         ResultSet resultSet;
         ObservableList<AMessage> inboundMessages = null;
-        String sqlInboundMessages = "SELECT * FROM messages WHERE reciver = ?";
+        String sqlInboundMessages = "SELECT * FROM messages WHERE reciverUserName =" + "'" + username + "'";
 
         try {
             Connection conn = this.openConnection();
-            PreparedStatement stmt = conn.prepareStatement(sqlInboundMessages);
-            stmt.setString(1, username);
+            Statement stmt = conn.createStatement();
             resultSet = stmt.executeQuery(sqlInboundMessages);
             inboundMessages = this.convertInMessageResultsToObservableList(resultSet);
             conn.close();

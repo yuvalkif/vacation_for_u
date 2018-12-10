@@ -1,3 +1,6 @@
-created new table users 2018/12/11 00:40:23
-created new table vacations 2018/12/11 00:40:23
-created new table purchases 2018/12/11 00:40:23
+created new table users 2018/12/11 01:08:15
+created new table vacations 2018/12/11 01:08:15
+created new table purchases 2018/12/11 01:08:15
+created new table messages 2018/12/11 01:08:15
+connection opened 2018/12/11 01:08:22
+connection opened 2018/12/11 01:08:22

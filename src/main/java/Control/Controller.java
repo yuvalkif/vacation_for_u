@@ -37,6 +37,9 @@ public class Controller {
     public void createPurchaseTable() {
         this.model.createPurchaseTable();
     }
+    public void  createConfirmMessageTable(){
+        this.model.createConfirmMessageTable();
+    }
 
     public void handleSubmitSignUp(User submit) {
         if (submit != null) {
@@ -84,15 +87,15 @@ public class Controller {
         sp_loggedUser = new SimpleStringProperty(""+model.getLoggedUser());
     }
 
-    public boolean correctUserAndPassword(String username, String password){
-        /*AUserData logged = model.login(username,password);
+    public AUserData correctUserAndPassword(String username, String password){
+        AUserData logged = model.login(username,password);
         if(logged==null)
-            return false;
+            return null;
         loggedUser = logged.getUserName();
-        return true;*/
-        loggedUser = "ALON";
+//        return true;
+//        loggedUser = "ALON";
         sp_loggedUser.set(loggedUser);
-        return true;
+        return logged;
     }
 
     public String getLoggedUser() {

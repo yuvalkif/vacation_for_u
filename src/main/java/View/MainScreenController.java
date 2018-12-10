@@ -3,15 +3,17 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
+import dbObjects.AUserData;
 import dbObjects.User;
+import dbObjects.UserData;
 import dbObjects.Vacation;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -33,8 +35,10 @@ public class MainScreenController implements IView{
     public Button btn_delete;
     public Label lbl_userName;
     public Label lbl_hello;
-    public Label lbl_signIn;
+    public Label lbl_signIn ,inboxLabel , outboxLabel;
 
+    @FXML
+    public ListView inbox , outbox;
 
     public void setCurrentStage(Stage stage) {
         this.primaryStage = stage;
@@ -105,12 +109,30 @@ public class MainScreenController implements IView{
                 setVisibleLoggedIn(true,true,false,false,false);
             }
 
-
+            //get the user data and show the massages on the inbox and outbox
+            UserData userData =(UserData) sceneController.getUserData();
+            showUserMassages(userData);
 
         } catch (IOException e) {
             e.getCause();
             e.printStackTrace();
         }
+    }
+
+    /**
+     * show the massages after signing in
+     * @param userData user to show its massages
+     */
+    private void showUserMassages(UserData userData){
+
+        if(userData == null)
+            return;
+
+        ObservableList inList = userData.getInMessages();
+        ObservableList outList = userData.getOutMessages();
+        this.inbox.setItems(inList);
+        this.outbox.setItems(outList);
+
     }
 
     public void handleSearchVacation(){
@@ -257,7 +279,6 @@ public class MainScreenController implements IView{
         FXMLLoader loader = new FXMLLoader();
         try{
             Stage stage = initializeNewStage(loader,"PublishVacationForm.fxml","Forms.css","Vacation",false,650,500);
-            //loader.load(getClass().getClassLoader().getResource("PublishVacationForm.fxml").openStream());
             VacationFormController vacationFormController =(VacationFormController) loader.getController();
             vacationFormController.setController(this.controller);
             StageHolder.getInstance().holdStage(stage);
@@ -291,8 +312,7 @@ public class MainScreenController implements IView{
      * @param resizeable true or false
      * @return a stage initialized with all the parameters
      */
-    private Stage initializeNewStage( FXMLLoader loader,String fxmlPath , String cssPath , String title , boolean resizeable , double width , double height){
-
+    private Stage initializeNewStage(FXMLLoader loader, String fxmlPath, String cssPath, String title, boolean resizeable, double width, double height){
         try{
             Parent root = loader.load(getClass().getClassLoader().getResource(fxmlPath).openStream());
             Scene scene = new Scene(root,width,height);
