@@ -1,3 +1,1 @@
-created new table users 2018/12/10 17:50:07
-created new table vacations 2018/12/10 17:50:07
-created new table purchases 2018/12/10 17:50:07
+

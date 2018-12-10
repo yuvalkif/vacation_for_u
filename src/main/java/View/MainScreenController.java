@@ -102,6 +102,7 @@ public class MainScreenController implements IView{
 
     }
 
+
     public void handleDelete(){
         FXMLLoader loader = new FXMLLoader();
 
