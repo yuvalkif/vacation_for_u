@@ -9,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -19,6 +21,10 @@ public class MainScreenController implements IView{
     public ImageView img_backImg;
     public Tab tab_user;
     public Label lbl_SignUp;
+    public Button btn_newVacation;
+    public Button btn_serchUser;
+    public Button btn_update;
+    public Button btn_delete;
     private Controller controller;
     private Stage primaryStage;
     public Label lbl_userName;
@@ -106,8 +112,43 @@ public class MainScreenController implements IView{
     }
 
     public void handleSearch(){
-        
+
     }
+
+    public void handleDelete(){
+        FXMLLoader loader = new FXMLLoader();
+
+        try {
+            Parent root = loader.load(this.getClass().getClassLoader().getResource("DeleteForm.fxml").openStream());
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Delete");
+            stage.setResizable(false);
+            this.primaryStage.hide();
+            StageHolder.getInstance().holdStage(stage);
+            SignUpFormController sceneController = (SignUpFormController)loader.getController();
+            sceneController.setController(controller);
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    handleXPress();
+                }
+            });
+            stage.showAndWait();
+            this.primaryStage.show();
+            User toSubmit = sceneController.getToSubmit();
+
+            if( toSubmit != null && !sceneController.getToSubmit().hasNullField())
+                this.controller.handleSubmitSignIn(toSubmit);
+
+        } catch (IOException e) {
+            e.getCause();
+            e.printStackTrace();
+        }
+    }
+
 
     public void setController(Controller controller) {
         this.controller = controller;
