@@ -271,7 +271,10 @@ public class MainScreenController implements IView{
             Vacation toInsert = vacationFormController.getVacationToInsert();
             if(toInsert != null)
                 this.controller.insertVacation(toInsert);
-
+            else{
+                ErrorBox errorBox = new ErrorBox();
+                errorBox.showErrorStage("Please fill all fields");
+            }
         }catch (Exception e){
             System.out.println("at handle vacation button");
             e.printStackTrace();
