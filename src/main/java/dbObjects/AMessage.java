@@ -1,8 +1,7 @@
 package dbObjects;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public abstract class AMessage {
 
@@ -15,7 +14,8 @@ public abstract class AMessage {
         this.sender = sender;
         this.reciver = reciver;
         this.content = content;
-        this.messageTime =  new SimpleDateFormat("yyyy-mm-dd-HH-mm-ss").format(new Date());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        this.messageTime = LocalDateTime.now().format(formatter);
     }
 
     public String getMessageTime() {

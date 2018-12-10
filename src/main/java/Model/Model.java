@@ -8,12 +8,13 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.StringJoiner;
 
-import dbObjects.AMessage;
-import dbObjects.Purchase;
-import dbObjects.User;
-import dbObjects.Vacation;
+import dbObjects.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import Control.Controller;
@@ -105,6 +106,43 @@ public class Model implements ISQLModel {
         }
     }
 
+
+
+    public void createPurchasedVacationsTable() {
+        // SQLite connection string
+        String url = "jdbc:sqlite:vacation_for_u.db";
+
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS purchased_vacations (\n"
+                + "	buyerUserName text NOT NULL,\n"
+                + "	flightCompany text NOT NULL,\n"
+                + "	fromDate DATE ,\n"
+                + "	untilDate DATE ,\n"
+                + "	baggageIncluded text NOT NULL,\n"
+                + "	numberOfTickets INTEGER NOT NULL,\n"
+                + "	destination text NOT NULL,\n"
+                + "	twoDirections INTEGER NOT NULL,\n"
+                + "	ticketType text NOT NULL,\n"
+                + "	vacationType text NOT NULL,\n"
+                + "	includeSleep INTEGER NOT NULL,\n"
+                + "	hotelName text ,\n"
+                + " vacationId INTEGER PRIMARY KEY AUTOINCREMENT \n"
+                + " status string NOT NULL\n"
+                + " freezed INTEGER NOT NULL\n"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+            Logger.getInstance().log("created new table purchased_vacations");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            Logger.getInstance().log("failed to create new table purchased_vacations");
+        }
+    }
+
     @Override
     public void createPurchaseTable() {
         // SQLite connection string
@@ -161,16 +199,19 @@ public class Model implements ISQLModel {
 
 
     @Override
-    public void createMessageTable(){
+    public void createConfirmMessageTable(){
         String url = "jdbc:sqlite:vacation_for_u.db";
 
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS messages (\n"
                 + "	senderUserName text NOT NULL,\n"
-                + "	buyerUserName text NOT NULL,\n"
+                + "	reciverUserName text NOT NULL,\n"
                 + "	creationTime text NOT NULL ,\n"
                 + " messageType text NOT NULL ,\n"
-                + " PRIMARY KEY (senderUserName, buyerUserName)"
+                + " messageContent text NOT NULL , \n"
+                + " status text NOT NULL , \n"
+                + " vacationId INTEGER NOT NULL , \n"
+                + " PRIMARY KEY (senderUserName, reciverUserName, vacationId)\n"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);
@@ -335,6 +376,12 @@ public class Model implements ISQLModel {
 
 
 
+    public void insertMessage(AMessage msg){
+
+    }
+
+
+
 
 
 
@@ -393,295 +440,6 @@ public class Model implements ISQLModel {
 
 
 
-
-
-
-
-
-
-
-    /**
-     * delete a record from the data base
-     * @param userName the username of the user as it appears in the database
-     */
-    public void deleteUsers(String userName) {
-        String sql = "DELETE FROM users WHERE username = ? ";
-        try{
-            Connection conn = openConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1,userName);
-            stmt.executeUpdate();
-            Logger.getInstance().log("DELETED " + userName);
-            conn.close();
-        }catch (SQLException e){
-            e.printStackTrace();
-            Logger.getInstance().log("FAILED TO DELETE " + userName);
-
-        }
-
-
-    }
-
-
-    /**
-     * returns all the records in the database
-     * @return a list with all the records
-     */
-    public ObservableList selectAllDataBase() {
-        ResultSet resultSet = null;
-        String sql = "SELECT * FROM users";
-        ObservableList result = null;
-
-        try {
-            Connection conn = this.openConnection();
-            Statement stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(sql);
-            result = this.convertUsersResultsToObservableList(resultSet);
-            conn.close();
-        } catch (SQLException var6) {
-            System.out.println(var6.getMessage());
-            Logger.getInstance().log(var6.getMessage());
-        }
-
-        return result;
-    }
-
-    /**
-     * search a record by a field given
-     * @param username the username of the record
-     * @return a list with all the records
-     */
-    public ObservableList<User> searchRecordsByFields(String username) {
-        ResultSet resultSet ;
-        ObservableList result = null;
-        String sql = "SELECT * FROM users WHERE username = " + "'"+username+"'";
-
-        try {
-            Connection conn = this.openConnection();
-            Statement stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(sql);
-            result = this.convertUsersResultsToObservableList(resultSet);
-            conn.close();
-        } catch (SQLException var7) {
-            System.out.println(var7.getMessage());
-            Logger.getInstance().log(var7.getMessage());
-        }
-
-        return result;
-    }
-
-    /**
-     * check if a char is a digit
-     * @param c
-     * @return true if its a digit
-     */
-    private boolean isDigit(char c){
-
-        if(c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9' || c == '0')
-            return true;
-
-        return false;
-    }
-
-    /**
-     * converts a set of results from the database to a list
-     * @param resultSet set with results
-     * @return a list with records
-     */
-    private ObservableList<User> convertUsersResultsToObservableList(ResultSet resultSet) {
-        ObservableList<User> observableList = FXCollections.observableArrayList();
-
-        try {
-            while(resultSet.next()) {
-                java.util.Date myDate = resultSet.getDate("birth_date");
-                observableList.add(new User(resultSet.getString(1),resultSet.getString(2) , dateToStringConvert(resultSet.getDate(3)), resultSet.getString(4), resultSet.getString(5) ,resultSet.getString(6)));
-            }
-        } catch (SQLException var4) {
-            var4.printStackTrace();
-        }
-
-        return observableList;
-    }
-
-
-    private ObservableList<Vacation> convertVacationResultsToObservableList(ResultSet resultSet) {
-        ObservableList<Vacation> observableList = FXCollections.observableArrayList();
-
-        try {
-            while(resultSet.next()) {
-                Date fromDate = resultSet.getDate("startDate");
-                Date untilDate = resultSet.getDate("untilDate");
-                int numberOfTickets = resultSet.getInt("numberOfTickets");
-                boolean twoDirections = (resultSet.getInt("numberOfTickets") == 1) ? true : false;
-                boolean includeSleep = (resultSet.getInt("includeSleep") == 1) ? true : false;
-                boolean sold = (resultSet.getInt("sold") == 1) ? true : false;
-                int hotelRank = resultSet.getInt("hotelRank");
-                boolean freezed = (resultSet.getInt("freezed") == 1) ? true : false;
-                Vacation v = new Vacation(resultSet.getInt(14),resultSet.getString(1),
-                        resultSet.getString(2) ,
-                        fromDate,
-                        untilDate,
-                        resultSet.getString(5) ,
-                        numberOfTickets,
-                        resultSet.getString(7),
-                        twoDirections,
-                        resultSet.getString(9),
-                        resultSet.getString(10),
-                        includeSleep,
-                        resultSet.getString(12),
-                        hotelRank,sold,freezed);
-                if(!v.isFreezed() && !v.isSold())
-                observableList.add(v);
-            }
-        } catch (SQLException var4) {
-            var4.printStackTrace();
-        }
-
-        return observableList;
-    }
-
-    /**
-     * get the relevant fields for a query based on if a field is empty or not
-     * @param fields all fields wanted for the query
-     * @return a string with the fields for the query
-     */
-    private String getFieldsForQuery(User fields) {
-        String ans = "";
-        if (!fields.getUsername().equals("")) {
-            ans = ans + "username = '" + fields.getUsername() + "',";
-        }
-
-        if (!fields.getPassword().equals("")) {
-            ans = ans + "password = " + fields.getPassword() + ",";
-        }
-
-        if (!fields.getFirstname().equals("")) {
-            ans = ans + "first_name = " + fields.getFirstname() + ",";
-        }
-
-        if (!fields.getLastname().equals("")) {
-            ans = ans + "last_name = " + fields.getLastname() + ",";
-        }
-
-        if (!fields.getCity().equals("")) {
-            ans = ans + "address = " + fields.getCity() + ",";
-        }
-
-        return ans.substring(0, ans.length() - 1);
-    }
-
-    /**
-     * convert a string to a date
-     * @param sDate
-     * @return
-     */
-    private Date dateConvert(String sDate){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-        try {
-            java.util.Date jDate = dateFormat.parse(sDate);
-            java.sql.Date sqlDate = new java.sql.Date(jDate.getTime());
-            return sqlDate;
-
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-            System.out.println("problem with parsing the date form string");
-            return null;
-        }
-
-    }
-
-    /**
-     * convert a date to a string
-     * @param date
-     * @return
-     */
-    private String dateToStringConvert(Date date){
-        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
-        String ans = df.format(date);
-        return ans;
-    }
-
-    /**
-     * open a connection to the database
-     * @return
-     */
-    private Connection openConnection() {
-        Connection conn = this.driver.connect();
-        Logger.getInstance().log("connection opened");
-        return conn;
-    }
-
-    /**
-     * close connection to the database
-     * @param connection
-     */
-    private void closeConnection(Connection connection) {
-        try {
-            connection.close();
-            Logger.getInstance().log("connection closed");
-        } catch (SQLException var3) {
-            var3.printStackTrace();
-        }
-
-    }
-
-    /**
-     *
-     * @param username
-     * @return
-     */
-    @Override
-    public boolean login(String username,String password) {
-        ResultSet resultSet ;
-             String sql = "SELECT * FROM users WHERE username = " + "'"+username+"'";
-
-        try {
-            Connection conn = this.openConnection();
-            Statement stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(sql);
-            conn.close();
-            if(resultSet.next())
-                if(resultSet.getString("password").equals(password))
-                    return true;
-
-            return false;
-        } catch (SQLException var7) {
-            System.out.println(var7.getMessage());
-            Logger.getInstance().log(var7.getMessage());
-            return false;
-        }
-
-    }
-
-
-
-
-
-    @Override
-    public ObservableList getAllVacations() {
-        ResultSet resultSet = null;
-        String sql = "SELECT * FROM vacations";
-        ObservableList result = null;
-
-        try {
-            Connection conn = this.openConnection();
-            Statement stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(sql);
-            result = this.convertVacationResultsToObservableList(resultSet);
-            conn.close();
-        } catch (SQLException var6) {
-            System.out.println(var6.getMessage());
-            Logger.getInstance().log(var6.getMessage());
-        }
-
-        return result;
-    }
-
-    @Override
-    public ObservableList getVacations(String[] criteria, String[] Values) {
-        return null;
-    }
 
 
 
@@ -747,9 +505,504 @@ public class Model implements ISQLModel {
     }
 
 
-    public void insertMessage(AMessage msg){
+
+
+
+/*********************************************** SEARCHING FUNCTIONS************************************************
+
+
+
+
+
+
+ /**
+ * returns all the records in the database
+ * @return a list with all the records
+ */
+public ObservableList selectAllDataBase() {
+    ResultSet resultSet = null;
+    String sql = "SELECT * FROM users";
+    ObservableList result = null;
+
+    try {
+        Connection conn = this.openConnection();
+        Statement stmt = conn.createStatement();
+        resultSet = stmt.executeQuery(sql);
+        result = this.convertUsersResultsToObservableList(resultSet);
+        conn.close();
+    } catch (SQLException var6) {
+        System.out.println(var6.getMessage());
+        Logger.getInstance().log(var6.getMessage());
+    }
+
+    return result;
+}
+
+    /**
+     * search a record by a field given
+     * @param username the username of the record
+     * @return a list with all the records
+     */
+    public ObservableList<User> searchRecordsByFields(String username) {
+        ResultSet resultSet ;
+        ObservableList result = null;
+        String sql = "SELECT * FROM users WHERE username = " + "'"+username+"'";
+
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertUsersResultsToObservableList(resultSet);
+            conn.close();
+        } catch (SQLException var7) {
+            System.out.println(var7.getMessage());
+            Logger.getInstance().log(var7.getMessage());
+        }
+
+        return result;
+    }
+
+
+
+    @Override
+    public ObservableList getAllVacations() {
+        ResultSet resultSet = null;
+        String sql = "SELECT * FROM vacations";
+        ObservableList result = null;
+
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertVacationResultsToObservableList(resultSet);
+            conn.close();
+        } catch (SQLException var6) {
+            System.out.println(var6.getMessage());
+            Logger.getInstance().log(var6.getMessage());
+        }
+
+        return result;
+    }
+
+    @Override
+    public ObservableList getVacations(String[] criteria, String[] Values) {
+        return null;
+    }
+
+
+
+
+
+
+
+
+    /******************************************** DELETE FUNCS****************************************
+
+
+
+
+    /**
+     * delete a record from the data base
+     * @param userName the username of the user as it appears in the database
+     */
+    public void deleteUsers(String userName) {
+        String sql = "DELETE FROM users WHERE username = ? ";
+        try{
+            Connection conn = openConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1,userName);
+            stmt.executeUpdate();
+            Logger.getInstance().log("DELETED " + userName);
+            conn.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+            Logger.getInstance().log("FAILED TO DELETE " + userName);
+
+        }
+
 
     }
+
+
+    /**
+     * check if a char is a digit
+     * @param c
+     * @return true if its a digit
+     */
+
+
+
+
+
+    /********************************************   LOGIN *************************************************/
+
+
+
+     @Override
+     public AUserData login(String username, String password) {
+     ResultSet resultSet ;
+     boolean auth = false;
+     String sql = "SELECT * FROM users WHERE username = " + "'"+username+"'";
+
+     try {
+     Connection conn = this.openConnection();
+     Statement stmt = conn.createStatement();
+     resultSet = stmt.executeQuery(sql);
+     conn.close();
+     if(resultSet.next()) {
+         if (resultSet.getString("password").equals(password)) {
+             auth = true;
+             AUserData serverResponse = getUserData(username);
+             return serverResponse;
+         }
+     }
+
+     return null;
+
+     } catch (SQLException var7) {
+     System.out.println(var7.getMessage());
+     Logger.getInstance().log(var7.getMessage());
+     return null;
+
+     }
+
+     }
+
+
+
+
+
+
+
+
+
+    /***************************************  RESULTSET TO OBSERVABLE LIST   ****************************/
+
+
+
+
+
+
+
+
+    private ObservableList<User> convertUsersResultsToObservableList(ResultSet resultSet) {
+        ObservableList<User> observableList = FXCollections.observableArrayList();
+
+        try {
+            while(resultSet.next()) {
+                java.util.Date myDate = resultSet.getDate("birth_date");
+                observableList.add(new User(resultSet.getString(1),resultSet.getString(2) , dateToStringConvert(resultSet.getDate(3)), resultSet.getString(4), resultSet.getString(5) ,resultSet.getString(6)));
+            }
+        } catch (SQLException var4) {
+            var4.printStackTrace();
+        }
+
+        return observableList;
+    }
+
+
+    private ObservableList<Vacation> convertVacationResultsToObservableList(ResultSet resultSet) {
+        ObservableList<Vacation> observableList = FXCollections.observableArrayList();
+
+        try {
+            while(resultSet.next()) {
+                Date fromDate = resultSet.getDate("startDate");
+                Date untilDate = resultSet.getDate("untilDate");
+                int numberOfTickets = resultSet.getInt("numberOfTickets");
+                boolean twoDirections = (resultSet.getInt("numberOfTickets") == 1) ? true : false;
+                boolean includeSleep = (resultSet.getInt("includeSleep") == 1) ? true : false;
+                boolean sold = (resultSet.getInt("sold") == 1) ? true : false;
+                int hotelRank = resultSet.getInt("hotelRank");
+                boolean freezed = (resultSet.getInt("freezed") == 1) ? true : false;
+                Vacation v = new Vacation(resultSet.getInt(14),resultSet.getString(1),
+                        resultSet.getString(2) ,
+                        fromDate,
+                        untilDate,
+                        resultSet.getString(5) ,
+                        numberOfTickets,
+                        resultSet.getString(7),
+                        twoDirections,
+                        resultSet.getString(9),
+                        resultSet.getString(10),
+                        includeSleep,
+                        resultSet.getString(12),
+                        hotelRank,sold,freezed);
+                if(!v.isFreezed() && !v.isSold())
+                    observableList.add(v);
+            }
+        } catch (SQLException var4) {
+            var4.printStackTrace();
+        }
+
+        return observableList;
+    }
+
+
+
+
+    private ObservableList<AMessage> convertInMessageResultsToObservableList(ResultSet resultSet) {
+        ObservableList<AMessage> observableList = FXCollections.observableArrayList();
+        LocalDateTime now = LocalDateTime.now();
+        try {
+            while(resultSet.next()) {
+                LocalDateTime creationTime = convertStringToLocalDateTime(resultSet.getString("creationTime"));
+                String sender = resultSet.getString("senderUserName");
+                String reciver = resultSet.getString("reciverUserName");
+                String content = resultSet.getString("messageContent");
+                String msgType = resultSet.getString("messageType");
+                String status  = resultSet.getString("status");
+                int vacationId = resultSet.getInt("vacationId");
+                boolean expired = false;
+                if(getHoursGap(creationTime,now)>48)
+                    expired = true;
+                AMessage msg = null;
+                Vacation v =getVacationAsObjectById(vacationId);
+                if(!expired)   //the vaction will be set from vacation table;
+                    msg = new ConfirmOfferMessage(sender,reciver,content,v,status);
+                else {
+                    String expireExplain = "user: +"+sender+" tried to buy vacation: "+v.toString()+" but 48 have passed" +
+                            "so offer is expired";
+                    msg = new ExpiredOfferMessage(sender, reciver, expireExplain);
+                }
+
+
+
+
+                    observableList.add(msg);
+            }
+        } catch (SQLException var4) {
+            var4.printStackTrace();
+        }
+
+        return observableList;
+    }
+
+
+
+
+
+
+
+    /*******************************************  FROM DB TO OBJECT **********************************************/
+
+    private Vacation getVacationAsObjectById (int vacationId){
+        ResultSet resultSet ;
+        ObservableList <Vacation> result = null;
+        String sql = "SELECT * FROM vacations WHERE vacationId = " + "'"+vacationId+"'";
+        Vacation ans = null;
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertVacationResultsToObservableList(resultSet);
+            conn.close();
+             ans = result.get(0);
+        } catch (SQLException var7) {
+            System.out.println(var7.getMessage());
+            Logger.getInstance().log(var7.getMessage());
+            System.out.println("unable to create Vacation Object from DB by ID");
+        }
+
+        return ans;
+
+    }
+
+
+
+
+
+
+
+
+
+    /******************************************** PRIVATE FUNCTIONS ***********************************************/
+
+
+    /**
+     * this is the server response with all the user data
+     * this will sent after user login so the controller can set the view the right contents
+     * c
+     * @param username
+     * @return
+     */
+    private AUserData getUserData(String username){
+        //get user inMessages
+        ResultSet resultSet ;
+        ObservableList inboundMessages = null;
+        String sqlInboundMessages = "SELECT * FROM messages WHERE reciver = " + "'"+username+"'";
+
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sqlInboundMessages);
+            inboundMessages = this.convertInMessageResultsToObservableList(resultSet);
+            conn.close();
+        } catch (SQLException var7) {
+            System.out.println(var7.getMessage());
+            Logger.getInstance().log(var7.getMessage());
+        }
+        /** NEED TO FINISH IT **/
+
+
+        //check if they are not expired
+
+        //if not , add as it is to user messages
+
+        //else return an expire message
+
+        ObservableList<AMessage> userMessages;
+        return null;
+    }
+
+
+
+    private boolean isDigit(char c){
+
+        if(c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9' || c == '0')
+            return true;
+
+        return false;
+    }
+
+    /**
+     * converts a set of results from the database to a list
+     * @param resultSet set with results
+     * @return a list with records
+     */
+
+
+
+
+
+    /**
+     * get the relevant fields for a query based on if a field is empty or not
+     * @param fields all fields wanted for the query
+     * @return a string with the fields for the query
+     */
+    private String getFieldsForQuery(User fields) {
+        String ans = "";
+        if (!fields.getUsername().equals("")) {
+            ans = ans + "username = '" + fields.getUsername() + "',";
+        }
+
+        if (!fields.getPassword().equals("")) {
+            ans = ans + "password = " + fields.getPassword() + ",";
+        }
+
+        if (!fields.getFirstname().equals("")) {
+            ans = ans + "first_name = " + fields.getFirstname() + ",";
+        }
+
+        if (!fields.getLastname().equals("")) {
+            ans = ans + "last_name = " + fields.getLastname() + ",";
+        }
+
+        if (!fields.getCity().equals("")) {
+            ans = ans + "address = " + fields.getCity() + ",";
+        }
+
+        return ans.substring(0, ans.length() - 1);
+    }
+
+    /**
+     * convert a string to a date
+     * @param sDate
+     * @return
+     */
+    private Date dateConvert(String sDate){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        try {
+            java.util.Date jDate = dateFormat.parse(sDate);
+            java.sql.Date sqlDate = new java.sql.Date(jDate.getTime());
+            return sqlDate;
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            System.out.println("problem with parsing the date form string");
+            return null;
+        }
+
+    }
+
+    /**
+     * convert from string to local date time so we can subtract with Period
+     * @param sDate time
+     * @return time in LocalDateTime object
+     */
+
+    private  LocalDateTime convertStringToLocalDateTime(String sDate) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        LocalDateTime formatDateTime = LocalDateTime.parse(sDate, formatter);
+
+        return formatDateTime;
+    }
+
+    private long getHoursGap(LocalDateTime start , LocalDateTime end){
+        Duration duration = Duration.between(start, end);
+        return duration.getSeconds()/60/60;
+
+    }
+
+
+    private long getMinutesgap(LocalDateTime start , LocalDateTime end){
+        Duration duration = Duration.between(start, end);
+        return duration.getSeconds()/60;
+
+    }
+
+    /**
+     * convert a date to a string
+     * @param date
+     * @return
+     */
+    private String dateToStringConvert(Date date){
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        String ans = df.format(date);
+        return ans;
+    }
+
+
+
+
+    /**
+     * open a connection to the database
+     * @return
+     */
+    private Connection openConnection() {
+        Connection conn = this.driver.connect();
+        Logger.getInstance().log("connection opened");
+        return conn;
+    }
+
+    /**
+     * close connection to the database
+     * @param connection
+     */
+    private void closeConnection(Connection connection) {
+        try {
+            connection.close();
+            Logger.getInstance().log("connection closed");
+        } catch (SQLException var3) {
+            var3.printStackTrace();
+        }
+
+    }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
+
+
+
+
+
+
+
 }
 
 
