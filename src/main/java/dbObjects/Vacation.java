@@ -18,7 +18,7 @@ public class Vacation {
     private String vacationType;
     private boolean includeSleep;
     private String hotelName;
-    private int hotelRank;
+    private double hotelRank;
     private boolean sold;
     private boolean freezed;
 
@@ -140,7 +140,7 @@ public class Vacation {
         return PhotelName;
     }
 
-    public Vacation(int vacationID , String publisherUserName, String flightCompany, Date fromDate, Date untilDate, String baggageIncluded, int numberOfTickets, String destination, boolean twoDirections, String ticketType, String vacationType, boolean includeSleep, String hotelName, int hotelRank, boolean sold, boolean freezed) {
+    public Vacation(int vacationID , String publisherUserName, String flightCompany, Date fromDate, Date untilDate, String baggageIncluded, int numberOfTickets, String destination, boolean twoDirections, String ticketType, String vacationType, boolean includeSleep, String hotelName, double hotelRank, boolean sold, boolean freezed) {
         this.VacationID = vacationID;
         this.publisherUserName = publisherUserName;
         this.flightCompany = flightCompany;
@@ -219,7 +219,7 @@ public class Vacation {
         return hotelName;
     }
 
-    public int getHotelRank() {
+    public double getHotelRank() {
         return hotelRank;
     }
 

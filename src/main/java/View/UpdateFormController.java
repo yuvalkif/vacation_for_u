@@ -19,32 +19,18 @@ public class UpdateFormController {
     private User user ;
     private Controller controller ;
     @FXML
-    public TextField username ,newUserName, password , firstname , lastname , city , date;
+    public TextField newUserName, password , firstname , lastname , city , date;
     private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="";
 
     public void handleExecuteUpdate() {
-        user = new User(sNewUserName =newUserName.getText(), sPassword = password.getText(), sFirstName = firstname.getText(), sLastName = lastname.getText(),
+        user = new User(sNewUserName = newUserName.getText(), sPassword = password.getText(), sFirstName = firstname.getText(), sLastName = lastname.getText(),
                 sCity = city.getText(), sDate = date.getText());
-        sUserName = username.getText();
-
-        if (sUserName.equals("")) {
-            showError("Please enter a username to be updated");
-            user = null;
-            return;
-        }
 
         if (user.nullRecord()) {
             showError("Please fill atleast 1 field \n" + "to be updated");
             user = null;
             return;
         }
-
-        if(controller.searchInDataBase(sUserName).size() == 0){
-            showError("User doesnt exist");
-            user=null;
-            return;
-        }
-
 
         ObservableList result = controller.searchInDataBase(user);
         if (result.size() > 0) {
@@ -54,21 +40,18 @@ public class UpdateFormController {
             return;
         }
 
-
         //date valid check
-
-        if(user.getDate().length()>0 && !isValidDate(user.getDate())){
+        if (user.getDate().length() > 0 && !isValidDate(user.getDate())) {
             showError("Please insert a valid date of format YYYY-MM-DD");
-            user=null;
+            user = null;
             return;
         }
 
-            //the update if all ok
-            this.controller.updateUser(sUserName, user.getUsername(), user.getpPassword(), user.getFirstname(), user.getLastname(),
-                    user.getCity(), user.getDate());
+        //the update if all ok
+        this.controller.updateUser(user.getUsername(), user.getpPassword(), user.getFirstname(), user.getLastname(), user.getCity(), user.getDate());
 
-            StageHolder.getInstance().getStage().close();
-        }
+        StageHolder.getInstance().getStage().close();
+    }
 
 
 
