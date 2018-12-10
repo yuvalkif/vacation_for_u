@@ -3,15 +3,17 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
+import dbObjects.AUserData;
 import dbObjects.User;
+import dbObjects.UserData;
 import dbObjects.Vacation;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -33,8 +35,10 @@ public class MainScreenController implements IView{
     public Button btn_delete;
     public Label lbl_userName;
     public Label lbl_hello;
-    public Label lbl_signIn;
+    public Label lbl_signIn ,inboxLabel , outboxLabel;
 
+    @FXML
+    public ListView inbox , outbox;
 
     public void setCurrentStage(Stage stage) {
         this.primaryStage = stage;
@@ -105,10 +109,30 @@ public class MainScreenController implements IView{
                 setVisibleLoggedIn(true,true,false,false,false);
             }
 
+            //get the user data and show the massages on the inbox and outbox
+            UserData userData =(UserData) sceneController.getUserData();
+            showUserMassages(userData);
+
         } catch (IOException e) {
             e.getCause();
             e.printStackTrace();
         }
+    }
+
+    /**
+     * show the massages after signing in
+     * @param userData user to show its massages
+     */
+    private void showUserMassages(UserData userData){
+
+        if(userData == null)
+            return;
+
+        ObservableList inList = userData.getInMessages();
+        ObservableList outList = userData.getOutMessages();
+        this.inbox.setItems(inList);
+        this.outbox.setItems(outList);
+
     }
 
     public void handleSearchVacation(){
@@ -270,7 +294,10 @@ public class MainScreenController implements IView{
             Vacation toInsert = vacationFormController.getVacationToInsert();
             if(toInsert != null)
                 this.controller.insertVacation(toInsert);
-
+            else{
+                ErrorBox errorBox = new ErrorBox();
+                errorBox.showErrorStage("Please fill all fields");
+            }
         }catch (Exception e){
             System.out.println("at handle vacation button");
             e.printStackTrace();
@@ -279,8 +306,6 @@ public class MainScreenController implements IView{
 
     /**
      * initialize and return a new stage
-     *
-     * @param loader
      * @param fxmlPath path to fxml file of the stage
      * @param cssPath path to css of the stage
      * @param title the title to be shown
