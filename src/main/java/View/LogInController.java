@@ -1,6 +1,7 @@
 package View;
 
 import Control.Controller;
+import Logger.StageHolder;
 import Objects.ErrorBox;
 import javafx.scene.control.TextField;
 
@@ -28,5 +29,9 @@ public class LogInController {
 
     public void setController(Controller controller){
         this.controller = controller;
+    }
+
+    public void handleBack() {
+        StageHolder.getInstance().getStage().close();
     }
 }

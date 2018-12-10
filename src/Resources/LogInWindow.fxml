@@ -32,6 +32,7 @@
             <Label text="Log in" GridPane.columnIndex="1" />
             <Label text="Forgot password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="Sing In" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button mnemonicParsing="false" onAction="#handleBack" text="Back" GridPane.columnIndex="2" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>

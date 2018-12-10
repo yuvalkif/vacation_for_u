@@ -29,7 +29,7 @@ public class View implements IView {
 
     //region SCENES
 
-    public void signInScene() {
+    /*public void signInScene() {
         FXMLLoader loader = new FXMLLoader();
 
         try {
@@ -62,7 +62,7 @@ public class View implements IView {
             var6.printStackTrace();
         }
 
-    }
+    }*/
 
     public void handleRead() {
         FXMLLoader loader = new FXMLLoader();

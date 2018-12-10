@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SeraechWindow">
+<AnchorPane prefHeight="542.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainScreenController">
    <children>
       <GridPane layoutX="14.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="-14.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -21,21 +20,21 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="273.0" minWidth="10.0" prefWidth="30.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="273.0" minWidth="10.0" prefWidth="30.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="57.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.0" minWidth="10.0" prefWidth="211.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="64.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.0" minWidth="10.0" prefWidth="194.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="91.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="61.0" minHeight="0.0" prefHeight="28.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="202.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="153.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="133.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="110.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="222.0" minHeight="0.0" prefHeight="149.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="202.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="169.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="183.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="133.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Sign in" />
-            <Label text="Sing up" GridPane.columnIndex="1" />
+            <Label onMouseClicked="#handleSignIn" text="Sign in" />
+            <Label onMouseClicked="#handleSignUp" text="Sing up" GridPane.columnIndex="1" />
             <DatePicker GridPane.columnIndex="6" GridPane.rowIndex="2" />
             <DatePicker GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Label text="Depart" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -49,6 +48,7 @@
             <Label text="Adultes" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <Label text="Kids (Under 16)" GridPane.columnIndex="6" GridPane.rowIndex="4" />
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="168.0" text="Search" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>
