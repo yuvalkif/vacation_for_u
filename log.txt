@@ -1,3 +1,7 @@
-created new table users 2018/12/10 23:02:08
-created new table vacations 2018/12/10 23:02:08
-created new table purchases 2018/12/10 23:02:08
+created new table users 2018/12/10 23:54:02
+created new table vacations 2018/12/10 23:54:02
+created new table purchases 2018/12/10 23:54:02
+connection opened 2018/12/10 23:54:16
+SUCCSSES retrive vacations to dest: asf 2018/12/10 23:54:16
+connection opened 2018/12/10 23:54:20
+SUCCSSES retrive vacations to dest: Paris 2018/12/10 23:54:20

@@ -82,6 +82,7 @@ public class Model implements ISQLModel {
                 + "	vacationType text NOT NULL,\n"
                 + "	includeSleep INTEGER NOT NULL,\n"
                 + "	hotelName text,\n"
+                + " hotelRank text, \n"
                 + " vacationId INTEGER PRIMARY KEY AUTOINCREMENT,\n"
                 + " sold Integer NOT NULL,\n"
                 + " freezed INTEGER NOT NULL\n"
@@ -258,8 +259,8 @@ public class Model implements ISQLModel {
 
         String sql = "INSERT INTO vacations(publisherUserName,flightCompany,fromDate,untilDate,baggageIncluded,numberOfTickets,destination,twoDirections,ticketType,vacationType,includeSleep,hotelName,hotelRank,sold,freezed) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-        //processing dates
 
+        //processing dates
         int includeSleep = (vacationValues.isIncludeSleep()) ? 1 : 0;
         int roundTrip = (vacationValues.isTwoDirections()) ? 1 : 0;
         int sold = (vacationValues.isSold() == true) ? 1 : 0;
@@ -577,16 +578,16 @@ public class Model implements ISQLModel {
     @Override
     public ObservableList<Vacation> getVacations(String dest) {
 
-        String sql = "SELECT * FROM vacations WHERE destination = ? ";
+        String sql = "SELECT * FROM vacations WHERE destination = " + "'" + dest + "'";
         ResultSet resultSet;
         ObservableList result = null;
         try {
-            Connection conn = openConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, dest);
+
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
             resultSet = stmt.executeQuery(sql);
-            result = this.convertUsersResultsToObservableList(resultSet);
-            Logger.getInstance().log("retrived vacations to dest: " + dest);
+            result = this.convertVacationResultsToObservableList(resultSet);
+            Logger.getInstance().log("SUCCSSES retrive vacations to dest: " + dest);
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -689,7 +690,7 @@ public class Model implements ISQLModel {
 
         try {
             while (resultSet.next()) {
-                Date fromDate = resultSet.getDate("startDate");
+                Date fromDate = resultSet.getDate("fromDate");
                 Date untilDate = resultSet.getDate("untilDate");
                 int numberOfTickets = resultSet.getInt("numberOfTickets");
                 boolean twoDirections = (resultSet.getInt("numberOfTickets") == 1) ? true : false;
