@@ -4,6 +4,7 @@ import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import dbObjects.User;
+import dbObjects.Vacation;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -253,9 +254,10 @@ public class MainScreenController implements IView{
     public void handleVacationButton(){
         FXMLLoader loader = new FXMLLoader();
         try{
-            Stage stage = initializeNewStage(loader,"PublishVacationForm.fxml","Forms.css","Vacation",false,650,500);
+            loader.load(getClass().getClassLoader().getResource("PublishVacationForm.fxml").openStream());
+            Stage stage = initializeNewStage("PublishVacationForm.fxml","Forms.css","Vacation",false,650,500);
             VacationFormController vacationFormController =(VacationFormController) loader.getController();
-            vacationFormController.setController(controller);
+            vacationFormController.setController(this.controller);
             StageHolder.getInstance().holdStage(stage);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -265,7 +267,10 @@ public class MainScreenController implements IView{
             });
 
             stage.showAndWait();
-            this.controller.insertVacation(vacationFormController.getVacationToInsert());
+
+            Vacation toInsert = vacationFormController.getVacationToInsert();
+            if(toInsert != null)
+                this.controller.insertVacation(toInsert);
 
         }catch (Exception e){
             System.out.println("at handle vacation button");
@@ -275,16 +280,15 @@ public class MainScreenController implements IView{
 
     /**
      * initialize and return a new stage
-     *
-     * @param loader fxml loader
      * @param fxmlPath path to fxml file of the stage
      * @param cssPath path to css of the stage
      * @param title the title to be shown
      * @param resizeable true or false
      * @return a stage initialized with all the parameters
      */
-    private Stage initializeNewStage(FXMLLoader loader, String fxmlPath, String cssPath, String title, boolean resizeable, double width, double height){
+    private Stage initializeNewStage(String fxmlPath , String cssPath , String title , boolean resizeable , double width , double height){
 
+        FXMLLoader loader = new FXMLLoader();
         try{
             Parent root = loader.load(getClass().getClassLoader().getResource(fxmlPath).openStream());
             Scene scene = new Scene(root,width,height);
@@ -315,7 +319,7 @@ public class MainScreenController implements IView{
     }
 
     private void handleXPress(){
-        StageHolder.getInstance().getStage().close();
+        StageHolder.getInstance().getStage();
     }
 
 }
