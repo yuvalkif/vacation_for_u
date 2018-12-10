@@ -254,38 +254,36 @@ public class Model implements ISQLModel {
 
     }
 
-
     @Override
-    public boolean insertVacation(String[] vacationValues) {
+    public boolean insertVacation(Vacation vacationValues) {
 
         String sql = "INSERT INTO vacations(publisherUserName,flightCompany,fromDate,untilDate,baggageIncluded,numberOfTickets,destination,twoDirections,ticketType,vacationType,includeSleep,hotelName,hotelRank,sold,freezed) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         //processing dates
-        Date fromDate = dateConvert(vacationValues[2]);
-        Date untilDate = dateConvert(vacationValues[3]);
-        int numberOfTickets = Integer.parseInt(vacationValues[5]);
-        int twoDirections = ((vacationValues[7].equals("true")) ? 1 : 0);
-        int includeSleep = ((vacationValues[10].equals("true")) ? 1 : 0);
-        int hotelRank = Integer.parseInt(vacationValues[12]);
-        int sold = ((vacationValues[13].equals("true")) ? 1 : 0);
-        int freezed = ((vacationValues[14].equals("true")) ? 1 : 0);
+
+        int includeSleep = (vacationValues.isIncludeSleep()) ? 1 : 0;
+        int roundTrip = (vacationValues.isTwoDirections()) ? 1 : 0 ;
+        int sold = (vacationValues.isSold() == true) ? 1 : 0 ;
+        int freezed = (vacationValues.isFreezed()) ? 1 : 0 ;
 
         try {
             Connection conn = this.openConnection();
+            int index = 0 ;
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, vacationValues[0]);
-            pstmt.setString(2, vacationValues[1]);
-            pstmt.setDate(3, fromDate);
-            pstmt.setDate(4, untilDate);
-            pstmt.setString(5, vacationValues[4]);
-            pstmt.setInt(6, numberOfTickets);
-            pstmt.setString(7, vacationValues[6]);
-            pstmt.setInt(8,twoDirections );
-            pstmt.setString(9, vacationValues[8]);
-            pstmt.setString(10, vacationValues[9]);
+
+            pstmt.setString(1, vacationValues.getPublisherUserName());
+            pstmt.setString(2, vacationValues.getFlightCompany());
+            pstmt.setDate(3, vacationValues.getFromDate());
+            pstmt.setDate(4, vacationValues.getUntilDate());
+            pstmt.setString(5,vacationValues.getBaggageIncluded());
+            pstmt.setInt(6, vacationValues.getNumberOfTickets());
+            pstmt.setString(7, vacationValues.getDestination());
+            pstmt.setInt(8, roundTrip);
+            pstmt.setString(9, vacationValues.getTicketType());
+            pstmt.setString(10, vacationValues.getVacationType());
             pstmt.setInt(11,includeSleep);
-            pstmt.setString(12, vacationValues[11]);
-            pstmt.setInt(13, hotelRank);
+            pstmt.setString(12, vacationValues.getHotelName());
+            pstmt.setDouble(13, vacationValues.getHotelRank());
             pstmt.setInt(14,sold);
             //by default freeze is off
             pstmt.setInt(15,freezed);
