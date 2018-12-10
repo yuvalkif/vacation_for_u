@@ -109,4 +109,7 @@ public class Controller {
         this.model.insertVacation(vacation);
     }
 
+    public ObservableList searchVacationInDB(String dest) {
+        return null;
+    }
 }
