@@ -570,8 +570,25 @@ public ObservableList selectAllDataBase() {
     }
 
     @Override
-    public ObservableList getVacations(String[] criteria, String[] Values) {
-        return null;
+    public ObservableList<Vacation> getVacations(String dest) {
+
+        String sql = "SELECT * FROM vacations WHERE destionation = ? ";
+        ResultSet resultSet ;
+        ObservableList result = null;
+        try{
+            Connection conn = openConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1,dest);
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertUsersResultsToObservableList(resultSet);
+            Logger.getInstance().log("retrived vacations to dest: "+dest);
+            conn.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+            Logger.getInstance().log("FAILED TO retrive vacations to dest: "+dest);
+
+        }
+        return result;
     }
 
 

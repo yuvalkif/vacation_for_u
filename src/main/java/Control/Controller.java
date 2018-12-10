@@ -17,6 +17,7 @@ public class Controller {
     private IView view;
     private ISQLModel model;
 
+
     public Controller() {
     }
 
@@ -40,6 +41,8 @@ public class Controller {
 
         }
     }
+
+
 
     public void updateUser(String username, String newUserName, String password, String firstName, String lastName, String city, String date){
         this.model.updateUsers(username,newUserName,password,firstName,lastName,city,date);
