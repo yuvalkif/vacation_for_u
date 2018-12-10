@@ -19,12 +19,12 @@ public class LogInController {
                     e.showErrorStage("you must fill user name and password");
             return;
         }
-        if(controller.correctUserAndPassword(username,password)==null){
+        if(!controller.correctUserAndPassword(username,password)){
             ErrorBox e = new ErrorBox();
             e.showErrorStage("username or password incorrect");
             return;
         }
-        //USER SHOULD BE LOGGED IN RIGHT NOW
+        StageHolder.getInstance().getStage().close();
     }
 
     public void setController(Controller controller){

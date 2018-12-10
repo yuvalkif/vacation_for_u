@@ -7,17 +7,23 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import java.io.IOException;
 
 public class MainScreenController implements IView{
 
+    public ImageView img_backImg;
     private Controller controller;
     private Stage primaryStage;
 
     public void setCurrentStage(Stage stage) {
         this.primaryStage = stage;
+        img_backImg.fitWidthProperty().bind(primaryStage.widthProperty());
+        img_backImg.fitHeightProperty().bind(primaryStage.heightProperty());
     }
 
     public void handleSignUp() {
@@ -88,6 +94,12 @@ public class MainScreenController implements IView{
             e.printStackTrace();
         }
     }
+
+    public void handleSearch(){
+
+    }
+
+
 
     public void setController(Controller controller) {
         this.controller = controller;

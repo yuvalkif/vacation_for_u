@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 public class Controller {
     private IView view;
     private ISQLModel model;
+    private String loggedUser;
 
     public Controller() {
     }
@@ -63,8 +64,8 @@ public class Controller {
         this.model.setController(this);
     }
 
-    public void deleteUser(String username){
-        this.model.deleteUsers(username);
+    public void deleteUser(){
+        this.model.deleteUsers(loggedUser);
     }
 
     public void setView(IView view) {
@@ -75,7 +76,11 @@ public class Controller {
         this.model = model;
     }
 
-    public AUserData correctUserAndPassword(String username, String password){
-        return model.login(username,password);
+    public boolean correctUserAndPassword(String username, String password){
+        AUserData logged = model.login(username,password);
+        if(logged==null)
+            return false;
+        loggedUser = logged.getUserName();
+        return true;
     }
 }
