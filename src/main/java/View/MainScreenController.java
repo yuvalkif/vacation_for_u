@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -15,6 +16,10 @@ import java.io.IOException;
 public class MainScreenController implements IView{
 
     public ImageView img_backImg;
+    public Button btn_newVacation;
+    public Button btn_serchUser;
+    public Button btn_update;
+    public Button btn_delete;
     private Controller controller;
     private Stage primaryStage;
 
@@ -97,6 +102,39 @@ public class MainScreenController implements IView{
 
     }
 
+    public void handleDelete(){
+        FXMLLoader loader = new FXMLLoader();
+
+        try {
+            Parent root = loader.load(this.getClass().getClassLoader().getResource("DeleteForm.fxml").openStream());
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Delete");
+            stage.setResizable(false);
+            this.primaryStage.hide();
+            StageHolder.getInstance().holdStage(stage);
+            SignUpFormController sceneController = (SignUpFormController)loader.getController();
+            sceneController.setController(controller);
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    handleXPress();
+                }
+            });
+            stage.showAndWait();
+            this.primaryStage.show();
+            User toSubmit = sceneController.getToSubmit();
+
+            if( toSubmit != null && !sceneController.getToSubmit().hasNullField())
+                this.controller.handleSubmitSignIn(toSubmit);
+
+        } catch (IOException e) {
+            e.getCause();
+            e.printStackTrace();
+        }
+    }
 
     public void handleVacationButton(){
         FXMLLoader loader = new FXMLLoader();

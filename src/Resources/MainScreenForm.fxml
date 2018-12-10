@@ -101,7 +101,7 @@
                             <font>
                                 <Font size="22.0" />
                             </font></Button>
-                        <Button fx:id="btn_read" layoutX="6.0" layoutY="89.0" mnemonicParsing="false" opacity="0.69" prefHeight="88.0" prefWidth="199.0" text="Search User">
+                        <Button fx:id="btn_serchUser" layoutX="6.0" layoutY="89.0" mnemonicParsing="false" opacity="0.69" prefHeight="88.0" prefWidth="199.0" text="Search User">
                             <font>
                                 <Font size="22.0" />
                             </font></Button>
@@ -109,7 +109,7 @@
                             <font>
                                 <Font size="22.0" />
                             </font></Button>
-                        <Button fx:id="btn_delete" layoutX="6.0" layoutY="194.0" mnemonicParsing="false" opacity="0.69" prefHeight="88.0" prefWidth="199.0" text="Delete Acount">
+                        <Button fx:id="btn_delete" layoutX="6.0" layoutY="194.0" mnemonicParsing="false" onAction="#handleDelete" opacity="0.69" prefHeight="88.0" prefWidth="199.0" text="Delete Acount">
                             <font>
                                 <Font size="22.0" />
                             </font></Button>
