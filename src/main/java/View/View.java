@@ -127,7 +127,7 @@ public class View implements IView {
 
     }
 
-    public void handleDelete(){
+    /*public void handleDelete(){
         FXMLLoader loader = new FXMLLoader();
         try{
             Parent root = loader.load(getClass().getClassLoader().getResource("DeleteForm.fxml").openStream());
@@ -153,7 +153,7 @@ public class View implements IView {
         }catch (IOException e){
             e.printStackTrace();
         }
-    }
+    }*/
 
     //endregion
 

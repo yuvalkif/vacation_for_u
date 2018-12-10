@@ -24,7 +24,7 @@ public class LogInController {
             e.showErrorStage("username or password incorrect");
             return;
         }
-        //USER SHOULD BE LOGGED IN RIGHT NOW
+        StageHolder.getInstance().getStage().close();
     }
 
     public void setController(Controller controller){

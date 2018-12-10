@@ -75,8 +75,8 @@ public class Model implements ISQLModel {
         String sql = "CREATE TABLE IF NOT EXISTS vacations (\n"
                 + "	publisherUserName text NOT NULL,\n"
                 + "	flightCompany text NOT NULL,\n"
-                + "	fromDate DATE ,\n"
-                + "	untilDate DATE ,\n"
+                + "	fromDate DATE,\n"
+                + "	untilDate DATE,\n"
                 + "	baggageIncluded text NOT NULL,\n"
                 + "	numberOfTickets INTEGER NOT NULL,\n"
                 + "	destination text NOT NULL,\n"
@@ -84,9 +84,9 @@ public class Model implements ISQLModel {
                 + "	ticketType text NOT NULL,\n"
                 + "	vacationType text NOT NULL,\n"
                 + "	includeSleep INTEGER NOT NULL,\n"
-                + "	hotelName text ,\n"
-                + " vacationId INTEGER PRIMARY KEY AUTOINCREMENT \n"
-                + " sold Integer NOT NULL\n"
+                + "	hotelName text,\n"
+                + " vacationId INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                + " sold Integer NOT NULL,\n"
                 + " freezed INTEGER NOT NULL\n"
                 + ");";
 
@@ -122,8 +122,8 @@ public class Model implements ISQLModel {
                 + "	vacationType text NOT NULL,\n"
                 + "	includeSleep INTEGER NOT NULL,\n"
                 + "	hotelName text ,\n"
-                + " vacationId INTEGER PRIMARY KEY AUTOINCREMENT \n"
-                + " status string NOT NULL\n"
+                + " vacationId INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                + " status string NOT NULL,\n"
                 + " freezed INTEGER NOT NULL\n"
                 + ");";
 
@@ -150,8 +150,8 @@ public class Model implements ISQLModel {
                 + "	cardType text NOT NULL ,\n"
                 + "	cardNumber text NOT NULL,\n"
                 + "	cardCvv text NOT NULL,\n"
-                + "	cardExpireDate DATE NOT NULL\n"
-                +  "targetVacation INTEGER NOT NULL"
+                + "	cardExpireDate DATE NOT NULL,\n"
+                + " targetVacation INTEGER NOT NULL\n"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);
