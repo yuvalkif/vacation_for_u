@@ -22,6 +22,7 @@ import Control.Controller;
 public class Model implements ISQLModel {
     private Controller controller;
     private sqlLiteJDBCDriverConnection driver = new sqlLiteJDBCDriverConnection();
+    private String loggedUser="";
 
     public Model() {
     }
@@ -102,7 +103,9 @@ public class Model implements ISQLModel {
         }
     }
 
-
+    public String getLoggedUser() {
+        return loggedUser;
+    }
 
     public void createPurchasedVacationsTable() {
         // SQLite connection string

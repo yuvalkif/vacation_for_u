@@ -113,4 +113,6 @@ public interface ISQLModel {
 
 
     ObservableList selectAllDataBase();
+
+    String getLoggedUser();
 }

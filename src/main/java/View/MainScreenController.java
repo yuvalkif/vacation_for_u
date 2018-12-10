@@ -7,9 +7,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import java.io.IOException;
@@ -17,8 +17,14 @@ import java.io.IOException;
 public class MainScreenController implements IView{
 
     public ImageView img_backImg;
+    public Tab tab_user;
+    public Label lbl_SignUp;
     private Controller controller;
     private Stage primaryStage;
+    public Label lbl_userName;
+    public Label lbl_hello;
+    public Label lbl_signIn;
+
 
     public void setCurrentStage(Stage stage) {
         this.primaryStage = stage;
@@ -52,7 +58,7 @@ public class MainScreenController implements IView{
             User toSubmit = sceneController.getToSubmit();
 
             if( toSubmit != null && !sceneController.getToSubmit().hasNullField())
-                this.controller.handleSubmitSignIn(toSubmit);
+                this.controller.handleSubmitSignUp(toSubmit);
 
         } catch (IOException e) {
             e.getCause();
@@ -85,9 +91,13 @@ public class MainScreenController implements IView{
             stage.showAndWait();
             this.primaryStage.show();
 
-            //DO SOMETHING ABOUT LOGGING IN
-
-
+            if(!lbl_userName.getText().equals("")) {
+                lbl_userName.setVisible(true);
+                lbl_hello.setVisible(true);
+                lbl_signIn.setVisible(false);
+                lbl_SignUp.setVisible(false);
+                tab_user.setDisable(false);
+            }
 
         } catch (IOException e) {
             e.getCause();
@@ -96,13 +106,13 @@ public class MainScreenController implements IView{
     }
 
     public void handleSearch(){
-
+        
     }
-
-
 
     public void setController(Controller controller) {
         this.controller = controller;
+        lbl_userName.textProperty().bind(controller.getLoggedUserProperty());
+
     }
 
     private void handleXPress(){
