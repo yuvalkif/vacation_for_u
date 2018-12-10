@@ -4,12 +4,13 @@ import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import dbObjects.Vacation;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
@@ -19,6 +20,8 @@ import java.io.IOException;
 
 
 public class SearchVacationController {
+    public Button btn_submitReq;
+    public Button btn_beck;
     private Controller controller;
     private Stage primaryStage;
     public TableView tableView;
@@ -54,10 +57,15 @@ public class SearchVacationController {
     }
 
     public void setPrimaryStage(Stage primaryStage){
+
+        if (controller.getLoggedUser().equals("")){
+            btn_submitReq.setDisable(true);
+        }
         this.primaryStage = primaryStage;
     }
 
     public void submitRequest() {
+
         FXMLLoader loader = new FXMLLoader();
 
         try {
@@ -70,6 +78,15 @@ public class SearchVacationController {
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
             SubmitRequestController c = (SubmitRequestController) loader.getController();
+            if ((Vacation) tableView.getSelectionModel().getSelectedItem()!=null) {
+                Vacation v = (Vacation) tableView.getSelectionModel().getSelectedItem();
+                c.submit(controller.getLoggedUser(),v.getVacationID(),v.getPrice());
+            }
+            else {
+                ErrorBox e = new ErrorBox();
+                e.showErrorStage("you need to choose vacation to submit a request");
+                return;
+            }
             c.setController(this.controller);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override

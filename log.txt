@@ -1,6 +1,8 @@
-created new table users 2018/12/11 00:38:06
-created new table vacations 2018/12/11 00:38:06
-created new table purchases 2018/12/11 00:38:06
-created new table messages 2018/12/11 00:38:06
-connection opened 2018/12/11 00:38:10
-connection opened 2018/12/11 00:38:10
+created new table users 2018/12/11 01:54:12
+created new table vacations 2018/12/11 01:54:12
+created new table purchases 2018/12/11 01:54:12
+created new table messages 2018/12/11 01:54:12
+connection opened 2018/12/11 01:54:20
+connection opened 2018/12/11 01:54:20
+connection opened 2018/12/11 01:54:23
+SUCCSSES retrive vacations to dest: EE 2018/12/11 01:54:23

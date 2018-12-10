@@ -269,4 +269,8 @@ public class Vacation {
                 ", freezed=" + freezed +
                 '}';
     }
+
+    public Object getPrice() {
+        return null;
+    }
 }
