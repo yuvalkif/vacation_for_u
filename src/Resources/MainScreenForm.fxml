@@ -85,19 +85,19 @@
             <content>
                 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="513.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
                     <children>
-                        <Button fx:id="btn_signup" layoutX="6.0" layoutY="446.0" mnemonicParsing="false" onAction="#signInScene" opacity="0.69" prefHeight="53.0" prefWidth="199.0" text="SignUp">
+                        <Button fx:id="btn_signup" layoutX="6.0" layoutY="446.0" mnemonicParsing="false" opacity="0.69" prefHeight="53.0" prefWidth="199.0" text="SignUp">
                             <font>
                                 <Font size="22.0" />
                             </font></Button>
-                        <Button fx:id="btn_read" layoutX="6.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleRead" opacity="0.69" prefHeight="108.0" prefWidth="199.0" text="Search">
+                        <Button fx:id="btn_read" layoutX="6.0" layoutY="198.0" mnemonicParsing="false"  opacity="0.69" prefHeight="108.0" prefWidth="199.0" text="Search">
                             <font>
                                 <Font size="22.0" />
                             </font></Button>
-                        <Button fx:id="btn_update" layoutX="6.0" layoutY="77.0" mnemonicParsing="false" onAction="#handleUpdate" opacity="0.69" prefHeight="108.0" prefWidth="199.0" text="Update">
+                        <Button fx:id="btn_update" layoutX="6.0" layoutY="77.0" mnemonicParsing="false"  opacity="0.69" prefHeight="108.0" prefWidth="199.0" text="Update">
                             <font>
                                 <Font size="22.0" />
                             </font></Button>
-                        <Button fx:id="btn_delete" layoutX="6.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleDelete" opacity="0.69" prefHeight="108.0" prefWidth="199.0" text="Delete">
+                        <Button fx:id="btn_delete" layoutX="6.0" layoutY="322.0" mnemonicParsing="false"  opacity="0.69" prefHeight="108.0" prefWidth="199.0" text="Delete">
                             <font>
                                 <Font size="22.0" />
                             </font></Button>
