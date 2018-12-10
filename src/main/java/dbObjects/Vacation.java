@@ -22,6 +22,7 @@ public class Vacation {
     private double hotelRank;
     private boolean sold;
     private boolean freezed;
+    private double price;
 
     private StringProperty PVacationID;
     private StringProperty PpublisherUserName;
@@ -37,6 +38,91 @@ public class Vacation {
     private StringProperty PincludeSleep;
     private StringProperty PhotelName;
     private StringProperty PhotelRank;
+    private StringProperty Pprice;
+
+    public Vacation(int vacationID , String publisherUserName, String flightCompany, Date fromDate, Date untilDate, String baggageIncluded, int numberOfTickets, String destination, boolean twoDirections, String ticketType, String vacationType, boolean includeSleep, String hotelName, double hotelRank, boolean sold, boolean freezed, double price) {
+        this.VacationID = vacationID;
+        this.publisherUserName = publisherUserName;
+        this.flightCompany = flightCompany;
+        this.fromDate = fromDate;
+        this.untilDate = untilDate;
+        this.baggageIncluded = baggageIncluded;
+        this.numberOfTickets = numberOfTickets;
+        this.destination = destination;
+        this.twoDirections = twoDirections;
+        this.ticketType = ticketType;
+        this.vacationType = vacationType;
+        this.includeSleep = includeSleep;
+        this.hotelName = hotelName;
+        this.hotelRank = hotelRank;
+        this.sold = sold;
+        this.freezed = freezed;
+        this.price = price;
+        PVacationID = new SimpleStringProperty(""+vacationID);
+        PpublisherUserName = new SimpleStringProperty(publisherUserName);
+        PflightCompany = new SimpleStringProperty(flightCompany);
+        PfromDate = new SimpleStringProperty(fromDate.toString());
+        PuntilDate =new SimpleStringProperty(untilDate.toString()) ;
+        PbaggageIncluded=new SimpleStringProperty(baggageIncluded);
+        PnumberOfTickets=new SimpleStringProperty(""+numberOfTickets);
+        PtwoDirections=new SimpleStringProperty(""+twoDirections);
+        Pdestination=new SimpleStringProperty(destination);
+        PticketType=new SimpleStringProperty(ticketType);
+        PvacationType=new SimpleStringProperty(vacationType);
+        PincludeSleep=new SimpleStringProperty(""+includeSleep);
+        PhotelName=new SimpleStringProperty(hotelName);
+        PhotelRank=new SimpleStringProperty(""+hotelRank);
+        Pprice = new SimpleStringProperty(""+price);
+
+    }
+
+    public boolean isFreezed() {
+        return freezed;
+    }
+
+    public boolean isSold() {
+        return sold;
+    }
+
+    public int getVacationID() {
+        return VacationID;
+    }
+
+    public String getPublisherUserName() {
+        return publisherUserName;
+    }
+
+    public String getFlightCompany() {
+        return flightCompany;
+    }
+
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public Date getUntilDate() {
+        return untilDate;
+    }
+
+    public String getBaggageIncluded() {
+        return baggageIncluded;
+    }
+
+    public int getNumberOfTickets() {
+        return numberOfTickets;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getPprice() {
+        return Pprice.get();
+    }
+
+    public StringProperty ppriceProperty() {
+        return Pprice;
+    }
 
     public String getPhotelRank() {
         return PhotelRank.get();
@@ -150,76 +236,6 @@ public class Vacation {
         return PhotelName;
     }
 
-    public Vacation(int vacationID , String publisherUserName, String flightCompany, Date fromDate, Date untilDate, String baggageIncluded, int numberOfTickets, String destination, boolean twoDirections, String ticketType, String vacationType, boolean includeSleep, String hotelName, double hotelRank, boolean sold, boolean freezed) {
-        this.VacationID = vacationID;
-        this.publisherUserName = publisherUserName;
-        this.flightCompany = flightCompany;
-        this.fromDate = fromDate;
-        this.untilDate = untilDate;
-        this.baggageIncluded = baggageIncluded;
-        this.numberOfTickets = numberOfTickets;
-        this.destination = destination;
-        this.twoDirections = twoDirections;
-        this.ticketType = ticketType;
-        this.vacationType = vacationType;
-        this.includeSleep = includeSleep;
-        this.hotelName = hotelName;
-        this.hotelRank = hotelRank;
-        this.sold = sold;
-        this.freezed = freezed;
-        PVacationID = new SimpleStringProperty(""+vacationID);
-        PpublisherUserName = new SimpleStringProperty(publisherUserName);
-        PflightCompany = new SimpleStringProperty(flightCompany);
-        PfromDate = new SimpleStringProperty(fromDate.toString());
-        PuntilDate =new SimpleStringProperty(untilDate.toString()) ;
-        PbaggageIncluded=new SimpleStringProperty(baggageIncluded);
-        PnumberOfTickets=new SimpleStringProperty(""+numberOfTickets);
-        PtwoDirections=new SimpleStringProperty(""+twoDirections);
-        Pdestination=new SimpleStringProperty(destination);
-        PticketType=new SimpleStringProperty(ticketType);
-        PvacationType=new SimpleStringProperty(vacationType);
-        PincludeSleep=new SimpleStringProperty(""+includeSleep);
-        PhotelName=new SimpleStringProperty(hotelName);
-        PhotelRank=new SimpleStringProperty(""+hotelRank);
-
-    }
-
-    public boolean isFreezed() {
-        return freezed;
-    }
-
-    public boolean isSold() {
-        return sold;
-    }
-
-    public int getVacationID() {
-        return VacationID;
-    }
-
-    public String getPublisherUserName() {
-        return publisherUserName;
-    }
-
-    public String getFlightCompany() {
-        return flightCompany;
-    }
-
-    public Date getFromDate() {
-        return fromDate;
-    }
-
-    public Date getUntilDate() {
-        return untilDate;
-    }
-
-    public String getBaggageIncluded() {
-        return baggageIncluded;
-    }
-
-    public int getNumberOfTickets() {
-        return numberOfTickets;
-    }
-
     public String getDestination() {
         return destination;
     }
@@ -266,6 +282,7 @@ public class Vacation {
                 ", hotelName='" + hotelName + '\'' +
                 ", hotelRank=" + hotelRank +
                 ", sold=" + sold +
+                ", price=" + price +
                 ", freezed=" + freezed +
                 '}';
     }
