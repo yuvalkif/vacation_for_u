@@ -105,6 +105,8 @@ public class MainScreenController implements IView{
                 setVisibleLoggedIn(true,true,false,false,false);
             }
 
+
+
         } catch (IOException e) {
             e.getCause();
             e.printStackTrace();
@@ -254,8 +256,8 @@ public class MainScreenController implements IView{
     public void handleVacationButton(){
         FXMLLoader loader = new FXMLLoader();
         try{
-            loader.load(getClass().getClassLoader().getResource("PublishVacationForm.fxml").openStream());
-            Stage stage = initializeNewStage("PublishVacationForm.fxml","Forms.css","Vacation",false,650,500);
+            Stage stage = initializeNewStage(loader,"PublishVacationForm.fxml","Forms.css","Vacation",false,650,500);
+            //loader.load(getClass().getClassLoader().getResource("PublishVacationForm.fxml").openStream());
             VacationFormController vacationFormController =(VacationFormController) loader.getController();
             vacationFormController.setController(this.controller);
             StageHolder.getInstance().holdStage(stage);
@@ -289,9 +291,8 @@ public class MainScreenController implements IView{
      * @param resizeable true or false
      * @return a stage initialized with all the parameters
      */
-    private Stage initializeNewStage(String fxmlPath , String cssPath , String title , boolean resizeable , double width , double height){
+    private Stage initializeNewStage( FXMLLoader loader,String fxmlPath , String cssPath , String title , boolean resizeable , double width , double height){
 
-        FXMLLoader loader = new FXMLLoader();
         try{
             Parent root = loader.load(getClass().getClassLoader().getResource(fxmlPath).openStream());
             Scene scene = new Scene(root,width,height);
