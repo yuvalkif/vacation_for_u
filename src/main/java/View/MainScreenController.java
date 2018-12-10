@@ -2,7 +2,9 @@ package View;
 
 import Control.Controller;
 import Logger.StageHolder;
+import Objects.ErrorBox;
 import dbObjects.User;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,21 +23,16 @@ public class MainScreenController implements IView{
     private Stage primaryStage;
 
     public TextField txtfld_destination;
-    public DatePicker datepkr_depart;
-    public DatePicker datepkr_return;
     public TabPane tabPane_tab;
     public Tab tab_searchVacation;
     public ImageView img_backImg;
     public Tab tab_user;
     public Label lbl_SignUp;
-    public Button btn_newVacation;
-    public Button btn_searchUser;
     public Button btn_update;
     public Button btn_delete;
     public Label lbl_userName;
     public Label lbl_hello;
     public Label lbl_signIn;
-    public Button btn_searchVacation;
 
 
     public void setCurrentStage(Stage stage) {
@@ -114,6 +111,19 @@ public class MainScreenController implements IView{
     }
 
     public void handleSearchVacation(){
+        String dest = txtfld_destination.getText();
+        if(dest.equals("")) {
+            ErrorBox e = new ErrorBox();
+            e.showErrorStage("please enter a valid destination");
+            return;
+        }
+        ObservableList l = controller.searchVacationInDB(dest);
+        if(l== null || l.size()==0){
+            ErrorBox e = new ErrorBox();
+            e.showErrorStage("no results for this destination");
+            return;
+        }
+
         FXMLLoader loader = new FXMLLoader();
 
         try {
@@ -127,8 +137,9 @@ public class MainScreenController implements IView{
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
             SearchVacationController sceneController = (SearchVacationController)loader.getController();
-            sceneController.setPreferable(txtfld_destination.getText());
             sceneController.setController(controller);
+            sceneController.showResults(l);
+            sceneController.setPrimaryStage(primaryStage);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
@@ -195,7 +206,6 @@ public class MainScreenController implements IView{
             SearchFormController searchFormController = (SearchFormController)loader.getController();
             searchFormController.setController(controller);
             searchFormController.setTableView(tableView);
-            searchFormController.setController(this.controller);
             StageHolder.getInstance().holdStage(stage);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -243,10 +253,9 @@ public class MainScreenController implements IView{
     public void handleVacationButton(){
         FXMLLoader loader = new FXMLLoader();
         try{
-            loader.load(getClass().getClassLoader().getResource("PublishVacationForm.fxml").openStream());
-            Stage stage = initializeNewStage("PublishVacationForm.fxml","Forms.css","Vacation",false,650,500);
+            Stage stage = initializeNewStage(loader,"PublishVacationForm.fxml","Forms.css","Vacation",false,650,500);
             VacationFormController vacationFormController =(VacationFormController) loader.getController();
-            vacationFormController.setController(this.controller);
+            vacationFormController.setController(controller);
             StageHolder.getInstance().holdStage(stage);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -266,15 +275,16 @@ public class MainScreenController implements IView{
 
     /**
      * initialize and return a new stage
+     *
+     * @param loader fxml loader
      * @param fxmlPath path to fxml file of the stage
      * @param cssPath path to css of the stage
      * @param title the title to be shown
      * @param resizeable true or false
      * @return a stage initialized with all the parameters
      */
-    private Stage initializeNewStage(String fxmlPath , String cssPath , String title , boolean resizeable , double width , double height){
+    private Stage initializeNewStage(FXMLLoader loader, String fxmlPath, String cssPath, String title, boolean resizeable, double width, double height){
 
-        FXMLLoader loader = new FXMLLoader();
         try{
             Parent root = loader.load(getClass().getClassLoader().getResource(fxmlPath).openStream());
             Scene scene = new Scene(root,width,height);
@@ -305,7 +315,7 @@ public class MainScreenController implements IView{
     }
 
     private void handleXPress(){
-        StageHolder.getInstance().getStage();
+        StageHolder.getInstance().getStage().close();
     }
 
 }

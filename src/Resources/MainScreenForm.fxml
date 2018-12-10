@@ -76,7 +76,7 @@
                                        </font>
                                     </Label>
                                  </children></AnchorPane>
-                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <TextField fx:id="txtfld_destination" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                               <Label fx:id="lbl_userName" prefHeight="21.0" prefWidth="112.0" textFill="WHITE" visible="false" GridPane.columnIndex="6" />
                               <Label fx:id="lbl_hello" text="Hello," textFill="WHITE" visible="false" GridPane.columnIndex="5" />
                            </children>

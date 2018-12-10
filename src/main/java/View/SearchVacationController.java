@@ -6,25 +6,23 @@ import Objects.ErrorBox;
 import dbObjects.Vacation;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+
+import java.io.IOException;
 
 
 public class SearchVacationController {
     private Controller controller;
+    private Stage primaryStage;
     public TableView tableView;
     public TableColumn<Vacation,String> publisherUserName,flightCompany,fromDate,untilDate,baggageIncluded,numberOfTickets,destination,twoDirections,ticketType,vacationType,includeSleep,hotelName,vacationId;
-
-    public void setPreferable(String dest){
-        ObservableList l = controller.searchVacationInDB(dest);
-        if(l==null || l.size()==0) {
-            ErrorBox e = new ErrorBox();
-            e.showErrorStage("no results found for this destination");
-            StageHolder.getInstance().getStage().close();
-        }
-        else
-            showResults(l);
-    }
 
     public void showResults(ObservableList<Vacation> searchResults) {
 
@@ -54,7 +52,36 @@ public class SearchVacationController {
         StageHolder.getInstance().getStage().close();
     }
 
-    public void submitRequest() {
+    public void setPrimaryStage(Stage primaryStage){
+        this.primaryStage = primaryStage;
+    }
 
+    public void submitRequest() {
+        FXMLLoader loader = new FXMLLoader();
+
+        try {
+            Parent root = loader.load(this.getClass().getClassLoader().getResource("SubmitRequest.fxml").openStream());
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Submit Request");
+            this.primaryStage.hide();
+            StageHolder.getInstance().holdStage(stage);
+            SubmitRequestController c = (SubmitRequestController) loader.getController();
+            c.setController(this.controller);
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    StageHolder.getInstance().getStage();
+                }
+            });
+            stage.showAndWait();
+            this.primaryStage.show();
+
+        } catch (IOException e) {
+            e.getCause();
+            e.printStackTrace();
+        }
     }
 }

@@ -108,6 +108,6 @@ public class Controller {
     }
 
     public ObservableList searchVacationInDB(String dest) {
-        return null;
+        return model.getAllVacations();
     }
 }

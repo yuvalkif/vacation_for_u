@@ -31,6 +31,11 @@ public class View implements IView {
         this.primaryStage = stage;
     }
 
+    @Override
+    public void setController(Controller controller) {
+
+    }
+
     //region SCENES
 
     /*public void signInScene() {
@@ -90,8 +95,7 @@ public class View implements IView {
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
-                    handleXPress();
-                }
+                                    }
             });
             stage.showAndWait();
             this.primaryStage.show();
@@ -118,7 +122,7 @@ public class View implements IView {
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
-                    handleXPress();
+
                 }
             });
             stage.showAndWait();
@@ -131,7 +135,7 @@ public class View implements IView {
 
     }
 
-    public void handleVacationButton(){
+    /*public void handleVacationButton(){
         FXMLLoader loader = new FXMLLoader();
         try{
             loader.load(getClass().getClassLoader().getResource("PublishVacationForm.fxml").openStream());
@@ -155,7 +159,7 @@ public class View implements IView {
             System.out.println("at handle vacation button");
             e.printStackTrace();
         }
-    }
+    }*/
 
 
     /*public void handleDelete(){
@@ -188,15 +192,7 @@ public class View implements IView {
 
     //endregion
 
-    /**
-     * initialize and return a new stage
-     * @param fxmlPath path to fxml file of the stage
-     * @param cssPath path to css of the stage
-     * @param title the title to be shown
-     * @param resizeable true or false
-     * @return a stage initialized with all the parameters
-     */
-    private Stage initializeNewStage(String fxmlPath , String cssPath , String title , boolean resizeable , double width , double height){
+    /*private Stage initializeNewStage(String fxmlPath , String cssPath , String title , boolean resizeable , double width , double height){
 
         FXMLLoader loader = new FXMLLoader();
         try{
@@ -212,7 +208,7 @@ public class View implements IView {
         }catch (Exception e){
             return null;
         }
-    }
+    }*/
 
     public ObservableList<User> getSearchResultsFromController(User user) {
         return this.controller.searchInDataBase(user);
@@ -220,13 +216,5 @@ public class View implements IView {
 
     public ObservableList getAllDataBase() {
         return this.controller.getAllDataBase();
-    }
-
-    public void setController(Controller controller) {
-        this.controller = controller;
-    }
-
-    private void handleXPress(){
-        StageHolder.getInstance().getStage();
     }
 }
