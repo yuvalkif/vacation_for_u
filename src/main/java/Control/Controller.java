@@ -92,8 +92,6 @@ public class Controller {
         if(logged==null)
             return false;
         loggedUser = logged.getUserName();
-//        return true;
-//        loggedUser = "ALON";
         sp_loggedUser.set(loggedUser);
         return true;
     }
