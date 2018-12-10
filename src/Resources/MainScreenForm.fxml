@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="542.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainScreenController">
+<AnchorPane prefHeight="542.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainScreenController">
    <children>
       <ImageView fitHeight="542.0" fitWidth="745.0" pickOnBounds="true">
          <image>
-            <Image url="@backForAll.jpg" />
+            <Image url="backForAll.jpg" />
          </image>
       </ImageView>
       <GridPane layoutX="14.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="-14.0" AnchorPane.topAnchor="0.0">
@@ -62,7 +62,7 @@
             <Label text="Adultes" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <Label text="Kids (Under 16)" GridPane.columnIndex="6" GridPane.rowIndex="4" />
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="168.0" text="Search" GridPane.columnIndex="6" GridPane.rowIndex="6" />
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" GridPane.columnIndex="1" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" onMouseClicked="#handleSignUp" prefHeight="180.0" prefWidth="200.0" GridPane.columnIndex="1" />
             <TextField GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>

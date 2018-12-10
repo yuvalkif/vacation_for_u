@@ -9,6 +9,7 @@ import Logger.Logger;
 import Model.ISQLModel;
 import Model.Model;
 import View.IView;
+import dbObjects.AUserData;
 import dbObjects.User;
 import javafx.collections.ObservableList;
 
@@ -74,7 +75,7 @@ public class Controller {
         this.model = model;
     }
 
-    public boolean correctUserAndPassword(String username, String password){
-        return true; //only for now
+    public AUserData correctUserAndPassword(String username, String password){
+        return model.login(username,password);
     }
 }
