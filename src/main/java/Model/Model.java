@@ -650,9 +650,9 @@ public class Model implements ISQLModel {
             if (result.size() > 0) {
                 if (result.get(0).getPassword().equals(password)) {
                     auth = true;
-//                    AUserData serverResponse = getUserData(username);
-                    System.out.println("sucsses");
-                    return null;
+                   AUserData serverResponse = getUserData(username);
+
+                    return serverResponse;
                 }
             }
 
@@ -801,12 +801,11 @@ public class Model implements ISQLModel {
         //get user inMessages
         ResultSet resultSet;
         ObservableList<AMessage> inboundMessages = null;
-        String sqlInboundMessages = "SELECT * FROM messages WHERE reciver = ?";
+        String sqlInboundMessages = "SELECT * FROM messages WHERE reciverUserName =" + "'" + username + "'";
 
         try {
             Connection conn = this.openConnection();
-            PreparedStatement stmt = conn.prepareStatement(sqlInboundMessages);
-            stmt.setString(1, username);
+            Statement stmt = conn.createStatement();
             resultSet = stmt.executeQuery(sqlInboundMessages);
             inboundMessages = this.convertInMessageResultsToObservableList(resultSet);
             conn.close();
