@@ -99,7 +99,7 @@
             <content>
                 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="513.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
                     <children>
-                        <Button fx:id="btn_newVacation" layoutX="6.0" layoutY="298.0" mnemonicParsing="false" opacity="0.69" prefHeight="88.0" prefWidth="199.0" text="Publish Vacation">
+                        <Button  onAction="#handleVacationButton" fx:id="updateVacationButton" layoutX="6.0" layoutY="298.0" mnemonicParsing="false" opacity="0.69" prefHeight="88.0" prefWidth="199.0" text="Publish Vacation">
                             <font>
                                 <Font size="22.0" />
                             </font></Button>

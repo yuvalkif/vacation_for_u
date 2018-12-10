@@ -4,6 +4,7 @@ import dbObjects.AUserData;
 import dbObjects.Purchase;
 import dbObjects.User;
 import Control.Controller;
+import dbObjects.Vacation;
 import javafx.collections.ObservableList;
 
 
@@ -87,11 +88,10 @@ public interface ISQLModel {
 
     /**
      * VERY importent to keep the order of the fields and their values
-     * @param criteria the fields which the search will be by them
-     * @param Values    the values of those fields
+     * @param dest destionation of the flight
      * @return  a collection of vacations that meet the criterias.
      */
-    ObservableList getVacations(String [] criteria , String [] Values);
+    ObservableList getVacations(String dest);
 
 
     /**
@@ -99,7 +99,7 @@ public interface ISQLModel {
      * @param vacationValues vacation fields
      * @return  success to store in db or not
      */
-    boolean insertVacation(String [] vacationValues);
+    boolean insertVacation(Vacation vacationValues);
 
     boolean insertBuyingOffer(int vacationId ,
                            String buyerUsername ,

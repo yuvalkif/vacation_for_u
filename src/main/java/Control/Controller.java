@@ -13,6 +13,7 @@ import dbObjects.AUserData;
 import dbObjects.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import dbObjects.Vacation;
 import javafx.collections.ObservableList;
 
 public class Controller {
@@ -20,6 +21,7 @@ public class Controller {
     private ISQLModel model;
     private String loggedUser;
     private StringProperty sp_loggedUser;
+
 
     public Controller() {
 
@@ -46,6 +48,8 @@ public class Controller {
 
         }
     }
+
+
 
     public void updateUser(String username, String newUserName, String password, String firstName, String lastName, String city, String date){
         this.model.updateUsers(username,newUserName,password,firstName,lastName,city,date);
@@ -100,4 +104,9 @@ public class Controller {
     public StringProperty getLoggedUserProperty() {
         return sp_loggedUser;
     }
+
+    public void insertVacation(Vacation vacation){
+        this.model.insertVacation(vacation);
+    }
+
 }
