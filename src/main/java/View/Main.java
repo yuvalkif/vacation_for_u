@@ -4,7 +4,6 @@ package View;
  * Initialize everything needed to start the app
  */
 
-import Logger.StageHolder;
 import Model.Model;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -25,7 +24,7 @@ public class Main extends Application {
         View view = loader.getController();
 
         primaryStage.setTitle("Vacation4U");
-        primaryStage.setScene(new Scene(root, 419.0, 320.0));
+        primaryStage.setScene(new Scene(root, 419.0, 450));
         primaryStage.getScene().getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
         primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

@@ -3,6 +3,7 @@ package Model;
 import dbObjects.Purchase;
 import dbObjects.User;
 import Control.Controller;
+import dbObjects.Vacation;
 import javafx.collections.ObservableList;
 
 
@@ -98,7 +99,7 @@ public interface ISQLModel {
      * @param vacationValues vacation fields
      * @return  success to store in db or not
      */
-    boolean insertVacation(String [] vacationValues);
+    boolean insertVacation(Vacation vacationValues);
 
     boolean insertBuyingOffer(int vacationId ,
                            String buyerUsername ,

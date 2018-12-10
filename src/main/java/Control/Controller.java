@@ -10,6 +10,7 @@ import Model.ISQLModel;
 import Model.Model;
 import View.IView;
 import dbObjects.User;
+import dbObjects.Vacation;
 import javafx.collections.ObservableList;
 
 public class Controller {
@@ -72,6 +73,10 @@ public class Controller {
 
     public void setModel(ISQLModel model) {
         this.model = model;
+    }
+
+    public void insertVacation(Vacation vacation){
+        this.model.insertVacation(vacation);
     }
 
 }
