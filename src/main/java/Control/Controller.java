@@ -11,6 +11,8 @@ import Model.Model;
 import View.IView;
 import dbObjects.AUserData;
 import dbObjects.User;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import dbObjects.Vacation;
 import javafx.collections.ObservableList;
 
@@ -18,9 +20,12 @@ public class Controller {
     private IView view;
     private ISQLModel model;
     private String loggedUser;
+    private StringProperty sp_loggedUser;
 
 
     public Controller() {
+
+
     }
 
     public void createUsersTable() {
@@ -33,7 +38,7 @@ public class Controller {
         this.model.createPurchaseTable();
     }
 
-    public void handleSubmitSignIn(User submit) {
+    public void handleSubmitSignUp(User submit) {
         if (submit != null) {
             try {
                 model.insertUser(submit);
@@ -78,18 +83,33 @@ public class Controller {
 
     public void setModel(ISQLModel model) {
         this.model = model;
+        sp_loggedUser = new SimpleStringProperty(""+model.getLoggedUser());
     }
 
     public boolean correctUserAndPassword(String username, String password){
-        AUserData logged = model.login(username,password);
+        /*AUserData logged = model.login(username,password);
         if(logged==null)
             return false;
         loggedUser = logged.getUserName();
+        return true;*/
+        loggedUser = "ALON";
+        sp_loggedUser.set(loggedUser);
         return true;
+    }
+
+    public String getLoggedUser() {
+        return sp_loggedUser.get();
+    }
+
+    public StringProperty getLoggedUserProperty() {
+        return sp_loggedUser;
     }
 
     public void insertVacation(Vacation vacation){
         this.model.insertVacation(vacation);
     }
 
+    public ObservableList searchVacationInDB(String dest) {
+        return null;
+    }
 }

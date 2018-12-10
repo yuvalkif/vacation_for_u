@@ -59,7 +59,7 @@ public class View implements IView {
             User toSubmit = sceneController.getToSubmit();
 
             if( toSubmit != null && !sceneController.getToSubmit().hasNullField())
-                this.controller.handleSubmitSignIn(toSubmit);
+                this.controller.handleSubmitSignUp(toSubmit);
 
         } catch (IOException var6) {
             var6.getCause();
