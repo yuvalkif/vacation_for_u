@@ -75,6 +75,6 @@ public class Controller {
     }
 
     public boolean correctUserAndPassword(String username, String password){
-        return model.login(username,password);
+        return true; //only for now
     }
 }
