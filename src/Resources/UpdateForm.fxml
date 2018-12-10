@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="453.0" prefWidth="738.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UpdateFormController">
+<AnchorPane prefHeight="453.0" prefWidth="738.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.UpdateFormController">
     <children>
       <ImageView fitHeight="453.0" fitWidth="765.0" pickOnBounds="true">
          <image>

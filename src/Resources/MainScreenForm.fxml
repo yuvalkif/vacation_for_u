@@ -17,11 +17,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="542.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainScreenController">
+<AnchorPane prefHeight="542.0" prefWidth="745.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.MainScreenController">
    <children>
       <ImageView fitHeight="542.0" fitWidth="745.0" pickOnBounds="true">
          <image>
-            <Image url="@backForAll.jpg" />
+            <Image url="backForAll.jpg" />
          </image>
       </ImageView>
       <TabPane prefHeight="542.0" prefWidth="745.0" tabClosingPolicy="UNAVAILABLE">
