@@ -1,5 +1,6 @@
 package Model;
 
+import dbObjects.AUserData;
 import dbObjects.Purchase;
 import dbObjects.User;
 import Control.Controller;
@@ -61,7 +62,7 @@ public interface ISQLModel {
 
     void createOffersTable();
 
-    void createMessageTable();
+    void createConfirmMessageTable();
 
     /**
      * search records by username
@@ -76,7 +77,7 @@ public interface ISQLModel {
      * return wither a user is logged in or not
      */
 
-    boolean login(String username,String password);
+    AUserData login(String username, String password);
 
     /**
      *

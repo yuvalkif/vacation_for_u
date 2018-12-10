@@ -34,12 +34,9 @@ public class VacationFormController {
 
         int numOfTickets ;
         double hotelRank ;
-        boolean ok = false;
         java.sql.Date sqlFromDate , sqlToDate ;
 
         try{
-          //  this.vacation = new Vacation(1,username.getText(),flightComp.getText(),fromDate.getConverter(),toDate.getConverter().toString(),baggage.isSelected(),numberOfTickets.getText(),destination.getText(),roundTrip.getText(),ticketType.getText(),hotelName.getText(),hotelRank.getText(),nightsIncluded.isSelected(),false,false);
-           // System.out.println();
 
             sqlFromDate = utilDateToSqlDate(Date.from(fromDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
             sqlToDate = utilDateToSqlDate(Date.from(toDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
@@ -54,6 +51,10 @@ public class VacationFormController {
         }catch (Exception e){
             this.vacation = null ;
         }
+    }
+
+    public void handleBack(){
+
     }
 
     private Date utilDateToSqlDate(java.util.Date utilDate ){

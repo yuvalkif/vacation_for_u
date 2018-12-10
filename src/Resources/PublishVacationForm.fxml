@@ -27,12 +27,13 @@
       <Label layoutX="332.0" layoutY="106.0" prefHeight="31.0" prefWidth="96.0" text="Vacation Type" />
       <Label layoutX="332.0" layoutY="151.0" prefHeight="31.0" prefWidth="96.0" text="Hotel name" />
       <Label layoutX="332.0" layoutY="200.0" prefHeight="31.0" prefWidth="96.0" text="Hotel rank" />
-      <Button layoutX="235.0" layoutY="419.0" mnemonicParsing="false" onAction="#handleInsert" prefHeight="31.0" prefWidth="179.0" text="Insert" />
+      <Button layoutX="110.0" layoutY="423.0" mnemonicParsing="false" onAction="#handleInsert" prefHeight="31.0" prefWidth="160.0" text="Insert" />
       <DatePicker fx:id="fromDate" layoutX="130.0" layoutY="106.0" prefHeight="31.0" prefWidth="187.0" />
       <DatePicker fx:id="toDate" layoutX="130.0" layoutY="151.0" prefHeight="31.0" prefWidth="187.0" />
       <CheckBox fx:id="nightsIncluded" layoutX="471.0" layoutY="291.0" mnemonicParsing="false" text="Nights included" />
       <CheckBox fx:id="roundTrip" layoutX="471.0" layoutY="249.0" mnemonicParsing="false" text="Round trip" />
       <TextField fx:id="baggage" layoutX="130.0" layoutY="244.0" />
       <Label layoutX="8.0" layoutY="244.0" prefHeight="31.0" prefWidth="96.0" text="Baggage" />
+      <Button onAction="#handleBack" layoutX="341.0" layoutY="423.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="160.0" text="Back" />
    </children>
 </AnchorPane>

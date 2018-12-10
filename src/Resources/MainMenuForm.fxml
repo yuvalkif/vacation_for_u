@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="434.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.View">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="338.0" prefWidth="434.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.View">
    <children>
-      <ImageView fitHeight="450.0" fitWidth="450.0" pickOnBounds="true">
+      <ImageView fitHeight="335.0" fitWidth="430.0" pickOnBounds="true">
          <image>
             <Image url="back.jpg" />
          </image>
@@ -40,6 +40,5 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="6.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleVacationButton" prefHeight="108.0" prefWidth="199.0" text="Vacations" />
    </children>
 </AnchorPane>

@@ -3,24 +3,27 @@ package dbObjects;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class BuyingOffer {
-    private String BuyerUserName;
-    private String PurchseOfferTime;
+    private String buyerUserName;
+    private String purchseOfferTime;
     private Purchase PurchaseOfferDetails;
 
-    public BuyingOffer(String buyerUserName, Timestamp purchseOfferTime, Purchase purchaseOfferDetails) {
-        BuyerUserName = buyerUserName;
-        PurchseOfferTime = new SimpleDateFormat("yyyy-mm-dd-HH-mm-ss").format(new java.util.Date());
+    public BuyingOffer(String buyerUserName,Purchase purchaseOfferDetails) {
+        buyerUserName = buyerUserName;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        this.purchseOfferTime = LocalDateTime.now().format(formatter);
         PurchaseOfferDetails = purchaseOfferDetails;
     }
 
     public String getBuyerUserName() {
-        return BuyerUserName;
+        return buyerUserName;
     }
 
     public String getPurchseOfferTime() {
-        return PurchseOfferTime;
+        return purchseOfferTime;
     }
 
     public Purchase getPurchaseOfferDetaiils() {
@@ -30,8 +33,8 @@ public class BuyingOffer {
     @Override
     public String toString() {
         return "BuyingOffer{" +
-                "BuyerUserName='" + BuyerUserName + '\'' +
-                ", PurchseOfferTime=" + PurchseOfferTime +
+                "BuyerUserName='" + buyerUserName + '\'' +
+                ", PurchseOfferTime=" + purchseOfferTime +
                 ", PurchaseOfferDetails=" + PurchaseOfferDetails +
                 '}';
     }

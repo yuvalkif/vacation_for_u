@@ -8,28 +8,29 @@ import Control.Controller;
  */
 
 public interface IView {
+    void setCurrentStage(Stage primaryStage);
 
     void setController(Controller controller);
 
     /**
      * handle the signup scene
      */
-    void signInScene();
-    void setCurrentStage(Stage stage);
+    //void signInScene();
+    //void setCurrentStage(Stage stage);
 
     /**
      * handle deletion scene
      */
-    void handleDelete();
+    //void handleDelete();
 
     /**
      * handle update scene
      */
-    void handleUpdate();
+    //void handleUpdate();
 
     /**
      * handle search scene
      */
-    void handleRead();
+    ///void handleRead();
 
 }

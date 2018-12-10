@@ -17,7 +17,7 @@ import javafx.stage.WindowEvent;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    /*public void start(Stage primaryStage) throws Exception {
 
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getClassLoader().getResource("MainMenuForm.fxml").openStream());
@@ -42,6 +42,37 @@ public class Main extends Application {
         controller.createVacationsTable();
         controller.createPurchaseTable();
         view.setCurrentStage(primaryStage);
+        primaryStage.show();
+
+
+    }*/
+
+    public void start(Stage primaryStage) throws Exception {
+
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getClassLoader().getResource("MainScreenForm.fxml").openStream());
+        IView mainView = loader.getController();
+
+        primaryStage.setTitle("Vacation4U");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.getScene().getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+        primaryStage.setResizable(false);
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                System.exit(0);
+            }
+        });
+
+        Controller controller = new Controller();
+
+        controller.setView(mainView);
+        controller.setModel(new Model());
+        controller.setAll();
+        controller.createUsersTable();
+        controller.createVacationsTable();
+        controller.createPurchaseTable();
+        mainView.setCurrentStage(primaryStage);
         primaryStage.show();
 
 
