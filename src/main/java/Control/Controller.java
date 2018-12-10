@@ -11,6 +11,7 @@ import Model.Model;
 import View.IView;
 import dbObjects.AUserData;
 import dbObjects.User;
+import dbObjects.Vacation;
 import javafx.collections.ObservableList;
 
 public class Controller {
@@ -83,4 +84,9 @@ public class Controller {
         loggedUser = logged.getUserName();
         return true;
     }
+
+    public void insertVacation(Vacation vacation){
+        this.model.insertVacation(vacation);
+    }
+
 }

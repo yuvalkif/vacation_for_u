@@ -1,7 +1,1 @@
-created new table users 2018/12/10 18:48:32
-created new table vacations 2018/12/10 18:48:32
-created new table purchases 2018/12/10 18:48:32
-connection opened 2018/12/10 18:48:36
-DELETED null 2018/12/10 18:48:36
-connection opened 2018/12/10 18:48:36
-DELETED null 2018/12/10 18:48:36
+

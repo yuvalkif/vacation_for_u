@@ -6,6 +6,7 @@ import java.io.IOException;
 import dbObjects.User;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,6 +20,9 @@ import javafx.stage.WindowEvent;
 public class View implements IView {
     private Controller controller;
     private Stage primaryStage;
+
+    @FXML
+    private AnchorPane mainPane ;
 
     public View() {
     }
@@ -127,6 +131,33 @@ public class View implements IView {
 
     }
 
+    public void handleVacationButton(){
+        FXMLLoader loader = new FXMLLoader();
+        try{
+            loader.load(getClass().getClassLoader().getResource("PublishVacationForm.fxml").openStream());
+            Stage stage = initializeNewStage("PublishVacationForm.fxml","Forms.css","Vacation",false,650,500);
+            VacationFormController vacationFormController =(VacationFormController) loader.getController();
+            vacationFormController.setController(this.controller);
+            StageHolder.getInstance().holdStage(stage);
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    handleXPress();
+                }
+            });
+
+            //vacationFormController.getVacation();
+
+            stage.showAndWait();
+            this.controller.insertVacation(vacationFormController.getVacationToInsert());
+
+        }catch (Exception e){
+            System.out.println("at handle vacation button");
+            e.printStackTrace();
+        }
+    }
+
+
     /*public void handleDelete(){
         FXMLLoader loader = new FXMLLoader();
         try{
@@ -156,6 +187,32 @@ public class View implements IView {
     }*/
 
     //endregion
+
+    /**
+     * initialize and return a new stage
+     * @param fxmlPath path to fxml file of the stage
+     * @param cssPath path to css of the stage
+     * @param title the title to be shown
+     * @param resizeable true or false
+     * @return a stage initialized with all the parameters
+     */
+    private Stage initializeNewStage(String fxmlPath , String cssPath , String title , boolean resizeable , double width , double height){
+
+        FXMLLoader loader = new FXMLLoader();
+        try{
+            Parent root = loader.load(getClass().getClassLoader().getResource(fxmlPath).openStream());
+            Scene scene = new Scene(root,width,height);
+            scene.getStylesheets().add(getClass().getClassLoader().getResource(cssPath).toExternalForm());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle(title);
+            stage.setResizable(resizeable);
+
+            return stage;
+        }catch (Exception e){
+            return null;
+        }
+    }
 
     public ObservableList<User> getSearchResultsFromController(User user) {
         return this.controller.searchInDataBase(user);
