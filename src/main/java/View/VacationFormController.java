@@ -1,6 +1,7 @@
 package View;
 
 import Control.Controller;
+import Logger.StageHolder;
 import dbObjects.Vacation;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -54,7 +55,7 @@ public class VacationFormController {
     }
 
     public void handleBack(){
-
+        StageHolder.getInstance().getStage().close();
     }
 
     private Date utilDateToSqlDate(java.util.Date utilDate ){

@@ -3,6 +3,7 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import dbObjects.User;
+import dbObjects.Vacation;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -88,6 +89,7 @@ public class MainScreenController implements IView{
             stage.showAndWait();
             this.primaryStage.show();
 
+
             //DO SOMETHING ABOUT LOGGING IN
 
 
@@ -115,7 +117,7 @@ public class MainScreenController implements IView{
             stage.setResizable(false);
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
-            SignUpFormController sceneController = (SignUpFormController)loader.getController();
+            DeleteFormController sceneController = loader.getController();
             sceneController.setController(controller);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -124,11 +126,15 @@ public class MainScreenController implements IView{
                 }
             });
             stage.showAndWait();
+
+
+            /**
             this.primaryStage.show();
             User toSubmit = sceneController.getToSubmit();
 
             if( toSubmit != null && !sceneController.getToSubmit().hasNullField())
                 this.controller.handleSubmitSignIn(toSubmit);
+**/
 
         } catch (IOException e) {
             e.getCause();
@@ -152,7 +158,10 @@ public class MainScreenController implements IView{
             });
 
             stage.showAndWait();
-            this.controller.insertVacation(vacationFormController.getVacationToInsert());
+
+            Vacation toInsert = vacationFormController.getVacationToInsert();
+            if(toInsert != null)
+                this.controller.insertVacation(toInsert);
 
         }catch (Exception e){
             System.out.println("at handle vacation button");
