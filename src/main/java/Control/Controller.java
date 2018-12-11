@@ -132,6 +132,10 @@ public class Controller {
         sp_loggedUser.set("");
     }
 
+    public void confirmOrderMassage(){
+        
+    }
+
     public void insertOfferRequest(Purchase p){
         model.insertBuyingOffer(p.getPayingOnVacation(),p.getCardOwnerName(),p);
     }
