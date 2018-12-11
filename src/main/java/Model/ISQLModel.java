@@ -101,10 +101,7 @@ public interface ISQLModel {
      */
     boolean insertVacation(Vacation vacationValues);
 
-    boolean insertBuyingOffer(int vacationId ,
-                           String buyerUsername ,
-                           String purchseOfferTime,
-                           Purchase purchaseOfferDetails);
+    boolean insertBuyingOffer(int vacationId , String buyerUsername , Purchase purchaseOfferDetails);
 
 
     void freezeVacation(int vacationId);

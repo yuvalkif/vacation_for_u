@@ -22,6 +22,13 @@ public class Controller {
     private String loggedUser;
     private StringProperty sp_loggedUser;
 
+    public String getSp_loggedUser() {
+        return sp_loggedUser.get();
+    }
+
+    public StringProperty sp_loggedUserProperty() {
+        return sp_loggedUser;
+    }
 
     public Controller() {
 

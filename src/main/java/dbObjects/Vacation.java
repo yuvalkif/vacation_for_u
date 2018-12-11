@@ -22,6 +22,7 @@ public class Vacation {
     private boolean sold;
     private boolean freezed;
 
+
     private StringProperty PVacationID;
     private StringProperty PpublisherUserName;
     private StringProperty PflightCompany;
@@ -157,6 +158,8 @@ public class Vacation {
         this.hotelRank = hotelRank;
         this.sold = sold;
         this.freezed = freezed;
+
+
     }
 
     public boolean isFreezed() {
@@ -166,6 +169,8 @@ public class Vacation {
     public boolean isSold() {
         return sold;
     }
+
+
 
     public int getVacationID() {
         return VacationID;
