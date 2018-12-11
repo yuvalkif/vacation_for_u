@@ -3,7 +3,9 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
+import dbObjects.Purchase;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -14,6 +16,8 @@ public class SubmitRequestController {
     public PasswordField tb_toFill3;
     public TextField tb_toFill2;
     public TextField tb_toFill1;
+    public TextField tb_toFill4;
+    public DatePicker tb_date;
     private Controller controller;
     public void setController(Controller controller) {
         this.controller = controller;
@@ -34,14 +38,14 @@ public class SubmitRequestController {
     }
 
     public void clickSubmit(){
-        if (tb_toFill3.getText().equals("") ||tb_toFill2.getText().equals("")||tb_toFill1.getText().equals("")){
+        if (tb_toFill3.getText().equals("") ||tb_toFill2.getText().equals("")||tb_toFill1.getText().equals("")||tb_toFill4.getText().equals("") ||tb_date.getValue().toString().equals("")){
             ErrorBox e = new ErrorBox();
             e.showErrorStage("fill all of your details");
             return;
         }
-        if (!tb_toFill3.getText().equals("") &&!tb_toFill2.getText().equals("")&&!tb_toFill1.getText().equals("")){
+        Purchase p = new Purchase(controller.getLoggedUser(),tb_toFill3.getText(),tb_toFill4.getText(),tb_toFill1.getText(),tb_toFill2.getText(),java.sql.Date.valueOf(tb_date.getValue()),Integer.parseInt(tb_vacationID.getText()));
+        
 
-        }
     }
 
 
