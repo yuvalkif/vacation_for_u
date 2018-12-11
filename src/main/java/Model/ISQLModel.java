@@ -1,10 +1,7 @@
 package Model;
 
-import dbObjects.AUserData;
-import dbObjects.Purchase;
-import dbObjects.User;
+import dbObjects.*;
 import Control.Controller;
-import dbObjects.Vacation;
 import javafx.collections.ObservableList;
 
 
@@ -102,14 +99,14 @@ public interface ISQLModel {
      */
     boolean insertVacation(Vacation vacationValues);
 
-    boolean insertBuyingOffer(int vacationId , String buyerUsername , Purchase purchaseOfferDetails);
+    boolean insertBuyingOffer(String vacationId , String buyerUsername , Purchase purchaseOfferDetails);
 
 
-    void acceptMessage(String buyerUserName , String SellerUserName , int vacationId);
+    void acceptMessage(ConfirmOfferMessage msg);
 
 
-    void freezeVacation(int vacationId);
-    void unFreezeVacation(int vacationId);
+    void freezeVacation(String vacationId);
+    void unFreezeVacation(String vacationId);
 
 
 

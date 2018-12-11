@@ -6,7 +6,7 @@ import javafx.beans.property.StringProperty;
 import java.sql.Date;
 
 public class Vacation {
-    private int VacationID;
+    private String VacationID;
     private String publisherUserName;
     private String flightCompany;
     private Date fromDate;
@@ -40,7 +40,7 @@ public class Vacation {
     private StringProperty PhotelRank;
     private StringProperty Pprice;
 
-    public Vacation(int vacationID , String publisherUserName, String flightCompany, Date fromDate, Date untilDate, String baggageIncluded, int numberOfTickets, String destination, boolean twoDirections, String ticketType, String vacationType, boolean includeSleep, String hotelName, double hotelRank, boolean sold, boolean freezed, double price) {
+    public Vacation(String vacationID , String publisherUserName, String flightCompany, Date fromDate, Date untilDate, String baggageIncluded, int numberOfTickets, String destination, boolean twoDirections, String ticketType, String vacationType, boolean includeSleep, String hotelName, double hotelRank, boolean sold, boolean freezed, double price) {
         this.VacationID = vacationID;
         this.publisherUserName = publisherUserName;
         this.flightCompany = flightCompany;
@@ -84,7 +84,7 @@ public class Vacation {
         return sold;
     }
 
-    public int getVacationID() {
+    public String getVacationID() {
         return VacationID;
     }
 

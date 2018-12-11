@@ -27,7 +27,7 @@ public class SubmitRequestController {
         StageHolder.getInstance().getStage().close();
     }
 
-    public void submit(String loggedUser, int vacationID, Double price) {
+    public void submit(String loggedUser, String vacationID, Double price) {
         tb_vacationID.setDisable(true);
         tb_userName.setDisable(true);
         tb_price.setDisable(true);
@@ -43,7 +43,7 @@ public class SubmitRequestController {
             e.showErrorStage("fill all of your details");
             return;
         }
-        Purchase p = new Purchase(controller.getLoggedUser(),tb_toFill3.getText(),tb_toFill4.getText(),tb_toFill1.getText(),tb_toFill2.getText(),java.sql.Date.valueOf(tb_date.getValue()),Integer.parseInt(tb_vacationID.getText()));
+        Purchase p = new Purchase(controller.getLoggedUser(),tb_toFill3.getText(),tb_toFill4.getText(),tb_toFill1.getText(),tb_toFill2.getText(),java.sql.Date.valueOf(tb_date.getValue()),tb_vacationID.getText());
         controller.insertOfferRequest(p);
         StageHolder.getInstance().getStage().close();
 

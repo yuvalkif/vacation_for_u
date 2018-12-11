@@ -19,7 +19,7 @@ public class VacationFormController {
     private boolean back;
 
     @FXML
-    public TextField baggage ,flightComp ,  numberOfTickets , destination,ticketType,vacationTye,hotelName,hotelRank;
+    public TextField baggage ,flightComp ,  numberOfTickets , destination,ticketType,vacationTye,hotelName,hotelRank,ticketId;
     public TextField txtfld_price;
 
     @FXML
@@ -48,7 +48,7 @@ public class VacationFormController {
             price = Double.parseDouble(txtfld_price.getText());
 
 
-           this.vacation = new Vacation(1,controller.getLoggedUser(),flightComp.getText(),sqlFromDate,sqlToDate,baggage.getText(),numOfTickets,destination.getText(),roundTrip.isSelected(),ticketType.getText(),
+           this.vacation = new Vacation(ticketId.getText(),controller.getLoggedUser(),flightComp.getText(),sqlFromDate,sqlToDate,baggage.getText(),numOfTickets,destination.getText(),roundTrip.isSelected(),ticketType.getText(),
                    vacationTye.getText(),nightsIncluded.isSelected(),hotelName.getText(),hotelRank,false,false,price);
 
 

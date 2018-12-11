@@ -8,10 +8,10 @@ public class Purchase {
     private String cardType;
     private String cardNumber;
     private String cardCvv;
-    private int payingOnVacation;
+    private String payingOnVacation;
     private Date   cardExpireDate;
 
-    public Purchase(String cardOwnerUserName,String cardOwnerName, String cardType, String cardNumber, String cardCvv, Date cardExpireDate,int payingOnVacation) {
+    public Purchase(String cardOwnerUserName,String cardOwnerName, String cardType, String cardNumber, String cardCvv, Date cardExpireDate,String payingOnVacation) {
         this.cardOwnerName = cardOwnerName;
         this.cardType = cardType;
         this.cardNumber = cardNumber;
@@ -58,7 +58,7 @@ public class Purchase {
                 '}';
     }
 
-    public int getPayingOnVacation() {
+    public String getPayingOnVacation() {
         return payingOnVacation;
     }
 }
