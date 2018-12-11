@@ -1,20 +1,9 @@
-created new table users 2018/12/11 14:31:51
-created new table vacations 2018/12/11 14:31:51
-created new table purchases 2018/12/11 14:31:51
-created new table offers 2018/12/11 14:31:51
-created new table messages 2018/12/11 14:31:51
-connection opened 2018/12/11 14:31:55
-connection opened 2018/12/11 14:31:55
-connection opened 2018/12/11 14:31:55
-connection opened 2018/12/11 14:32:08
-connection opened 2018/12/11 14:32:19
-connection opened 2018/12/11 14:32:28
-connection opened 2018/12/11 14:32:38
-connection opened 2018/12/11 14:33:00
-connection opened 2018/12/11 14:34:02
-INSERT : Vacation{VacationID=1, publisherUserName='kal', flightCompany='dsfaf', fromDate=2018-12-12, untilDate=2018-12-24, baggageIncluded='50', numberOfTickets=2, destination='Tel Aviv', twoDirections=false, ticketType='Eco', vacationType='Exo', includeSleep=true, hotelName='Hola', hotelRank=3.0, sold=false, price=52434.0, freezed=false}- SUCCESS 2018/12/11 14:34:02
-connection opened 2018/12/11 14:34:13
-connection opened 2018/12/11 14:34:35
-connection opened 2018/12/11 14:35:24
-connection opened 2018/12/11 14:40:12
-SUCCSSES retrive vacations to dest: London 2018/12/11 14:40:12
+created new table users 2018/12/11 16:26:50
+created new table vacations 2018/12/11 16:26:50
+created new table purchases 2018/12/11 16:26:50
+created new table offers 2018/12/11 16:26:50
+created new table messages 2018/12/11 16:26:50
+created new table credit_cards 2018/12/11 16:26:50
+connection opened 2018/12/11 16:27:03
+connection opened 2018/12/11 16:27:03
+connection opened 2018/12/11 16:27:03

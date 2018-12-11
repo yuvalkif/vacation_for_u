@@ -23,6 +23,7 @@ public class Model implements ISQLModel {
     private Controller controller;
     private sqlLiteJDBCDriverConnection driver = new sqlLiteJDBCDriverConnection();
     private String loggedUser = "";
+    private final String SYSTEM = "Vacation4u system";
 
     public Model() {
     }
@@ -205,7 +206,7 @@ public class Model implements ISQLModel {
                 + "	cardType text NOT NULL ,\n"
                 + "	cardNumber text NOT NULL,\n"
                 + "	cardCvv text NOT NULL,\n"
-                + "	cardExpireDate DATE NOT NULL,\n"
+                + "	cardExpireDate DATE NOT NULL\n"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);
@@ -570,8 +571,8 @@ public class Model implements ISQLModel {
 
     @Override
     public void acceptMessage(ConfirmOfferMessage msg ) {
-        String sqlStatement = "UPDATE messages SET status = 'accept' WHERE vacationId = " + "'" + msg.getVacation().getVacationID() + "'"+
-                ", senderUserName = " +"'" + msg.getSender() + "'" + ", reciverUserName = "+ "'" + msg.getReciver() + "'";
+        String sqlStatement = "UPDATE messages SET status = 'accept' WHERE vacationId = " + "'" + msg.getVacation().getVacationID() + "'";
+
         try {
 
             Connection conn = this.openConnection();
@@ -580,16 +581,39 @@ public class Model implements ISQLModel {
 
             pstmt.executeUpdate();
 
+
             this.closeConnection(conn);
+            //delete the old message
+            deleteMessage(msg.getSender(),msg.getReciver(),msg.getVacation().getVacationID());
+            //send to the buyer
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String timeNow = LocalDateTime.now().format(formatter);
+            String recpiet =timeNow+"\n"+msg.getSender()+"\n"+msg.getVacation().toString()+"\n"+" CONTACT: 09320148304 \n   ENJOY";
+            insertMessage(SYSTEM,msg.getSender(),timeNow,"confirm",recpiet,"accept",msg.getVacation().getVacationID());
+            //send to the seller
+            insertMessage(SYSTEM,msg.getReciver(),timeNow,"confirm","username: "+msg.getSender()+" has bought your vacation: "+msg.getVacation()+" we sent you: "+msg.getVacation().getPrice(),"accept",
+                    msg.getVacation().getVacationID());
             Vacation v = getVacationAsObjectById(msg.getVacation().getVacationID());
             markVacationAsSold(msg.getVacation().getVacationID());
-            //send the buyer that the purchase accepted and the ticket
             Logger.getInstance().log("accepting message:  : " + msg.getVacation().getVacationID() +" "+msg.getSender() +" "+ msg.getReciver()+ " - SUCCESS");
         } catch (SQLException e) {
             e.printStackTrace();
             Logger.getInstance().log("accepting message:  : " + msg.getVacation().getVacationID() +" "+msg.getSender() +" "+msg.getReciver()+ " - FAILURE");
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /*********************************************** SEARCHING FUNCTIONS************************************************
 
@@ -739,11 +763,28 @@ public class Model implements ISQLModel {
 
 
     }
-    /**
-     * check if a char is a digit
-     * @param c
-     * @return true if its a digit
-     */
+
+
+
+    public void deleteMessage(String sender,String reciver , String vacaitonId) {
+        String sql = "DELETE FROM messages WHERE senderUserName = ?, reciverUserName = ?, vacationId = ?";
+        try {
+            Connection conn = openConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, sender);
+            stmt.setString(2, reciver);
+            stmt.setString(3, vacaitonId);
+            stmt.executeUpdate();
+            Logger.getInstance().log("DELETED " + sender + reciver + vacaitonId);
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Logger.getInstance().log("FAILED TO DELETE " +  sender + reciver + vacaitonId);
+
+        }
+
+
+    }
 
 
     /********************************************   LOGIN *************************************************/
