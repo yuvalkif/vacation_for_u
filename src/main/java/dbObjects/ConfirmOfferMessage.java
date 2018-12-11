@@ -13,6 +13,10 @@ public class ConfirmOfferMessage extends AMessage {
         return status;
     }
 
+    public void setStatus(String status){
+        this.status = status;
+    }
+
     public Vacation getVacation() {
         return vacation;
     }
