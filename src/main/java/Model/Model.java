@@ -331,9 +331,11 @@ public class Model implements ISQLModel {
             pstmt.setString(3, theTimeNow);
 
             pstmt.executeUpdate();
+            this.closeConnection(conn);
             insertMessage(buyerUsername,vacation.getPublisherUserName(),theTimeNow,
-                    "confirm",buyerUsername+ " want to buy your vacation, id: "+vacationId,"ReadOnly",vacationId);
+                    "confirm",buyerUsername+ " wants to buy your vacation, id: "+vacationId,"waiting",vacationId);
 //                    null,"standby")));
+            insertPurchase(purchaseOfferDetails,vacationId);
             markVacationAsSold(vacationId);
             Logger.getInstance().log("INSERT Buying Offer on vacationID: " + vacationId + " By user: " + buyerUsername + " - SUCCESS");
             return true;
@@ -732,7 +734,7 @@ public class Model implements ISQLModel {
                 boolean sold = (resultSet.getInt("sold") == 1) ? true : false;
                 double hotelRank = resultSet.getDouble("hotelRank");
                 boolean freezed = (resultSet.getInt("freezed") == 1) ? true : false;
-                double price = (resultSet.getInt("price"));
+                double price = (resultSet.getDouble("price"));
                 Vacation v = new Vacation(resultSet.getInt(14), resultSet.getString(1),
                         resultSet.getString(2),
                         fromDate,
