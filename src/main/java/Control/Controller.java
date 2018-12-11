@@ -9,12 +9,9 @@ import Logger.Logger;
 import Model.ISQLModel;
 import Model.Model;
 import View.IView;
-import dbObjects.AUserData;
-import dbObjects.Purchase;
-import dbObjects.User;
+import dbObjects.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import dbObjects.Vacation;
 import javafx.collections.ObservableList;
 
 public class Controller {
@@ -131,6 +128,10 @@ public class Controller {
     public void signOut() {
         loggedUser="";
         sp_loggedUser.set("");
+    }
+
+    public void confirmOrderMassage(ConfirmOfferMessage msg){
+        this.model.acceptMessage(msg);
     }
 
     public void insertOfferRequest(Purchase p){

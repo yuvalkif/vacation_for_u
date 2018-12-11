@@ -4,6 +4,7 @@ import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import dbObjects.*;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -38,9 +39,14 @@ public class MainScreenController implements IView{
     public Label lbl_hello, lbl_signOut;
     public Label lbl_signIn ,inboxLabel , outboxLabel;
 
-
     @FXML
-    public ListView inbox , outbox ,vacationList;
+    public TextArea massageArea;
+    @FXML
+    public TableView inbox , outbox;
+    @FXML
+    public ListView vacationList;
+    @FXML
+    public TableColumn<AMessage,String> inboxFrom , inboxTime,inboxContent , outboxTo,outboxTime,outboxContent;
 
     //add the needed listeners
     public void initializeListeners(){
@@ -60,21 +66,19 @@ public class MainScreenController implements IView{
             }
         });
 
-        this.inbox.getSelectionModel().selectionModeProperty().addListener(new ChangeListener() {
+        this.inbox.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                inOfferMaassage = (ConfirmOfferMessage) newValue;
-            }
-        });
-
-        this.outbox.getSelectionModel().selectionModeProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-
+            public void handle(MouseEvent event) {
+                showMassage((ConfirmOfferMessage) inbox.getSelectionModel().getSelectedItems().get(0));
             }
         });
     }
 
+
+    private void showMassage(ConfirmOfferMessage massage){
+        if(massage != null)
+         this.massageArea.setText(massage.getContent());
+    }
 
     private void showAllVacations(){
         ObservableList allVacations = this.controller.getAllVacations();
@@ -125,10 +129,9 @@ public class MainScreenController implements IView{
 
     public void handleConfirmOrder(){
 
-        if(this.inOfferMaassage == null)
-            return;
-
-        this.inOfferMaassage.setStatus("accept");
+        ConfirmOfferMessage msg = (ConfirmOfferMessage)this.inbox.getSelectionModel().getSelectedItems().get(0);
+        if(msg != null)
+            this.controller.confirmOrderMassage(msg);
     }
 
     public void handleSignIn() {
@@ -178,11 +181,26 @@ public class MainScreenController implements IView{
         if(userData == null)
             return;
 
-        ObservableList inList = userData.getInMessages();
-        ObservableList outList = userData.getOutMessages();
+        ObservableList<AMessage> inList = userData.getInMessages();
+        ObservableList<AMessage> outList = userData.getOutMessages();
+        initializeColumnsInbox(inList);
+        initializeColumnsOutbox(outList);
         this.inbox.setItems(inList);
         this.outbox.setItems(outList);
 
+    }
+
+
+    private void initializeColumnsInbox(ObservableList<AMessage> list){
+        this.inboxFrom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSender()));
+        this.inboxContent.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContent()));
+        this.inboxTime.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMessageTime()));
+    }
+
+    private void initializeColumnsOutbox(ObservableList<AMessage> list){
+        this.outboxTo.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getReciver()));
+        this.outboxTime.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMessageTime()));
+        this.outboxContent.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContent()));
     }
 
     public void handlePurchaseVacation(){
