@@ -12,6 +12,7 @@ public interface IView {
 
     void setController(Controller controller);
 
+    void initializeListeners();
     /**
      * handle the signup scene
      */

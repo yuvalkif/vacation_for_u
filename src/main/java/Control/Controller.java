@@ -82,6 +82,10 @@ public class Controller {
         this.view = view;
     }
 
+    public ObservableList getAllVacations(){
+        return this.model.getAllVacations();
+    }
+
     public void setModel(ISQLModel model) {
         this.model = model;
         sp_loggedUser = new SimpleStringProperty(""+model.getLoggedUser());

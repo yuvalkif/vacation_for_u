@@ -287,7 +287,4 @@ public class Vacation {
                 '}';
     }
 
-    public Object getPrice() {
-        return null;
-    }
 }

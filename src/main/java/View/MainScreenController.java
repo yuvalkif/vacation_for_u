@@ -7,6 +7,8 @@ import dbObjects.AUserData;
 import dbObjects.User;
 import dbObjects.UserData;
 import dbObjects.Vacation;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -26,10 +28,10 @@ public class MainScreenController implements IView{
     private Stage primaryStage;
 
     public TextField txtfld_destination;
-    public TabPane tabPane_tab;
+    public TabPane tabPane_tab ;
     public Tab tab_searchVacation;
     public ImageView img_backImg;
-    public Tab tab_user;
+    public Tab tab_user , tab_vacationBoard;
     public Label lbl_SignUp;
     public Button btn_update;
     public Button btn_delete;
@@ -38,7 +40,46 @@ public class MainScreenController implements IView{
     public Label lbl_signIn ,inboxLabel , outboxLabel;
 
     @FXML
-    public ListView inbox , outbox;
+    public ListView inbox , outbox ,vacationList;
+
+    //add the needed listeners
+    public void initializeListeners(){
+        this.tabPane_tab.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if(newValue.intValue() == 2){
+                    showAllVacations();
+                }
+            }
+        });
+
+        this.vacationList.getSelectionModel().selectionModeProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+
+            }
+        });
+
+        this.inbox.getSelectionModel().selectionModeProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+
+            }
+        });
+
+        this.outbox.getSelectionModel().selectionModeProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+
+            }
+        });
+    }
+
+
+    private void showAllVacations(){
+        ObservableList allVacations = this.controller.getAllVacations();
+        this.vacationList.setItems(allVacations);
+    }
 
     public void setCurrentStage(Stage stage) {
         this.primaryStage = stage;
@@ -134,6 +175,12 @@ public class MainScreenController implements IView{
         this.outbox.setItems(outList);
 
     }
+
+    public void handlePurchaseVacation(){
+
+
+    }
+
 
     public void handleSearchVacation(){
         String dest = txtfld_destination.getText();
@@ -292,12 +339,16 @@ public class MainScreenController implements IView{
             stage.showAndWait();
 
             Vacation toInsert = vacationFormController.getVacationToInsert();
-            if(toInsert != null)
+            if(toInsert != null) {
                 this.controller.insertVacation(toInsert);
-            else{
-                ErrorBox errorBox = new ErrorBox();
-                errorBox.showErrorStage("Please fill all fields");
+                return;
             }
+            if(vacationFormController.isBack())
+                return;
+
+            ErrorBox errorBox = new ErrorBox();
+            errorBox.showErrorStage("Please fill all fields");
+
         }catch (Exception e){
             System.out.println("at handle vacation button");
             e.printStackTrace();
