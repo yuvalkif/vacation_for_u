@@ -23,6 +23,7 @@
                     <TableColumn fx:id="includeSleep" prefWidth="103.0" text="includeSleep" />
                     <TableColumn fx:id="hotelName" prefWidth="103.0" text="hotelName" />
                     <TableColumn fx:id="hotelRank" prefWidth="103.0" text="hotelRank" />
+                    <TableColumn fx:id="price" prefWidth="103.0" text="Price" />
                 </columns>
             </TableView>
       <Button fx:id="btn_submitReq" layoutX="1319.0" layoutY="125.0" mnemonicParsing="false" onAction="#submitRequest" prefHeight="75.0" prefWidth="93.0" text="Submit Request" textAlignment="CENTER" wrapText="true" />

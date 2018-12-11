@@ -291,7 +291,14 @@ public class Model implements ISQLModel {
             pstmt.setInt(16, freezed);
 
             pstmt.executeUpdate();
+            String sqlGetlastInsertId = "select last_insert_rowid()";
+            Statement s = conn.createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            System.out.println(sqlGetlastInsertId +" this is the id , and type: "+(sqlGetlastInsertId).getClass());
             this.closeConnection(conn);
+
+            insertMessage("SYSTEM",vacationValues.getPublisherUserName(),LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                    "conform","succesfuly added a vacation","ReadOnly",1);
             Logger.getInstance().log("INSERT : " + vacationValues.toString() + "- SUCCESS");
             return true;
         } catch (SQLException e) {
@@ -307,26 +314,25 @@ public class Model implements ISQLModel {
      *
      * @param vacationId
      * @param buyerUsername
-     * @param purchseOfferTime
      * @param purchaseOfferDetails
      * @return success or not
      */
     @Override
-    public boolean insertBuyingOffer(int vacationId, String buyerUsername, String purchseOfferTime, Purchase purchaseOfferDetails) {
+    public boolean insertBuyingOffer(int vacationId, String buyerUsername,Purchase purchaseOfferDetails) {
 
-        String sqlStatement = "INSERT INTO offers(vacationId, buyerUsername,purchseOfferTime) VALUES(?,?,?)";
-
-
+        String sqlStatement = "INSERT INTO offers(vacationId, buyerUsername) VALUES(?,?,?)";
+        Vacation vacation = getVacationAsObjectById(vacationId);
+        String theTimeNow = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         try {
             Connection conn = this.openConnection();
             PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
             pstmt.setInt(1, vacationId);
             pstmt.setString(2, buyerUsername);
-            pstmt.setString(3, purchseOfferTime);
+            pstmt.setString(3, theTimeNow);
 
             pstmt.executeUpdate();
-
-//            this.insertMessage(new ConfirmOfferMessage(buyerUsername,"SHMULIK",LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"),
+            insertMessage(buyerUsername,vacation.getPublisherUserName(),theTimeNow,
+                    "confirm",buyerUsername+ " want to buy your vacation, id: "+vacationId,"ReadOnly",vacationId);
 //                    null,"standby")));
             markVacationAsSold(vacationId);
             Logger.getInstance().log("INSERT Buying Offer on vacationID: " + vacationId + " By user: " + buyerUsername + " - SUCCESS");
@@ -362,7 +368,28 @@ public class Model implements ISQLModel {
         }
     }
 
-    public void insertMessage(AMessage msg) {
+    public void insertMessage(String senderUserName ,String reciverUserName,String creationTime,String messageType,String messageContent,String status,int vacationId ) {
+        try {
+            String sql = "INSERT INTO messages(senderUserName,reciverUserName,creationTime,messageType,messageContent,status,vacationId) VALUES(?,?,?,?,?,?,?)";
+            Connection conn = this.openConnection();
+            int index = 0;
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, senderUserName);
+            pstmt.setString(2, reciverUserName);
+            pstmt.setString(3, creationTime);
+            pstmt.setString(4, messageType);
+            pstmt.setString(5, messageContent);
+            pstmt.setString(6, status);
+            pstmt.setInt(7, vacationId);
+
+            pstmt.executeUpdate();
+            this.closeConnection(conn);
+            Logger.getInstance().log("INSERT Message, content : " + messageContent + "- SUCCESS");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("in insertMessage");
+        }
 
     }
 
@@ -653,7 +680,8 @@ public class Model implements ISQLModel {
             if (result.size() > 0) {
                 if (result.get(0).getPassword().equals(password)) {
                     auth = true;
-                   AUserData serverResponse = getUserData(username);
+                    AUserData serverResponse = getUserData(username);
+                    loggedUser = serverResponse.getUserName();
 
                     return serverResponse;
                 }
@@ -745,6 +773,7 @@ public class Model implements ISQLModel {
                 if (getHoursGap(creationTime, now) > 48)
                     expired = true;
                 AMessage msg = null;
+
                 Vacation v = getVacationAsObjectById(vacationId);
                 if (!expired)   //the vaction will be set from vacation table;
                     msg = new ConfirmOfferMessage(sender, reciver, content, v, status);
@@ -778,7 +807,8 @@ public class Model implements ISQLModel {
             resultSet = stmt.executeQuery(sql);
             result = this.convertVacationResultsToObservableList(resultSet);
             conn.close();
-            ans = result.get(0);
+            if(result.size()>0)
+                ans = result.get(0);
         } catch (SQLException var7) {
             System.out.println(var7.getMessage());
             Logger.getInstance().log(var7.getMessage());
@@ -907,7 +937,7 @@ public class Model implements ISQLModel {
 
     private LocalDateTime convertStringToLocalDateTime(String sDate) {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         LocalDateTime formatDateTime = LocalDateTime.parse(sDate, formatter);
 

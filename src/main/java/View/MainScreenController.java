@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -36,7 +37,7 @@ public class MainScreenController implements IView{
     public Button btn_update;
     public Button btn_delete;
     public Label lbl_userName;
-    public Label lbl_hello;
+    public Label lbl_hello, lbl_signOut;
     public Label lbl_signIn ,inboxLabel , outboxLabel;
 
     @FXML
@@ -147,7 +148,7 @@ public class MainScreenController implements IView{
             this.primaryStage.show();
 
             if(!lbl_userName.getText().equals("")) {
-                setVisibleLoggedIn(true,true,false,false,false);
+                setVisibleLoggedIn(true,true,false,false,true,false);
             }
 
             //get the user data and show the massages on the inbox and outbox
@@ -250,7 +251,7 @@ public class MainScreenController implements IView{
             });
             stage.showAndWait();
             if(sceneController.getDeleted()) {
-                setVisibleLoggedIn(false, false, true, true, true);
+                setVisibleLoggedIn(false, false, true, true, true,true);
                 tabPane_tab.getSelectionModel().select(tab_searchVacation);
             }
             this.primaryStage.show();
@@ -385,11 +386,12 @@ public class MainScreenController implements IView{
 
     }
 
-    private void setVisibleLoggedIn(boolean username, boolean hello, boolean signIn, boolean signUp, boolean userTab){
+    private void setVisibleLoggedIn(boolean username, boolean hello, boolean signIn, boolean signUp, boolean signout, boolean userTab){
         lbl_userName.setVisible(username);
         lbl_hello.setVisible(hello);
         lbl_signIn.setVisible(signIn);
         lbl_SignUp.setVisible(signUp);
+        lbl_signOut.setVisible(signout);
         tab_user.setDisable(userTab);
     }
 
@@ -397,4 +399,10 @@ public class MainScreenController implements IView{
         StageHolder.getInstance().getStage();
     }
 
+    public void handleSignOut() {
+        controller.signOut();
+        setVisibleLoggedIn(false,false,true,true,false,true);
+        Alert a = new Alert(Alert.AlertType.INFORMATION,"You are now signed out");
+        a.show();
+    }
 }
