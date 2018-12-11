@@ -82,6 +82,7 @@ public class MainScreenController implements IView{
         this.vacationList.setItems(allVacations);
     }
 
+    
     public void setCurrentStage(Stage stage) {
         this.primaryStage = stage;
         img_backImg.fitWidthProperty().bind(primaryStage.widthProperty());
