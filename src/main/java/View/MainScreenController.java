@@ -128,10 +128,9 @@ public class MainScreenController implements IView{
 
     public void handleConfirmOrder(){
 
-        if(this.inOfferMaassage == null)
-            return;
-
-        this.inOfferMaassage.setStatus("accept");
+        ConfirmOfferMessage msg = (ConfirmOfferMessage)this.inbox.getSelectionModel().getSelectedItems().get(0);
+        if(msg != null)
+            this.controller.confirmOrderMassage(msg);
     }
 
     public void handleSignIn() {

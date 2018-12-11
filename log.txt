@@ -1,8 +1,23 @@
-created new table users 2018/12/11 15:48:50
-created new table vacations 2018/12/11 15:48:50
-created new table purchases 2018/12/11 15:48:50
-created new table offers 2018/12/11 15:48:50
-created new table messages 2018/12/11 15:48:50
-connection opened 2018/12/11 15:48:55
-connection opened 2018/12/11 15:48:55
-connection opened 2018/12/11 15:48:55
+created new table users 2018/12/11 03:09:58
+created new table vacations 2018/12/11 03:09:58
+created new table purchases 2018/12/11 03:09:58
+created new table offers 2018/12/11 03:09:58
+created new table messages 2018/12/11 03:09:58
+connection opened 2018/12/11 03:10:03
+connection opened 2018/12/11 03:10:03
+connection opened 2018/12/11 03:10:09
+SUCCSSES retrive vacations to dest: a 2018/12/11 03:10:09
+connection opened 2018/12/11 03:10:20
+connection opened 2018/12/11 03:10:20
+connection closed 2018/12/11 03:10:20
+connection opened 2018/12/11 03:10:20
+connection closed 2018/12/11 03:10:20
+INSERT Message, content : fdfssdf wants to buy your vacation, id: 1- SUCCESS 2018/12/11 03:10:20
+connection opened 2018/12/11 03:10:20
+connection closed 2018/12/11 03:10:20
+INSERT : Purchase{cardOwnerUserName='a', cardOwnerName='fdfssdf', cardType='fdsdfs', cardNumber='432324', cardCvv='432', cardExpireDate=2018-12-12} - SUCCESS 2018/12/11 03:10:20
+connection opened 2018/12/11 03:10:20
+connection closed 2018/12/11 03:10:20
+Update  , mark as sold vacation : 1 - SUCCESS 2018/12/11 03:10:20
+INSERT Buying Offer on vacationID: 1 By user: fdfssdf - SUCCESS 2018/12/11 03:10:20
+connection opened 2018/12/11 03:10:24

@@ -1,10 +1,7 @@
 package Model;
 
-import dbObjects.AUserData;
-import dbObjects.Purchase;
-import dbObjects.User;
+import dbObjects.*;
 import Control.Controller;
-import dbObjects.Vacation;
 import javafx.collections.ObservableList;
 
 
@@ -63,6 +60,7 @@ public interface ISQLModel {
     void createOffersTable();
 
     void createConfirmMessageTable();
+    void createCreditCardPoolTable();
 
     /**
      * search records by username
@@ -102,6 +100,9 @@ public interface ISQLModel {
     boolean insertVacation(Vacation vacationValues);
 
     boolean insertBuyingOffer(int vacationId , String buyerUsername , Purchase purchaseOfferDetails);
+
+
+    void acceptMessage(ConfirmOfferMessage msg);
 
 
     void freezeVacation(int vacationId);
