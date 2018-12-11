@@ -1,11 +1,18 @@
-created new table users 2018/12/11 01:20:14
-created new table vacations 2018/12/11 01:20:14
-created new table purchases 2018/12/11 01:20:14
-created new table messages 2018/12/11 01:20:14
-connection opened 2018/12/11 01:20:19
-connection opened 2018/12/11 01:20:19
-connection opened 2018/12/11 01:20:47
-connection closed 2018/12/11 01:20:56
-INSERT : Vacation{VacationID=1, publisherUserName='a', flightCompany='ad', fromDate=2018-12-09, untilDate=2018-12-29, baggageIncluded='2', numberOfTickets=11, destination='a', twoDirections=false, ticketType='b', vacationType='f', includeSleep=true, hotelName='d', hotelRank=4.0, sold=false, price=3333.0, freezed=false}- SUCCESS 2018/12/11 01:20:57
-connection opened 2018/12/11 01:21:22
-SUCCSSES retrive vacations to dest: a 2018/12/11 01:21:28
+created new table users 2018/12/11 02:16:04
+created new table vacations 2018/12/11 02:16:04
+created new table purchases 2018/12/11 02:16:04
+created new table messages 2018/12/11 02:16:04
+connection opened 2018/12/11 02:16:17
+connection opened 2018/12/11 02:16:17
+connection closed 2018/12/11 02:16:18
+INSERT : EE , EE - SUCCESS 2018/12/11 02:16:18
+connection opened 2018/12/11 02:16:26
+connection opened 2018/12/11 02:16:26
+connection opened 2018/12/11 02:16:44
+connection closed 2018/12/11 02:16:44
+INSERT : Vacation{VacationID=1, publisherUserName='EE', flightCompany='EE', fromDate=2018-12-12, untilDate=2018-12-13, baggageIncluded='1', numberOfTickets=1, destination='RR', twoDirections=false, ticketType='RR', vacationType='RR', includeSleep=false, hotelName='RR', hotelRank=4.0, sold=false, price=111.0, freezed=false}- SUCCESS 2018/12/11 02:16:44
+connection opened 2018/12/11 02:17:01
+connection closed 2018/12/11 02:17:01
+INSERT : Vacation{VacationID=1, publisherUserName='EE', flightCompany='TT', fromDate=2018-12-06, untilDate=2018-12-28, baggageIncluded='2', numberOfTickets=2, destination='RR', twoDirections=false, ticketType='RR', vacationType='TT', includeSleep=false, hotelName='TT', hotelRank=1.0, sold=false, price=222.0, freezed=false}- SUCCESS 2018/12/11 02:17:01
+connection opened 2018/12/11 02:17:06
+SUCCSSES retrive vacations to dest: RR 2018/12/11 02:17:06
