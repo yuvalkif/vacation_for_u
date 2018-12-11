@@ -1,3 +1,13 @@
+created new table users 2018/12/11 02:08:37
+created new table vacations 2018/12/11 02:08:37
+created new table purchases 2018/12/11 02:08:37
+created new table messages 2018/12/11 02:08:37
+connection opened 2018/12/11 02:08:43
+connection opened 2018/12/11 02:08:43
+connection opened 2018/12/11 02:09:03
+connection closed 2018/12/11 02:09:03
+INSERT : Vacation{VacationID=1, publisherUserName='adam', flightCompany='ssada', fromDate=2018-12-09, untilDate=2018-12-21, baggageIncluded='dsadsa', numberOfTickets=231, destination='sadsa', twoDirections=true, ticketType='dasdsa', vacationType='dadas', includeSleep=true, hotelName='dasdsa', hotelRank=4.0, sold=false, price=1234.0, freezed=false}- SUCCESS 2018/12/11 02:09:03
+connection opened 2018/12/11 02:09:05
 created new table users 2018/12/11 02:20:21
 created new table vacations 2018/12/11 02:20:21
 created new table purchases 2018/12/11 02:20:21

@@ -55,7 +55,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Vacation4U");
         primaryStage.setScene(new Scene(root));
-        primaryStage.getScene().getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+///        primaryStage.getScene().getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
         primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -74,6 +74,7 @@ public class Main extends Application {
         controller.createPurchaseTable();
         controller.createConfirmMessageTable();
         mainView.setCurrentStage(primaryStage);
+        mainView.initializeListeners();
         primaryStage.show();
 
 

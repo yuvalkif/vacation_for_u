@@ -89,20 +89,22 @@ public class Controller {
         this.view = view;
     }
 
+    public ObservableList getAllVacations(){
+        return this.model.getAllVacations();
+    }
+
     public void setModel(ISQLModel model) {
         this.model = model;
         sp_loggedUser = new SimpleStringProperty(""+model.getLoggedUser());
     }
 
-    public boolean correctUserAndPassword(String username, String password){
+    public AUserData correctUserAndPassword(String username, String password){
         AUserData logged = model.login(username,password);
         if(logged==null)
-            return false;
+            return null;
         loggedUser = logged.getUserName();
-//        return true;
-//        loggedUser = "ALON";
         sp_loggedUser.set(loggedUser);
-        return true;
+        return logged;
     }
 
     public String getLoggedUser() {
@@ -119,5 +121,10 @@ public class Controller {
 
     public ObservableList searchVacationInDB(String dest) {
         return model.getVacations(dest);
+    }
+
+    public void signOut() {
+        loggedUser="";
+        sp_loggedUser.set("");
     }
 }

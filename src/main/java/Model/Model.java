@@ -82,9 +82,10 @@ public class Model implements ISQLModel {
                 + "	vacationType text NOT NULL,\n"
                 + "	includeSleep INTEGER NOT NULL,\n"
                 + "	hotelName text,\n"
-                + " hotelRank DOUBLE , \n"
+                + " hotelRank DOUBLE,\n"
                 + " vacationId INTEGER PRIMARY KEY AUTOINCREMENT,\n"
                 + " sold Integer NOT NULL,\n"
+                + " price DOUBLE NOT NULL,\n"
                 + " freezed INTEGER NOT NULL\n"
                 + ");";
 
@@ -257,7 +258,7 @@ public class Model implements ISQLModel {
     @Override
     public boolean insertVacation(Vacation vacationValues) {
 
-        String sql = "INSERT INTO vacations(publisherUserName,flightCompany,fromDate,untilDate,baggageIncluded,numberOfTickets,destination,twoDirections,ticketType,vacationType,includeSleep,hotelName,hotelRank,sold,freezed) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO vacations(publisherUserName,flightCompany,fromDate,untilDate,baggageIncluded,numberOfTickets,destination,twoDirections,ticketType,vacationType,includeSleep,hotelName,hotelRank,sold,price,freezed) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 
         //processing dates
@@ -285,8 +286,10 @@ public class Model implements ISQLModel {
             pstmt.setString(12, vacationValues.getHotelName());
             pstmt.setDouble(13, vacationValues.getHotelRank());
             pstmt.setInt(14, sold);
+            pstmt.setDouble(15, vacationValues.getPrice());
             //by default freeze is off
-            pstmt.setInt(15, freezed);
+            pstmt.setInt(16, freezed);
+
             pstmt.executeUpdate();
             String sqlGetlastInsertId = "select last_insert_rowid()";
             Statement s = conn.createStatement();
@@ -677,7 +680,8 @@ public class Model implements ISQLModel {
             if (result.size() > 0) {
                 if (result.get(0).getPassword().equals(password)) {
                     auth = true;
-                   AUserData serverResponse = getUserData(username);
+                    AUserData serverResponse = getUserData(username);
+                    loggedUser = serverResponse.getUserName();
 
                     return serverResponse;
                 }
@@ -728,6 +732,7 @@ public class Model implements ISQLModel {
                 boolean sold = (resultSet.getInt("sold") == 1) ? true : false;
                 double hotelRank = resultSet.getDouble("hotelRank");
                 boolean freezed = (resultSet.getInt("freezed") == 1) ? true : false;
+                double price = (resultSet.getInt("price"));
                 Vacation v = new Vacation(resultSet.getInt(14), resultSet.getString(1),
                         resultSet.getString(2),
                         fromDate,
@@ -740,7 +745,7 @@ public class Model implements ISQLModel {
                         resultSet.getString(10),
                         includeSleep,
                         resultSet.getString(12),
-                        hotelRank, sold, freezed);
+                        hotelRank, sold, freezed,price);
                 if (!v.isFreezed() && !v.isSold())
                     observableList.add(v);
             }

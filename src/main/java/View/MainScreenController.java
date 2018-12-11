@@ -3,16 +3,21 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
+import dbObjects.AUserData;
 import dbObjects.User;
+import dbObjects.UserData;
 import dbObjects.Vacation;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -24,17 +29,58 @@ public class MainScreenController implements IView{
     private Stage primaryStage;
 
     public TextField txtfld_destination;
-    public TabPane tabPane_tab;
+    public TabPane tabPane_tab ;
     public Tab tab_searchVacation;
     public ImageView img_backImg;
-    public Tab tab_user;
+    public Tab tab_user , tab_vacationBoard;
     public Label lbl_SignUp;
     public Button btn_update;
     public Button btn_delete;
     public Label lbl_userName;
-    public Label lbl_hello;
-    public Label lbl_signIn;
+    public Label lbl_hello, lbl_signOut;
+    public Label lbl_signIn ,inboxLabel , outboxLabel;
 
+    @FXML
+    public ListView inbox , outbox ,vacationList;
+
+    //add the needed listeners
+    public void initializeListeners(){
+        this.tabPane_tab.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if(newValue.intValue() == 2){
+                    showAllVacations();
+                }
+            }
+        });
+
+        this.vacationList.getSelectionModel().selectionModeProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+
+            }
+        });
+
+        this.inbox.getSelectionModel().selectionModeProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+
+            }
+        });
+
+        this.outbox.getSelectionModel().selectionModeProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+
+            }
+        });
+    }
+
+
+    private void showAllVacations(){
+        ObservableList allVacations = this.controller.getAllVacations();
+        this.vacationList.setItems(allVacations);
+    }
 
     public void setCurrentStage(Stage stage) {
         this.primaryStage = stage;
@@ -48,7 +94,7 @@ public class MainScreenController implements IView{
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("SignUpForm.fxml").openStream());
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+         //   scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Sign Up");
@@ -83,7 +129,7 @@ public class MainScreenController implements IView{
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("LogInWindow.fxml").openStream());
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+         //   scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Log In");
@@ -102,14 +148,40 @@ public class MainScreenController implements IView{
             this.primaryStage.show();
 
             if(!lbl_userName.getText().equals("")) {
-                setVisibleLoggedIn(true,true,false,false,false);
+                setVisibleLoggedIn(true,true,false,false,true,false);
             }
+
+            //get the user data and show the massages on the inbox and outbox
+            UserData userData =(UserData) sceneController.getUserData();
+            showUserMassages(userData);
 
         } catch (IOException e) {
             e.getCause();
             e.printStackTrace();
         }
     }
+
+    /**
+     * show the massages after signing in
+     * @param userData user to show its massages
+     */
+    private void showUserMassages(UserData userData){
+
+        if(userData == null)
+            return;
+
+        ObservableList inList = userData.getInMessages();
+        ObservableList outList = userData.getOutMessages();
+        this.inbox.setItems(inList);
+        this.outbox.setItems(outList);
+
+    }
+
+    public void handlePurchaseVacation(){
+
+
+    }
+
 
     public void handleSearchVacation(){
         String dest = txtfld_destination.getText();
@@ -130,7 +202,7 @@ public class MainScreenController implements IView{
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("SearchResultWindow.fxml").openStream());
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+         //   scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Search Results");
@@ -162,7 +234,7 @@ public class MainScreenController implements IView{
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("DeleteForm.fxml").openStream());
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+         //   scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Delete");
@@ -179,7 +251,7 @@ public class MainScreenController implements IView{
             });
             stage.showAndWait();
             if(sceneController.getDeleted()) {
-                setVisibleLoggedIn(false, false, true, true, true);
+                setVisibleLoggedIn(false, false, true, true, true,true);
                 tabPane_tab.getSelectionModel().select(tab_searchVacation);
             }
             this.primaryStage.show();
@@ -199,7 +271,7 @@ public class MainScreenController implements IView{
             AnchorPane upperPane = (AnchorPane)splitPane.getItems().get(0);
             TableView<User> tableView = (TableView<User>)upperPane.getChildren().get(0);
             Scene scene = new Scene(root, 570, 550);
-            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+        //    scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Search");
@@ -228,7 +300,7 @@ public class MainScreenController implements IView{
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("UpdateForm.fxml").openStream());
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+      //      scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Update");
@@ -268,8 +340,15 @@ public class MainScreenController implements IView{
             stage.showAndWait();
 
             Vacation toInsert = vacationFormController.getVacationToInsert();
-            if(toInsert != null)
+            if(toInsert != null) {
                 this.controller.insertVacation(toInsert);
+                return;
+            }
+            if(vacationFormController.isBack())
+                return;
+
+            ErrorBox errorBox = new ErrorBox();
+            errorBox.showErrorStage("Please fill all fields");
 
         }catch (Exception e){
             System.out.println("at handle vacation button");
@@ -279,8 +358,6 @@ public class MainScreenController implements IView{
 
     /**
      * initialize and return a new stage
-     *
-     * @param loader
      * @param fxmlPath path to fxml file of the stage
      * @param cssPath path to css of the stage
      * @param title the title to be shown
@@ -291,7 +368,7 @@ public class MainScreenController implements IView{
         try{
             Parent root = loader.load(getClass().getClassLoader().getResource(fxmlPath).openStream());
             Scene scene = new Scene(root,width,height);
-            scene.getStylesheets().add(getClass().getClassLoader().getResource(cssPath).toExternalForm());
+         //   scene.getStylesheets().add(getClass().getClassLoader().getResource(cssPath).toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle(title);
@@ -309,11 +386,12 @@ public class MainScreenController implements IView{
 
     }
 
-    private void setVisibleLoggedIn(boolean username, boolean hello, boolean signIn, boolean signUp, boolean userTab){
+    private void setVisibleLoggedIn(boolean username, boolean hello, boolean signIn, boolean signUp, boolean signout, boolean userTab){
         lbl_userName.setVisible(username);
         lbl_hello.setVisible(hello);
         lbl_signIn.setVisible(signIn);
         lbl_SignUp.setVisible(signUp);
+        lbl_signOut.setVisible(signout);
         tab_user.setDisable(userTab);
     }
 
@@ -321,4 +399,10 @@ public class MainScreenController implements IView{
         StageHolder.getInstance().getStage();
     }
 
+    public void handleSignOut() {
+        controller.signOut();
+        setVisibleLoggedIn(false,false,true,true,false,true);
+        Alert a = new Alert(Alert.AlertType.INFORMATION,"You are now signed out");
+        a.show();
+    }
 }

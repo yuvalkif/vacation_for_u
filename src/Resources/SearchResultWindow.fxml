@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="377.0" prefWidth="1411.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.SearchVacationController">
+<AnchorPane prefHeight="377.0" prefWidth="1411.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SearchVacationController">
     <children>
             <TableView fx:id="tableView" layoutY="-2.0" prefHeight="379.0" prefWidth="1319.0">
                 <columns>
@@ -22,9 +22,13 @@
                     <TableColumn fx:id="vacationType" prefWidth="103.0" text="vacationType" />
                     <TableColumn fx:id="includeSleep" prefWidth="103.0" text="includeSleep" />
                     <TableColumn fx:id="hotelName" prefWidth="103.0" text="hotelName" />
+                    <TableColumn fx:id="hotelRank" prefWidth="103.0" text="hotelRank" />
+                    <TableColumn fx:id="price" prefWidth="103.0" text="Price" />
                 </columns>
             </TableView>
-      <Button layoutX="1319.0" layoutY="125.0" mnemonicParsing="false" onAction="#submitRequest" prefHeight="75.0" prefWidth="93.0" text="Submit Request" textAlignment="CENTER" wrapText="true" />
-      <Button layoutX="1340.0" layoutY="241.0" mnemonicParsing="false" onAction="#handleBack" text="Back" />
+      <Button fx:id="btn_submitReq" layoutX="1319.0" layoutY="125.0" mnemonicParsing="false" onAction="#submitRequest" prefHeight="75.0" prefWidth="93.0" text="Submit Request" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="btn_beck" layoutX="1340.0" layoutY="241.0" mnemonicParsing="false" onAction="#handleBack" text="Back" />
+      <Button fx:id="btn_submit" layoutX="1526.0" layoutY="150.0" mnemonicParsing="false" onAction="#submitRequest" prefHeight="75.0" prefWidth="93.0" text="Submit Request" textAlignment="CENTER" wrapText="true" />
+      <Button layoutX="1526.0" layoutY="255.0" mnemonicParsing="false" onAction="#handleBack" text="Back" />
     </children>
 </AnchorPane>
