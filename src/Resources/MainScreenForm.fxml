@@ -76,7 +76,7 @@
                               <TextField fx:id="txtfld_destination" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                               <Label fx:id="lbl_userName" prefHeight="21.0" prefWidth="112.0" textFill="WHITE" visible="false" GridPane.columnIndex="6" />
                               <Label fx:id="lbl_hello" text="Hello," textFill="WHITE" visible="false" GridPane.columnIndex="5" />
-                              <Label fx:id="lbl_signOut" onMouseClicked="#handleSignOut" visible="false" text="SignOut" GridPane.columnIndex="7" />
+                              <Label fx:id="lbl_signOut" onMouseClicked="#handleSignOut" text="SignOut" visible="false" GridPane.columnIndex="7" />
                            </children>
                         </GridPane>
                          <Label layoutX="14.0" text="Vacation For You!" textOverrun="WORD_ELLIPSIS">
@@ -127,6 +127,7 @@
                         <ListView fx:id="outbox" layoutX="286.0" layoutY="75.0" prefHeight="428.0" prefWidth="223.0" />
                         <Label fx:id="inboxLabel" layoutX="354.0" layoutY="47.0" prefHeight="25.0" prefWidth="93.0" text="Outbox" />
                         <Label fx:id="outboxLabel" layoutX="572.0" layoutY="48.0" prefHeight="24.0" prefWidth="72.0" text="Inbox" />
+                        <Button onAction="#handleConfirmOrder" layoutX="291.0" layoutY="494.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="127.0" text="Confirm Offer" />
                     </children>
                 </AnchorPane>
             </content>
@@ -136,7 +137,7 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <ListView fx:id="vacationList" layoutX="50.0" layoutY="18.0" prefHeight="347.0" prefWidth="603.0" />
-                        <Button onAction="#handlePurchaseVacation" layoutX="165.0" layoutY="428.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="109.0" text="Purchase" />
+                        <Button layoutX="165.0" layoutY="428.0" mnemonicParsing="false" onAction="#handlePurchaseVacation" prefHeight="31.0" prefWidth="109.0" text="Purchase" />
                      </children>
                   </AnchorPane>
               </content>

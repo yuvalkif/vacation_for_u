@@ -3,10 +3,7 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
-import dbObjects.AUserData;
-import dbObjects.User;
-import dbObjects.UserData;
-import dbObjects.Vacation;
+import dbObjects.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -27,6 +24,7 @@ public class MainScreenController implements IView{
 
     private Controller controller;
     private Stage primaryStage;
+    private ConfirmOfferMessage inOfferMaassage;
 
     public TextField txtfld_destination;
     public TabPane tabPane_tab ;
@@ -39,6 +37,7 @@ public class MainScreenController implements IView{
     public Label lbl_userName;
     public Label lbl_hello, lbl_signOut;
     public Label lbl_signIn ,inboxLabel , outboxLabel;
+
 
     @FXML
     public ListView inbox , outbox ,vacationList;
@@ -64,7 +63,7 @@ public class MainScreenController implements IView{
         this.inbox.getSelectionModel().selectionModeProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-
+                inOfferMaassage = (ConfirmOfferMessage) newValue;
             }
         });
 
@@ -82,7 +81,7 @@ public class MainScreenController implements IView{
         this.vacationList.setItems(allVacations);
     }
 
-    
+
     public void setCurrentStage(Stage stage) {
         this.primaryStage = stage;
         img_backImg.fitWidthProperty().bind(primaryStage.widthProperty());
@@ -122,6 +121,14 @@ public class MainScreenController implements IView{
             e.printStackTrace();
         }
 
+    }
+
+    public void handleConfirmOrder(){
+
+        if(this.inOfferMaassage == null)
+            return;
+
+        this.inOfferMaassage.setStatus("accept");
     }
 
     public void handleSignIn() {
