@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.StringJoiner;
+import java.util.concurrent.ExecutionException;
 
 import dbObjects.*;
 import javafx.collections.FXCollections;
@@ -23,6 +24,7 @@ public class Model implements ISQLModel {
     private Controller controller;
     private sqlLiteJDBCDriverConnection driver = new sqlLiteJDBCDriverConnection();
     private String loggedUser = "";
+    private final String SYSTEM = "Vacation4u system";
 
     public Model() {
     }
@@ -202,10 +204,10 @@ public class Model implements ISQLModel {
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS credit_cards (\n"
                 + "	cardOwnerName text PRIMARY KEY,\n"
-                + "	cardType text NOT NULL , \n"
-                + "	cardNumber text NOT NULL, \n"
-                + "	cardCvv text NOT NULL, \n"
-                + "	cardExpireDate DATE NOT NULL \n"
+                + "	cardType text NOT NULL ,\n"
+                + "	cardNumber text NOT NULL,\n"
+                + "	cardCvv text NOT NULL,\n"
+                + "	cardExpireDate DATE NOT NULL\n"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);
@@ -265,7 +267,7 @@ public class Model implements ISQLModel {
     @Override
     public boolean insertVacation(Vacation vacationValues) {
 
-        String sql = "INSERT INTO vacations(publisherUserName,flightCompany,fromDate,untilDate,baggageIncluded,numberOfTickets,destination,twoDirections,ticketType,vacationType,includeSleep,hotelName,hotelRank,sold,price,freezed) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO vacations(publisherUserName,flightCompany,fromDate,untilDate,baggageIncluded,numberOfTickets,destination,twoDirections,ticketType,vacationType,includeSleep,hotelName,hotelRank,sold,price,freezed,vacationId) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 
         //processing dates
@@ -296,7 +298,7 @@ public class Model implements ISQLModel {
             pstmt.setDouble(15, vacationValues.getPrice());
             //by default freeze is off
             pstmt.setInt(16, freezed);
-
+            pstmt.setString(17,vacationValues.getVacationID());
             pstmt.executeUpdate();
 //            String sqlGetlastInsertId = "select last_insert_rowid()";
 //            Statement s = conn.createStatement();
@@ -339,11 +341,13 @@ public class Model implements ISQLModel {
 
             pstmt.executeUpdate();
             this.closeConnection(conn);
+            /**
             Boolean creditAuthed  =  isValidCreditCard(purchaseOfferDetails);
             if(!creditAuthed)
                 return false;
+             **/
             freezeVacation(vacationId);
-            insertMessage(buyerUsername,vacation.getPublisherUserName(),theTimeNow,
+            insertMessage(controller.getLoggedUser(),vacation.getPublisherUserName(),theTimeNow,
                     "confirm",buyerUsername+ " wants to buy your vacation, id: "+vacationId,"waiting",vacationId);
 //                    null,"standby")));
             insertPurchase(purchaseOfferDetails,vacationId);
@@ -511,7 +515,7 @@ public class Model implements ISQLModel {
 
     @Override
     public void freezeVacation(String vacationId) {
-        String sqlStatement = "UPDATE vacations SET freeze = 1 WHERE vacationId = " + "'" + vacationId + "'";
+        String sqlStatement = "UPDATE vacations SET freezed = 1 WHERE vacationId = " + "'" + vacationId + "'";
         try {
 
             Connection conn = this.openConnection();
@@ -571,6 +575,7 @@ public class Model implements ISQLModel {
     @Override
     public void acceptMessage(ConfirmOfferMessage msg ) {
         String sqlStatement = "UPDATE messages SET status = 'accept' WHERE vacationId = " + "'" + msg.getVacation().getVacationID() + "'";
+
         try {
 
             Connection conn = this.openConnection();
@@ -579,16 +584,39 @@ public class Model implements ISQLModel {
 
             pstmt.executeUpdate();
 
+
             this.closeConnection(conn);
+            //delete the old message
+            deleteMessage(msg.getSender(),msg.getReciver(),msg.getVacation().getVacationID());
+            //send to the buyer
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String timeNow = LocalDateTime.now().format(formatter);
+            String recpiet =timeNow+"\n"+msg.getSender()+"\n"+msg.getVacation().toString()+"\n"+" CONTACT: 09320148304 \n   ENJOY";
+            insertMessage(SYSTEM,msg.getSender(),timeNow,"confirm",recpiet,"accept",msg.getVacation().getVacationID());
+            //send to the seller
+            insertMessage(SYSTEM,msg.getReciver(),timeNow,"confirm","username: "+msg.getSender()+" has bought your vacation: "+msg.getVacation()+" we sent you: "+msg.getVacation().getPrice(),"accept",
+                    msg.getVacation().getVacationID());
             Vacation v = getVacationAsObjectById(msg.getVacation().getVacationID());
             markVacationAsSold(msg.getVacation().getVacationID());
-            //send the buyer that the purchase accepted and the ticket
             Logger.getInstance().log("accepting message:  : " + msg.getVacation().getVacationID() +" "+msg.getSender() +" "+ msg.getReciver()+ " - SUCCESS");
         } catch (SQLException e) {
             e.printStackTrace();
             Logger.getInstance().log("accepting message:  : " + msg.getVacation().getVacationID() +" "+msg.getSender() +" "+msg.getReciver()+ " - FAILURE");
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /*********************************************** SEARCHING FUNCTIONS************************************************
 
@@ -738,11 +766,28 @@ public class Model implements ISQLModel {
 
 
     }
-    /**
-     * check if a char is a digit
-     * @param c
-     * @return true if its a digit
-     */
+
+
+
+    public void deleteMessage(String sender,String reciver , String vacaitonId) {
+        String sql = "DELETE FROM messages WHERE vacationId = ?";
+        try {
+            Connection conn = openConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, vacaitonId);
+            //stmt.setString(2, reciver);
+           // stmt.setString(3, vacaitonId);
+            stmt.executeUpdate();
+            Logger.getInstance().log("DELETED " + sender + reciver + vacaitonId);
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.getInstance().log("FAILED TO DELETE " +  sender + reciver + vacaitonId);
+
+        }
+
+
+    }
 
 
     /********************************************   LOGIN *************************************************/
