@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import Control.Controller;
 import javafx.stage.WindowEvent;
 
-public class View implements IView {
+public class View  {
     private Controller controller;
     private Stage primaryStage;
 
@@ -31,7 +31,7 @@ public class View implements IView {
         this.primaryStage = stage;
     }
 
-    @Override
+   // @Override
     public void setController(Controller controller) {
 
     }

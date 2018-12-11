@@ -16,6 +16,7 @@ public class VacationFormController {
 
     private Controller controller;
     private Vacation vacation;
+    private boolean back;
 
     @FXML
     public TextField baggage ,flightComp ,  numberOfTickets , destination,ticketType,vacationTye,hotelName,hotelRank;
@@ -57,6 +58,7 @@ public class VacationFormController {
 
     public void handleBack(){
         StageHolder.getInstance().getStage().close();
+        this.back = true;
     }
 
     private Date utilDateToSqlDate(java.util.Date utilDate ){
@@ -70,5 +72,9 @@ public class VacationFormController {
 
     public void setController(Controller controller){
         this.controller = controller;
+    }
+
+    public boolean isBack() {
+        return back;
     }
 }
