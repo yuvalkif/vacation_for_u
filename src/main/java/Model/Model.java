@@ -653,7 +653,8 @@ public class Model implements ISQLModel {
             if (result.size() > 0) {
                 if (result.get(0).getPassword().equals(password)) {
                     auth = true;
-                   AUserData serverResponse = getUserData(username);
+                    AUserData serverResponse = getUserData(username);
+                    loggedUser = serverResponse.getUserName();
 
                     return serverResponse;
                 }

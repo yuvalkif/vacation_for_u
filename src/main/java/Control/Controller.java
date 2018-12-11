@@ -111,4 +111,9 @@ public class Controller {
     public ObservableList searchVacationInDB(String dest) {
         return model.getVacations(dest);
     }
+
+    public void signOut() {
+        loggedUser="";
+        sp_loggedUser.set("");
+    }
 }
