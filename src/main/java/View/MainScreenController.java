@@ -56,7 +56,7 @@ public class MainScreenController implements IView{
         this.vacationList.getSelectionModel().selectionModeProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-
+                
             }
         });
 
