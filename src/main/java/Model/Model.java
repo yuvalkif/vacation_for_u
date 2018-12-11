@@ -570,8 +570,7 @@ public class Model implements ISQLModel {
 
     @Override
     public void acceptMessage(ConfirmOfferMessage msg ) {
-        String sqlStatement = "UPDATE messages SET status = 'accept' WHERE vacationId = " + "'" + msg.getVacation().getVacationID() + "'"+
-                ", senderUserName = " +"'" + msg.getSender() + "'" + ", reciverUserName = "+ "'" + msg.getReciver() + "'";
+        String sqlStatement = "UPDATE messages SET status = 'accept' WHERE vacationId = " + "'" + msg.getVacation().getVacationID() + "'";
         try {
 
             Connection conn = this.openConnection();
