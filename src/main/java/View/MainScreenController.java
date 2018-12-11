@@ -76,7 +76,8 @@ public class MainScreenController implements IView{
 
 
     private void showMassage(ConfirmOfferMessage massage){
-        this.massageArea.setText(massage.getContent());
+        if(massage != null)
+         this.massageArea.setText(massage.getContent());
     }
 
     private void showAllVacations(){
