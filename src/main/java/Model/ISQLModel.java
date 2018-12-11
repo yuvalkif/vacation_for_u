@@ -99,14 +99,14 @@ public interface ISQLModel {
      */
     boolean insertVacation(Vacation vacationValues);
 
-    boolean insertBuyingOffer(int vacationId , String buyerUsername , Purchase purchaseOfferDetails);
+    boolean insertBuyingOffer(String vacationId , String buyerUsername , Purchase purchaseOfferDetails);
 
 
     void acceptMessage(ConfirmOfferMessage msg);
 
 
-    void freezeVacation(int vacationId);
-    void unFreezeVacation(int vacationId);
+    void freezeVacation(String vacationId);
+    void unFreezeVacation(String vacationId);
 
 
 

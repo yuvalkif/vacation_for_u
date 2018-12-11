@@ -83,7 +83,7 @@ public class Model implements ISQLModel {
                 + "	includeSleep INTEGER NOT NULL,\n"
                 + "	hotelName text,\n"
                 + " hotelRank DOUBLE,\n"
-                + " vacationId INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                + " vacationId text PRIMARY KEY,\n"
                 + " sold Integer NOT NULL,\n"
                 + " price DOUBLE NOT NULL,\n"
                 + " freezed INTEGER NOT NULL\n"
@@ -105,40 +105,7 @@ public class Model implements ISQLModel {
         return loggedUser;
     }
 
-    public void createPurchasedVacationsTable() {
-        // SQLite connection string
-        String url = "jdbc:sqlite:vacation_for_u.db";
 
-        // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS purchased_vacations (\n"
-                + "	buyerUserName text NOT NULL,\n"
-                + "	flightCompany text NOT NULL,\n"
-                + "	fromDate DATE ,\n"
-                + "	untilDate DATE ,\n"
-                + "	baggageIncluded text NOT NULL,\n"
-                + "	numberOfTickets INTEGER NOT NULL,\n"
-                + "	destination text NOT NULL,\n"
-                + "	twoDirections INTEGER NOT NULL,\n"
-                + "	ticketType text NOT NULL,\n"
-                + "	vacationType text NOT NULL,\n"
-                + "	includeSleep INTEGER NOT NULL,\n"
-                + "	hotelName text ,\n"
-                + " vacationId INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-                + " status string NOT NULL,\n"
-                + " freezed INTEGER NOT NULL\n"
-                + ");";
-
-        try (Connection conn = DriverManager.getConnection(url);
-             Statement stmt = conn.createStatement()) {
-            // create a new table
-            stmt.execute(sql);
-            Logger.getInstance().log("created new table purchased_vacations");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-            Logger.getInstance().log("failed to create new table purchased_vacations");
-        }
-    }
 
     @Override
     public void createPurchaseTable() {
@@ -206,7 +173,7 @@ public class Model implements ISQLModel {
                 + " messageType text NOT NULL ,\n"
                 + " messageContent text NOT NULL , \n"
                 + " status text NOT NULL , \n"
-                + " vacationId INTEGER NOT NULL , \n"
+                + " vacationId text NOT NULL , \n"
                 + " PRIMARY KEY (senderUserName, reciverUserName, vacationId)\n"
                 + ");";
 
@@ -235,10 +202,10 @@ public class Model implements ISQLModel {
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS credit_cards (\n"
                 + "	cardOwnerName text PRIMARY KEY,\n"
-                + "	cardType text NOT NULL ,\n"
-                + "	cardNumber text NOT NULL,\n"
-                + "	cardCvv text NOT NULL,\n"
-                + "	cardExpireDate DATE NOT NULL,\n"
+                + "	cardType text NOT NULL , \n"
+                + "	cardNumber text NOT NULL, \n"
+                + "	cardCvv text NOT NULL, \n"
+                + "	cardExpireDate DATE NOT NULL \n"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);
@@ -358,7 +325,7 @@ public class Model implements ISQLModel {
      * @return success or not
      */
     @Override
-    public boolean insertBuyingOffer(int vacationId, String buyerUsername,Purchase purchaseOfferDetails) {
+    public boolean insertBuyingOffer(String vacationId, String buyerUsername,Purchase purchaseOfferDetails) {
 
         String sqlStatement = "INSERT INTO offers(vacationId, buyerUsername,purchseOfferTime) VALUES(?,?,?)";
         Vacation vacation = getVacationAsObjectById(vacationId);
@@ -366,7 +333,7 @@ public class Model implements ISQLModel {
         try {
             Connection conn = this.openConnection();
             PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
-            pstmt.setInt(1, vacationId);
+            pstmt.setString(1, vacationId);
             pstmt.setString(2, buyerUsername);
             pstmt.setString(3, theTimeNow);
 
@@ -390,7 +357,7 @@ public class Model implements ISQLModel {
 
     }
 
-    private void insertPurchase(Purchase purchase, int vacationId) {
+    private void insertPurchase(Purchase purchase, String vacationId) {
         String sqlStatement = "INSERT INTO purchases(cardOwnerUserName, cardOwnerName,cardType,cardNumber,cardCvv,cardExpireDate,targetVacation) VALUES(?,?,?,?,?,?,?)";
 
 
@@ -403,7 +370,7 @@ public class Model implements ISQLModel {
             pstmt.setString(4, purchase.getCardNumber());
             pstmt.setString(5, purchase.getCardCvv());
             pstmt.setDate(6, purchase.getCardExpireDate());
-            pstmt.setInt(7, vacationId);
+            pstmt.setString(7, vacationId);
             pstmt.executeUpdate();
             this.closeConnection(conn);
             Logger.getInstance().log("INSERT : " + purchase.toString() + " - SUCCESS");
@@ -435,7 +402,7 @@ public class Model implements ISQLModel {
         }
     }
 
-    public void insertMessage(String senderUserName ,String reciverUserName,String creationTime,String messageType,String messageContent,String status,int vacationId ) {
+    public void insertMessage(String senderUserName ,String reciverUserName,String creationTime,String messageType,String messageContent,String status,String vacationId ) {
         try {
             String sql = "INSERT INTO messages(senderUserName,reciverUserName,creationTime,messageType,messageContent,status,vacationId) VALUES(?,?,?,?,?,?,?)";
             Connection conn = this.openConnection();
@@ -447,7 +414,7 @@ public class Model implements ISQLModel {
             pstmt.setString(4, messageType);
             pstmt.setString(5, messageContent);
             pstmt.setString(6, status);
-            pstmt.setInt(7, vacationId);
+            pstmt.setString(7, vacationId);
 
             pstmt.executeUpdate();
             this.closeConnection(conn);
@@ -543,7 +510,7 @@ public class Model implements ISQLModel {
     }
 
     @Override
-    public void freezeVacation(int vacationId) {
+    public void freezeVacation(String vacationId) {
         String sqlStatement = "UPDATE vacations SET freeze = 1 WHERE vacationId = " + "'" + vacationId + "'";
         try {
 
@@ -562,7 +529,7 @@ public class Model implements ISQLModel {
     }
 
     @Override
-    public void unFreezeVacation(int vacationId) {
+    public void unFreezeVacation(String vacationId) {
         String sqlStatement = "UPDATE vacations SET freeze = 0 WHERE vacationId = " + "'" + vacationId + "'";
         try {
 
@@ -581,7 +548,7 @@ public class Model implements ISQLModel {
     }
 
 
-    private void markVacationAsSold(int vacationId) {
+    private void markVacationAsSold(String vacationId) {
         String sqlStatement = "UPDATE vacations SET sold = 1 WHERE vacationId = " + "'" + vacationId + "'";
         try {
 
@@ -602,13 +569,9 @@ public class Model implements ISQLModel {
 
 
     @Override
-    public void acceptMessage(ConfirmOfferMessage msg) {
-
-        String buyerUserName = msg.getSender() , sellerUserName = msg.getReciver() , vacationId = msg.getVacation().getPVacationID();
-
-
-        String sqlStatement = "UPDATE messages SET status = 'accept' WHERE vacationId = " + "'" + vacationId + "'"+
-                ", senderUserName = " +"'" + buyerUserName + "'" + ", reciverUserName = "+ "'" + sellerUserName + "'";
+    public void acceptMessage(ConfirmOfferMessage msg ) {
+        String sqlStatement = "UPDATE messages SET status = 'accept' WHERE vacationId = " + "'" + msg.getVacation().getVacationID() + "'"+
+                ", senderUserName = " +"'" + msg.getSender() + "'" + ", reciverUserName = "+ "'" + msg.getReciver() + "'";
         try {
 
             Connection conn = this.openConnection();
@@ -618,13 +581,13 @@ public class Model implements ISQLModel {
             pstmt.executeUpdate();
 
             this.closeConnection(conn);
-            Vacation v = getVacationAsObjectById(vacationId);
-            markVacationAsSold(vacationId);
+            Vacation v = getVacationAsObjectById(msg.getVacation().getVacationID());
+            markVacationAsSold(msg.getVacation().getVacationID());
             //send the buyer that the purchase accepted and the ticket
-            Logger.getInstance().log("accepting message:  : " + vacationId +" "+buyerUserName +" "+SellerUserName+ " - SUCCESS");
+            Logger.getInstance().log("accepting message:  : " + msg.getVacation().getVacationID() +" "+msg.getSender() +" "+ msg.getReciver()+ " - SUCCESS");
         } catch (SQLException e) {
             e.printStackTrace();
-            Logger.getInstance().log("accepting message:  : " + vacationId +" "+buyerUserName +" "+SellerUserName+ " - FAILURE");
+            Logger.getInstance().log("accepting message:  : " + msg.getVacation().getVacationID() +" "+msg.getSender() +" "+msg.getReciver()+ " - FAILURE");
         }
     }
 
@@ -857,7 +820,7 @@ public class Model implements ISQLModel {
                 double hotelRank = resultSet.getDouble("hotelRank");
                 boolean freezed = (resultSet.getInt("freezed") == 1) ? true : false;
                 double price = (resultSet.getDouble("price"));
-                Vacation v = new Vacation(resultSet.getInt(14), resultSet.getString(1),
+                Vacation v = new Vacation(resultSet.getString(14), resultSet.getString(1),
                         resultSet.getString(2),
                         fromDate,
                         untilDate,
@@ -895,7 +858,7 @@ public class Model implements ISQLModel {
                 String content = resultSet.getString("messageContent");
                 String msgType = resultSet.getString("messageType");
                 String status = resultSet.getString("status");
-                int vacationId = resultSet.getInt("vacationId");
+                String vacationId = resultSet.getString("vacationId");
                 boolean expired = false;
                 if (getHoursGap(creationTime, now) > 48)
                     expired = true;
@@ -923,7 +886,7 @@ public class Model implements ISQLModel {
 
     /*******************************************  FROM DB TO OBJECT **********************************************/
 
-    private Vacation getVacationAsObjectById(int vacationId) {
+    private Vacation getVacationAsObjectById(String vacationId) {
         ResultSet resultSet;
         ObservableList<Vacation> result = null;
         String sql = "SELECT * FROM vacations WHERE vacationId = " + "'" + vacationId + "'";
