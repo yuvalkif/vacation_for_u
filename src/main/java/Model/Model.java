@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.StringJoiner;
+import java.util.concurrent.ExecutionException;
 
 import dbObjects.*;
 import javafx.collections.FXCollections;
@@ -266,7 +267,7 @@ public class Model implements ISQLModel {
     @Override
     public boolean insertVacation(Vacation vacationValues) {
 
-        String sql = "INSERT INTO vacations(publisherUserName,flightCompany,fromDate,untilDate,baggageIncluded,numberOfTickets,destination,twoDirections,ticketType,vacationType,includeSleep,hotelName,hotelRank,sold,price,freezed) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO vacations(publisherUserName,flightCompany,fromDate,untilDate,baggageIncluded,numberOfTickets,destination,twoDirections,ticketType,vacationType,includeSleep,hotelName,hotelRank,sold,price,freezed,vacationId) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 
         //processing dates
@@ -297,7 +298,7 @@ public class Model implements ISQLModel {
             pstmt.setDouble(15, vacationValues.getPrice());
             //by default freeze is off
             pstmt.setInt(16, freezed);
-
+            pstmt.setString(17,vacationValues.getVacationID());
             pstmt.executeUpdate();
 //            String sqlGetlastInsertId = "select last_insert_rowid()";
 //            Statement s = conn.createStatement();
@@ -340,11 +341,13 @@ public class Model implements ISQLModel {
 
             pstmt.executeUpdate();
             this.closeConnection(conn);
+            /**
             Boolean creditAuthed  =  isValidCreditCard(purchaseOfferDetails);
             if(!creditAuthed)
                 return false;
+             **/
             freezeVacation(vacationId);
-            insertMessage(buyerUsername,vacation.getPublisherUserName(),theTimeNow,
+            insertMessage(controller.getLoggedUser(),vacation.getPublisherUserName(),theTimeNow,
                     "confirm",buyerUsername+ " wants to buy your vacation, id: "+vacationId,"waiting",vacationId);
 //                    null,"standby")));
             insertPurchase(purchaseOfferDetails,vacationId);
@@ -512,7 +515,7 @@ public class Model implements ISQLModel {
 
     @Override
     public void freezeVacation(String vacationId) {
-        String sqlStatement = "UPDATE vacations SET freeze = 1 WHERE vacationId = " + "'" + vacationId + "'";
+        String sqlStatement = "UPDATE vacations SET freezed = 1 WHERE vacationId = " + "'" + vacationId + "'";
         try {
 
             Connection conn = this.openConnection();
@@ -767,17 +770,17 @@ public class Model implements ISQLModel {
 
 
     public void deleteMessage(String sender,String reciver , String vacaitonId) {
-        String sql = "DELETE FROM messages WHERE senderUserName = ?, reciverUserName = ?, vacationId = ?";
+        String sql = "DELETE FROM messages WHERE vacationId = ?";
         try {
             Connection conn = openConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, sender);
-            stmt.setString(2, reciver);
-            stmt.setString(3, vacaitonId);
+            stmt.setString(1, vacaitonId);
+            //stmt.setString(2, reciver);
+           // stmt.setString(3, vacaitonId);
             stmt.executeUpdate();
             Logger.getInstance().log("DELETED " + sender + reciver + vacaitonId);
             conn.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Logger.getInstance().log("FAILED TO DELETE " +  sender + reciver + vacaitonId);
 
