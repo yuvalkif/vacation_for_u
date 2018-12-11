@@ -13,7 +13,7 @@ public class SubmitRequestController {
     public TextField tb_vacationID;
     public TextField tb_userName;
     public TextField tb_price;
-    public PasswordField tb_toFill3;
+    public TextField tb_toFill3;
     public TextField tb_toFill2;
     public TextField tb_toFill1;
     public TextField tb_toFill4;
@@ -44,7 +44,8 @@ public class SubmitRequestController {
             return;
         }
         Purchase p = new Purchase(controller.getLoggedUser(),tb_toFill3.getText(),tb_toFill4.getText(),tb_toFill1.getText(),tb_toFill2.getText(),java.sql.Date.valueOf(tb_date.getValue()),Integer.parseInt(tb_vacationID.getText()));
-        
+        controller.insertOfferRequest(p);
+        StageHolder.getInstance().getStage().close();
 
     }
 

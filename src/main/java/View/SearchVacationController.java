@@ -81,6 +81,7 @@ public class SearchVacationController {
             SubmitRequestController c = (SubmitRequestController) loader.getController();
             if ((Vacation) tableView.getSelectionModel().getSelectedItem()!=null) {
                 Vacation v = (Vacation) tableView.getSelectionModel().getSelectedItem();
+                c.setController(this.controller);
                 c.submit(controller.getLoggedUser(),v.getVacationID(),v.getPrice());
             }
             else {
@@ -88,7 +89,6 @@ public class SearchVacationController {
                 e.showErrorStage("you need to choose vacation to submit a request");
                 return;
             }
-            c.setController(this.controller);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {

@@ -57,4 +57,8 @@ public class Purchase {
                 ", cardExpireDate=" + cardExpireDate +
                 '}';
     }
+
+    public int getPayingOnVacation() {
+        return payingOnVacation;
+    }
 }

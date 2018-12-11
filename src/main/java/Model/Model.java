@@ -320,7 +320,7 @@ public class Model implements ISQLModel {
     @Override
     public boolean insertBuyingOffer(int vacationId, String buyerUsername,Purchase purchaseOfferDetails) {
 
-        String sqlStatement = "INSERT INTO offers(vacationId, buyerUsername) VALUES(?,?,?)";
+        String sqlStatement = "INSERT INTO offers(vacationId, buyerUsername,purchseOfferTime) VALUES(?,?,?)";
         Vacation vacation = getVacationAsObjectById(vacationId);
         String theTimeNow = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         try {

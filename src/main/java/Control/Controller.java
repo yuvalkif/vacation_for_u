@@ -10,6 +10,7 @@ import Model.ISQLModel;
 import Model.Model;
 import View.IView;
 import dbObjects.AUserData;
+import dbObjects.Purchase;
 import dbObjects.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -46,6 +47,9 @@ public class Controller {
     }
     public void  createConfirmMessageTable(){
         this.model.createConfirmMessageTable();
+    }
+    public void createOffersTable(){
+        model.createOffersTable();
     }
 
     public void handleSubmitSignUp(User submit) {
@@ -126,5 +130,9 @@ public class Controller {
     public void signOut() {
         loggedUser="";
         sp_loggedUser.set("");
+    }
+
+    public void insertOfferRequest(Purchase p){
+        model.insertBuyingOffer(p.getPayingOnVacation(),p.getCardOwnerName(),p);
     }
 }
