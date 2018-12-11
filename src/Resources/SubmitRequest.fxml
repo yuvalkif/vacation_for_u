@@ -90,7 +90,7 @@
                   <TextField fx:id="tb_toFill1" prefHeight="31.0" prefWidth="178.0" GridPane.columnIndex="1" />
                </children>
             </GridPane>
-            <Button mnemonicParsing="false" text="Back" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" text="Back" GridPane.columnIndex="2" GridPane.rowIndex="2" onAction="#handleBack"/>
          </children>
       </GridPane>
    </children>
