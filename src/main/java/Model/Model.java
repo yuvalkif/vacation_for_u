@@ -223,6 +223,46 @@ public class Model implements ISQLModel {
 
     }
 
+
+    /**
+     * this is only a demo of credit card validation in front of the credit card company
+     */
+    @Override
+    public void createCreditCardPoolTable(){
+
+        // SQLite connection string
+        String url = "jdbc:sqlite:vacation_for_u.db";
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS credit_cards (\n"
+                + "	cardOwnerName text PRIMARY KEY,\n"
+                + "	cardType text NOT NULL ,\n"
+                + "	cardNumber text NOT NULL,\n"
+                + "	cardCvv text NOT NULL,\n"
+                + "	cardExpireDate DATE NOT NULL,\n"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+            Logger.getInstance().log("created new table credit_cards");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            Logger.getInstance().log("failed to create new table credit_cards");
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
     /*****************************************  INSERTION TO DB FUNCTIONS *****************************
 
 
@@ -291,14 +331,14 @@ public class Model implements ISQLModel {
             pstmt.setInt(16, freezed);
 
             pstmt.executeUpdate();
-            String sqlGetlastInsertId = "select last_insert_rowid()";
-            Statement s = conn.createStatement();
-            ResultSet rs = s.executeQuery(sql);
-            System.out.println(sqlGetlastInsertId +" this is the id , and type: "+(sqlGetlastInsertId).getClass());
-            this.closeConnection(conn);
-
-            insertMessage("SYSTEM",vacationValues.getPublisherUserName(),LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                    "conform","succesfuly added a vacation","ReadOnly",1);
+//            String sqlGetlastInsertId = "select last_insert_rowid()";
+//            Statement s = conn.createStatement();
+//            ResultSet rs = s.executeQuery(sqlGetlastInsertId );
+//            System.out.println(sqlGetlastInsertId +" this is the id , and type: "+(sqlGetlastInsertId).getClass());
+//            this.closeConnection(conn);
+//
+//            insertMessage("SYSTEM",vacationValues.getPublisherUserName(),LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+//                    "conform","succesfuly added a vacation","ReadOnly",1);
             Logger.getInstance().log("INSERT : " + vacationValues.toString() + "- SUCCESS");
             return true;
         } catch (SQLException e) {
@@ -332,18 +372,21 @@ public class Model implements ISQLModel {
 
             pstmt.executeUpdate();
             this.closeConnection(conn);
+            Boolean creditAuthed  =  isValidCreditCard(purchaseOfferDetails);
+            if(!creditAuthed)
+                return false;
+            freezeVacation(vacationId);
             insertMessage(buyerUsername,vacation.getPublisherUserName(),theTimeNow,
                     "confirm",buyerUsername+ " wants to buy your vacation, id: "+vacationId,"waiting",vacationId);
 //                    null,"standby")));
             insertPurchase(purchaseOfferDetails,vacationId);
-            markVacationAsSold(vacationId);
             Logger.getInstance().log("INSERT Buying Offer on vacationID: " + vacationId + " By user: " + buyerUsername + " - SUCCESS");
-            return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             Logger.getInstance().log("INSERT Buying Offer on vacationID: " + vacationId + " By user: " + buyerUsername + " - FAILED");
             return false;
         }
+        return true;
 
     }
 
@@ -367,6 +410,28 @@ public class Model implements ISQLModel {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             Logger.getInstance().log("INSERT : " + purchase.toString() + " - FAILED");
+        }
+    }
+
+
+
+    private void insertCreditCard(Purchase purchase) {
+        String sqlStatement = "INSERT INTO credit_cards(cardOwnerName,cardType,cardNumber,cardCvv,cardExpireDate) VALUES(?,?,?,?,?)";
+
+        try {
+            Connection conn = this.openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
+            pstmt.setString(1, purchase.getCardOwnerName());
+            pstmt.setString(2, purchase.getCardType());
+            pstmt.setString(3, purchase.getCardNumber());
+            pstmt.setString(4, purchase.getCardCvv());
+            pstmt.setDate(5, purchase.getCardExpireDate());
+            pstmt.executeUpdate();
+            this.closeConnection(conn);
+            Logger.getInstance().log("INSERT into creadit cards: " + purchase.toString() + " - SUCCESS");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Logger.getInstance().log("INSERT : into credit cards" + purchase.toString() + " - FAILED");
         }
     }
 
@@ -536,6 +601,29 @@ public class Model implements ISQLModel {
     }
 
 
+    @Override
+    public void acceptMessage(String buyerUserName, String SellerUserName, int vacationId) {
+        String sqlStatement = "UPDATE messages SET status = 'accept' WHERE vacationId = " + "'" + vacationId + "'"+
+                ", senderUserName = " +"'" + buyerUserName + "'" + ", reciverUserName = "+ "'" + SellerUserName + "'";
+        try {
+
+            Connection conn = this.openConnection();
+
+            PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
+
+            pstmt.executeUpdate();
+
+            this.closeConnection(conn);
+            Vacation v = getVacationAsObjectById(vacationId);
+            markVacationAsSold(vacationId);
+            //send the buyer that the purchase accepted and the ticket
+            Logger.getInstance().log("accepting message:  : " + vacationId +" "+buyerUserName +" "+SellerUserName+ " - SUCCESS");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Logger.getInstance().log("accepting message:  : " + vacationId +" "+buyerUserName +" "+SellerUserName+ " - FAILURE");
+        }
+    }
+
     /*********************************************** SEARCHING FUNCTIONS************************************************
 
 
@@ -587,6 +675,36 @@ public class Model implements ISQLModel {
         return result;
     }
 
+
+
+    private boolean isValidCreditCard(Purchase purchase){
+        ResultSet resultSet;
+        ObservableList result = null;
+        boolean ans = false;
+        String sql = "SELECT * FROM credit_cards WHERE cardOwnerName = " + "'" + purchase.getCardOwnerName() + "'"+
+                ", cardType = "+ "'" + purchase.getCardType() + "'"+
+                ", cardNumber = "+ "'" + purchase.getCardType() + "'"+
+                ", cardCvv = "+ "'" + purchase.getCardType() + "'"+
+                ", cardExpireDate = "+ "'" + purchase.getCardType() + "'";
+
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            if(resultSet.next())
+                ans=true;
+            Logger.getInstance().log("did purchase: "+purchase.toString() +" successed? : "+ans);
+            conn.close();
+        } catch (SQLException var7) {
+            System.out.println(var7.getMessage());
+            Logger.getInstance().log(var7.getMessage());
+            Logger.getInstance().log("did purchase: "+purchase.toString() +" successed? : no it catched exception");
+
+        }
+
+        return ans;
+    }
+
     @Override
     public ObservableList getAllVacations() {
         ResultSet resultSet = null;
@@ -597,7 +715,7 @@ public class Model implements ISQLModel {
             Connection conn = this.openConnection();
             Statement stmt = conn.createStatement();
             resultSet = stmt.executeQuery(sql);
-            result = this.convertVacationResultsToObservableList(resultSet);
+            result = this.convertVacationResultsToObservableList(resultSet,false);
             conn.close();
         } catch (SQLException var6) {
             System.out.println(var6.getMessage());
@@ -618,7 +736,7 @@ public class Model implements ISQLModel {
             Connection conn = this.openConnection();
             Statement stmt = conn.createStatement();
             resultSet = stmt.executeQuery(sql);
-            result = this.convertVacationResultsToObservableList(resultSet);
+            result = this.convertVacationResultsToObservableList(resultSet,false);
             Logger.getInstance().log("SUCCSSES retrive vacations to dest: " + dest);
             conn.close();
         } catch (SQLException e) {
@@ -721,7 +839,7 @@ public class Model implements ISQLModel {
     }
 
 
-    private ObservableList<Vacation> convertVacationResultsToObservableList(ResultSet resultSet) {
+    private ObservableList<Vacation> convertVacationResultsToObservableList(ResultSet resultSet,boolean showSoldAndFrozen) {
         ObservableList<Vacation> observableList = FXCollections.observableArrayList();
 
         try {
@@ -747,9 +865,12 @@ public class Model implements ISQLModel {
                         resultSet.getString(10),
                         includeSleep,
                         resultSet.getString(12),
-                        hotelRank, sold, freezed,price);
-                if (!v.isFreezed() && !v.isSold())
-                    observableList.add(v);
+                        hotelRank, sold, freezed, price);
+                if (!showSoldAndFrozen) {
+                    if (!v.isFreezed() && !v.isSold()) {
+                        observableList.add(v);
+                    }
+                } else observableList.add(v);
             }
         } catch (SQLException var4) {
             var4.printStackTrace();
@@ -807,7 +928,7 @@ public class Model implements ISQLModel {
             Connection conn = this.openConnection();
             Statement stmt = conn.createStatement();
             resultSet = stmt.executeQuery(sql);
-            result = this.convertVacationResultsToObservableList(resultSet);
+            result = this.convertVacationResultsToObservableList(resultSet,true);
             conn.close();
             if(result.size()>0)
                 ans = result.get(0);

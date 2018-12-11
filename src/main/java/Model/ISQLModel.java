@@ -63,6 +63,7 @@ public interface ISQLModel {
     void createOffersTable();
 
     void createConfirmMessageTable();
+    void createCreditCardPoolTable();
 
     /**
      * search records by username
@@ -102,6 +103,9 @@ public interface ISQLModel {
     boolean insertVacation(Vacation vacationValues);
 
     boolean insertBuyingOffer(int vacationId , String buyerUsername , Purchase purchaseOfferDetails);
+
+
+    void acceptMessage(String buyerUserName , String SellerUserName , int vacationId);
 
 
     void freezeVacation(int vacationId);

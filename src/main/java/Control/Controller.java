@@ -51,6 +51,7 @@ public class Controller {
     public void createOffersTable(){
         model.createOffersTable();
     }
+    public void createCreditCardTable(){model.createCreditCardPoolTable();}
 
     public void handleSubmitSignUp(User submit) {
         if (submit != null) {
