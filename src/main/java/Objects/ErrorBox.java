@@ -21,7 +21,7 @@ public class ErrorBox {
     public ErrorBox(){
         AnchorPane pane = new AnchorPane();
         Scene scene = new Scene(pane,400,200);
-        scene.getStylesheets().add(getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+//        scene.getStylesheets().add(getClass().getClassLoader().getResource("Forms.css").toExternalForm());
         Button button_close = new Button("Close");
         this.errorLabel = new Label();
         button_close.setLayoutX(120);

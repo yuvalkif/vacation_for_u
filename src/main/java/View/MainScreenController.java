@@ -52,6 +52,27 @@ public class MainScreenController implements IView{
                 }
             }
         });
+
+        this.vacationList.getSelectionModel().selectionModeProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+
+            }
+        });
+
+        this.inbox.getSelectionModel().selectionModeProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+
+            }
+        });
+
+        this.outbox.getSelectionModel().selectionModeProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+
+            }
+        });
     }
 
 
@@ -72,7 +93,7 @@ public class MainScreenController implements IView{
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("SignUpForm.fxml").openStream());
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+         //   scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Sign Up");
@@ -107,7 +128,7 @@ public class MainScreenController implements IView{
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("LogInWindow.fxml").openStream());
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+         //   scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Log In");
@@ -180,7 +201,7 @@ public class MainScreenController implements IView{
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("SearchResultWindow.fxml").openStream());
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+         //   scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Search Results");
@@ -212,7 +233,7 @@ public class MainScreenController implements IView{
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("DeleteForm.fxml").openStream());
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+         //   scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Delete");
@@ -249,7 +270,7 @@ public class MainScreenController implements IView{
             AnchorPane upperPane = (AnchorPane)splitPane.getItems().get(0);
             TableView<User> tableView = (TableView<User>)upperPane.getChildren().get(0);
             Scene scene = new Scene(root, 570, 550);
-            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+        //    scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Search");
@@ -278,7 +299,7 @@ public class MainScreenController implements IView{
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("UpdateForm.fxml").openStream());
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+      //      scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Update");
@@ -346,7 +367,7 @@ public class MainScreenController implements IView{
         try{
             Parent root = loader.load(getClass().getClassLoader().getResource(fxmlPath).openStream());
             Scene scene = new Scene(root,width,height);
-            scene.getStylesheets().add(getClass().getClassLoader().getResource(cssPath).toExternalForm());
+         //   scene.getStylesheets().add(getClass().getClassLoader().getResource(cssPath).toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle(title);

@@ -88,17 +88,17 @@ public class SearchFormController {
 
     public void showSearchResults(ObservableList<User> searchResults) {
 
-        if (searchResults != null) {
-            userNameCol.setCellValueFactory(cellData -> cellData.getValue().pUserNameProperty());
-            passwordCol.setCellValueFactory(cellData -> cellData.getValue().pPasswordProperty());
-            firstNameCol.setCellValueFactory(cellData -> cellData.getValue().pFirstNameProperty());
-            lastNameCol.setCellValueFactory(cellData -> cellData.getValue().pLastNameProperty());
-            cityCol.setCellValueFactory(cellData -> cellData.getValue().pCityProperty());
-            dateCol.setCellValueFactory(cellData -> cellData.getValue().pBirthDateProperty());
-            this.tableView.setItems(searchResults);
+            if (searchResults != null) {
+                userNameCol.setCellValueFactory(cellData -> cellData.getValue().pUserNameProperty());
+                passwordCol.setCellValueFactory(cellData -> cellData.getValue().pPasswordProperty());
+                firstNameCol.setCellValueFactory(cellData -> cellData.getValue().pFirstNameProperty());
+                lastNameCol.setCellValueFactory(cellData -> cellData.getValue().pLastNameProperty());
+                cityCol.setCellValueFactory(cellData -> cellData.getValue().pCityProperty());
+                dateCol.setCellValueFactory(cellData -> cellData.getValue().pBirthDateProperty());
+                this.tableView.setItems(searchResults);
 
 //            this.listView.setItems(searchResults);
-        }
+            }
     }
 
     public void setListView(ListView listView) {
