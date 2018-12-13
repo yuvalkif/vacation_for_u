@@ -1,10 +1,15 @@
-created new table users 2018/12/14 01:37:37
-created new table vacations 2018/12/14 01:37:37
-created new table purchases 2018/12/14 01:37:37
-created new table offers 2018/12/14 01:37:37
-created new table messages 2018/12/14 01:37:37
-created new table credit_cards 2018/12/14 01:37:37
-connection opened 2018/12/14 01:37:45
-connection opened 2018/12/14 01:37:45
-connection opened 2018/12/14 01:38:02
-connection opened 2018/12/14 01:38:02
+created new table users 2018/12/14 01:56:30
+created new table vacations 2018/12/14 01:56:30
+created new table purchases 2018/12/14 01:56:30
+created new table offers 2018/12/14 01:56:30
+created new table messages 2018/12/14 01:56:30
+created new table credit_cards 2018/12/14 01:56:30
+connection opened 2018/12/14 01:56:49
+connection opened 2018/12/14 01:56:49
+connection closed 2018/12/14 01:56:49
+INSERT : A , A - SUCCESS 2018/12/14 01:56:49
+connection opened 2018/12/14 01:56:57
+connection opened 2018/12/14 01:56:57
+connection opened 2018/12/14 01:57:42
+connection opened 2018/12/14 01:57:42
+INSERT : Vacation{VacationID=7, publisherUserName='A', flightCompany='A', fromDate=2018-12-12, untilDate=2018-12-27, baggageIncluded='7', numberOfTickets=7, destination='Y', twoDirections=false, ticketType='Y', vacationType='Y', includeSleep=false, hotelName='Y', hotelRank=1.0, sold=false, price=7.0, freezed=false}- SUCCESS 2018/12/14 01:57:42
