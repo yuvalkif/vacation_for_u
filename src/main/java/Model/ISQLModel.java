@@ -109,7 +109,7 @@ public interface ISQLModel {
     void freezeVacation(String vacationId);
     void unFreezeVacation(String vacationId);
 
-
+    AUserData getUserData(String username);
 
     ObservableList selectAllDataBase();
 

@@ -1,6 +1,7 @@
 package View;
 
 import Control.Controller;
+import Logger.Logger;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import dbObjects.*;
@@ -73,26 +74,47 @@ public class MainScreenController implements IView{
         this.inbox.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                showMassage((ConfirmOfferMessage) inbox.getSelectionModel().getSelectedItems().get(0));
+
+                AMessage msg = (AMessage) inbox.getSelectionModel().getSelectedItems().get(0);
+                showMassage(msg);
             }
         });
     }
 
-    private void showMassage(ConfirmOfferMessage massage){
+
+    /**
+     * refresh the inbox and outbox msgs
+     */
+    private void refreshInboxAndOutbox(){
+
+        UserData currentUser = controller.getCurrentUserData();
+        showUserMassages(currentUser);
+    }
+
+    /**
+     * show a massage in a text area so it can be read fully
+     * @param massage
+     */
+    private void showMassage(AMessage massage){
         if(massage != null)
          this.massageArea.setText(massage.getContent());
     }
 
+    /**
+     * show all the possible vacations
+     */
     private void showAllVacations(){
         ObservableList allVacations = this.controller.getAllVacations();
         this.vacationList.setItems(allVacations);
     }
+
 
     public void setCurrentStage(Stage stage) {
         this.primaryStage = stage;
         img_backImg.fitWidthProperty().bind(primaryStage.widthProperty());
         img_backImg.fitHeightProperty().bind(primaryStage.heightProperty());
     }
+
 
     public void handleSignUp() {
         FXMLLoader loader = new FXMLLoader();
@@ -137,6 +159,7 @@ public class MainScreenController implements IView{
         if(msg != null)
             this.controller.confirmOrderMassage(msg);
 
+        refreshInboxAndOutbox();
     }
 
     public void handleSignIn() {
@@ -284,8 +307,10 @@ public class MainScreenController implements IView{
             if(sceneController.getDeleted()) {
                 setVisibleLoggedIn(false, false, true, true, true,true);
                 tabPane_tab.getSelectionModel().select(tab_searchVacation);
+                //Logger.getInstance().log("Removed user : " + controller.getLoggedUser());
             }
             this.primaryStage.show();
+            refreshInboxAndOutbox();
 
         } catch (IOException e) {
             e.getCause();
@@ -317,8 +342,11 @@ public class MainScreenController implements IView{
                     handleXPress();
                 }
             });
+            primaryStage.hide();
             stage.showAndWait();
             this.primaryStage.show();
+            refreshInboxAndOutbox();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -348,6 +376,7 @@ public class MainScreenController implements IView{
             });
             stage.showAndWait();
             this.primaryStage.show();
+            refreshInboxAndOutbox();
 
         } catch (IOException e) {
             e.getCause();
@@ -368,6 +397,7 @@ public class MainScreenController implements IView{
             StageHolder.getInstance().holdStage(stage);
             VacationFormController vacationFormController =(VacationFormController) loader.getController();
             vacationFormController.setController(this.controller);
+            StageHolder.getInstance().holdStage(stage);
             vacationFormController.setImageParameters();
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -378,10 +408,10 @@ public class MainScreenController implements IView{
             stage.showAndWait();
 
             Vacation toInsert = vacationFormController.getVacationToInsert();
-            if(toInsert != null) {
+            refreshInboxAndOutbox();
+
+            if(toInsert != null)
                 this.controller.insertVacation(toInsert);
-                return;
-            }
 
             primaryStage.show();
 
