@@ -358,18 +358,23 @@ public class MainScreenController implements IView{
     public void handleVacationButton(){
         FXMLLoader loader = new FXMLLoader();
         try{
-            Stage stage = initializeNewStage(loader,"PublishVacationForm.fxml","Forms.css","Vacation",false,650,500);
+            Parent root = loader.load(this.getClass().getClassLoader().getResource("PublishVacationForm.fxml").openStream());
+            Scene scene = new Scene(root);
+            //      scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Vacation");
+            this.primaryStage.hide();
+            StageHolder.getInstance().holdStage(stage);
             VacationFormController vacationFormController =(VacationFormController) loader.getController();
             vacationFormController.setController(this.controller);
-            StageHolder.getInstance().holdStage(stage);
+            vacationFormController.setImageParameters();
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
                     handleXPress();
                 }
             });
-
-            vacationFormController.setImageParameters();
             stage.showAndWait();
 
             Vacation toInsert = vacationFormController.getVacationToInsert();
@@ -377,8 +382,8 @@ public class MainScreenController implements IView{
                 this.controller.insertVacation(toInsert);
                 return;
             }
-            if(vacationFormController.isBack())
-                return;
+
+            primaryStage.show();
 
         }catch (Exception e){
             System.out.println("at handle vacation button");

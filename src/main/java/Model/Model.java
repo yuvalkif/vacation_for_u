@@ -103,12 +103,6 @@ public class Model implements ISQLModel {
         }
     }
 
-    public String getLoggedUser() {
-        return loggedUser;
-    }
-
-
-
     @Override
     public void createPurchaseTable() {
         // SQLite connection string
@@ -192,7 +186,6 @@ public class Model implements ISQLModel {
 
     }
 
-
     /**
      * this is only a demo of credit card validation in front of the credit card company
      */
@@ -223,18 +216,7 @@ public class Model implements ISQLModel {
 
     }
 
-
-
-
-
-
-
-
-
-
-    /*****************************************  INSERTION TO DB FUNCTIONS *****************************
-
-
+    /*****************************************  INSERTION TO DB FUNCTIONS *****************************/
 
 
      /**
@@ -401,8 +383,6 @@ public class Model implements ISQLModel {
         }
     }
 
-
-
     private void insertCreditCard(Purchase purchase) {
         String sqlStatement = "INSERT INTO credit_cards(cardOwnerName,cardType,cardNumber,cardCvv,cardExpireDate) VALUES(?,?,?,?,?)";
 
@@ -449,7 +429,7 @@ public class Model implements ISQLModel {
     }
 
 
-    /***************************************** UPDATE FUNCTIONS *********************************************
+    /***************************************** UPDATE FUNCTIONS *********************************************/
 
      /**
      * update a user in the database
@@ -598,7 +578,6 @@ public class Model implements ISQLModel {
 
 
 
-    @Override
     public void declineMessage(ConfirmOfferMessage msg ) {
         String sqlStatement = "UPDATE messages SET status = 'decline' WHERE vacationId = " + "'" + msg.getVacation().getVacationID() + "'";
 
@@ -668,14 +647,7 @@ public class Model implements ISQLModel {
     }
 
 
-
-
-
-
-
-
-
-    /*********************************************** SEARCHING FUNCTIONS************************************************
+    /*********************************************** SEARCHING FUNCTIONS************************************************/
 
 
      /**
@@ -725,8 +697,6 @@ public class Model implements ISQLModel {
 
         return result;
     }
-
-
 
     private boolean isValidCreditCard(Purchase purchase){
         ResultSet resultSet;
@@ -799,8 +769,7 @@ public class Model implements ISQLModel {
     }
 
 
-    /******************************************** DELETE FUNCS****************************************
-
+    /******************************************** DELETE FUNCS****************************************/
 
      /**
      * delete a record from the data base
@@ -824,8 +793,6 @@ public class Model implements ISQLModel {
 
     }
 
-
-
     public void deleteMessage(String sender,String reciver , String vacaitonId) {
         String sql = "DELETE FROM messages WHERE vacationId = ?";
         try {
@@ -846,9 +813,7 @@ public class Model implements ISQLModel {
 
     }
 
-
     /********************************************   LOGIN *************************************************/
-
 
     @Override
     public AUserData login(String username, String password) {
@@ -1279,12 +1244,9 @@ public class Model implements ISQLModel {
 
     }
 
-    /**
-     *
-     * @param username
-     * @return
-     */
-
+    public String getLoggedUser() {
+        return loggedUser;
+    }
 
 }
 
