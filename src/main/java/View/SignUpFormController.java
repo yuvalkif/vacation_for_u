@@ -6,6 +6,8 @@ import Objects.ErrorBox;
 import dbObjects.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,6 +21,8 @@ public class SignUpFormController {
     private User toSubmit;
     @FXML
     public TextField username, password, firstname, lastname, city, date;
+    public ImageView img_backSignUp;
+    public AnchorPane mainpane;
 
     public void handleSubmit() {
         this.toSubmit = new User(username.getText(), password.getText(), firstname.getText(), lastname.getText(), city.getText(), date.getText());
@@ -74,5 +78,10 @@ public class SignUpFormController {
             return false;
         }
         return true;
+    }
+
+    public void setImageParameters(){
+        img_backSignUp.fitWidthProperty().bind((mainpane.getScene().getWindow()).widthProperty());
+        img_backSignUp.fitHeightProperty().bind((mainpane.getScene().getWindow()).heightProperty());
     }
 }

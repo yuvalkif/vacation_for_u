@@ -130,6 +130,9 @@ public class Controller {
         sp_loggedUser.set("");
     }
 
+    public UserData getCurrentUserData(){
+        return (UserData)this.model.getUserData(loggedUser);
+    }
 
     public void confirmOrderMassage(ConfirmOfferMessage msg){
         this.model.acceptMessage(msg);

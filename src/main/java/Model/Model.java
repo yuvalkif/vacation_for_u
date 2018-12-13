@@ -169,7 +169,7 @@ public class Model implements ISQLModel {
         Vacation vacation = getVacationAsObjectById(id);
 
         long time = System.currentTimeMillis();
-        while (time < 5000) {
+        while (time < 5000*60) {
             time += System.currentTimeMillis();
         }
 
@@ -624,19 +624,6 @@ public class Model implements ISQLModel {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     /*********************************************** SEARCHING FUNCTIONS************************************************
 
 
@@ -984,7 +971,7 @@ public class Model implements ISQLModel {
      * @param username
      * @return
      */
-    private AUserData getUserData(String username) {
+    public AUserData getUserData(String username) {
         //get user inMessages
         ResultSet resultSet;
         ObservableList<AMessage> inboundMessages = null;

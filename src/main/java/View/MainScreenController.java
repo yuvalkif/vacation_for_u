@@ -61,7 +61,6 @@ public class MainScreenController implements IView{
                 if(newValue.intValue() == 2){
                     showAllVacations();
                 }
-
             }
         });
 
@@ -75,24 +74,35 @@ public class MainScreenController implements IView{
         this.inbox.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                try {
-                    AMessage msg = (AMessage) inbox.getSelectionModel().getSelectedItems().get(0);
-                    if (msg instanceof ConfirmOfferMessage)
-                        showMassage((ConfirmOfferMessage) msg);
-                }catch (Exception e){
-                    
-                }
+
+                AMessage msg = (AMessage) inbox.getSelectionModel().getSelectedItems().get(0);
+                showMassage(msg);
             }
         });
     }
 
 
+    /**
+     * refresh the inbox and outbox msgs
+     */
+    private void refreshInboxAndOutbox(){
 
-    private void showMassage(ConfirmOfferMessage massage){
+        UserData currentUser = controller.getCurrentUserData();
+        showUserMassages(currentUser);
+    }
+
+    /**
+     * show a massage in a text area so it can be read fully
+     * @param massage
+     */
+    private void showMassage(AMessage massage){
         if(massage != null)
          this.massageArea.setText(massage.getContent());
     }
 
+    /**
+     * show all the possible vacations
+     */
     private void showAllVacations(){
         ObservableList allVacations = this.controller.getAllVacations();
         this.vacationList.setItems(allVacations);
@@ -105,7 +115,7 @@ public class MainScreenController implements IView{
         img_backImg.fitHeightProperty().bind(primaryStage.heightProperty());
     }
 
-    
+
     public void handleSignUp() {
         FXMLLoader loader = new FXMLLoader();
 
@@ -120,6 +130,7 @@ public class MainScreenController implements IView{
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
             SignUpFormController sceneController = (SignUpFormController)loader.getController();
+            sceneController.setImageParameters();
             sceneController.setController(controller);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -148,6 +159,7 @@ public class MainScreenController implements IView{
         if(msg != null)
             this.controller.confirmOrderMassage(msg);
 
+        refreshInboxAndOutbox();
     }
 
     public void handleSignIn() {
@@ -164,6 +176,7 @@ public class MainScreenController implements IView{
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
             LogInController sceneController = (LogInController)loader.getController();
+            sceneController.setImageParameters();
             sceneController.setController(controller);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -291,12 +304,15 @@ public class MainScreenController implements IView{
                     handleXPress();
                 }
             });
+            sceneController.setImageParameters();
             stage.showAndWait();
             if(sceneController.getDeleted()) {
                 setVisibleLoggedIn(false, false, true, true, true,true);
                 tabPane_tab.getSelectionModel().select(tab_searchVacation);
+                Logger.getInstance().log("Removed user : " + controller.getLoggedUser());
             }
             this.primaryStage.show();
+            refreshInboxAndOutbox();
 
         } catch (IOException e) {
             e.getCause();
@@ -330,6 +346,8 @@ public class MainScreenController implements IView{
             });
             stage.showAndWait();
             this.primaryStage.show();
+            refreshInboxAndOutbox();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -349,6 +367,7 @@ public class MainScreenController implements IView{
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
             UpdateFormController uc = (UpdateFormController) loader.getController();
+            uc.setImageParameters();
             uc.setController(this.controller);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -358,6 +377,7 @@ public class MainScreenController implements IView{
             });
             stage.showAndWait();
             this.primaryStage.show();
+            refreshInboxAndOutbox();
 
         } catch (IOException e) {
             e.getCause();
@@ -372,6 +392,8 @@ public class MainScreenController implements IView{
             VacationFormController vacationFormController =(VacationFormController) loader.getController();
             vacationFormController.setController(this.controller);
             StageHolder.getInstance().holdStage(stage);
+            Parent root = loader.load(getClass().getClassLoader().getResource("PublishVacationForm.fxml").openStream());
+
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
@@ -379,9 +401,11 @@ public class MainScreenController implements IView{
                 }
             });
 
+            vacationFormController.setImageParameters();
             stage.showAndWait();
-
             Vacation toInsert = vacationFormController.getVacationToInsert();
+            refreshInboxAndOutbox();
+
             if(toInsert != null) {
                 this.controller.insertVacation(toInsert);
                 return;
@@ -424,7 +448,6 @@ public class MainScreenController implements IView{
             stage.setScene(scene);
             stage.setTitle(title);
             stage.setResizable(resizeable);
-
             return stage;
         }catch (Exception e){
             return null;

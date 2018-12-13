@@ -7,6 +7,8 @@ import dbObjects.User;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,10 +19,13 @@ import java.text.SimpleDateFormat;
 
 public class UpdateFormController {
     private User user ;
+
+    private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="";
     private Controller controller ;
     @FXML
     public TextField newUserName, password , firstname , lastname , city , date;
-    private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="";
+    public AnchorPane mainpane;
+    public ImageView img_backUpdateUser;
 
     public void handleExecuteUpdate() {
         user = new User(sNewUserName = newUserName.getText(), sPassword = password.getText(), sFirstName = firstname.getText(), sLastName = lastname.getText(),
@@ -89,5 +94,9 @@ public class UpdateFormController {
         return true;
     }
 
+    public void setImageParameters(){
+        img_backUpdateUser.fitWidthProperty().bind((mainpane.getScene().getWindow()).widthProperty());
+        img_backUpdateUser.fitHeightProperty().bind((mainpane.getScene().getWindow()).heightProperty());
+    }
 
 }
