@@ -73,7 +73,6 @@ public class Vacation {
         PhotelName=new SimpleStringProperty(hotelName);
         PhotelRank=new SimpleStringProperty(""+hotelRank);
         Pprice = new SimpleStringProperty(""+price);
-
     }
 
     public boolean isFreezed() {

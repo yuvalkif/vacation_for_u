@@ -69,6 +69,7 @@ public class LogInController {
             stage.setResizable(false);
             StageHolder.getInstance().holdStage(stage);
             SignUpFormController sceneController = (SignUpFormController)loader.getController();
+            sceneController.setImageParameters();
             sceneController.setController(controller);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
