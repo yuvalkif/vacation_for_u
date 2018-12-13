@@ -5,6 +5,9 @@ import Logger.StageHolder;
 import Objects.ErrorBox;
 import dbObjects.Purchase;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -13,14 +16,23 @@ public class SubmitRequestController {
     public TextField tb_vacationID;
     public TextField tb_userName;
     public TextField tb_price;
-    public TextField tb_toFill3;
-    public TextField tb_toFill2;
-    public TextField tb_toFill1;
-    public TextField tb_toFill4;
+
     public DatePicker tb_date;
+    public TextField tb_toFillVisaNumber;
+    public TextField tb_toFillNameOnCard;
+    public TextField tb_toFillCVV;
+    public ChoiceBox tb_toFillType;
     private Controller controller;
     public void setController(Controller controller) {
         this.controller = controller;
+        setViza();
+    }
+
+    public void setViza() {
+        ObservableList<String> channelItems = FXCollections.observableArrayList("VISA", "MasterCard", "IsraCard");
+
+        tb_toFillType.setItems(channelItems);
+        tb_toFillType.getSelectionModel().selectFirst();
     }
 
     public void handleBack() {
@@ -38,15 +50,46 @@ public class SubmitRequestController {
     }
 
     public void clickSubmit(){
-        if (tb_toFill3.getText().equals("") ||tb_toFill2.getText().equals("")||tb_toFill1.getText().equals("")||tb_toFill4.getText().equals("") ||tb_date.getValue().toString().equals("")){
-            ErrorBox e = new ErrorBox();
-            e.showErrorStage("fill all of your details");
+        String chack = tb_toFillCVV.getText();
+        try {
+            int f = Integer.parseInt(chack);
+        }catch (Exception e){
+            ErrorBox errorBox = new ErrorBox();
+            errorBox.showErrorStage("CVV shule be only numbers");
             return;
         }
-        Purchase p = new Purchase(controller.getLoggedUser(),tb_toFill3.getText(),tb_toFill4.getText(),tb_toFill1.getText(),tb_toFill2.getText(),java.sql.Date.valueOf(tb_date.getValue()),tb_vacationID.getText());
+        if (chack.equals("") || (chack.length() != 3)){
+            ErrorBox e = new ErrorBox();
+            e.showErrorStage("Worng CVV");
+            return;
+        }
+        chack = tb_toFillNameOnCard.getText();
+        if (chack.equals("")) {
+            ErrorBox e = new ErrorBox();
+            e.showErrorStage("Fill your full name");
+            return;
+        }
+        chack=tb_toFillVisaNumber.getText();
+        try {
+            Long.parseLong(chack);
+        }catch (Exception e){
+            ErrorBox errorBox = new ErrorBox();
+            errorBox.showErrorStage("Not a number");
+            return;
+        }
+        if (chack.equals("")|| chack.length()!=16) {
+            ErrorBox e = new ErrorBox();
+            e.showErrorStage("The number should be 16 digits");
+            return;
+        }
+        if (tb_date.getValue().toString().equals("")){
+            ErrorBox e = new ErrorBox();
+            e.showErrorStage("Chose a date ");
+            return;
+        }
+        Purchase p = new Purchase(controller.getLoggedUser(),tb_toFillNameOnCard.getText(), tb_toFillType.getSelectionModel().toString(), tb_toFillVisaNumber.getText(), tb_toFillCVV.getText() , java.sql.Date.valueOf(tb_date.getValue()),tb_vacationID.getText());
         controller.insertOfferRequest(p);
         StageHolder.getInstance().getStage().close();
-
     }
 
 

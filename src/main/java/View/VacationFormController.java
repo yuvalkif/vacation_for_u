@@ -51,11 +51,9 @@ public class VacationFormController {
         String hotelrank = hotelRank.getText();
         String priceS = txtfld_price.getText();
 
-        System.out.println(fromDate.getValue());
-
         ErrorBox e = new ErrorBox();
         if(ticketID.equals("") || flightCompany.equals("") || baggage1.equals("") || dest.equals("") || tickettype.equals("") || vacationType.equals("") || hotelname.equals("")
-        || numberoftickets.equals("") || hotelrank.equals("") || priceS.equals("") || fromDate== null || toDate== null) {
+        || numberoftickets.equals("") || hotelrank.equals("") || priceS.equals("") || fromDate.getValue()== null || toDate.getValue()== null) {
             e.showErrorStage("All fields must be entered");
             return;
         }
@@ -86,7 +84,7 @@ public class VacationFormController {
             }
             this.vacation = new Vacation(ticketID, controller.getLoggedUser(), flightCompany, sqlFromDate, sqlToDate, baggage1, numOfTickets, dest, roundTrip.isSelected(), tickettype,
                     vacationType, nightsIncluded.isSelected(), hotelname, hotelRank, false, false, price);
-            //StageHolder.getInstance().getStage().close();
+            StageHolder.getInstance().getStage().close();
         }catch (Exception ex){
             this.vacation = null ;
         }

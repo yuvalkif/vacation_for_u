@@ -5,12 +5,16 @@ import Logger.StageHolder;
 import Objects.ErrorBox;
 import dbObjects.User;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Period;
 
 /**
  * controller class for the sign up scene . controlled by 'SignUpForm.fxml'
@@ -20,14 +24,29 @@ public class SignUpFormController {
     private Controller controller;
     private User toSubmit;
     @FXML
-    public TextField username, password, firstname, lastname, city, date;
+    public TextField username, password, firstname, lastname, city;
+    public DatePicker datepk_age;
     public ImageView img_backSignUp;
     public AnchorPane mainpane;
 
     public void handleSubmit() {
-        this.toSubmit = new User(username.getText(), password.getText(), firstname.getText(), lastname.getText(), city.getText(), date.getText());
+        String date="";
+        if(datepk_age.getValue()==null){
+            raiseError("Must fill all the fields");
+            return;
+        }
+        else {
+            LocalDate l = datepk_age.getValue();
+            if(Period.between(l,LocalDate.now()).getYears()<18){
+                raiseError("You must be at least 18 years old");
+                return;
+            }
+            date = datepk_age.getValue().toString();
+        }
 
-        if (toSubmit.hasNullField()) {
+        this.toSubmit = new User(username.getText(), password.getText(), firstname.getText(), lastname.getText(), city.getText(),date);
+
+        if (toSubmit.hasNullField() || datepk_age==null) {
             raiseError("Must fill all the fields");
             toSubmit=null;
             return;

@@ -103,7 +103,7 @@ public interface ISQLModel {
 
 
     void acceptMessage(ConfirmOfferMessage msg);
-//    void declineMessage(ConfirmOfferMessage msg);
+    void declineMessage(ConfirmOfferMessage msg);
 
 
     void freezeVacation(String vacationId);

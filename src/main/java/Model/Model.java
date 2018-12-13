@@ -103,12 +103,6 @@ public class Model implements ISQLModel {
         }
     }
 
-    public String getLoggedUser() {
-        return loggedUser;
-    }
-
-
-
     @Override
     public void createPurchaseTable() {
         // SQLite connection string
@@ -208,7 +202,6 @@ public class Model implements ISQLModel {
 
     }
 
-
     /**
      * this is only a demo of credit card validation in front of the credit card company
      */
@@ -239,18 +232,7 @@ public class Model implements ISQLModel {
 
     }
 
-
-
-
-
-
-
-
-
-
-    /*****************************************  INSERTION TO DB FUNCTIONS *****************************
-
-
+    /*****************************************  INSERTION TO DB FUNCTIONS *****************************/
 
 
      /**
@@ -380,6 +362,11 @@ public class Model implements ISQLModel {
 
     }
 
+    @Override
+    public void acceptMessage(ConfirmOfferMessage msg) {
+
+    }
+
     private void insertPurchase(Purchase purchase, String vacationId) {
         String sqlStatement = "INSERT INTO purchases(cardOwnerUserName, cardOwnerName,cardType,cardNumber,cardCvv,cardExpireDate,targetVacation) VALUES(?,?,?,?,?,?,?)";
 
@@ -402,8 +389,6 @@ public class Model implements ISQLModel {
             Logger.getInstance().log("INSERT : " + purchase.toString() + " - FAILED");
         }
     }
-
-
 
     private void insertCreditCard(Purchase purchase) {
         String sqlStatement = "INSERT INTO credit_cards(cardOwnerName,cardType,cardNumber,cardCvv,cardExpireDate) VALUES(?,?,?,?,?)";
@@ -451,7 +436,7 @@ public class Model implements ISQLModel {
     }
 
 
-    /***************************************** UPDATE FUNCTIONS *********************************************
+    /***************************************** UPDATE FUNCTIONS *********************************************/
 
      /**
      * update a user in the database
@@ -591,7 +576,54 @@ public class Model implements ISQLModel {
     }
 
 
-    @Override
+    public AUserData getUpdatedViewContent(){
+        if(controller.getLoggedUser() == null)
+            return null;
+        return getUserData(controller.getLoggedUser());
+    }
+
+
+
+
+    public void declineMessage(ConfirmOfferMessage msg ) {
+        String sqlStatement = "UPDATE messages SET status = 'decline' WHERE vacationId = " + "'" + msg.getVacation().getVacationID() + "'";
+
+        try {
+
+            Connection conn = this.openConnection();
+
+            PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
+
+            pstmt.executeUpdate();
+
+
+            this.closeConnection(conn);
+            //delete the old message
+            deleteMessage(msg.getSender(),msg.getReciver(),msg.getVacation().getVacationID());
+            //send to the buyer
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String timeNow = LocalDateTime.now().format(formatter);
+            String decline = timeNow+"\n"+msg.getSender()+" Has Declined your buying offer on: " +"\n"+msg.getVacation().toString()+"\n"+" CONTACT: 09320148304 \n   We are sorry";
+            insertMessage(SYSTEM,msg.getSender(),timeNow,"confirm",decline,"Decline",msg.getVacation().getVacationID());
+            //send to the seller
+                    msg.getVacation().getVacationID();
+            Vacation v = getVacationAsObjectById(msg.getVacation().getVacationID());
+            markVacationAsSold(msg.getVacation().getVacationID());
+            Logger.getInstance().log("accepting message:  : " + msg.getVacation().getVacationID() +" "+msg.getSender() +" "+ msg.getReciver()+ " - SUCCESS");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Logger.getInstance().log("accepting message:  : " + msg.getVacation().getVacationID() +" "+msg.getSender() +" "+msg.getReciver()+ " - FAILURE");
+        }
+    }
+
+
+    /*********************************************** SEARCHING FUNCTIONS************************************************
+=======
+
+
+
+
+
     public void acceptMessage(ConfirmOfferMessage msg ) {
         String sqlStatement = "UPDATE messages SET status = 'accept' WHERE vacationId = " + "'" + msg.getVacation().getVacationID() + "'";
 
@@ -624,7 +656,8 @@ public class Model implements ISQLModel {
         }
     }
 
-    /*********************************************** SEARCHING FUNCTIONS************************************************
+
+    /*********************************************** SEARCHING FUNCTIONS************************************************/
 
 
      /**
@@ -674,8 +707,6 @@ public class Model implements ISQLModel {
 
         return result;
     }
-
-
 
     private boolean isValidCreditCard(Purchase purchase){
         ResultSet resultSet;
@@ -748,8 +779,7 @@ public class Model implements ISQLModel {
     }
 
 
-    /******************************************** DELETE FUNCS****************************************
-
+    /******************************************** DELETE FUNCS****************************************/
 
      /**
      * delete a record from the data base
@@ -773,8 +803,6 @@ public class Model implements ISQLModel {
 
     }
 
-
-
     public void deleteMessage(String sender,String reciver , String vacaitonId) {
         String sql = "DELETE FROM messages WHERE vacationId = ?";
         try {
@@ -795,9 +823,7 @@ public class Model implements ISQLModel {
 
     }
 
-
     /********************************************   LOGIN *************************************************/
-
 
     @Override
     public AUserData login(String username, String password) {
@@ -855,6 +881,90 @@ public class Model implements ISQLModel {
         return observableList;
     }
 
+//
+//    private ObservableList<Vacation> convertVacationResultsToObservableList(ResultSet resultSet,boolean showSoldAndFrozen) {
+//        ObservableList<Vacation> observableList = FXCollections.observableArrayList();
+//
+//        try {
+//            while (resultSet.next()) {
+//                Date fromDate = resultSet.getDate("fromDate");
+//                Date untilDate = resultSet.getDate("untilDate");
+//                int numberOfTickets = resultSet.getInt("numberOfTickets");
+//                boolean twoDirections = (resultSet.getInt("numberOfTickets") == 1) ? true : false;
+//                boolean includeSleep = (resultSet.getInt("includeSleep") == 1) ? true : false;
+//                boolean sold = (resultSet.getInt("sold") == 1) ? true : false;
+//                double hotelRank = resultSet.getDouble("hotelRank");
+//                boolean freezed = (resultSet.getInt("freezed") == 1) ? true : false;
+//                double price = (resultSet.getDouble("price"));
+//                Vacation v = new Vacation(resultSet.getString(14), resultSet.getString(1),
+//                        resultSet.getString(2),
+//                        fromDate,
+//                        untilDate,
+//                        resultSet.getString(5),
+//                        numberOfTickets,
+//                        resultSet.getString(7),
+//                        twoDirections,
+//                        resultSet.getString(9),
+//                        resultSet.getString(10),
+//                        includeSleep,
+//                        resultSet.getString(12),
+//                        hotelRank, sold, freezed, price);
+//                if (!showSoldAndFrozen) {
+//                    if (!v.isFreezed() && !v.isSold()) {
+//                        observableList.add(v);
+//                    }
+//                } else observableList.add(v);
+//            }
+//        } catch (SQLException var4) {
+//            var4.printStackTrace();
+//        }
+//
+//        return observableList;
+//    }
+
+
+    private ObservableList<AMessage> convertInMessageResultsToObservableList(ResultSet resultSet) {
+        ObservableList<AMessage> observableList = FXCollections.observableArrayList();
+        LocalDateTime now = LocalDateTime.now();
+        try {
+            while (resultSet.next()) {
+                LocalDateTime creationTime = convertStringToLocalDateTime(resultSet.getString("creationTime"));
+                String sender = resultSet.getString("senderUserName");
+                String reciver = resultSet.getString("reciverUserName");
+                String content = resultSet.getString("messageContent");
+                String msgType = resultSet.getString("messageType");
+                String status = resultSet.getString("status");
+                String vacationId = resultSet.getString("vacationId");
+                boolean expired = false;
+                boolean needToUnFreeze = false;
+                if (getHoursGap(creationTime, now) > 48)
+                    expired = true;
+                if(getMinutesgap(creationTime,now) > 5)
+                    unFreezeVacation(vacationId);
+                AMessage msg = null;
+
+                Vacation v = getVacationAsObjectById(vacationId);
+                if (!expired)   //the vaction will be set from vacation table;
+                    msg = new ConfirmOfferMessage(sender, reciver, content, v, status);
+                else {
+                    String expireExplain = "user: +" + sender + " tried to buy vacation: " + v.toString() + " but 48 have passed" +
+                            "so offer is expired";
+                    msg = new ExpiredOfferMessage(sender, reciver, expireExplain);
+                }
+
+
+                observableList.add(msg);
+            }
+        } catch (SQLException var4) {
+            var4.printStackTrace();
+        }
+
+        return observableList;
+    }
+
+
+
+
 
     private ObservableList<Vacation> convertVacationResultsToObservableList(ResultSet resultSet,boolean showSoldAndFrozen) {
         ObservableList<Vacation> observableList = FXCollections.observableArrayList();
@@ -897,7 +1007,7 @@ public class Model implements ISQLModel {
     }
 
 
-    private ObservableList<AMessage> convertInMessageResultsToObservableList(ResultSet resultSet) {
+    private ObservableList<AMessage> convertOutMessageResultsToObservableList(ResultSet resultSet) {
         ObservableList<AMessage> observableList = FXCollections.observableArrayList();
         LocalDateTime now = LocalDateTime.now();
         try {
@@ -912,14 +1022,14 @@ public class Model implements ISQLModel {
                 boolean expired = false;
                 if (getHoursGap(creationTime, now) > 48)
                     expired = true;
+
                 AMessage msg = null;
 
                 Vacation v = getVacationAsObjectById(vacationId);
                 if (!expired)   //the vaction will be set from vacation table;
                     msg = new ConfirmOfferMessage(sender, reciver, content, v, status);
                 else {
-                    String expireExplain = "user: +" + sender + " tried to buy vacation: " + v.toString() + " but 48 have passed" +
-                            "so offer is expired";
+                    String expireExplain = "We are sorry, but the seller:  "+ sender +  "Vacation: "+v.toString()+" has not replied to your request in 48 hours so its expired" ;
                     msg = new ExpiredOfferMessage(sender, reciver, expireExplain);
                 }
 
@@ -932,6 +1042,10 @@ public class Model implements ISQLModel {
 
         return observableList;
     }
+
+
+
+
 
 
     /*******************************************  FROM DB TO OBJECT **********************************************/
@@ -973,16 +1087,20 @@ public class Model implements ISQLModel {
      */
     public AUserData getUserData(String username) {
         //get user inMessages
-        ResultSet resultSet;
+        ResultSet resultSetIn;
+        ResultSet resultSetOut;
         ObservableList<AMessage> inboundMessages = null;
+        ObservableList<AMessage> outboundMessages = null;
         String sqlInboundMessages = "SELECT * FROM messages WHERE reciverUserName =" + "'" + username + "'";
-
+        String sqlOutboundMessages = "SELECT * FROM messages WHERE senderUserName =" + "'" + username + "'";
         try {
             Connection conn = this.openConnection();
             Statement stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(sqlInboundMessages);
-            inboundMessages = this.convertInMessageResultsToObservableList(resultSet);
+            resultSetIn = stmt.executeQuery(sqlInboundMessages);
+            resultSetOut = stmt.executeQuery(sqlOutboundMessages);
             conn.close();
+            inboundMessages = this.convertInMessageResultsToObservableList(resultSetIn);
+            outboundMessages = this.convertOutMessageResultsToObservableList(resultSetOut);
         } catch (SQLException var7) {
             System.out.println(var7.getMessage());
             Logger.getInstance().log(var7.getMessage());
@@ -990,7 +1108,7 @@ public class Model implements ISQLModel {
         }
 
         /***** NEED TO ADD OUTBOUND MESSAGES ****************/
-        return new UserData(username, inboundMessages, null);
+        return new UserData(username, inboundMessages, outboundMessages);
         //check if they are not expired
 
         //if not , add as it is to user messages
@@ -1136,12 +1254,9 @@ public class Model implements ISQLModel {
 
     }
 
-    /**
-     *
-     * @param username
-     * @return
-     */
-
+    public String getLoggedUser() {
+        return loggedUser;
+    }
 
 }
 

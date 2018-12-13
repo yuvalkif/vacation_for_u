@@ -1,24 +1,6 @@
-created new table users 2018/12/14 01:05:53
-created new table vacations 2018/12/14 01:05:53
-created new table purchases 2018/12/14 01:05:53
-created new table offers 2018/12/14 01:05:53
-created new table messages 2018/12/14 01:05:53
-created new table credit_cards 2018/12/14 01:05:53
-connection opened 2018/12/14 01:05:58
-connection opened 2018/12/14 01:05:58
-connection opened 2018/12/14 01:05:58
-connection opened 2018/12/14 01:06:02
-DELETED adam 2018/12/14 01:06:03
-connection opened 2018/12/14 01:06:03
-DELETED adam 2018/12/14 01:06:03
-Removed user : adam 2018/12/14 01:06:03
-connection opened 2018/12/14 01:06:03
-connection opened 2018/12/14 01:06:03
-connection opened 2018/12/14 01:06:11
-connection opened 2018/12/14 01:06:28
-connection opened 2018/12/14 01:06:28
-connection closed 2018/12/14 01:06:28
-INSERT : adam , adam - SUCCESS 2018/12/14 01:06:28
-connection opened 2018/12/14 01:06:34
-connection opened 2018/12/14 01:06:34
-connection opened 2018/12/14 01:06:34
+created new table users 2018/12/14 01:28:42
+created new table vacations 2018/12/14 01:28:42
+created new table purchases 2018/12/14 01:28:42
+created new table offers 2018/12/14 01:28:42
+created new table messages 2018/12/14 01:28:42
+created new table credit_cards 2018/12/14 01:28:42
