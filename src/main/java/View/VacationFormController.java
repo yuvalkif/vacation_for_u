@@ -2,11 +2,14 @@ package View;
 
 import Control.Controller;
 import Logger.StageHolder;
+import Objects.ErrorBox;
 import dbObjects.Vacation;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 import java.sql.Date;
 import java.time.ZoneId;
@@ -24,9 +27,11 @@ public class VacationFormController {
 
     @FXML
     public CheckBox  nightsIncluded , roundTrip;
-
-    @FXML
     public DatePicker fromDate , toDate;
+    @FXML
+    public AnchorPane mainpane;
+
+    public ImageView img_backPublishVacation;
 
     public VacationFormController(){}
     /**
@@ -35,27 +40,56 @@ public class VacationFormController {
 */
     public void handleInsert(){
 
-        int numOfTickets ;
-        double hotelRank, price ;
+        String ticketID = ticketId.getText();
+        String flightCompany = flightComp.getText();
+        String baggage1 = baggage.getText();
+        String dest = destination.getText();
+        String tickettype = ticketType.getText();
+        String vacationType =  vacationTye.getText();
+        String hotelname = hotelName.getText();
+        String numberoftickets  = numberOfTickets.getText();
+        String hotelrank = hotelRank.getText();
+        String priceS = txtfld_price.getText();
+
+        System.out.println(fromDate.getValue());
+
+        ErrorBox e = new ErrorBox();
+        if(ticketID.equals("") || flightCompany.equals("") || baggage1.equals("") || dest.equals("") || tickettype.equals("") || vacationType.equals("") || hotelname.equals("")
+        || numberoftickets.equals("") || hotelrank.equals("") || priceS.equals("") || fromDate== null || toDate== null) {
+            e.showErrorStage("All fields must be entered");
+            return;
+        }
+        if(!isInteger(numberoftickets)) {
+            e.showErrorStage("number of tickets must be an integer");
+            return;
+        }
+        if(!isDouble(hotelrank)) {
+            e.showErrorStage("hotel rank must be a number");
+            return;
+        }
+        if(!isDouble(priceS)) {
+            e.showErrorStage("price must be a number");
+            return;
+        }
+
+        int numOfTickets = Integer.parseInt(numberoftickets);
+        double hotelRank = Double.parseDouble(hotelrank);
+        double price = Double.parseDouble(priceS);
         java.sql.Date sqlFromDate , sqlToDate ;
-
-        try{
-
+        try {
             sqlFromDate = utilDateToSqlDate(Date.from(fromDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
             sqlToDate = utilDateToSqlDate(Date.from(toDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-            numOfTickets = Integer.parseInt(this.numberOfTickets.getText());
-            hotelRank = Double.parseDouble(this.hotelRank.getText());
-            price = Double.parseDouble(txtfld_price.getText());
 
-
-           this.vacation = new Vacation(ticketId.getText(),controller.getLoggedUser(),flightComp.getText(),sqlFromDate,sqlToDate,baggage.getText(),numOfTickets,destination.getText(),roundTrip.isSelected(),ticketType.getText(),
-                   vacationTye.getText(),nightsIncluded.isSelected(),hotelName.getText(),hotelRank,false,false,price);
-
-
-        }catch (Exception e){
+            if(sqlFromDate.compareTo(sqlToDate)>0) {
+                e.showErrorStage("Return date must be after from date");
+                return;
+            }
+            this.vacation = new Vacation(ticketID, controller.getLoggedUser(), flightCompany, sqlFromDate, sqlToDate, baggage1, numOfTickets, dest, roundTrip.isSelected(), tickettype,
+                    vacationType, nightsIncluded.isSelected(), hotelname, hotelRank, false, false, price);
+            //StageHolder.getInstance().getStage().close();
+        }catch (Exception ex){
             this.vacation = null ;
         }
-        StageHolder.getInstance().getStage().close();
     }
 
     public void handleBack(){
@@ -78,5 +112,28 @@ public class VacationFormController {
 
     public boolean isBack() {
         return back;
+    }
+
+    private boolean isDouble(String text){
+        try{
+            Double.parseDouble(text);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    private boolean isInteger(String text){
+        try{
+            Integer.parseInt(text);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    public void setImageParameters(){
+        img_backPublishVacation.fitWidthProperty().bind((mainpane.getScene().getWindow()).widthProperty());
+        img_backPublishVacation.fitHeightProperty().bind((mainpane.getScene().getWindow()).heightProperty());
     }
 }
