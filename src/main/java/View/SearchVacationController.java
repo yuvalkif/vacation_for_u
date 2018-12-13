@@ -81,6 +81,11 @@ public class SearchVacationController {
             SubmitRequestController c = (SubmitRequestController) loader.getController();
             if ((Vacation) tableView.getSelectionModel().getSelectedItem()!=null) {
                 Vacation v = (Vacation) tableView.getSelectionModel().getSelectedItem();
+                if(v.getPpublisherUserName().equals(controller.getLoggedUser())){
+                    ErrorBox e = new ErrorBox();
+                    e.showErrorStage("you can't buy your own vacation");
+                    return;
+                }
                 c.setController(this.controller);
                 c.submit(controller.getLoggedUser(),v.getVacationID(),v.getPrice());
             }

@@ -1,6 +1,7 @@
 package View;
 
 import Control.Controller;
+import Logger.Logger;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import dbObjects.*;
@@ -56,6 +57,7 @@ public class MainScreenController implements IView{
                 if(newValue.intValue() == 2){
                     showAllVacations();
                 }
+
             }
         });
 
@@ -69,7 +71,13 @@ public class MainScreenController implements IView{
         this.inbox.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                showMassage((ConfirmOfferMessage) inbox.getSelectionModel().getSelectedItems().get(0));
+                try {
+                    AMessage msg = (AMessage) inbox.getSelectionModel().getSelectedItems().get(0);
+                    if (msg instanceof ConfirmOfferMessage)
+                        showMassage((ConfirmOfferMessage) msg);
+                }catch (Exception e){
+                    
+                }
             }
         });
     }

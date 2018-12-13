@@ -130,6 +130,7 @@ public class Controller {
         sp_loggedUser.set("");
     }
 
+
     public void confirmOrderMassage(ConfirmOfferMessage msg){
         this.model.acceptMessage(msg);
     }

@@ -163,6 +163,22 @@ public class Model implements ISQLModel {
 
     }
 
+
+    private void measureTimeForFreeze(String id) {
+
+        Vacation vacation = getVacationAsObjectById(id);
+
+        long time = System.currentTimeMillis();
+        while (time < 5000) {
+            time += System.currentTimeMillis();
+        }
+
+        if (!vacation.isSold()) {
+            unFreezeVacation(vacation.getPVacationID());
+            Logger.getInstance().log("freezed vacation " + id + " after 5 minutes");
+        }
+    }
+
     @Override
     public void createConfirmMessageTable() {
         String url = "jdbc:sqlite:vacation_for_u.db";
@@ -347,6 +363,9 @@ public class Model implements ISQLModel {
                 return false;
              **/
             freezeVacation(vacationId);
+            Thread t1 = new Thread(()-> {measureTimeForFreeze(vacationId);});
+            t1.start();
+
             insertMessage(controller.getLoggedUser(),vacation.getPublisherUserName(),theTimeNow,
                     "confirm",buyerUsername+ " wants to buy your vacation, id: "+vacationId,"waiting",vacationId);
 //                    null,"standby")));

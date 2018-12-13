@@ -109,8 +109,6 @@ public interface ISQLModel {
     void freezeVacation(String vacationId);
     void unFreezeVacation(String vacationId);
 
-
-
     ObservableList selectAllDataBase();
 
     String getLoggedUser();
