@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 import java.sql.Date;
 import java.time.ZoneId;
@@ -25,9 +27,11 @@ public class VacationFormController {
 
     @FXML
     public CheckBox  nightsIncluded , roundTrip;
-
-    @FXML
     public DatePicker fromDate , toDate;
+    @FXML
+    public AnchorPane mainpane;
+
+    public ImageView img_backPublishVacation;
 
     public VacationFormController(){}
     /**
@@ -56,7 +60,7 @@ public class VacationFormController {
             return;
         }
         if(!isInteger(numberoftickets)) {
-            e.showErrorStage("number of tickets must be a number");
+            e.showErrorStage("number of tickets must be an integer");
             return;
         }
         if(!isDouble(hotelrank)) {
@@ -76,12 +80,16 @@ public class VacationFormController {
             sqlFromDate = utilDateToSqlDate(Date.from(fromDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
             sqlToDate = utilDateToSqlDate(Date.from(toDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
+            if(sqlFromDate.compareTo(sqlToDate)>0) {
+                e.showErrorStage("Return date must be after from date");
+                return;
+            }
             this.vacation = new Vacation(ticketID, controller.getLoggedUser(), flightCompany, sqlFromDate, sqlToDate, baggage1, numOfTickets, dest, roundTrip.isSelected(), tickettype,
                     vacationType, nightsIncluded.isSelected(), hotelname, hotelRank, false, false, price);
+            //StageHolder.getInstance().getStage().close();
         }catch (Exception ex){
             this.vacation = null ;
         }
-        StageHolder.getInstance().getStage().close();
     }
 
     public void handleBack(){
@@ -122,5 +130,10 @@ public class VacationFormController {
         }catch (Exception e){
             return false;
         }
+    }
+
+    public void setImageParameters(){
+        img_backPublishVacation.fitWidthProperty().bind((mainpane.getScene().getWindow()).widthProperty());
+        img_backPublishVacation.fitHeightProperty().bind((mainpane.getScene().getWindow()).heightProperty());
     }
 }

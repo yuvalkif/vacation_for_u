@@ -74,7 +74,6 @@ public class MainScreenController implements IView{
         });
     }
 
-
     private void showMassage(ConfirmOfferMessage massage){
         if(massage != null)
          this.massageArea.setText(massage.getContent());
@@ -84,7 +83,6 @@ public class MainScreenController implements IView{
         ObservableList allVacations = this.controller.getAllVacations();
         this.vacationList.setItems(allVacations);
     }
-
 
     public void setCurrentStage(Stage stage) {
         this.primaryStage = stage;
@@ -102,10 +100,11 @@ public class MainScreenController implements IView{
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Sign Up");
-            stage.setResizable(false);
+            //stage.setResizable(false);
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
             SignUpFormController sceneController = (SignUpFormController)loader.getController();
+            sceneController.setImageParameters();
             sceneController.setController(controller);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -150,6 +149,7 @@ public class MainScreenController implements IView{
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
             LogInController sceneController = (LogInController)loader.getController();
+            sceneController.setImageParameters();
             sceneController.setController(controller);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -192,7 +192,6 @@ public class MainScreenController implements IView{
 
     }
 
-
     private void initializeColumnsInbox(ObservableList<AMessage> list){
         this.inboxFrom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSender()));
         this.inboxContent.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContent()));
@@ -209,7 +208,6 @@ public class MainScreenController implements IView{
 
 
     }
-
 
     public void handleSearchVacation(){
         String dest = txtfld_destination.getText();
@@ -277,6 +275,7 @@ public class MainScreenController implements IView{
                     handleXPress();
                 }
             });
+            sceneController.setImageParameters();
             stage.showAndWait();
             if(sceneController.getDeleted()) {
                 setVisibleLoggedIn(false, false, true, true, true,true);
@@ -335,6 +334,7 @@ public class MainScreenController implements IView{
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
             UpdateFormController uc = (UpdateFormController) loader.getController();
+            uc.setImageParameters();
             uc.setController(this.controller);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -365,6 +365,7 @@ public class MainScreenController implements IView{
                 }
             });
 
+            vacationFormController.setImageParameters();
             stage.showAndWait();
 
             Vacation toInsert = vacationFormController.getVacationToInsert();
@@ -375,15 +376,11 @@ public class MainScreenController implements IView{
             if(vacationFormController.isBack())
                 return;
 
-            ErrorBox errorBox = new ErrorBox();
-            errorBox.showErrorStage("Please fill all fields");
-
         }catch (Exception e){
             System.out.println("at handle vacation button");
             e.printStackTrace();
         }
     }
-
     /**
      * initialize and return a new stage
      * @param fxmlPath path to fxml file of the stage

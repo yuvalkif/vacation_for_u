@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="309.0" prefWidth="512.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.LogInController">
+<AnchorPane fx:id="mainpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="309.0" prefWidth="512.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.LogInController">
    <children>
-      <ImageView fitHeight="309.0" fitWidth="512.0" pickOnBounds="true">
+      <ImageView fx:id="img_backLogIn" fitHeight="309.0" fitWidth="512.0" pickOnBounds="true">
          <image>
             <Image url="backForAll.jpg" />
          </image>

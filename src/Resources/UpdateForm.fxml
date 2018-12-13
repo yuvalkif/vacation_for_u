@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="398.0" prefWidth="457.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UpdateFormController">
+<AnchorPane fx:id="mainpane" prefHeight="398.0" prefWidth="457.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UpdateFormController">
     <children>
-      <ImageView fitHeight="407.0" fitWidth="488.0" layoutX="-11.0" pickOnBounds="true">
+      <ImageView fx:id="img_backUpdateUser" fitHeight="407.0" fitWidth="488.0" layoutX="-11.0" pickOnBounds="true">
          <image>
             <Image url="backUpDate.jpg" />
          </image>
