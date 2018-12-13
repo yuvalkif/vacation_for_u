@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="450.0" prefWidth="620.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.SignUpFormController">
+<AnchorPane fx:id="mainpane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SignUpFormController">
     <children>
-      <ImageView fitHeight="450.0" fitWidth="620.0" pickOnBounds="true">
+      <ImageView fx:id="img_backSignUp">
          <image>
             <Image url="backsighup.jpg" />
          </image>

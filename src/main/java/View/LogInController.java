@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -20,6 +22,8 @@ public class LogInController {
 
     public TextField txtfld_userName;
     public TextField txtfld_password;
+    public ImageView img_backLogIn;
+    public AnchorPane mainpane;
     private Controller controller;
     private AUserData userData;
 
@@ -90,4 +94,9 @@ public class LogInController {
         StageHolder.getInstance().getStage();
     }
 
+
+    public void setImageParameters(){
+        img_backLogIn.fitWidthProperty().bind((mainpane.getScene().getWindow()).widthProperty());
+        img_backLogIn.fitHeightProperty().bind((mainpane.getScene().getWindow()).heightProperty());
+    }
 }
