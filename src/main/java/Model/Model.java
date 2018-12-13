@@ -264,6 +264,23 @@ public class Model implements ISQLModel {
 
     }
 
+
+
+
+
+
+
+    public boolean checkTicketExist(String ticketId){
+        Vacation v = getVacationAsObjectById(ticketId);
+        return v!=null;
+
+    }
+
+
+
+
+
+
     @Override
     public boolean insertVacation(Vacation vacationValues) {
 

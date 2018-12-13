@@ -219,7 +219,6 @@ public class MainScreenController implements IView{
 
     }
 
-
     private void initializeColumnsInbox(ObservableList<AMessage> list){
         this.inboxFrom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSender()));
         this.inboxContent.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContent()));
@@ -236,7 +235,6 @@ public class MainScreenController implements IView{
 
 
     }
-
 
     public void handleSearchVacation(){
         String dest = txtfld_destination.getText();
@@ -309,7 +307,7 @@ public class MainScreenController implements IView{
             if(sceneController.getDeleted()) {
                 setVisibleLoggedIn(false, false, true, true, true,true);
                 tabPane_tab.getSelectionModel().select(tab_searchVacation);
-                Logger.getInstance().log("Removed user : " + controller.getLoggedUser());
+                //Logger.getInstance().log("Removed user : " + controller.getLoggedUser());
             }
             this.primaryStage.show();
             refreshInboxAndOutbox();
@@ -344,6 +342,7 @@ public class MainScreenController implements IView{
                     handleXPress();
                 }
             });
+            primaryStage.hide();
             stage.showAndWait();
             this.primaryStage.show();
             refreshInboxAndOutbox();
@@ -400,7 +399,6 @@ public class MainScreenController implements IView{
             vacationFormController.setController(this.controller);
             StageHolder.getInstance().holdStage(stage);
             vacationFormController.setImageParameters();
-
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
@@ -408,18 +406,14 @@ public class MainScreenController implements IView{
                 }
             });
             stage.showAndWait();
+
             Vacation toInsert = vacationFormController.getVacationToInsert();
             refreshInboxAndOutbox();
 
-            if(toInsert != null) {
+            if(toInsert != null)
                 this.controller.insertVacation(toInsert);
-                return;
-            }
 
             primaryStage.show();
-
-            ErrorBox errorBox = new ErrorBox();
-            errorBox.showErrorStage("Please fill all fields");
 
         }catch (Exception e){
             System.out.println("at handle vacation button");
@@ -453,6 +447,7 @@ public class MainScreenController implements IView{
             stage.setScene(scene);
             stage.setTitle(title);
             stage.setResizable(resizeable);
+
             return stage;
         }catch (Exception e){
             return null;

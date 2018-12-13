@@ -141,4 +141,8 @@ public class Controller {
     public void insertOfferRequest(Purchase p){
         model.insertBuyingOffer(p.getPayingOnVacation(),p.getCardOwnerName(),p);
     }
+
+    public boolean containsticketID(String ticketID){
+        return model.checkTicketExist(ticketID);
+    }
 }
