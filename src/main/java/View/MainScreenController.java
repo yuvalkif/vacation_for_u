@@ -317,6 +317,7 @@ public class MainScreenController implements IView{
                     handleXPress();
                 }
             });
+            primaryStage.hide();
             stage.showAndWait();
             this.primaryStage.show();
         } catch (IOException e) {
@@ -378,10 +379,8 @@ public class MainScreenController implements IView{
             stage.showAndWait();
 
             Vacation toInsert = vacationFormController.getVacationToInsert();
-            if(toInsert != null) {
+            if(toInsert != null)
                 this.controller.insertVacation(toInsert);
-                return;
-            }
 
             primaryStage.show();
 
