@@ -8,6 +8,7 @@ import dbObjects.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,6 +25,8 @@ import java.io.IOException;
 
 public class MainScreenController implements IView{
 
+    public ChoiceBox numOfAdults;
+    public ChoiceBox numOfKids;
     private Controller controller;
     private Stage primaryStage;
     private ConfirmOfferMessage inOfferMaassage;
@@ -51,6 +54,7 @@ public class MainScreenController implements IView{
 
     //add the needed listeners
     public void initializeListeners(){
+        setTravelers();
         this.tabPane_tab.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -83,6 +87,7 @@ public class MainScreenController implements IView{
     }
 
 
+
     private void showMassage(ConfirmOfferMessage massage){
         if(massage != null)
          this.massageArea.setText(massage.getContent());
@@ -100,6 +105,7 @@ public class MainScreenController implements IView{
         img_backImg.fitHeightProperty().bind(primaryStage.heightProperty());
     }
 
+    
     public void handleSignUp() {
         FXMLLoader loader = new FXMLLoader();
 
@@ -390,6 +396,15 @@ public class MainScreenController implements IView{
             System.out.println("at handle vacation button");
             e.printStackTrace();
         }
+    }
+
+    public void setTravelers(){
+        ObservableList<String> channelItems = FXCollections.observableArrayList("1", "2", "3", "4");
+
+        numOfAdults.setItems(channelItems);
+        numOfAdults.getSelectionModel().selectFirst();
+        numOfKids.setItems(channelItems);
+        numOfKids.getSelectionModel().selectFirst();
     }
 
     /**

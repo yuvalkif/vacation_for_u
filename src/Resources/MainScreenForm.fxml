@@ -65,8 +65,8 @@
                               <Label text="Return" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                               <Label text="Destination" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <RadioButton mnemonicParsing="false" text="One Way Only" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                              <ChoiceBox prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                              <ChoiceBox prefWidth="150.0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                              <ChoiceBox fx:id="numOfAdults" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                              <ChoiceBox  fx:id="numOfKids" prefWidth="150.0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
                               <RadioButton mnemonicParsing="false" text="Baggage" GridPane.columnIndex="6" GridPane.rowIndex="3" />
                               <Label text="Adults" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                               <Label text="Kids (Under 16)" GridPane.columnIndex="6" GridPane.rowIndex="4" />
