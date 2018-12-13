@@ -1,24 +1,6 @@
-created new table users 2018/12/13 23:44:51
-created new table vacations 2018/12/13 23:44:51
-created new table purchases 2018/12/13 23:44:51
-created new table offers 2018/12/13 23:44:51
-created new table messages 2018/12/13 23:44:51
-created new table credit_cards 2018/12/13 23:44:51
-created new table users 2018/12/13 21:34:14
-created new table vacations 2018/12/13 21:34:14
-created new table purchases 2018/12/13 21:34:14
-created new table offers 2018/12/13 21:34:15
-created new table messages 2018/12/13 21:34:15
-created new table credit_cards 2018/12/13 21:34:15
-connection opened 2018/12/13 21:34:59
-connection opened 2018/12/13 21:34:59
-connection closed 2018/12/13 21:34:59
-INSERT : shalom , shalom - SUCCESS 2018/12/13 21:34:59
-connection opened 2018/12/13 21:35:11
-connection opened 2018/12/13 21:35:11
-connection opened 2018/12/13 21:36:09
-INSERT : Vacation{VacationID=E576T, publisherUserName='shalom', flightCompany='fgjghd', fromDate=2018-12-07, untilDate=2018-12-17, baggageIncluded='50kg', numberOfTickets=12, destination='Kasol', twoDirections=true, ticketType='dfs', vacationType='sdf', includeSleep=true, hotelName='jkdg', hotelRank=3.0, sold=false, price=54457.0, freezed=false}- SUCCESS 2018/12/13 21:36:09
-connection opened 2018/12/13 21:36:27
-connection opened 2018/12/13 21:36:27
-connection opened 2018/12/13 21:36:36
-SUCCSSES retrive vacations to dest: Kasol 2018/12/13 21:36:36
+created new table users 2018/12/13 22:56:04
+created new table vacations 2018/12/13 22:56:04
+created new table purchases 2018/12/13 22:56:04
+created new table offers 2018/12/13 22:56:04
+created new table messages 2018/12/13 22:56:04
+created new table credit_cards 2018/12/13 22:56:04

@@ -572,9 +572,52 @@ public class Model implements ISQLModel {
     }
 
 
+    public AUserData getUpdatedViewContent(){
+        if(controller.getLoggedUser() == null)
+            return null;
+        return getUserData(controller.getLoggedUser());
+    }
+
+
 
 
     @Override
+    public void declineMessage(ConfirmOfferMessage msg ) {
+        String sqlStatement = "UPDATE messages SET status = 'decline' WHERE vacationId = " + "'" + msg.getVacation().getVacationID() + "'";
+
+        try {
+
+            Connection conn = this.openConnection();
+
+            PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
+
+            pstmt.executeUpdate();
+
+
+            this.closeConnection(conn);
+            //delete the old message
+            deleteMessage(msg.getSender(),msg.getReciver(),msg.getVacation().getVacationID());
+            //send to the buyer
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String timeNow = LocalDateTime.now().format(formatter);
+            String decline = timeNow+"\n"+msg.getSender()+" Has Declined your buying offer on: " +"\n"+msg.getVacation().toString()+"\n"+" CONTACT: 09320148304 \n   We are sorry";
+            insertMessage(SYSTEM,msg.getSender(),timeNow,"confirm",decline,"Decline",msg.getVacation().getVacationID());
+            //send to the seller
+                    msg.getVacation().getVacationID();
+            Vacation v = getVacationAsObjectById(msg.getVacation().getVacationID());
+            markVacationAsSold(msg.getVacation().getVacationID());
+            Logger.getInstance().log("accepting message:  : " + msg.getVacation().getVacationID() +" "+msg.getSender() +" "+ msg.getReciver()+ " - SUCCESS");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Logger.getInstance().log("accepting message:  : " + msg.getVacation().getVacationID() +" "+msg.getSender() +" "+msg.getReciver()+ " - FAILURE");
+        }
+    }
+
+
+
+
+
+
     public void acceptMessage(ConfirmOfferMessage msg ) {
         String sqlStatement = "UPDATE messages SET status = 'accept' WHERE vacationId = " + "'" + msg.getVacation().getVacationID() + "'";
 
@@ -606,11 +649,6 @@ public class Model implements ISQLModel {
             Logger.getInstance().log("accepting message:  : " + msg.getVacation().getVacationID() +" "+msg.getSender() +" "+msg.getReciver()+ " - FAILURE");
         }
     }
-
-
-
-
-
 
 
 
@@ -910,7 +948,7 @@ public class Model implements ISQLModel {
                 if (getHoursGap(creationTime, now) > 48)
                     expired = true;
                 if(getMinutesgap(creationTime,now) > 5)
-                    needToUnFreeze = true;
+                    unFreezeVacation(vacationId);
                 AMessage msg = null;
 
                 Vacation v = getVacationAsObjectById(vacationId);
