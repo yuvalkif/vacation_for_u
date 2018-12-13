@@ -1,9 +1,13 @@
-created new table users 2018/12/14 01:07:16
-created new table vacations 2018/12/14 01:07:16
-created new table purchases 2018/12/14 01:07:16
-created new table offers 2018/12/14 01:07:16
-created new table messages 2018/12/14 01:07:16
-created new table credit_cards 2018/12/14 01:07:16
-connection opened 2018/12/14 01:07:21
-connection opened 2018/12/14 01:07:21
-connection opened 2018/12/14 01:07:21
+created new table users 2018/12/14 01:06:55
+created new table vacations 2018/12/14 01:06:55
+created new table purchases 2018/12/14 01:06:55
+created new table offers 2018/12/14 01:06:55
+created new table messages 2018/12/14 01:06:55
+created new table credit_cards 2018/12/14 01:06:55
+connection opened 2018/12/14 01:07:02
+connection opened 2018/12/14 01:07:02
+connection opened 2018/12/14 01:07:02
+connection opened 2018/12/14 01:07:45
+INSERT : Vacation{VacationID=465, publisherUserName='A', flightCompany='F', fromDate=2018-12-27, untilDate=2018-12-21, baggageIncluded='1', numberOfTickets=1, destination='TT', twoDirections=false, ticketType='TT', vacationType='TT', includeSleep=false, hotelName='TT', hotelRank=1.0, sold=false, price=234.0, freezed=false}- SUCCESS 2018/12/14 01:07:45
+connection opened 2018/12/14 01:07:52
+SUCCSSES retrive vacations to dest: TT 2018/12/14 01:07:52
