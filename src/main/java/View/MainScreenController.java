@@ -7,6 +7,7 @@ import dbObjects.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,6 +24,8 @@ import java.io.IOException;
 
 public class MainScreenController implements IView{
 
+    public ChoiceBox numOfAdults;
+    public ChoiceBox numOfKids;
     private Controller controller;
     private Stage primaryStage;
     private ConfirmOfferMessage inOfferMaassage;
@@ -50,6 +53,7 @@ public class MainScreenController implements IView{
 
     //add the needed listeners
     public void initializeListeners(){
+        setTravelers();
         this.tabPane_tab.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -100,7 +104,7 @@ public class MainScreenController implements IView{
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Sign Up");
-            //stage.setResizable(false);
+            stage.setResizable(false);
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
             SignUpFormController sceneController = (SignUpFormController)loader.getController();
@@ -381,6 +385,16 @@ public class MainScreenController implements IView{
             e.printStackTrace();
         }
     }
+
+    public void setTravelers(){
+        ObservableList<String> channelItems = FXCollections.observableArrayList("1", "2", "3", "4");
+
+        numOfAdults.setItems(channelItems);
+        numOfAdults.getSelectionModel().selectFirst();
+        numOfKids.setItems(channelItems);
+        numOfKids.getSelectionModel().selectFirst();
+    }
+
     /**
      * initialize and return a new stage
      * @param fxmlPath path to fxml file of the stage

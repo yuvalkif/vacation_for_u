@@ -4,9 +4,19 @@ import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import dbObjects.AUserData;
+import dbObjects.User;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+
+import java.io.IOException;
 
 public class LogInController {
 
@@ -46,6 +56,44 @@ public class LogInController {
     public AUserData getUserData() {
         return userData;
     }
+
+    public void handleSingUp(MouseEvent mouseEvent) {
+        FXMLLoader loader = new FXMLLoader();
+
+        try {
+            Parent root = loader.load(this.getClass().getClassLoader().getResource("SignUpForm.fxml").openStream());
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Sign Up");
+            stage.setResizable(false);
+            StageHolder.getInstance().holdStage(stage);
+            SignUpFormController sceneController = (SignUpFormController)loader.getController();
+            sceneController.setController(controller);
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    handleXPress();
+                }
+            });
+            stage.showAndWait();
+            User toSubmit = sceneController.getToSubmit();
+
+            if( toSubmit != null && !sceneController.getToSubmit().hasNullField())
+                this.controller.handleSubmitSignUp(toSubmit);
+
+        } catch (IOException e) {
+            e.getCause();
+            e.printStackTrace();
+        }
+
+    }
+
+
+    private void handleXPress(){
+        StageHolder.getInstance().getStage();
+    }
+
 
     public void setImageParameters(){
         img_backLogIn.fitWidthProperty().bind((mainpane.getScene().getWindow()).widthProperty());
