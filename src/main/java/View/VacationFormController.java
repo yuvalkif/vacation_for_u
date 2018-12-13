@@ -57,6 +57,10 @@ public class VacationFormController {
             e.showErrorStage("All fields must be entered");
             return;
         }
+        if(controller.containsticketID(ticketID)) {
+            e.showErrorStage("ticket ID already exists");
+            return;
+        }
         if(!isInteger(numberoftickets)) {
             e.showErrorStage("number of tickets must be an integer");
             return;
