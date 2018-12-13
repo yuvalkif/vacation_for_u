@@ -1,35 +1,15 @@
-created new table users 2018/12/11 17:51:35
-created new table vacations 2018/12/11 17:51:35
-created new table purchases 2018/12/11 17:51:35
-created new table offers 2018/12/11 17:51:35
-created new table messages 2018/12/11 17:51:35
-created new table credit_cards 2018/12/11 17:51:35
-connection opened 2018/12/11 17:51:40
-connection opened 2018/12/11 17:51:40
-connection opened 2018/12/11 17:51:40
-connection opened 2018/12/11 17:51:40
-connection opened 2018/12/11 17:51:43
-connection closed 2018/12/11 17:51:43
-connection opened 2018/12/11 17:51:43
-DELETED yuvaladam12345E 2018/12/11 17:51:43
-connection opened 2018/12/11 17:51:43
-connection closed 2018/12/11 17:51:43
-INSERT Message, content : 2018-12-11 17:51:43
-yuval
-Vacation{VacationID=12345E, publisherUserName='adam', flightCompany='el al', fromDate=2018-12-04, untilDate=2018-12-20, baggageIncluded='dsa', numberOfTickets=12, destination='a', twoDirections=false, ticketType='a', vacationType='a', includeSleep=true, hotelName='a', hotelRank=5.0, sold=true, price=1321.0, freezed=true}
- CONTACT: 09320148304 
-   ENJOY- SUCCESS 2018/12/11 17:51:43
-connection opened 2018/12/11 17:51:43
-connection closed 2018/12/11 17:51:43
-INSERT Message, content : username: yuval has bought your vacation: Vacation{VacationID=12345E, publisherUserName='adam', flightCompany='el al', fromDate=2018-12-04, untilDate=2018-12-20, baggageIncluded='dsa', numberOfTickets=12, destination='a', twoDirections=false, ticketType='a', vacationType='a', includeSleep=true, hotelName='a', hotelRank=5.0, sold=true, price=1321.0, freezed=true} we sent you: 1321.0- SUCCESS 2018/12/11 17:51:43
-connection opened 2018/12/11 17:51:43
-connection opened 2018/12/11 17:51:43
-connection closed 2018/12/11 17:51:43
-Update  , mark as sold vacation : 12345E - SUCCESS 2018/12/11 17:51:43
-accepting message:  : 12345E yuval adam - SUCCESS 2018/12/11 17:51:43
-connection opened 2018/12/11 17:52:00
-connection opened 2018/12/11 17:52:00
-connection opened 2018/12/11 17:52:00
-connection opened 2018/12/11 17:52:20
-connection opened 2018/12/11 17:52:20
-connection opened 2018/12/11 17:52:20
+created new table users 2018/12/13 18:24:15
+created new table vacations 2018/12/13 18:24:15
+created new table purchases 2018/12/13 18:24:15
+created new table offers 2018/12/13 18:24:15
+created new table messages 2018/12/13 18:24:15
+created new table credit_cards 2018/12/13 18:24:15
+connection opened 2018/12/13 18:24:39
+connection opened 2018/12/13 18:24:46
+connection opened 2018/12/13 18:24:46
+connection opened 2018/12/13 18:24:46
+connection opened 2018/12/13 18:25:25
+connection opened 2018/12/13 18:25:33
+connection opened 2018/12/13 18:25:37
+connection opened 2018/12/13 18:25:38
+connection opened 2018/12/13 18:25:46
