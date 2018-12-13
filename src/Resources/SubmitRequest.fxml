@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.SubmitRequestController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SubmitRequestController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
          <image>
@@ -75,25 +76,31 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label prefHeight="27.0" prefWidth="122.0" text="Visa Number" textFill="WHITE">
+                  <Label prefHeight="27.0" prefWidth="122.0" text="Visa Number" textFill="WHITE" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <Label text="CVV:" textFill="WHITE" GridPane.rowIndex="2">
+                  <Label text="CVV:" textFill="WHITE" GridPane.rowIndex="3">
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <Label text="Date of expire" textFill="WHITE" GridPane.rowIndex="1">
+                  <Label text="Date of expire" textFill="WHITE" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <TextField fx:id="tb_toFill1" GridPane.columnIndex="1" />
-                  <TextField fx:id="tb_toFill3" prefHeight="31.0" prefWidth="178.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label text="Name on card:" textFill="WHITE" GridPane.rowIndex="3" />
-                  <Label text="Card Type:" textFill="WHITE" GridPane.rowIndex="4" />
-                  <DatePicker fx:id="tb_date" prefHeight="31.0" prefWidth="255.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="tb_toFill4" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField fx:id="tb_toFill2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="tb_toFillVisaNumber" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="tb_toFillNameOnCard" prefHeight="31.0" prefWidth="178.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label text="Name on card:" textFill="WHITE" GridPane.rowIndex="4" >
+                      <font>
+                          <Font size="18.0" />
+                      </font></Label>
+                  <DatePicker fx:id="tb_date" prefHeight="31.0" prefWidth="255.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="tb_toFillCVV" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ChoiceBox fx:id="tb_toFillType" prefHeight="25.0" prefWidth="132.0" GridPane.columnIndex="1" />
+                  <Label text="Card Type:" textFill="WHITE" >
+                      <font>
+                          <Font size="18.0" />
+                      </font></Label>
                </children>
             </GridPane>
             <Button mnemonicParsing="false" onAction="#handleBack" text="Back" GridPane.columnIndex="2" GridPane.rowIndex="2" />
