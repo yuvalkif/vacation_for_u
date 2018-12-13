@@ -111,13 +111,14 @@ public class Model implements ISQLModel {
         String url = "jdbc:sqlite:vacation_for_u.db";
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS purchases (\n"
-                + "	cardOwnerUserName text PRIMARY KEY,\n"
+                + "	cardOwnerUserName text NOT NULL,\n"
                 + "	cardOwnerName text NOT NULL,\n"
                 + "	cardType text NOT NULL ,\n"
                 + "	cardNumber text NOT NULL,\n"
                 + "	cardCvv text NOT NULL,\n"
                 + "	cardExpireDate DATE NOT NULL,\n"
-                + " targetVacation INTEGER NOT NULL\n"
+                + " targetVacation text NOT NULL\n"
+                + " PRIMARY KEY (cardOwnerUserName, targetVacation)"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);
@@ -854,46 +855,6 @@ public class Model implements ISQLModel {
         return observableList;
     }
 
-//
-//    private ObservableList<Vacation> convertVacationResultsToObservableList(ResultSet resultSet,boolean showSoldAndFrozen) {
-//        ObservableList<Vacation> observableList = FXCollections.observableArrayList();
-//
-//        try {
-//            while (resultSet.next()) {
-//                Date fromDate = resultSet.getDate("fromDate");
-//                Date untilDate = resultSet.getDate("untilDate");
-//                int numberOfTickets = resultSet.getInt("numberOfTickets");
-//                boolean twoDirections = (resultSet.getInt("numberOfTickets") == 1) ? true : false;
-//                boolean includeSleep = (resultSet.getInt("includeSleep") == 1) ? true : false;
-//                boolean sold = (resultSet.getInt("sold") == 1) ? true : false;
-//                double hotelRank = resultSet.getDouble("hotelRank");
-//                boolean freezed = (resultSet.getInt("freezed") == 1) ? true : false;
-//                double price = (resultSet.getDouble("price"));
-//                Vacation v = new Vacation(resultSet.getString(14), resultSet.getString(1),
-//                        resultSet.getString(2),
-//                        fromDate,
-//                        untilDate,
-//                        resultSet.getString(5),
-//                        numberOfTickets,
-//                        resultSet.getString(7),
-//                        twoDirections,
-//                        resultSet.getString(9),
-//                        resultSet.getString(10),
-//                        includeSleep,
-//                        resultSet.getString(12),
-//                        hotelRank, sold, freezed, price);
-//                if (!showSoldAndFrozen) {
-//                    if (!v.isFreezed() && !v.isSold()) {
-//                        observableList.add(v);
-//                    }
-//                } else observableList.add(v);
-//            }
-//        } catch (SQLException var4) {
-//            var4.printStackTrace();
-//        }
-//
-//        return observableList;
-//    }
 
 
     private ObservableList<AMessage> convertInMessageResultsToObservableList(ResultSet resultSet) {
@@ -1070,8 +1031,11 @@ public class Model implements ISQLModel {
             Connection conn = this.openConnection();
             Statement stmt = conn.createStatement();
             resultSetIn = stmt.executeQuery(sqlInboundMessages);
+            conn.close();
+            conn = this.openConnection();
             resultSetOut = stmt.executeQuery(sqlOutboundMessages);
             conn.close();
+
             inboundMessages = this.convertInMessageResultsToObservableList(resultSetIn);
             outboundMessages = this.convertOutMessageResultsToObservableList(resultSetOut);
         } catch (SQLException var7) {
