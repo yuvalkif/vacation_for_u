@@ -76,6 +76,7 @@ public class SearchVacationController {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Submit Request");
+            stage.setResizable(false);
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
             SubmitRequestController c = (SubmitRequestController) loader.getController();

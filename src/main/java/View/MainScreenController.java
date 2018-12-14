@@ -346,6 +346,7 @@ public class MainScreenController implements IView{
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Update");
+            stage.setResizable(false);
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
             UpdateFormController uc = (UpdateFormController) loader.getController();
@@ -376,6 +377,7 @@ public class MainScreenController implements IView{
             stage.setScene(scene);
             stage.setTitle("Vacation");
             this.primaryStage.hide();
+            stage.setResizable(false);
             StageHolder.getInstance().holdStage(stage);
             VacationFormController vacationFormController =(VacationFormController) loader.getController();
             vacationFormController.setController(this.controller);

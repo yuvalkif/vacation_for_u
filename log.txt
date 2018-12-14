@@ -1,14 +1,62 @@
-created new table users 2018/12/14 04:48:19
-created new table vacations 2018/12/14 04:48:19
-created new table purchases 2018/12/14 04:48:19
-created new table offers 2018/12/14 04:48:19
-created new table messages 2018/12/14 04:48:19
-created new table credit_cards 2018/12/14 04:48:19
-connection opened 2018/12/14 04:48:26
-connection opened 2018/12/14 04:48:26
-connection opened 2018/12/14 04:48:31
-connection opened 2018/12/14 04:48:31
-connection opened 2018/12/14 04:48:35
-connection opened 2018/12/14 04:48:35
-connection opened 2018/12/14 04:48:36
-connection opened 2018/12/14 04:48:39
+created new table users 2018/12/14 05:00:27
+created new table vacations 2018/12/14 05:00:27
+created new table purchases 2018/12/14 05:00:27
+created new table offers 2018/12/14 05:00:27
+created new table messages 2018/12/14 05:00:27
+created new table credit_cards 2018/12/14 05:00:27
+connection opened 2018/12/14 05:00:32
+SUCCSSES retrive vacations to dest: a 2018/12/14 05:00:32
+connection opened 2018/12/14 05:00:39
+connection opened 2018/12/14 05:00:41
+connection opened 2018/12/14 05:00:41
+connection opened 2018/12/14 05:00:41
+connection opened 2018/12/14 05:00:43
+SUCCSSES retrive vacations to dest: a 2018/12/14 05:00:43
+connection opened 2018/12/14 05:00:46
+SUCCSSES retrive vacations to dest: a 2018/12/14 05:00:46
+connection opened 2018/12/14 05:01:20
+SUCCSSES retrive vacations to dest: a 2018/12/14 05:01:20
+connection opened 2018/12/14 05:01:30
+connection opened 2018/12/14 05:01:34
+connection opened 2018/12/14 05:01:34
+connection opened 2018/12/14 05:01:37
+SUCCSSES retrive vacations to dest: a 2018/12/14 05:01:37
+connection opened 2018/12/14 05:01:47
+connection opened 2018/12/14 05:01:47
+connection closed 2018/12/14 05:01:47
+connection opened 2018/12/14 05:01:47
+connection closed 2018/12/14 05:01:47
+INSERT Message, content : b wants to buy your vacation, id: 312- SUCCESS 2018/12/14 05:01:47
+connection opened 2018/12/14 05:01:47
+connection closed 2018/12/14 05:01:47
+INSERT : Purchase{cardOwnerUserName='b', cardOwnerName='32', cardType='javafx.scene.control.ChoiceBox$ChoiceBoxSelectionModel@b2346f7', cardNumber='2313213211233232', cardCvv='321', cardExpireDate=2018-12-12} - SUCCESS 2018/12/14 05:01:47
+connection opened 2018/12/14 05:01:47
+connection closed 2018/12/14 05:01:47
+Update  , mark as sold vacation : 312 - SUCCESS 2018/12/14 05:01:47
+INSERT Buying Offer on vacationID: 312 By user: b - SUCCESS 2018/12/14 05:01:47
+connection opened 2018/12/14 05:02:08
+connection opened 2018/12/14 05:02:08
+connection opened 2018/12/14 05:02:08
+connection opened 2018/12/14 05:02:08
+connection opened 2018/12/14 05:02:15
+connection closed 2018/12/14 05:02:15
+connection opened 2018/12/14 05:02:15
+DELETED ba312 2018/12/14 05:02:15
+connection opened 2018/12/14 05:02:15
+connection closed 2018/12/14 05:02:15
+INSERT Message, content : 2018-12-14 05:02:15
+b
+Vacation{VacationID=312, publisherUserName='a', flightCompany='312', fromDate=2018-12-02, untilDate=2018-12-21, baggageIncluded='321', numberOfTickets=321, destination='a', twoDirections=false, ticketType='31', vacationType='213132', includeSleep=false, hotelName='132', hotelRank=132.0, sold=true, price=321.0, freezed=false}
+ CONTACT: 09320148304 
+   ENJOY- SUCCESS 2018/12/14 05:02:15
+connection opened 2018/12/14 05:02:15
+connection closed 2018/12/14 05:02:15
+INSERT Message, content : username: b has bought your vacation: Vacation{VacationID=312, publisherUserName='a', flightCompany='312', fromDate=2018-12-02, untilDate=2018-12-21, baggageIncluded='321', numberOfTickets=321, destination='a', twoDirections=false, ticketType='31', vacationType='213132', includeSleep=false, hotelName='132', hotelRank=132.0, sold=true, price=321.0, freezed=false} we sent you: 321.0- SUCCESS 2018/12/14 05:02:15
+connection opened 2018/12/14 05:02:15
+connection opened 2018/12/14 05:02:15
+connection closed 2018/12/14 05:02:15
+Update  , mark as sold vacation : 312 - SUCCESS 2018/12/14 05:02:15
+accepting message:  : 312 b a - SUCCESS 2018/12/14 05:02:15
+connection opened 2018/12/14 05:02:15
+connection opened 2018/12/14 05:02:15
+connection opened 2018/12/14 05:02:15
