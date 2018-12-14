@@ -33,7 +33,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="294.0" prefWidth="386.0">
                      <children>
-                        <GridPane prefHeight="650.0" prefWidth="745.0">
+                        <GridPane>
                           <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.0" minWidth="10.0" prefWidth="66.0" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="86.0" />
@@ -66,7 +66,7 @@
                               <Label text="Destination" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <RadioButton mnemonicParsing="false" text="One Way Only" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                               <ChoiceBox fx:id="numOfAdults" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                              <ChoiceBox  fx:id="numOfKids" prefWidth="150.0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                              <ChoiceBox fx:id="numOfKids" prefWidth="150.0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
                               <RadioButton mnemonicParsing="false" text="Baggage" GridPane.columnIndex="6" GridPane.rowIndex="3" />
                               <Label text="Adults" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                               <Label text="Kids (Under 16)" GridPane.columnIndex="6" GridPane.rowIndex="4" />

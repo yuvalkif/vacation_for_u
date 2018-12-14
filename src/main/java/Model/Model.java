@@ -20,6 +20,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import Control.Controller;
 
+import javax.swing.plaf.nimbus.State;
+
 public class Model implements ISQLModel {
     private Controller controller;
     private sqlLiteJDBCDriverConnection driver = new sqlLiteJDBCDriverConnection();
@@ -1031,8 +1033,6 @@ public class Model implements ISQLModel {
             Connection conn = this.openConnection();
             Statement stmt = conn.createStatement();
             resultSetIn = stmt.executeQuery(sqlInboundMessages);
-            //conn.close();
-            conn = this.openConnection();
             resultSetOut = stmt.executeQuery(sqlOutboundMessages);
             conn.close();
 
