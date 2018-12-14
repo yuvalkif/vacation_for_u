@@ -350,7 +350,7 @@ public class Model implements ISQLModel {
             if(!creditAuthed)
                 return false;
              **/
-            freezeVacation(vacationId);
+//            freezeVacation(vacationId);
             insertMessage(controller.getLoggedUser(),vacation.getPublisherUserName(),theTimeNow,
                     "confirm",buyerUsername+ " wants to buy your vacation, id: "+vacationId,"waiting",vacationId);
 //                    null,"standby")));
@@ -895,8 +895,8 @@ public class Model implements ISQLModel {
                 boolean needToUnFreeze = false;
                 if (getHoursGap(creationTime, now) > 48)
                     expired = true;
-                if(getMinutesgap(creationTime,now) > 5)
-                    unFreezeVacation(vacationId);
+//                if(getMinutesgap(creationTime,now) > 5)
+//                    unFreezeVacation(vacationId);
                 AMessage msg = null;
 
                 Vacation v = getVacationAsObjectById(vacationId);
@@ -1048,19 +1048,17 @@ public class Model implements ISQLModel {
         ObservableList<AMessage> inboundMessages = null;
         ObservableList<AMessage> outboundMessages = null;
         String sqlInboundMessages = "SELECT * FROM messages WHERE reciverUserName =" + "'" + username + "'";
-        String sqlOutboundMessages = "SELECT * FROM messages WHERE senderUserName =" + "'" + username + "'";
+//        String sqlOutboundMessages = "SELECT * FROM messages WHERE senderUserName =" + "'" + username + "'";
         try {
             Connection conn = this.openConnection();
             Statement stmt = conn.createStatement();
             resultSetIn = stmt.executeQuery(sqlInboundMessages);
-            conn.close();
-            conn = this.openConnection();
-            stmt = conn.createStatement();
-            resultSetOut = stmt.executeQuery(sqlOutboundMessages);
+            inboundMessages = this.convertInMessageResultsToObservableList(resultSetIn);
+//            stmt = conn.createStatement();
+//            resultSetOut = stmt.executeQuery(sqlOutboundMessages);
             conn.close();
 
-            inboundMessages = this.convertInMessageResultsToObservableList(resultSetIn);
-            outboundMessages = this.convertOutMessageResultsToObservableList(resultSetOut);
+//            outboundMessages = this.convertOutMessageResultsToObservableList(resultSetOut);
         } catch (SQLException var7) {
             System.out.println(var7.getMessage());
             Logger.getInstance().log(var7.getMessage());
@@ -1068,7 +1066,7 @@ public class Model implements ISQLModel {
         }
 
         /***** NEED TO ADD OUTBOUND MESSAGES ****************/
-        return new UserData(username, inboundMessages, outboundMessages);
+        return new UserData(username, inboundMessages, null);
         //check if they are not expired
 
         //if not , add as it is to user messages
