@@ -537,7 +537,7 @@ public class Model implements ISQLModel {
 
     @Override
     public void unFreezeVacation(String vacationId) {
-        String sqlStatement = "UPDATE vacations SET freeze = 0 WHERE vacationId = " + "'" + vacationId + "'";
+        String sqlStatement = "UPDATE vacations SET freezed = 0 WHERE vacationId = " + "'" + vacationId + "'";
         try {
 
             Connection conn = this.openConnection();
