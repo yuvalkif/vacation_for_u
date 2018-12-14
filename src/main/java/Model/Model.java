@@ -117,7 +117,7 @@ public class Model implements ISQLModel {
                 + "	cardNumber text NOT NULL,\n"
                 + "	cardCvv text NOT NULL,\n"
                 + "	cardExpireDate DATE NOT NULL,\n"
-                + " targetVacation text NOT NULL\n"
+                + " targetVacation text NOT NULL,\n"
                 + " PRIMARY KEY (cardOwnerUserName, targetVacation)"
                 + ");";
 
@@ -554,7 +554,7 @@ public class Model implements ISQLModel {
 
     @Override
     public void unFreezeVacation(String vacationId) {
-        String sqlStatement = "UPDATE vacations SET freeze = 0 WHERE vacationId = " + "'" + vacationId + "'";
+        String sqlStatement = "UPDATE vacations SET freezed = 0 WHERE vacationId = " + "'" + vacationId + "'";
         try {
 
             Connection conn = this.openConnection();
@@ -1031,7 +1031,7 @@ public class Model implements ISQLModel {
             Connection conn = this.openConnection();
             Statement stmt = conn.createStatement();
             resultSetIn = stmt.executeQuery(sqlInboundMessages);
-            conn.close();
+            //conn.close();
             conn = this.openConnection();
             resultSetOut = stmt.executeQuery(sqlOutboundMessages);
             conn.close();
