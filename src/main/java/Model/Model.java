@@ -355,6 +355,7 @@ public class Model implements ISQLModel {
                     "confirm",buyerUsername+ " wants to buy your vacation, id: "+vacationId,"waiting",vacationId);
 //                    null,"standby")));
             insertPurchase(purchaseOfferDetails,vacationId);
+            markVacationAsSold(vacationId);
             Logger.getInstance().log("INSERT Buying Offer on vacationID: " + vacationId + " By user: " + buyerUsername + " - SUCCESS");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -518,7 +519,7 @@ public class Model implements ISQLModel {
 
     @Override
     public void freezeVacation(String vacationId) {
-        String sqlStatement = "UPDATE vacations SET freezed = 1 WHERE vacationId = " + "'" + vacationId + "'";
+        String sqlStatement = "UPDATE vacations SET freeze = 1 WHERE vacationId = " + "'" + vacationId + "'";
         try {
 
             Connection conn = this.openConnection();
@@ -575,6 +576,27 @@ public class Model implements ISQLModel {
     }
 
 
+
+    private void markVacationAsAviable(String vacationId) {
+        String sqlStatement = "UPDATE vacations SET sold = 0 WHERE vacationId = " + "'" + vacationId + "'";
+        try {
+
+            Connection conn = this.openConnection();
+
+            PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
+
+            pstmt.executeUpdate();
+
+            this.closeConnection(conn);
+            Logger.getInstance().log("Update  , mark as aviable vacation : " + vacationId + " - SUCCESS");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Logger.getInstance().log("Update  , mark as aviable vacation : " + vacationId + " - Failed");
+        }
+
+    }
+
+
     public AUserData getUpdatedViewContent(){
         if(controller.getLoggedUser() == null)
             return null;
@@ -607,7 +629,7 @@ public class Model implements ISQLModel {
             //send to the seller
                     msg.getVacation().getVacationID();
             Vacation v = getVacationAsObjectById(msg.getVacation().getVacationID());
-            markVacationAsSold(msg.getVacation().getVacationID());
+            markVacationAsAviable(msg.getVacation().getVacationID());
             Logger.getInstance().log("accepting message:  : " + msg.getVacation().getVacationID() +" "+msg.getSender() +" "+ msg.getReciver()+ " - SUCCESS");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -905,6 +927,7 @@ public class Model implements ISQLModel {
                 else {
                     String expireExplain = "user: +" + sender + " tried to buy vacation: " + v.toString() + " but 48 have passed" +
                             "so offer is expired";
+                    markVacationAsAviable(v.getVacationID());
                     msg = new ExpiredOfferMessage(sender, reciver, expireExplain);
                 }
 
