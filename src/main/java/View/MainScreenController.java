@@ -54,21 +54,6 @@ public class MainScreenController implements IView{
     //add the needed listeners
     public void initializeListeners(){
         setTravelers();
-        this.tabPane_tab.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if(newValue.intValue() == 2){
-                    showAllVacations();
-                }
-            }
-        });
-
-        this.vacationList.getSelectionModel().selectionModeProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                
-            }
-        });
 
         this.inbox.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override

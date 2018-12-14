@@ -1,6 +1,42 @@
-created new table users 2018/12/14 04:41:13
-created new table vacations 2018/12/14 04:41:13
-created new table purchases 2018/12/14 04:41:13
-created new table offers 2018/12/14 04:41:13
-created new table messages 2018/12/14 04:41:13
-created new table credit_cards 2018/12/14 04:41:13
+created new table users 2018/12/14 04:19:14
+created new table vacations 2018/12/14 04:19:14
+created new table purchases 2018/12/14 04:19:14
+created new table offers 2018/12/14 04:19:14
+created new table messages 2018/12/14 04:19:14
+created new table credit_cards 2018/12/14 04:19:14
+connection opened 2018/12/14 04:19:27
+connection opened 2018/12/14 04:19:27
+connection closed 2018/12/14 04:19:27
+INSERT : a , a - SUCCESS 2018/12/14 04:19:27
+connection opened 2018/12/14 04:19:31
+connection opened 2018/12/14 04:19:31
+connection opened 2018/12/14 04:19:52
+connection opened 2018/12/14 04:19:52
+connection opened 2018/12/14 04:19:52
+INSERT : Vacation{VacationID=aa, publisherUserName='a', flightCompany='a', fromDate=2018-12-11, untilDate=2018-12-22, baggageIncluded='as', numberOfTickets=2, destination='a', twoDirections=true, ticketType='a', vacationType='a', includeSleep=true, hotelName='a', hotelRank=2.0, sold=false, price=231.0, freezed=false}- SUCCESS 2018/12/14 04:19:52
+connection opened 2018/12/14 04:20:05
+connection opened 2018/12/14 04:20:05
+connection closed 2018/12/14 04:20:05
+INSERT : b , b - SUCCESS 2018/12/14 04:20:05
+connection opened 2018/12/14 04:20:08
+SUCCSSES retrive vacations to dest: a 2018/12/14 04:20:08
+connection opened 2018/12/14 04:20:13
+connection opened 2018/12/14 04:20:13
+connection opened 2018/12/14 04:20:15
+SUCCSSES retrive vacations to dest: a 2018/12/14 04:20:15
+connection opened 2018/12/14 04:20:32
+connection opened 2018/12/14 04:20:32
+connection closed 2018/12/14 04:20:32
+connection opened 2018/12/14 04:20:32
+connection closed 2018/12/14 04:20:32
+INSERT Message, content : b wants to buy your vacation, id: aa- SUCCESS 2018/12/14 04:20:32
+connection opened 2018/12/14 04:20:32
+connection closed 2018/12/14 04:20:32
+INSERT : Purchase{cardOwnerUserName='b', cardOwnerName='b', cardType='javafx.scene.control.ChoiceBox$ChoiceBoxSelectionModel@440408ec', cardNumber='2222222222222222', cardCvv='222', cardExpireDate=2018-12-06} - SUCCESS 2018/12/14 04:20:32
+connection opened 2018/12/14 04:20:32
+connection closed 2018/12/14 04:20:32
+Update  , mark as sold vacation : aa - SUCCESS 2018/12/14 04:20:32
+INSERT Buying Offer on vacationID: aa By user: b - SUCCESS 2018/12/14 04:20:32
+connection opened 2018/12/14 04:20:43
+connection opened 2018/12/14 04:20:43
+connection opened 2018/12/14 04:20:43
