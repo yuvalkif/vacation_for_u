@@ -1,62 +1,74 @@
-created new table users 2018/12/14 05:00:27
-created new table vacations 2018/12/14 05:00:27
-created new table purchases 2018/12/14 05:00:27
-created new table offers 2018/12/14 05:00:27
-created new table messages 2018/12/14 05:00:27
-created new table credit_cards 2018/12/14 05:00:27
-connection opened 2018/12/14 05:00:32
-SUCCSSES retrive vacations to dest: a 2018/12/14 05:00:32
-connection opened 2018/12/14 05:00:39
-connection opened 2018/12/14 05:00:41
-connection opened 2018/12/14 05:00:41
-connection opened 2018/12/14 05:00:41
-connection opened 2018/12/14 05:00:43
-SUCCSSES retrive vacations to dest: a 2018/12/14 05:00:43
-connection opened 2018/12/14 05:00:46
-SUCCSSES retrive vacations to dest: a 2018/12/14 05:00:46
-connection opened 2018/12/14 05:01:20
-SUCCSSES retrive vacations to dest: a 2018/12/14 05:01:20
-connection opened 2018/12/14 05:01:30
-connection opened 2018/12/14 05:01:34
-connection opened 2018/12/14 05:01:34
-connection opened 2018/12/14 05:01:37
-SUCCSSES retrive vacations to dest: a 2018/12/14 05:01:37
-connection opened 2018/12/14 05:01:47
-connection opened 2018/12/14 05:01:47
-connection closed 2018/12/14 05:01:47
-connection opened 2018/12/14 05:01:47
-connection closed 2018/12/14 05:01:47
-INSERT Message, content : b wants to buy your vacation, id: 312- SUCCESS 2018/12/14 05:01:47
-connection opened 2018/12/14 05:01:47
-connection closed 2018/12/14 05:01:47
-INSERT : Purchase{cardOwnerUserName='b', cardOwnerName='32', cardType='javafx.scene.control.ChoiceBox$ChoiceBoxSelectionModel@b2346f7', cardNumber='2313213211233232', cardCvv='321', cardExpireDate=2018-12-12} - SUCCESS 2018/12/14 05:01:47
-connection opened 2018/12/14 05:01:47
-connection closed 2018/12/14 05:01:47
-Update  , mark as sold vacation : 312 - SUCCESS 2018/12/14 05:01:47
-INSERT Buying Offer on vacationID: 312 By user: b - SUCCESS 2018/12/14 05:01:47
-connection opened 2018/12/14 05:02:08
-connection opened 2018/12/14 05:02:08
-connection opened 2018/12/14 05:02:08
-connection opened 2018/12/14 05:02:08
-connection opened 2018/12/14 05:02:15
-connection closed 2018/12/14 05:02:15
-connection opened 2018/12/14 05:02:15
-DELETED ba312 2018/12/14 05:02:15
-connection opened 2018/12/14 05:02:15
-connection closed 2018/12/14 05:02:15
-INSERT Message, content : 2018-12-14 05:02:15
+created new table users 2018/12/14 05:11:17
+created new table vacations 2018/12/14 05:11:17
+created new table purchases 2018/12/14 05:11:17
+created new table offers 2018/12/14 05:11:17
+created new table messages 2018/12/14 05:11:17
+created new table credit_cards 2018/12/14 05:11:17
+connection opened 2018/12/14 05:11:23
+connection opened 2018/12/14 05:11:24
+connection closed 2018/12/14 05:11:24
+INSERT : a , aaaaaaaa - SUCCESS 2018/12/14 05:11:24
+connection opened 2018/12/14 05:11:30
+connection opened 2018/12/14 05:11:30
+connection closed 2018/12/14 05:11:30
+INSERT : b , aaaaaaaa - SUCCESS 2018/12/14 05:11:30
+connection opened 2018/12/14 05:11:35
+connection opened 2018/12/14 05:11:35
+connection opened 2018/12/14 05:11:49
+connection opened 2018/12/14 05:11:49
+connection opened 2018/12/14 05:11:49
+INSERT : Vacation{VacationID=231, publisherUserName='a', flightCompany='dsa', fromDate=2018-12-11, untilDate=2018-12-14, baggageIncluded='213', numberOfTickets=321, destination='a', twoDirections=true, ticketType='321', vacationType='321', includeSleep=true, hotelName='213132', hotelRank=12.0, sold=false, price=231.0, freezed=false}- SUCCESS 2018/12/14 05:11:49
+connection opened 2018/12/14 05:11:58
+connection opened 2018/12/14 05:12:01
+connection opened 2018/12/14 05:12:01
+connection opened 2018/12/14 05:12:04
+SUCCSSES retrive vacations to dest: a 2018/12/14 05:12:04
+connection opened 2018/12/14 05:12:16
+connection opened 2018/12/14 05:12:16
+connection closed 2018/12/14 05:12:16
+connection opened 2018/12/14 05:12:16
+connection closed 2018/12/14 05:12:16
+INSERT Message, content : b wants to buy your vacation, id: 231- SUCCESS 2018/12/14 05:12:16
+connection opened 2018/12/14 05:12:16
+connection closed 2018/12/14 05:12:16
+INSERT : Purchase{cardOwnerUserName='b', cardOwnerName='3123', cardType='javafx.scene.control.ChoiceBox$ChoiceBoxSelectionModel@244d0bc8', cardNumber='3122313212131232', cardCvv='132', cardExpireDate=2018-12-12} - SUCCESS 2018/12/14 05:12:16
+connection opened 2018/12/14 05:12:16
+connection closed 2018/12/14 05:12:16
+Update  , mark as sold vacation : 231 - SUCCESS 2018/12/14 05:12:16
+INSERT Buying Offer on vacationID: 231 By user: b - SUCCESS 2018/12/14 05:12:16
+connection opened 2018/12/14 05:12:23
+connection opened 2018/12/14 05:12:23
+connection opened 2018/12/14 05:12:23
+connection opened 2018/12/14 05:12:28
+connection closed 2018/12/14 05:12:28
+connection opened 2018/12/14 05:12:28
+DELETED ba231 2018/12/14 05:12:28
+connection opened 2018/12/14 05:12:28
+connection closed 2018/12/14 05:12:28
+INSERT Message, content : 2018-12-14 05:12:28
 b
-Vacation{VacationID=312, publisherUserName='a', flightCompany='312', fromDate=2018-12-02, untilDate=2018-12-21, baggageIncluded='321', numberOfTickets=321, destination='a', twoDirections=false, ticketType='31', vacationType='213132', includeSleep=false, hotelName='132', hotelRank=132.0, sold=true, price=321.0, freezed=false}
+Vacation{VacationID=231, publisherUserName='a', flightCompany='dsa', fromDate=2018-12-11, untilDate=2018-12-14, baggageIncluded='213', numberOfTickets=321, destination='a', twoDirections=false, ticketType='321', vacationType='321', includeSleep=true, hotelName='213132', hotelRank=12.0, sold=true, price=231.0, freezed=false}
  CONTACT: 09320148304 
-   ENJOY- SUCCESS 2018/12/14 05:02:15
-connection opened 2018/12/14 05:02:15
-connection closed 2018/12/14 05:02:15
-INSERT Message, content : username: b has bought your vacation: Vacation{VacationID=312, publisherUserName='a', flightCompany='312', fromDate=2018-12-02, untilDate=2018-12-21, baggageIncluded='321', numberOfTickets=321, destination='a', twoDirections=false, ticketType='31', vacationType='213132', includeSleep=false, hotelName='132', hotelRank=132.0, sold=true, price=321.0, freezed=false} we sent you: 321.0- SUCCESS 2018/12/14 05:02:15
-connection opened 2018/12/14 05:02:15
-connection opened 2018/12/14 05:02:15
-connection closed 2018/12/14 05:02:15
-Update  , mark as sold vacation : 312 - SUCCESS 2018/12/14 05:02:15
-accepting message:  : 312 b a - SUCCESS 2018/12/14 05:02:15
-connection opened 2018/12/14 05:02:15
-connection opened 2018/12/14 05:02:15
-connection opened 2018/12/14 05:02:15
+   ENJOY- SUCCESS 2018/12/14 05:12:28
+connection opened 2018/12/14 05:12:28
+connection closed 2018/12/14 05:12:28
+INSERT Message, content : username: b has bought your vacation: Vacation{VacationID=231, publisherUserName='a', flightCompany='dsa', fromDate=2018-12-11, untilDate=2018-12-14, baggageIncluded='213', numberOfTickets=321, destination='a', twoDirections=false, ticketType='321', vacationType='321', includeSleep=true, hotelName='213132', hotelRank=12.0, sold=true, price=231.0, freezed=false} we sent you: 231.0- SUCCESS 2018/12/14 05:12:28
+connection opened 2018/12/14 05:12:28
+connection opened 2018/12/14 05:12:28
+connection closed 2018/12/14 05:12:28
+Update  , mark as sold vacation : 231 - SUCCESS 2018/12/14 05:12:28
+accepting message:  : 231 b a - SUCCESS 2018/12/14 05:12:28
+connection opened 2018/12/14 05:12:28
+connection opened 2018/12/14 05:12:28
+connection opened 2018/12/14 05:12:34
+connection opened 2018/12/14 05:12:34
+connection opened 2018/12/14 05:12:35
+connection opened 2018/12/14 05:12:35
+connection opened 2018/12/14 05:12:35
+connection opened 2018/12/14 05:12:35
+connection opened 2018/12/14 05:12:35
+connection opened 2018/12/14 05:12:35
+connection opened 2018/12/14 05:12:35
+connection opened 2018/12/14 05:12:35
+connection opened 2018/12/14 05:12:35
+connection opened 2018/12/14 05:12:35

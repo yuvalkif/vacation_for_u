@@ -646,6 +646,8 @@ public class Model implements ISQLModel {
         String sqlStatement = "UPDATE messages SET status = 'accept' WHERE vacationId = " + "'" + msg.getVacation().getVacationID() + "'";
 
         try {
+            if(msg.getSender().equals(SYSTEM))
+                return;
 
             Connection conn = this.openConnection();
 
