@@ -12,6 +12,8 @@ import javafx.scene.layout.AnchorPane;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 
 /**
  * controller class for the update scene. controlled by 'UpdateFormController.fxml'
@@ -28,7 +30,7 @@ public class UpdateFormController {
     public ImageView img_backUpdateUser;
 
     public void handleExecuteUpdate() {
-        user = new User(sNewUserName = newUserName.getText(), sPassword = password.getText(), sFirstName = firstname.getText(), sLastName = lastname.getText(),
+        user = new User(controller.getLoggedUser(), sPassword = password.getText(), sFirstName = firstname.getText(), sLastName = lastname.getText(),
                 sCity = city.getText(), sDate = date.getText());
 
         if (user.nullRecord()) {
@@ -37,13 +39,18 @@ public class UpdateFormController {
             return;
         }
 
-        ObservableList result = controller.searchInDataBase(user);
+        if(password.getText().length()<8){
+            showError("Password must be atleast 8 characters");
+            user = null;
+            return;
+        }
+        /*ObservableList result = controller.searchInDataBase(user);
         if (result.size() > 0) {
             showError("Username already exists. please choose\n" +
                     "another one");
             user = null;
             return;
-        }
+        }*/
 
         //date valid check
         if (user.getDate().length() > 0 && !isValidDate(user.getDate())) {
@@ -52,8 +59,10 @@ public class UpdateFormController {
             return;
         }
 
+
+
         //the update if all ok
-        this.controller.updateUser(user.getUsername(), user.getpPassword(), user.getFirstname(), user.getLastname(), user.getCity(), user.getDate());
+        this.controller.updateUser(controller.getLoggedUser(), user.getpPassword(), user.getFirstname(), user.getLastname(), user.getCity(), user.getDate());
 
         StageHolder.getInstance().getStage().close();
     }
@@ -92,11 +101,6 @@ public class UpdateFormController {
             return false;
         }
         return true;
-    }
-
-    public void setImageParameters(){
-        img_backUpdateUser.fitWidthProperty().bind((mainpane.getScene().getWindow()).widthProperty());
-        img_backUpdateUser.fitHeightProperty().bind((mainpane.getScene().getWindow()).heightProperty());
     }
 
 }

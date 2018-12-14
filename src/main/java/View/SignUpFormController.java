@@ -106,9 +106,7 @@ public class SignUpFormController {
         return true;
     }
 
-    public void setImageParameters(){
-        img_backSignUp.fitWidthProperty().bind((mainpane.getScene().getWindow()).widthProperty());
-        img_backSignUp.fitHeightProperty().bind((mainpane.getScene().getWindow()).heightProperty());
+    public void setDateInitial(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate localDate = LocalDate.parse("01-01-1991", formatter);
         datepk_age.setValue(localDate);

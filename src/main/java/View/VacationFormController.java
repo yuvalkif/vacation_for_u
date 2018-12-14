@@ -134,8 +134,4 @@ public class VacationFormController {
         }
     }
 
-    public void setImageParameters(){
-        img_backPublishVacation.fitWidthProperty().bind((mainpane.getScene().getWindow()).widthProperty());
-        img_backPublishVacation.fitHeightProperty().bind((mainpane.getScene().getWindow()).heightProperty());
-    }
 }

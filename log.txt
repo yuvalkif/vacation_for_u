@@ -1,61 +1,6 @@
-created new table users 2018/12/14 03:58:08
-created new table vacations 2018/12/14 03:58:08
-created new table purchases 2018/12/14 03:58:08
-created new table offers 2018/12/14 03:58:08
-created new table messages 2018/12/14 03:58:08
-created new table credit_cards 2018/12/14 03:58:08
-connection opened 2018/12/14 03:58:28
-connection opened 2018/12/14 03:58:28
-connection closed 2018/12/14 03:58:28
-INSERT : yuval , yuval - SUCCESS 2018/12/14 03:58:28
-connection opened 2018/12/14 03:58:48
-connection opened 2018/12/14 03:58:48
-connection closed 2018/12/14 03:58:48
-INSERT : shalom , shalom - SUCCESS 2018/12/14 03:58:48
-connection opened 2018/12/14 03:58:55
-connection opened 2018/12/14 03:58:55
-connection opened 2018/12/14 03:59:22
-connection opened 2018/12/14 03:59:22
-connection opened 2018/12/14 03:59:22
-INSERT : Vacation{VacationID=nbjk2b34, publisherUserName='shalom', flightCompany='cdzf', fromDate=2018-12-18, untilDate=2018-12-30, baggageIncluded='50ks', numberOfTickets=20, destination='Paris', twoDirections=true, ticketType='Eco', vacationType='Exo', includeSleep=true, hotelName='dsaf', hotelRank=2.0, sold=false, price=3.1213512E7, freezed=false}- SUCCESS 2018/12/14 03:59:22
-connection opened 2018/12/14 03:59:37
-connection opened 2018/12/14 03:59:37
-connection opened 2018/12/14 03:59:44
-SUCCSSES retrive vacations to dest: Paris 2018/12/14 03:59:44
-connection opened 2018/12/14 04:00:01
-connection opened 2018/12/14 04:00:01
-connection closed 2018/12/14 04:00:01
-connection opened 2018/12/14 04:00:01
-connection closed 2018/12/14 04:00:01
-INSERT Message, content : yuval wants to buy your vacation, id: nbjk2b34- SUCCESS 2018/12/14 04:00:01
-connection opened 2018/12/14 04:00:01
-connection closed 2018/12/14 04:00:01
-INSERT : Purchase{cardOwnerUserName='yuval', cardOwnerName='fdsaf', cardType='javafx.scene.control.ChoiceBox$ChoiceBoxSelectionModel@2fba0b8a', cardNumber='1234123412341234', cardCvv='132', cardExpireDate=2018-12-06} - SUCCESS 2018/12/14 04:00:01
-INSERT Buying Offer on vacationID: nbjk2b34 By user: yuval - SUCCESS 2018/12/14 04:00:01
-connection opened 2018/12/14 04:00:13
-connection opened 2018/12/14 04:00:13
-connection opened 2018/12/14 04:00:13
-connection opened 2018/12/14 04:00:46
-connection closed 2018/12/14 04:00:46
-connection opened 2018/12/14 04:00:46
-DELETED yuvalshalomnbjk2b34 2018/12/14 04:00:46
-connection opened 2018/12/14 04:00:46
-connection closed 2018/12/14 04:00:46
-INSERT Message, content : 2018-12-14 04:00:46
-yuval
-Vacation{VacationID=nbjk2b34, publisherUserName='shalom', flightCompany='cdzf', fromDate=2018-12-18, untilDate=2018-12-30, baggageIncluded='50ks', numberOfTickets=20, destination='Paris', twoDirections=false, ticketType='Eco', vacationType='Exo', includeSleep=true, hotelName='dsaf', hotelRank=2.0, sold=false, price=3.1213512E7, freezed=false}
- CONTACT: 09320148304 
-   ENJOY- SUCCESS 2018/12/14 04:00:46
-connection opened 2018/12/14 04:00:46
-connection closed 2018/12/14 04:00:46
-INSERT Message, content : username: yuval has bought your vacation: Vacation{VacationID=nbjk2b34, publisherUserName='shalom', flightCompany='cdzf', fromDate=2018-12-18, untilDate=2018-12-30, baggageIncluded='50ks', numberOfTickets=20, destination='Paris', twoDirections=false, ticketType='Eco', vacationType='Exo', includeSleep=true, hotelName='dsaf', hotelRank=2.0, sold=false, price=3.1213512E7, freezed=false} we sent you: 3.1213512E7- SUCCESS 2018/12/14 04:00:46
-connection opened 2018/12/14 04:00:46
-connection opened 2018/12/14 04:00:46
-connection closed 2018/12/14 04:00:46
-Update  , mark as sold vacation : nbjk2b34 - SUCCESS 2018/12/14 04:00:46
-accepting message:  : nbjk2b34 yuval shalom - SUCCESS 2018/12/14 04:00:46
-connection opened 2018/12/14 04:00:46
-connection opened 2018/12/14 04:00:46
-connection opened 2018/12/14 04:01:04
-connection opened 2018/12/14 04:01:04
-connection opened 2018/12/14 04:01:04
+created new table users 2018/12/14 04:41:13
+created new table vacations 2018/12/14 04:41:13
+created new table purchases 2018/12/14 04:41:13
+created new table offers 2018/12/14 04:41:13
+created new table messages 2018/12/14 04:41:13
+created new table credit_cards 2018/12/14 04:41:13

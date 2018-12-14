@@ -69,7 +69,7 @@ public class LogInController {
             stage.setResizable(false);
             StageHolder.getInstance().holdStage(stage);
             SignUpFormController sceneController = (SignUpFormController)loader.getController();
-            sceneController.setImageParameters();
+            sceneController.setDateInitial();
             sceneController.setController(controller);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -96,8 +96,4 @@ public class LogInController {
     }
 
 
-    public void setImageParameters(){
-        img_backLogIn.fitWidthProperty().bind((mainpane.getScene().getWindow()).widthProperty());
-        img_backLogIn.fitHeightProperty().bind((mainpane.getScene().getWindow()).heightProperty());
-    }
 }
