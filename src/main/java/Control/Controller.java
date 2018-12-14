@@ -130,12 +130,16 @@ public class Controller {
         sp_loggedUser.set("");
     }
 
+    public UserData getCurrentUserData(){
+        return (UserData)this.model.getUserData(loggedUser);
+    }
+
     public void confirmOrderMassage(ConfirmOfferMessage msg){
         this.model.acceptMessage(msg);
     }
 
     public void insertOfferRequest(Purchase p){
-        model.insertBuyingOffer(p.getPayingOnVacation(),p.getCardOwnerName(),p);
+        model.insertBuyingOffer(p.getPayingOnVacation(),p.getCardOwnerUserName(),p);
     }
 
     public boolean containsticketID(String ticketID){

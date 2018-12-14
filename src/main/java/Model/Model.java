@@ -20,6 +20,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import Control.Controller;
 
+import javax.swing.plaf.nimbus.State;
+
 public class Model implements ISQLModel {
     private Controller controller;
     private sqlLiteJDBCDriverConnection driver = new sqlLiteJDBCDriverConnection();
@@ -102,6 +104,8 @@ public class Model implements ISQLModel {
             Logger.getInstance().log("failed to create new table vacations");
         }
     }
+
+
 
     @Override
     public void createPurchaseTable() {
@@ -360,6 +364,7 @@ public class Model implements ISQLModel {
         return true;
 
     }
+
 
     private void insertPurchase(Purchase purchase, String vacationId) {
         String sqlStatement = "INSERT INTO purchases(cardOwnerUserName, cardOwnerName,cardType,cardNumber,cardCvv,cardExpireDate,targetVacation) VALUES(?,?,?,?,?,?,?)";
@@ -890,6 +895,8 @@ public class Model implements ISQLModel {
                 boolean needToUnFreeze = false;
                 if (getHoursGap(creationTime, now) > 48)
                     expired = true;
+                if(getMinutesgap(creationTime,now) > 5)
+                    unFreezeVacation(vacationId);
                 AMessage msg = null;
 
                 Vacation v = getVacationAsObjectById(vacationId);
