@@ -1,25 +1,36 @@
-created new table users 2018/12/14 02:48:51
-created new table vacations 2018/12/14 02:48:51
-created new table purchases 2018/12/14 02:48:51
-created new table offers 2018/12/14 02:48:51
-created new table messages 2018/12/14 02:48:51
-created new table credit_cards 2018/12/14 02:48:51
-connection opened 2018/12/14 02:48:55
-connection opened 2018/12/14 02:48:55
-connection opened 2018/12/14 02:49:00
-SUCCSSES retrive vacations to dest: a 2018/12/14 02:49:00
-connection opened 2018/12/14 02:49:15
-connection opened 2018/12/14 02:49:15
-connection closed 2018/12/14 02:49:15
-connection opened 2018/12/14 02:49:15
-connection closed 2018/12/14 02:49:15
-Update  , freezing vacation : 312 - SUCCESS 2018/12/14 02:49:15
-connection opened 2018/12/14 02:49:15
-connection opened 2018/12/14 02:49:15
-connection opened 2018/12/14 02:49:15
-connection closed 2018/12/14 02:49:15
-Update  , unfreezing vacation : 312 - SUCCESS 2018/12/14 02:49:15
-freezed vacation 312 after 5 minutes 2018/12/14 02:49:15
-connection opened 2018/12/14 02:49:15
-INSERT : Purchase{cardOwnerUserName='b', cardOwnerName='3232', cardType='javafx.scene.control.ChoiceBox$ChoiceBoxSelectionModel@48174ff7', cardNumber='1232132123123122', cardCvv='231', cardExpireDate=2018-12-13} - FAILED 2018/12/14 02:49:15
-INSERT Buying Offer on vacationID: 312 By user: 3232 - SUCCESS 2018/12/14 02:49:15
+created new table users 2018/12/14 03:13:12
+created new table vacations 2018/12/14 03:13:12
+created new table purchases 2018/12/14 03:13:12
+created new table offers 2018/12/14 03:13:12
+created new table messages 2018/12/14 03:13:12
+created new table credit_cards 2018/12/14 03:13:12
+connection opened 2018/12/14 03:13:21
+connection opened 2018/12/14 03:13:21
+connection opened 2018/12/14 03:13:28
+SUCCSSES retrive vacations to dest: a 2018/12/14 03:13:28
+connection opened 2018/12/14 03:13:34
+connection opened 2018/12/14 03:13:34
+connection opened 2018/12/14 03:13:35
+SUCCSSES retrive vacations to dest: a 2018/12/14 03:13:35
+connection opened 2018/12/14 03:13:47
+connection opened 2018/12/14 03:13:47
+connection closed 2018/12/14 03:13:47
+connection opened 2018/12/14 03:13:47
+connection closed 2018/12/14 03:13:47
+Update  , freezing vacation : 321 - SUCCESS 2018/12/14 03:13:47
+connection opened 2018/12/14 03:13:47
+connection opened 2018/12/14 03:13:47
+connection opened 2018/12/14 03:13:47
+connection closed 2018/12/14 03:13:47
+INSERT Message, content : b wants to buy your vacation, id: 321- SUCCESS 2018/12/14 03:13:47
+connection opened 2018/12/14 03:13:47
+connection closed 2018/12/14 03:13:47
+Update  , unfreezing vacation : 321 - SUCCESS 2018/12/14 03:13:47
+freezed vacation 321 after 5 minutes 2018/12/14 03:13:47
+connection closed 2018/12/14 03:13:47
+INSERT : Purchase{cardOwnerUserName='b', cardOwnerName='321', cardType='javafx.scene.control.ChoiceBox$ChoiceBoxSelectionModel@53d18f56', cardNumber='1233213123211321', cardCvv='123', cardExpireDate=2018-12-19} - SUCCESS 2018/12/14 03:13:47
+INSERT Buying Offer on vacationID: 321 By user: b - SUCCESS 2018/12/14 03:13:47
+connection opened 2018/12/14 03:13:56
+connection opened 2018/12/14 03:13:56
+connection opened 2018/12/14 03:14:00
+SUCCSSES retrive vacations to dest: a 2018/12/14 03:14:00

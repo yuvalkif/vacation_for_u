@@ -139,7 +139,7 @@ public class Controller {
     }
 
     public void insertOfferRequest(Purchase p){
-        model.insertBuyingOffer(p.getPayingOnVacation(),p.getCardOwnerName(),p);
+        model.insertBuyingOffer(p.getPayingOnVacation(),p.getCardOwnerUserName(),p);
     }
 
     public boolean containsticketID(String ticketID){
