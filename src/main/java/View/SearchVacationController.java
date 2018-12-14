@@ -102,7 +102,7 @@ public class SearchVacationController {
             });
             stage.showAndWait();
             this.primaryStage.show();
-
+            StageHolder.getInstance().getStage().close();
         } catch (IOException e) {
             e.getCause();
             e.printStackTrace();

@@ -1,41 +1,25 @@
-created new table users 2018/12/14 02:12:32
-created new table vacations 2018/12/14 02:12:32
-created new table purchases 2018/12/14 02:12:32
-created new table offers 2018/12/14 02:12:32
-created new table messages 2018/12/14 02:12:32
-created new table credit_cards 2018/12/14 02:12:32
-connection opened 2018/12/14 02:12:43
-connection opened 2018/12/14 02:12:43
-connection opened 2018/12/14 02:12:43
-connection opened 2018/12/14 02:12:43
-connection opened 2018/12/14 02:12:48
-SUCCSSES retrive vacations to dest: WW 2018/12/14 02:12:48
-connection opened 2018/12/14 02:13:28
-connection opened 2018/12/14 02:13:28
-connection opened 2018/12/14 02:13:28
-connection opened 2018/12/14 02:13:28
-connection opened 2018/12/14 02:13:28
-INSERT : Vacation{VacationID=32, publisherUserName='A', flightCompany='we', fromDate=2018-12-18, untilDate=2018-12-29, baggageIncluded='32', numberOfTickets=123, destination='WW', twoDirections=false, ticketType='42', vacationType='656', includeSleep=false, hotelName='66', hotelRank=6.0, sold=false, price=23.0, freezed=false}- SUCCESS 2018/12/14 02:13:28
-connection opened 2018/12/14 02:13:41
-connection opened 2018/12/14 02:13:41
-connection opened 2018/12/14 02:13:41
-connection opened 2018/12/14 02:13:43
-SUCCSSES retrive vacations to dest: WW 2018/12/14 02:13:43
-connection opened 2018/12/14 02:14:06
-connection opened 2018/12/14 02:14:06
-connection closed 2018/12/14 02:14:06
-connection opened 2018/12/14 02:14:06
-connection closed 2018/12/14 02:14:06
-Update  , freezing vacation : 32 - SUCCESS 2018/12/14 02:14:06
-connection opened 2018/12/14 02:14:06
-connection opened 2018/12/14 02:14:06
-connection opened 2018/12/14 02:14:06
-connection closed 2018/12/14 02:14:06
-INSERT Message, content : DSA wants to buy your vacation, id: 32- SUCCESS 2018/12/14 02:14:06
-connection opened 2018/12/14 02:14:06
-connection closed 2018/12/14 02:14:06
-Update  , unfreezing vacation : 32 - SUCCESS 2018/12/14 02:14:06
-freezed vacation 32 after 5 minutes 2018/12/14 02:14:06
-connection closed 2018/12/14 02:14:06
-INSERT : Purchase{cardOwnerUserName='B', cardOwnerName='DSA', cardType='javafx.scene.control.ChoiceBox$ChoiceBoxSelectionModel@5105abba', cardNumber='1234567890123456', cardCvv='123', cardExpireDate=2018-12-24} - SUCCESS 2018/12/14 02:14:06
-INSERT Buying Offer on vacationID: 32 By user: DSA - SUCCESS 2018/12/14 02:14:06
+created new table users 2018/12/14 02:48:51
+created new table vacations 2018/12/14 02:48:51
+created new table purchases 2018/12/14 02:48:51
+created new table offers 2018/12/14 02:48:51
+created new table messages 2018/12/14 02:48:51
+created new table credit_cards 2018/12/14 02:48:51
+connection opened 2018/12/14 02:48:55
+connection opened 2018/12/14 02:48:55
+connection opened 2018/12/14 02:49:00
+SUCCSSES retrive vacations to dest: a 2018/12/14 02:49:00
+connection opened 2018/12/14 02:49:15
+connection opened 2018/12/14 02:49:15
+connection closed 2018/12/14 02:49:15
+connection opened 2018/12/14 02:49:15
+connection closed 2018/12/14 02:49:15
+Update  , freezing vacation : 312 - SUCCESS 2018/12/14 02:49:15
+connection opened 2018/12/14 02:49:15
+connection opened 2018/12/14 02:49:15
+connection opened 2018/12/14 02:49:15
+connection closed 2018/12/14 02:49:15
+Update  , unfreezing vacation : 312 - SUCCESS 2018/12/14 02:49:15
+freezed vacation 312 after 5 minutes 2018/12/14 02:49:15
+connection opened 2018/12/14 02:49:15
+INSERT : Purchase{cardOwnerUserName='b', cardOwnerName='3232', cardType='javafx.scene.control.ChoiceBox$ChoiceBoxSelectionModel@48174ff7', cardNumber='1232132123123122', cardCvv='231', cardExpireDate=2018-12-13} - FAILED 2018/12/14 02:49:15
+INSERT Buying Offer on vacationID: 312 By user: 3232 - SUCCESS 2018/12/14 02:49:15

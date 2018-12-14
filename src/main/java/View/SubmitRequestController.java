@@ -84,13 +84,13 @@ public class SubmitRequestController {
         }
         if (tb_date.getValue().toString().equals("")){
             ErrorBox e = new ErrorBox();
-            e.showErrorStage("Chose a date ");
+            e.showErrorStage("Choose a date ");
             return;
         }
         Purchase p = new Purchase(controller.getLoggedUser(),tb_toFillNameOnCard.getText(), tb_toFillType.getSelectionModel().toString(), tb_toFillVisaNumber.getText(), tb_toFillCVV.getText() , java.sql.Date.valueOf(tb_date.getValue()),tb_vacationID.getText());
         controller.insertOfferRequest(p);
         ErrorBox e = new ErrorBox();
-        e.showErrorStage("We have send your request to the seller,\n he will let you know :)");
+        e.showErrorStage("We have sent your request to the seller,\n he will let you know :)");
         StageHolder.getInstance().getStage().close();
     }
 
