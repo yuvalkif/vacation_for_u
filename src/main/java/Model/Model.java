@@ -115,7 +115,7 @@ public class Model implements ISQLModel {
                 + "	cardNumber text NOT NULL,\n"
                 + "	cardCvv text NOT NULL,\n"
                 + "	cardExpireDate DATE NOT NULL,\n"
-                + " targetVacation text NOT NULL\n"
+                + " targetVacation text NOT NULL,\n"
                 + " PRIMARY KEY (cardOwnerUserName, targetVacation)"
                 + ");";
 
@@ -890,8 +890,6 @@ public class Model implements ISQLModel {
                 boolean needToUnFreeze = false;
                 if (getHoursGap(creationTime, now) > 48)
                     expired = true;
-                if(getMinutesgap(creationTime,now) > 5)
-                    unFreezeVacation(vacationId);
                 AMessage msg = null;
 
                 Vacation v = getVacationAsObjectById(vacationId);
@@ -1050,6 +1048,7 @@ public class Model implements ISQLModel {
             resultSetIn = stmt.executeQuery(sqlInboundMessages);
             conn.close();
             conn = this.openConnection();
+            stmt = conn.createStatement();
             resultSetOut = stmt.executeQuery(sqlOutboundMessages);
             conn.close();
 
