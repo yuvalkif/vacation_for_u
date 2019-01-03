@@ -1,8 +1,14 @@
 package dbObjects;
 
 public class ATransactionMessage extends AMessage {
-    public ATransactionMessage(String sender, String reciver, String content) {
+    private Vacation vacation;
+    public ATransactionMessage(String sender, String reciver, String content ,Vacation vacation) {
         super(sender, reciver, content);
+        this.vacation = vacation;
+    }
+
+    public Vacation getVacation() {
+        return vacation;
     }
 
     @Override
@@ -23,5 +29,16 @@ public class ATransactionMessage extends AMessage {
     @Override
     public String getContent() {
         return super.getContent();
+    }
+
+    @Override
+    public String toString() {
+        return "ATransactionMessage{" +
+                "vacation=" + vacation +
+                ", sender='" + sender + '\'' +
+                ", reciver='" + reciver + '\'' +
+                ", content='" + content + '\'' +
+                ", messageTime='" + messageTime + '\'' +
+                '}';
     }
 }

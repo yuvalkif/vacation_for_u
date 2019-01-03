@@ -2,63 +2,46 @@ package dbObjects;
 
 import java.sql.Date;
 
+
+/**
+ * purchase is a buying request which sucessfuly done .
+ */
 public class Purchase {
-    private String cardOwnerUserName;
-    private String cardOwnerName;
-    private String cardType;
-    private String cardNumber;
-    private String cardCvv;
-    private String payingOnVacation;
-    private Date   cardExpireDate;
+    private String askerUserName;
+    private String replierUserName;
+    private Date purchaseApprovedTime;
+    private Vacation vacation;
 
-    public Purchase(String cardOwnerUserName,String cardOwnerName, String cardType, String cardNumber, String cardCvv, Date cardExpireDate,String payingOnVacation) {
-        this.cardOwnerName = cardOwnerName;
-        this.cardType = cardType;
-        this.cardNumber = cardNumber;
-        this.cardCvv = cardCvv;
-        this.cardExpireDate = cardExpireDate;
-        this.cardOwnerUserName = cardOwnerUserName;
-        this.payingOnVacation = payingOnVacation;
+    public Purchase(String askerUserName, String replierUserName, Date purchaseApprovedTime, Vacation vacation) {
+        this.askerUserName = askerUserName;
+        this.replierUserName = replierUserName;
+        this.purchaseApprovedTime = purchaseApprovedTime;
+        this.vacation = vacation;
     }
 
-
-    public String getCardOwnerUserName() {
-        return cardOwnerUserName;
+    public String getAskerUserName() {
+        return askerUserName;
     }
 
-    public String getCardOwnerName() {
-        return cardOwnerName;
+    public String getReplierUserName() {
+        return replierUserName;
     }
 
-    public String getCardType() {
-        return cardType;
+    public Date getPurchaseApprovedTime() {
+        return purchaseApprovedTime;
     }
 
-    public String getCardNumber() {
-        return cardNumber;
-    }
-
-    public String getCardCvv() {
-        return cardCvv;
-    }
-
-    public Date getCardExpireDate() {
-        return cardExpireDate;
+    public Vacation getVacation() {
+        return vacation;
     }
 
     @Override
     public String toString() {
         return "Purchase{" +
-                "cardOwnerUserName='" + cardOwnerUserName + '\'' +
-                ", cardOwnerName='" + cardOwnerName + '\'' +
-                ", cardType='" + cardType + '\'' +
-                ", cardNumber='" + cardNumber + '\'' +
-                ", cardCvv='" + cardCvv + '\'' +
-                ", cardExpireDate=" + cardExpireDate +
+                "askerUserName='" + askerUserName + '\'' +
+                ", replierUserName='" + replierUserName + '\'' +
+                ", purchaseApprovedTime=" + purchaseApprovedTime +
+                ", vacation=" + vacation +
                 '}';
-    }
-
-    public String getPayingOnVacation() {
-        return payingOnVacation;
     }
 }

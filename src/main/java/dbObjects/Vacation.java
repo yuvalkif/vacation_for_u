@@ -8,18 +8,11 @@ import java.sql.Date;
 public class Vacation {
     private String VacationID;
     private String publisherUserName;
-    private String flightCompany;
-    private Date fromDate;
-    private Date untilDate;
-    private String baggageIncluded;
+    private Flight flight;
+    private Accommodation accommodation;
     private int numberOfTickets;
-    private String destination;
-    private boolean twoDirections;
-    private String ticketType;
     private String vacationType;
     private boolean includeSleep;
-    private String hotelName;
-    private double hotelRank;
     private boolean sold;
     private boolean freezed;
     private double price;
@@ -43,18 +36,12 @@ public class Vacation {
     public Vacation(String vacationID , String publisherUserName, String flightCompany, Date fromDate, Date untilDate, String baggageIncluded, int numberOfTickets, String destination, boolean twoDirections, String ticketType, String vacationType, boolean includeSleep, String hotelName, double hotelRank, boolean sold, boolean freezed, double price) {
         this.VacationID = vacationID;
         this.publisherUserName = publisherUserName;
-        this.flightCompany = flightCompany;
-        this.fromDate = fromDate;
-        this.untilDate = untilDate;
-        this.baggageIncluded = baggageIncluded;
+
+        this.flight = new Flight(flightCompany,destination,ticketType,baggageIncluded,fromDate,untilDate,isTwoDirections());
+        this.accommodation = new Accommodation(hotelName,hotelRank,destination,fromDate,untilDate);
         this.numberOfTickets = numberOfTickets;
-        this.destination = destination;
-        this.twoDirections = twoDirections;
-        this.ticketType = ticketType;
         this.vacationType = vacationType;
         this.includeSleep = includeSleep;
-        this.hotelName = hotelName;
-        this.hotelRank = hotelRank;
         this.sold = sold;
         this.freezed = freezed;
         this.price = price;
@@ -92,19 +79,19 @@ public class Vacation {
     }
 
     public String getFlightCompany() {
-        return flightCompany;
+        return flight.getFlightCompany();
     }
 
     public Date getFromDate() {
-        return fromDate;
+        return flight.getFromDate();
     }
 
     public Date getUntilDate() {
-        return untilDate;
+        return flight.getUntilDate();
     }
 
     public String getBaggageIncluded() {
-        return baggageIncluded;
+        return flight.getBaggageIncluded();
     }
 
     public int getNumberOfTickets() {
@@ -236,15 +223,15 @@ public class Vacation {
     }
 
     public String getDestination() {
-        return destination;
+        return flight.getDestination();
     }
 
     public boolean isTwoDirections() {
-        return twoDirections;
+        return flight.isTwoDirections();
     }
 
     public String getTicketType() {
-        return ticketType;
+        return flight.getGetTicketType();
     }
 
     public String getVacationType() {
@@ -256,33 +243,41 @@ public class Vacation {
     }
 
     public String getHotelName() {
-        return hotelName;
+        return accommodation.getAccomodationName();
     }
 
     public double getHotelRank() {
-        return hotelRank;
+        return accommodation.getAccomodationRank();
     }
 
     @Override
     public String toString() {
         return "Vacation{" +
-                "VacationID=" + VacationID +
+                "VacationID='" + VacationID + '\'' +
                 ", publisherUserName='" + publisherUserName + '\'' +
-                ", flightCompany='" + flightCompany + '\'' +
-                ", fromDate=" + fromDate +
-                ", untilDate=" + untilDate +
-                ", baggageIncluded='" + baggageIncluded + '\'' +
+                ", flight=" + flight +
+                ", accommodation=" + accommodation +
                 ", numberOfTickets=" + numberOfTickets +
-                ", destination='" + destination + '\'' +
-                ", twoDirections=" + twoDirections +
-                ", ticketType='" + ticketType + '\'' +
                 ", vacationType='" + vacationType + '\'' +
                 ", includeSleep=" + includeSleep +
-                ", hotelName='" + hotelName + '\'' +
-                ", hotelRank=" + hotelRank +
                 ", sold=" + sold +
-                ", price=" + price +
                 ", freezed=" + freezed +
+                ", price=" + price +
+                ", PVacationID=" + PVacationID +
+                ", PpublisherUserName=" + PpublisherUserName +
+                ", PflightCompany=" + PflightCompany +
+                ", PfromDate=" + PfromDate +
+                ", PuntilDate=" + PuntilDate +
+                ", PbaggageIncluded=" + PbaggageIncluded +
+                ", PnumberOfTickets=" + PnumberOfTickets +
+                ", PtwoDirections=" + PtwoDirections +
+                ", Pdestination=" + Pdestination +
+                ", PticketType=" + PticketType +
+                ", PvacationType=" + PvacationType +
+                ", PincludeSleep=" + PincludeSleep +
+                ", PhotelName=" + PhotelName +
+                ", PhotelRank=" + PhotelRank +
+                ", Pprice=" + Pprice +
                 '}';
     }
 }
