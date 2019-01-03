@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 /**
  * controller class for the sign up scene . controlled by 'SignUpForm.fxml'
@@ -46,8 +47,14 @@ public class SignUpFormController {
 
         this.toSubmit = new User(username.getText(), password.getText(), firstname.getText(), lastname.getText(), city.getText(),date);
 
-        if (toSubmit.hasNullField() || datepk_age==null) {
+        if (toSubmit.hasNullField() || datepk_age.getValue()==null) {
             raiseError("Must fill all the fields");
+            toSubmit=null;
+            return;
+        }
+
+        if(password.getText().length()<8){
+            raiseError("Password must be at least 8 characters");
             toSubmit=null;
             return;
         }
@@ -99,8 +106,9 @@ public class SignUpFormController {
         return true;
     }
 
-    public void setImageParameters(){
-        img_backSignUp.fitWidthProperty().bind((mainpane.getScene().getWindow()).widthProperty());
-        img_backSignUp.fitHeightProperty().bind((mainpane.getScene().getWindow()).heightProperty());
+    public void setDateInitial(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate localDate = LocalDate.parse("01-01-1991", formatter);
+        datepk_age.setValue(localDate);
     }
 }

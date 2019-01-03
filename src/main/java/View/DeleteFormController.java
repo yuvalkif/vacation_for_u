@@ -34,9 +34,4 @@ public class DeleteFormController {
     public void setController(Controller controller){
         this.controller = controller;
     }
-
-    public void setImageParameters(){
-        img_backDelete.fitWidthProperty().bind((mainpane.getScene().getWindow()).widthProperty());
-        img_backDelete.fitHeightProperty().bind((mainpane.getScene().getWindow()).heightProperty());
-    }
 }

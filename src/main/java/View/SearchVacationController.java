@@ -72,10 +72,11 @@ public class SearchVacationController {
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("SubmitRequest.fxml").openStream());
             Scene scene = new Scene(root);
-          //  scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Submit Request");
+            stage.setResizable(false);
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
             SubmitRequestController c = (SubmitRequestController) loader.getController();

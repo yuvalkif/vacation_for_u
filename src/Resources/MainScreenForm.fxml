@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -148,16 +147,6 @@
                 </AnchorPane>
             </content>
           </Tab>
-            <Tab fx:id="tab_vacationBoard" text="Vacation Board">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <ListView fx:id="vacationList" layoutX="50.0" layoutY="18.0" prefHeight="347.0" prefWidth="603.0" />
-                        <Button layoutX="165.0" layoutY="428.0" mnemonicParsing="false" onAction="#handlePurchaseVacation" prefHeight="31.0" prefWidth="109.0" text="Purchase" />
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
         </tabs>
       </TabPane>
    </children>

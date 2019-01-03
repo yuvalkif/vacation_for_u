@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.sql.Date;
 import java.time.ZoneId;
+import java.util.Calendar;
 
 
 public class VacationFormController {
@@ -77,11 +78,16 @@ public class VacationFormController {
         int numOfTickets = Integer.parseInt(numberoftickets);
         double hotelRank = Double.parseDouble(hotelrank);
         double price = Double.parseDouble(priceS);
-        java.sql.Date sqlFromDate , sqlToDate ;
+        java.sql.Date sqlFromDate , sqlToDate , sqlTodayDate;
         try {
             sqlFromDate = utilDateToSqlDate(Date.from(fromDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
             sqlToDate = utilDateToSqlDate(Date.from(toDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            sqlTodayDate = utilDateToSqlDate(Date.from(Calendar.getInstance().getTime().toInstant()));
 
+            if(sqlFromDate.compareTo(sqlTodayDate)<0){
+                e.showErrorStage("Please peek a date later than today");
+                return;
+            }
             if(sqlFromDate.compareTo(sqlToDate)>0) {
                 e.showErrorStage("Return date must be after from date");
                 return;
@@ -134,8 +140,4 @@ public class VacationFormController {
         }
     }
 
-    public void setImageParameters(){
-        img_backPublishVacation.fitWidthProperty().bind((mainpane.getScene().getWindow()).widthProperty());
-        img_backPublishVacation.fitHeightProperty().bind((mainpane.getScene().getWindow()).heightProperty());
-    }
 }

@@ -90,7 +90,7 @@ public class SearchFormController {
 
             if (searchResults != null) {
                 userNameCol.setCellValueFactory(cellData -> cellData.getValue().pUserNameProperty());
-                passwordCol.setCellValueFactory(cellData -> cellData.getValue().pPasswordProperty());
+                //passwordCol.setCellValueFactory(cellData -> cellData.getValue().pPasswordProperty());
                 firstNameCol.setCellValueFactory(cellData -> cellData.getValue().pFirstNameProperty());
                 lastNameCol.setCellValueFactory(cellData -> cellData.getValue().pLastNameProperty());
                 cityCol.setCellValueFactory(cellData -> cellData.getValue().pCityProperty());
