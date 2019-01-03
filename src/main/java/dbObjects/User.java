@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * class for holding record fields from the database as an object .
  */
 
-public class User {
+public class User extends AUser{
 
     private String userName;
     private String password;

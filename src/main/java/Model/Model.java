@@ -647,6 +647,9 @@ public class Model implements ISQLModel {
 
         try {
 
+            if (msg.getSender().equals(SYSTEM))
+                return;
+
             Connection conn = this.openConnection();
 
             PreparedStatement pstmt = conn.prepareStatement(sqlStatement);

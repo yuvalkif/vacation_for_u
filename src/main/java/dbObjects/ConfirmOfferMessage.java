@@ -1,6 +1,6 @@
 package dbObjects;
 
-public class ConfirmOfferMessage extends AMessage {
+public class ConfirmOfferMessage extends ATransactionMessage {
     private String status;
     private Vacation vacation;
     public ConfirmOfferMessage(String sender, String reciver, String content,Vacation vacation,String status) {

@@ -10,6 +10,9 @@ public abstract class AMessage {
     protected String content;
     protected String messageTime;
 
+    public AMessage() {
+    }
+
     public AMessage(String sender, String reciver, String content) {
         this.sender = sender;
         this.reciver = reciver;

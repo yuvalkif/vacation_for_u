@@ -6,12 +6,12 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class BuyingOffer {
+public class BuyingRequest extends ARequest {
     private String buyerUserName;
     private String purchseOfferTime;
     private Purchase PurchaseOfferDetails;
 
-    public BuyingOffer(String buyerUserName,Purchase purchaseOfferDetails) {
+    public BuyingRequest(String buyerUserName, Purchase purchaseOfferDetails) {
         buyerUserName = buyerUserName;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         this.purchseOfferTime = LocalDateTime.now().format(formatter);
@@ -32,7 +32,7 @@ public class BuyingOffer {
 
     @Override
     public String toString() {
-        return "BuyingOffer{" +
+        return "BuyingRequest{" +
                 "BuyerUserName='" + buyerUserName + '\'' +
                 ", PurchseOfferTime=" + purchseOfferTime +
                 ", PurchaseOfferDetails=" + PurchaseOfferDetails +
