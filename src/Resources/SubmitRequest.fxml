@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -65,7 +65,7 @@
             <Label text="Choose vacation" GridPane.rowIndex="2" />
             <TextField fx:id="tb_vacationID1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="tb_userName1" GridPane.columnIndex="1" />
-            <ListView fx:id="lv_toTrade" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ChoiceBox fx:id="cb_tradeVacation" prefHeight="31.0" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Button layoutX="467.0" layoutY="230.0" mnemonicParsing="false" onAction="#clickSubmitTrade" text="Submit Trade Request">

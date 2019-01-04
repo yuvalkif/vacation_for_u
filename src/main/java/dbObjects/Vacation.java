@@ -37,7 +37,7 @@ public class Vacation {
         this.VacationID = vacationID;
         this.ownerUserName = publisherUserName;
 
-        this.flight = new Flight(flightCompany,destination,ticketType,baggageIncluded,fromDate,untilDate,isTwoDirections());
+        this.flight = new Flight(flightCompany,destination,ticketType,baggageIncluded,fromDate,untilDate,twoDirections);
         this.accommodation = new Accommodation(hotelName,hotelRank,destination,fromDate,untilDate);
         this.numberOfTickets = numberOfTickets;
         this.vacationType = vacationType;
