@@ -319,6 +319,8 @@ public class Model implements ISQLModel {
                     "confirm",requestedVacation.getOwnerUserName()+ " wants to trade his vacatoin: "+offeredVacation.toString()+"with your vacation " +requestedVacation.toString(),"waiting",requestedVacationId);
 
             //send a request sent to message
+            insertMessage(SYSTEM,offeredVacation.getOwnerUserName(),theTimeNow,"regular","Your buying request sent to: "+requestedVacation.getOwnerUserName(),"regular",requestedVacationId);
+
 
 
             markVacationAsSold(requestedVacationId);
@@ -386,14 +388,6 @@ public class Model implements ISQLModel {
             pstmt.setInt(16, freezed);
             pstmt.setString(17,vacationValues.getVacationID());
             pstmt.executeUpdate();
-//            String sqlGetlastInsertId = "select last_insert_rowid()";
-//            Statement s = conn.createStatement();
-//            ResultSet rs = s.executeQuery(sqlGetlastInsertId );
-//            System.out.println(sqlGetlastInsertId +" this is the id , and type: "+(sqlGetlastInsertId).getClass());
-//            this.closeConnection(conn);
-//
-//            insertMessage("SYSTEM",vacationValues.getOwnerUserName(),LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-//                    "conform","succesfuly added a vacation","ReadOnly",1);
             Logger.getInstance().log("INSERT : " + vacationValues.toString() + "- SUCCESS");
             return true;
         } catch (SQLException e) {
@@ -414,6 +408,10 @@ public class Model implements ISQLModel {
      */
     @Override
     public boolean insertBuyingRequest(String requestedVacationId, String askerUserName, String timeCreated) {
+
+        //get the vacation
+
+        Vacation requestedVacation = getVacationAsObjectById(requestedVacationId);
 
 
         String sql = "CREATE TABLE IF NOT EXISTS buyingRequests (\n"
@@ -439,9 +437,9 @@ public class Model implements ISQLModel {
             if(!creditAuthed)
                 return false;
              **/
+            insertMessage(SYSTEM,askerUserName,theTimeNow,"regular","Your buying request sent to: "+requestedVacation.getOwnerUserName(),"regular",requestedVacationId);
             insertMessage(controller.getLoggedUser(),vacation.getOwnerUserName(),theTimeNow,
                     "confirm",askerUserName+ " wants to buy your vacation, id: "+requestedVacationId,"waiting",requestedVacationId);
-//                    null,"standby")));
             markVacationAsSold(requestedVacationId);
             Logger.getInstance().log("INSERT Buying Offer on vacationID: " + requestedVacationId + " By user: " + askerUserName + " - SUCCESS");
         } catch (SQLException e) {
