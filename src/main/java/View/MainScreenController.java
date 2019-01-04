@@ -5,8 +5,6 @@ import Logger.StageHolder;
 import Objects.ErrorBox;
 import dbObjects.*;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -93,13 +91,11 @@ public class MainScreenController implements IView{
         this.vacationList.setItems(allVacations);
     }
 
-
     public void setCurrentStage(Stage stage) {
         this.primaryStage = stage;
         img_backImg.fitWidthProperty().bind(primaryStage.widthProperty());
         img_backImg.fitHeightProperty().bind(primaryStage.heightProperty());
     }
-
 
     public void handleSignUp() {
         FXMLLoader loader = new FXMLLoader();

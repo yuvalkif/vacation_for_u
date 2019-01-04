@@ -116,4 +116,6 @@ public interface ISQLModel {
     String getLoggedUser();
 
     boolean checkTicketExist(String text);
+
+    ObservableList getUserVacations();
 }
