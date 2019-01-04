@@ -67,7 +67,7 @@ public class Controller {
     }
 
     public ObservableList<User> searchInDataBase(User user) {
-        return ((Model)this.model).searchRecordsByFields(user.getUsername());
+        return ((Model)this.model).searchRecordsByFields(user.getUserName());
     }
 
     public ObservableList searchInDataBase(String username){
@@ -142,9 +142,9 @@ public class Controller {
         this.model.acceptMessage(msg);
     }
 
-    public void insertOfferRequest(Purchase p){
-        model.insertBuyingOffer(p.getPayingOnVacation(),p.getBuyerUserName(),p);
-    }
+//    public void insertBuyingRequest(BuyingRequest buyingRequest){
+//        model.insertBuyingRequest(buyingRequest.get,p.get(),p);
+//    }
 
     public boolean containsticketID(String ticketID){
         return model.checkTicketExist(ticketID);

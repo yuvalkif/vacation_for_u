@@ -6,8 +6,12 @@ import java.time.format.DateTimeFormatter;
 public class BuyingRequest extends ARequest {
 
 
-    public BuyingRequest(String askerUserName, String timeCreated) {
-        super(askerUserName, timeCreated);
+    public BuyingRequest(String askerUserName,Vacation requestedVacation, String timeCreated) {
+        super(askerUserName,requestedVacation, timeCreated);
+    }
+
+    public BuyingRequest(String askerUserName,Vacation requestedVacation) {
+        super(askerUserName,requestedVacation);
     }
 
 

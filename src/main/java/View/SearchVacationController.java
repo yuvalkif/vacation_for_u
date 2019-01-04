@@ -4,7 +4,6 @@ import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import dbObjects.Vacation;
-import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +30,7 @@ public class SearchVacationController {
 
         if (searchResults != null) {
             vacationId.setCellValueFactory(cellData -> cellData.getValue().PVacationIDProperty());
-            publisherUserName.setCellValueFactory(cellData -> cellData.getValue().ppublisherUserNameProperty());
+            publisherUserName.setCellValueFactory(cellData -> cellData.getValue().pownerUserNameProperty());
             flightCompany.setCellValueFactory(cellData -> cellData.getValue().pflightCompanyProperty());
             fromDate.setCellValueFactory(cellData -> cellData.getValue().pfromDateProperty());
             untilDate.setCellValueFactory(cellData -> cellData.getValue().puntilDateProperty());
@@ -82,7 +81,7 @@ public class SearchVacationController {
             SubmitRequestController c = (SubmitRequestController) loader.getController();
             if ((Vacation) tableView.getSelectionModel().getSelectedItem()!=null) {
                 Vacation v = (Vacation) tableView.getSelectionModel().getSelectedItem();
-                if(v.getPpublisherUserName().equals(controller.getLoggedUser())){
+                if(v.getPownerUserName().equals(controller.getLoggedUser())){
                     ErrorBox e = new ErrorBox();
                     e.showErrorStage("you can't buy your own vacation");
                     return;

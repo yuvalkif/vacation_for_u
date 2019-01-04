@@ -10,17 +10,13 @@ import java.text.SimpleDateFormat;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.StringJoiner;
-import java.util.concurrent.ExecutionException;
 
 import dbObjects.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import Control.Controller;
-
-import javax.swing.plaf.nimbus.State;
 
 public class Model implements ISQLModel {
     private Controller controller;
@@ -189,33 +185,65 @@ public class Model implements ISQLModel {
 
     }
 
-    /**
-     * this is only a demo of credit card validation in front of the credit card company
-     */
-    @Override
-    public void createCreditCardPoolTable(){
 
-        // SQLite connection string
+    /**
+     * This table will hold currently active trade requests
+     * Table records:  [SENDER, OFFERDVACAATIONID, RECIVER, REQUESTEDVACATIONID,CREATIONTIME]
+     *
+     */
+    public void createTradeRequestsTable(){
         String url = "jdbc:sqlite:vacation_for_u.db";
+
         // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS credit_cards (\n"
-                + "	cardOwnerName text PRIMARY KEY,\n"
-                + "	cardType text NOT NULL ,\n"
-                + "	cardNumber text NOT NULL,\n"
-                + "	cardCvv text NOT NULL,\n"
-                + "	cardExpireDate DATE NOT NULL\n"
+        String sql = "CREATE TABLE IF NOT EXISTS tradeRequests (\n"
+                + "	senderUserName text NOT NULL,\n"
+                + "	offeredVacationId text NOT NULL,\n"
+                + "	reciverUserName text NOT NULL,\n"
+                + "	requestedVacationId text NOT NULL,\n"
+                + "	creationTime text NOT NULL ,\n"
+                + " PRIMARY KEY (offeredVacationId, requestedVacationId)\n"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
-            Logger.getInstance().log("created new table credit_cards");
+            Logger.getInstance().log("created new trade Requests table table messages");
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
-            Logger.getInstance().log("failed to create new table credit_cards");
+            Logger.getInstance().log("failed to create new table messages");
         }
+
+    }
+
+    /**
+     * this is only a demo of credit card validation in front of the credit card company
+     */
+    @Override
+    public void createCreditCardPoolTable(){
+
+//        // SQLite connection string
+//        String url = "jdbc:sqlite:vacation_for_u.db";
+//        // SQL statement for creating a new table
+//        String sql = "CREATE TABLE IF NOT EXISTS credit_cards (\n"
+//                + "	cardOwnerName text PRIMARY KEY,\n"
+//                + "	cardType text NOT NULL ,\n"
+//                + "	cardNumber text NOT NULL,\n"
+//                + "	cardCvv text NOT NULL,\n"
+//                + "	cardExpireDate DATE NOT NULL\n"
+//                + ");";
+//
+//        try (Connection conn = DriverManager.getConnection(url);
+//             Statement stmt = conn.createStatement()) {
+//            // create a new table
+//            stmt.execute(sql);
+//            Logger.getInstance().log("created new table credit_cards");
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            System.out.println(e.getMessage());
+//            Logger.getInstance().log("failed to create new table credit_cards");
+//        }
 
     }
 
@@ -242,6 +270,48 @@ public class Model implements ISQLModel {
             pstmt.executeUpdate();
             this.closeConnection(conn);
             Logger.getInstance().log("INSERT : " + user.getUserName() + " , " + user.getPassword() + " - SUCCESS");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Logger.getInstance().log(e.getMessage());
+        }
+
+    }
+
+    /**
+     * add a new trade request to the data base
+     * @param offeredVacationId
+     * @param requestedVacationId
+     */
+    public void insertTradeRequests( String offeredVacationId , String requestedVacationId){
+
+        //first find and get the vacations
+        Vacation offeredVacation = getVacationAsObjectById(offeredVacationId);
+        Vacation requestedVacation = getVacationAsObjectById(requestedVacationId);
+
+        //check that the vacations are aviable
+        if(offeredVacation.isSold() || offeredVacation.isFreezed() || requestedVacation.isSold() || requestedVacation.isFreezed())
+            return;
+
+        //create the sql statement
+
+
+        String sql = "INSERT INTO tradeRequests(senderUserName, offeredVacationId,reciverUserName,requestedVacationId,creationTime) VALUES(?,?,?,?,?)";
+
+        //get the curr time
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String theTimeNow= LocalDateTime.now().format(formatter);
+
+        try {
+            Connection conn = this.openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, offeredVacation.getOwnerUserName());
+            pstmt.setString(2, offeredVacation.getVacationID());
+            pstmt.setString(3, requestedVacation.getOwnerUserName());
+            pstmt.setString(4, requestedVacation.getVacationID());
+            pstmt.setString(5, theTimeNow);
+            pstmt.executeUpdate();
+            this.closeConnection(conn);
+            Logger.getInstance().log("INSERT : " + offeredVacation.getOwnerUserName() + " , " + requestedVacation.getOwnerUserName() + " - SUCCESS");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             Logger.getInstance().log(e.getMessage());
@@ -283,7 +353,7 @@ public class Model implements ISQLModel {
             int index = 0;
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1, vacationValues.getPublisherUserName());
+            pstmt.setString(1, vacationValues.getOwnerUserName());
             pstmt.setString(2, vacationValues.getFlightCompany());
             pstmt.setDate(3, vacationValues.getFromDate());
             pstmt.setDate(4, vacationValues.getUntilDate());
@@ -308,7 +378,7 @@ public class Model implements ISQLModel {
 //            System.out.println(sqlGetlastInsertId +" this is the id , and type: "+(sqlGetlastInsertId).getClass());
 //            this.closeConnection(conn);
 //
-//            insertMessage("SYSTEM",vacationValues.getPublisherUserName(),LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+//            insertMessage("SYSTEM",vacationValues.getOwnerUserName(),LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
 //                    "conform","succesfuly added a vacation","ReadOnly",1);
             Logger.getInstance().log("INSERT : " + vacationValues.toString() + "- SUCCESS");
             return true;
@@ -329,11 +399,11 @@ public class Model implements ISQLModel {
      * @return success or not
      */
     @Override
-    public boolean insertBuyingOffer(String vacationId, String buyerUsername,Purchase purchaseOfferDetails) {
+    public boolean insertBuyingRequest(String vacationId, String buyerUsername, String creationTime) {
 
         String sqlStatement = "INSERT INTO offers(vacationId, buyerUsername,purchseOfferTime) VALUES(?,?,?)";
         Vacation vacation = getVacationAsObjectById(vacationId);
-        String theTimeNow = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        String theTimeNow = creationTime;
         try {
             Connection conn = this.openConnection();
             PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
@@ -348,11 +418,9 @@ public class Model implements ISQLModel {
             if(!creditAuthed)
                 return false;
              **/
-//            freezeVacation(vacationId);
-            insertMessage(controller.getLoggedUser(),vacation.getPublisherUserName(),theTimeNow,
+            insertMessage(controller.getLoggedUser(),vacation.getOwnerUserName(),theTimeNow,
                     "confirm",buyerUsername+ " wants to buy your vacation, id: "+vacationId,"waiting",vacationId);
 //                    null,"standby")));
-            insertPurchase(purchaseOfferDetails,vacationId);
             markVacationAsSold(vacationId);
             Logger.getInstance().log("INSERT Buying Offer on vacationID: " + vacationId + " By user: " + buyerUsername + " - SUCCESS");
         } catch (SQLException e) {
@@ -841,7 +909,7 @@ public class Model implements ISQLModel {
     }
 
     public void deleteMessage(String sender,String reciver , String vacaitonId) {
-        String sql = "DELETE FROM messages WHERE vacationId = ?";
+        String sql = "DELETE FROM messages WHERE vacationId = ?, ";
         try {
             Connection conn = openConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -859,6 +927,38 @@ public class Model implements ISQLModel {
 
 
     }
+
+
+
+
+    public void deleteTradeRequest(String offeredVacationId,String requestedVacationId) {
+        String sql = "DELETE FROM messages WHERE offeredVacationId = ?, requestedVacationId = ?";
+        try {
+            Connection conn = openConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, offeredVacationId);
+            stmt.setString(2, requestedVacationId);
+            stmt.executeUpdate();
+            Logger.getInstance().log("DELETED " + offeredVacationId + requestedVacationId);
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.getInstance().log("FAILED TO DELETE " + offeredVacationId + requestedVacationId);
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     /********************************************   LOGIN *************************************************/
 
