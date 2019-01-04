@@ -95,7 +95,7 @@ public class Controller {
         return this.model.getAllVacations();
     }
 
-    public ObservableList getUserVacations(){
+    public ObservableList<Vacation> getUserVacations(){
         return model.getUserVacations();
     }
 

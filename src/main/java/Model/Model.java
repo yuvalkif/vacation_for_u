@@ -861,10 +861,10 @@ public class Model implements ISQLModel {
     }
 
     @Override
-    public ObservableList getUserVacations() {
+    public ObservableList<Vacation> getUserVacations() {
         ResultSet resultSet = null;
         String sql = "SELECT * FROM vacations WHERE publisherUserName = " + "'" + loggedUser + "'";
-        ObservableList result = null;
+        ObservableList<Vacation> result = null;
 
         try {
             Connection conn = this.openConnection();

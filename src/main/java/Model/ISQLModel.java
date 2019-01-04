@@ -117,5 +117,5 @@ public interface ISQLModel {
 
     boolean checkTicketExist(String text);
 
-    ObservableList getUserVacations();
+    ObservableList<Vacation> getUserVacations();
 }

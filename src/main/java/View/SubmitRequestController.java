@@ -4,16 +4,20 @@ import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import dbObjects.Purchase;
+import dbObjects.Vacation;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 
 public class SubmitRequestController {
+    public Controller controller;
+
     public TextField tb_vacationID;
     public TextField tb_userName;
     public TextField tb_price;
-    public Controller controller;
     public TextField tb_vacationID1;
     public TextField tb_userName1;
-    public ListView lv_toTrade;
+    public ChoiceBox<String> cb_tradeVacation;
 
     public void setController(Controller controller) {
         this.controller = controller;
@@ -34,7 +38,17 @@ public class SubmitRequestController {
         tb_userName.setText(loggedUser);
         tb_userName1.setText(loggedUser);
         tb_price.setText(""+price);
-        lv_toTrade.getItems().addAll(controller.getUserVacations());
+        ObservableList<Vacation> userVacations= controller.getUserVacations();
+        ObservableList<String> vacationIDAndDest = getVacationsData(userVacations);
+        cb_tradeVacation.getItems().addAll(vacationIDAndDest);
+    }
+
+    private ObservableList<String> getVacationsData(ObservableList<Vacation> userVacations) {
+        ObservableList<String> result = FXCollections.observableArrayList();
+        for (Vacation v : userVacations) {
+            result.add(v.getVacationID()+ " " + v.getDestination());
+        }
+        return result;
     }
 
     public void clickSubmitCash(){
@@ -48,7 +62,7 @@ public class SubmitRequestController {
 
 
     public void clickSubmitTrade() {
-        String vacationID = (String)lv_toTrade.getSelectionModel().getSelectedItem();
+        String vacationID = cb_tradeVacation.getSelectionModel().getSelectedItem();
         if(vacationID==null) {
             ErrorBox e = new ErrorBox();
             e.showErrorStage("Please choose a vacation to trade");
