@@ -407,7 +407,9 @@ public class Model implements ISQLModel {
      * @return success or not
      */
     @Override
-    public boolean insertBuyingRequest(String requestedVacationId, String askerUserName, String timeCreated) {
+    public boolean insertBuyingRequest(String requestedVacationId) {
+
+        String askerUserName = controller.getLoggedUser();
 
         //get the vacation
 
@@ -422,13 +424,14 @@ public class Model implements ISQLModel {
                 + ");";
         String sqlStatement = "INSERT INTO buyingRequests(requestedVacationId, askerUserName,timeCreated) VALUES(?,?,?)";
         Vacation vacation = getVacationAsObjectById(requestedVacationId);
-        String theTimeNow = timeCreated;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String theTimeNow = LocalDateTime.now().format(formatter);;
         try {
             Connection conn = this.openConnection();
             PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
             pstmt.setString(1, requestedVacationId);
             pstmt.setString(2, askerUserName);
-            pstmt.setString(3, timeCreated);
+            pstmt.setString(3, theTimeNow);
 
             pstmt.executeUpdate();
             this.closeConnection(conn);
@@ -692,6 +695,12 @@ public class Model implements ISQLModel {
 
         try {
 
+            if(msg.getSender().equals(SYSTEM))
+                return;
+
+            if (msg.getSender().equals(SYSTEM))
+                return;
+
             Connection conn = this.openConnection();
 
             PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
@@ -705,10 +714,11 @@ public class Model implements ISQLModel {
             //send to the buyer
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String timeNow = LocalDateTime.now().format(formatter);
-            String decline = timeNow+"\n"+msg.getSender()+" Has Declined your buying offer on: " +"\n"+msg.getVacation().toString()+"\n"+" CONTACT: 09320148304 \n   We are sorry";
+            String decline = timeNow+"\n"+msg.getSender()+" Has Declined your request on: " +"\n"+msg.getVacation().toString()+"\n"+" CONTACT: 09320148304 \n   We are sorry";
             insertMessage(SYSTEM,msg.getSender(),timeNow,"confirm",decline,"Decline",msg.getVacation().getVacationID());
+            insertMessage(SYSTEM,msg.getReciver(),timeNow,"regular","you have declined :"+msg.getSender()+" request","regular",msg.getVacation().getVacationID());
             //send to the seller
-                    msg.getVacation().getVacationID();
+            //msg.getVacation().getVacationID();
             Vacation v = getVacationAsObjectById(msg.getVacation().getVacationID());
             markVacationAsAviable(msg.getVacation().getVacationID());
             Logger.getInstance().log("accepting message:  : " + msg.getVacation().getVacationID() +" "+msg.getSender() +" "+ msg.getReciver()+ " - SUCCESS");
@@ -1184,6 +1194,62 @@ public class Model implements ISQLModel {
             System.out.println(var7.getMessage());
             Logger.getInstance().log(var7.getMessage());
             System.out.println("unable to create Vacation Object from DB by ID");
+        }
+
+        return ans;
+
+    }
+
+
+    private Vacation getTradeRequestAsObjectByAskerAndReplier(String askerUserName,String replierUserName) {
+        ResultSet resultSet;
+        ObservableList<Vacation> result = null;
+
+        String sql = "SELECT * FROM tradeRequests WHERE askerUserName = ?, replierUserName = ? ";
+        Vacation ans = null;
+        try {
+            Connection conn = this.openConnection();
+            PreparedStatement pstmt  = conn.prepareStatement(sql);
+            pstmt.setString(1,askerUserName);
+            pstmt.setString(2,replierUserName);
+            resultSet = pstmt.executeQuery();
+            result = this.convertVacationResultsToObservableList(resultSet,true);
+            conn.close();
+            if(result.size()>0)
+                ans = result.get(0);
+        } catch (SQLException var7) {
+            System.out.println(var7.getMessage());
+            Logger.getInstance().log(var7.getMessage());
+            System.out.println("unable to create tradeRequest Object from DB by ID");
+        }
+
+        return ans;
+
+    }
+
+
+
+
+    private Vacation getBuyingRequestAsObjectByAskerAndVacationId(String askerUserName,String requestedVacationId) {
+        ResultSet resultSet;
+        ObservableList<Vacation> result = null;
+
+        String sql = "SELECT * FROM buyingRequests WHERE askerUserName = ?, requestedVacationId = ? ";
+        Vacation ans = null;
+        try {
+            Connection conn = this.openConnection();
+            PreparedStatement pstmt  = conn.prepareStatement(sql);
+            pstmt.setString(1,askerUserName);
+            pstmt.setString(2,requestedVacationId);
+            resultSet = pstmt.executeQuery();
+            result = this.convertVacationResultsToObservableList(resultSet,true);
+            conn.close();
+            if(result.size()>0)
+                ans = result.get(0);
+        } catch (SQLException var7) {
+            System.out.println(var7.getMessage());
+            Logger.getInstance().log(var7.getMessage());
+            System.out.println("unable to create buyingRequest Object from DB by ID");
         }
 
         return ans;
