@@ -1,9 +1,5 @@
-created new table users 2019/01/04 19:09:40
-created new table vacations 2019/01/04 19:09:40
-created new table purchases 2019/01/04 19:09:40
-created new table offers 2019/01/04 19:09:40
-created new table messages 2019/01/04 19:09:40
-created new table credit_cards 2019/01/04 19:09:40
-connection opened 2019/01/04 19:09:48
-connection opened 2019/01/04 19:09:48
-connection opened 2019/01/04 19:09:48
+created new table users 2019/01/04 19:51:17
+created new table vacations 2019/01/04 19:51:17
+created new table purchases 2019/01/04 19:51:17
+created new table buyingRequests 2019/01/04 19:51:17
+created new table messages 2019/01/04 19:51:17

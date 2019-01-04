@@ -288,6 +288,7 @@ public class Model implements ISQLModel {
         Vacation offeredVacation = getVacationAsObjectById(offeredVacationId);
         Vacation requestedVacation = getVacationAsObjectById(requestedVacationId);
 
+
         //check that the vacations are aviable
         if(offeredVacation.isSold() || offeredVacation.isFreezed() || requestedVacation.isSold() || requestedVacation.isFreezed())
             return;
@@ -311,6 +312,19 @@ public class Model implements ISQLModel {
             pstmt.setString(5, theTimeNow);
             pstmt.executeUpdate();
             this.closeConnection(conn);
+
+
+            //send a confirm message to the seller
+            insertMessage(controller.getLoggedUser(),requestedVacation.getOwnerUserName(),theTimeNow,
+                    "confirm",requestedVacation.getOwnerUserName()+ " wants to trade his vacatoin: "+offeredVacation.toString()+"with your vacation " +requestedVacation.toString(),"waiting",requestedVacationId);
+
+            //send a request sent to message
+
+
+            markVacationAsSold(requestedVacationId);
+
+
+
             Logger.getInstance().log("INSERT : " + offeredVacation.getOwnerUserName() + " , " + requestedVacation.getOwnerUserName() + " - SUCCESS");
         } catch (SQLException e) {
             System.out.println(e.getMessage());

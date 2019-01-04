@@ -60,7 +60,7 @@ public class SubmitRequestController {
             return;
         }
         //MAKE A TRADE REQUEST
-        Purchase p = new Purchase(controller.getLoggedUser(),tb_toFillNameOnCard.getText(), tb_toFillType.getSelectionModel().toString(), tb_toFillVisaNumber.getText(), tb_toFillCVV.getText() , java.sql.Date.valueOf(tb_date.getValue()),tb_vacationID.getText());
+//        Purchase p = new Purchase(controller.getLoggedUser(),tb_toFillNameOnCard.getText(), tb_toFillType.getSelectionModel().toString(), tb_toFillVisaNumber.getText(), tb_toFillCVV.getText() , java.sql.Date.valueOf(tb_date.getValue()),tb_vacationID.getText());
         //controller.insertBuyingRequest(p);
         ErrorBox e = new ErrorBox();
         e.showErrorStage("We have sent your request to the seller,\n he will let you know :)");

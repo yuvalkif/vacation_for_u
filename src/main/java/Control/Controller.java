@@ -46,7 +46,7 @@ public class Controller {
         this.model.createConfirmMessageTable();
     }
     public void createOffersTable(){
-        model.createOffersTable();
+        model.createBuyingRequestsTable();
     }
     public void createCreditCardTable(){model.createCreditCardPoolTable();}
 
