@@ -7,7 +7,7 @@ import java.sql.Date;
 
 public class Vacation {
     private String VacationID;
-    private String publisherUserName;
+    private String ownerUserName;
     private Flight flight;
     private Accommodation accommodation;
     private int numberOfTickets;
@@ -18,7 +18,7 @@ public class Vacation {
     private double price;
 
     private StringProperty PVacationID;
-    private StringProperty PpublisherUserName;
+    private StringProperty PownerUserName;
     private StringProperty PflightCompany;
     private StringProperty PfromDate;
     private StringProperty PuntilDate;
@@ -35,7 +35,7 @@ public class Vacation {
 
     public Vacation(String vacationID , String publisherUserName, String flightCompany, Date fromDate, Date untilDate, String baggageIncluded, int numberOfTickets, String destination, boolean twoDirections, String ticketType, String vacationType, boolean includeSleep, String hotelName, double hotelRank, boolean sold, boolean freezed, double price) {
         this.VacationID = vacationID;
-        this.publisherUserName = publisherUserName;
+        this.ownerUserName = publisherUserName;
 
         this.flight = new Flight(flightCompany,destination,ticketType,baggageIncluded,fromDate,untilDate,isTwoDirections());
         this.accommodation = new Accommodation(hotelName,hotelRank,destination,fromDate,untilDate);
@@ -46,7 +46,7 @@ public class Vacation {
         this.freezed = freezed;
         this.price = price;
         PVacationID = new SimpleStringProperty(""+vacationID);
-        PpublisherUserName = new SimpleStringProperty(publisherUserName);
+        PownerUserName = new SimpleStringProperty(publisherUserName);
         PflightCompany = new SimpleStringProperty(flightCompany);
         PfromDate = new SimpleStringProperty(fromDate.toString());
         PuntilDate =new SimpleStringProperty(untilDate.toString()) ;
@@ -74,8 +74,8 @@ public class Vacation {
         return VacationID;
     }
 
-    public String getPublisherUserName() {
-        return publisherUserName;
+    public String getOwnerUserName() {
+        return ownerUserName;
     }
 
     public String getFlightCompany() {
@@ -134,12 +134,12 @@ public class Vacation {
         return PVacationID;
     }
 
-    public String getPpublisherUserName() {
-        return PpublisherUserName.get();
+    public String getPownerUserName() {
+        return PownerUserName.get();
     }
 
-    public StringProperty ppublisherUserNameProperty() {
-        return PpublisherUserName;
+    public StringProperty pownerUserNameProperty() {
+        return PownerUserName;
     }
 
     public String getPflightCompany() {
@@ -254,7 +254,7 @@ public class Vacation {
     public String toString() {
         return "Vacation{" +
                 "VacationID='" + VacationID + '\'' +
-                ", publisherUserName='" + publisherUserName + '\'' +
+                ", ownerUserName='" + ownerUserName + '\'' +
                 ", flight=" + flight +
                 ", accommodation=" + accommodation +
                 ", numberOfTickets=" + numberOfTickets +
@@ -264,7 +264,7 @@ public class Vacation {
                 ", freezed=" + freezed +
                 ", price=" + price +
                 ", PVacationID=" + PVacationID +
-                ", PpublisherUserName=" + PpublisherUserName +
+                ", PownerUserName=" + PownerUserName +
                 ", PflightCompany=" + PflightCompany +
                 ", PfromDate=" + PfromDate +
                 ", PuntilDate=" + PuntilDate +

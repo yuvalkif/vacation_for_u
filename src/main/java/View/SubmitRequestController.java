@@ -4,12 +4,10 @@ import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import dbObjects.Purchase;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class SubmitRequestController {
@@ -88,7 +86,7 @@ public class SubmitRequestController {
             return;
         }
         Purchase p = new Purchase(controller.getLoggedUser(),tb_toFillNameOnCard.getText(), tb_toFillType.getSelectionModel().toString(), tb_toFillVisaNumber.getText(), tb_toFillCVV.getText() , java.sql.Date.valueOf(tb_date.getValue()),tb_vacationID.getText());
-        controller.insertOfferRequest(p);
+        controller.insertBuyingRequest(p);
         ErrorBox e = new ErrorBox();
         e.showErrorStage("We have sent your request to the seller,\n he will let you know :)");
         StageHolder.getInstance().getStage().close();
