@@ -130,28 +130,28 @@ public class Model implements ISQLModel {
 
     }
 
-    @Override
-    public void createOffersTable() {
+
+    public void createBuyingRequestsTable() {
         // SQLite connection string
         String url = "jdbc:sqlite:vacation_for_u.db";
 
         // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS offers (\n"
-                + "	vacationId text NOT NULL,\n"
-                + "	buyerUserName text NOT NULL,\n"
-                + "	purchseOfferTime text NOT NULL ,\n"
-                + " PRIMARY KEY (vacationId, buyerUserName)"
+        String sql = "CREATE TABLE IF NOT EXISTS buyingRequests (\n"
+                + "	requestedVacationId text NOT NULL,\n"
+                + "	askerUserName text NOT NULL,\n"
+                + "	timeCreated text NOT NULL ,\n"
+                + " PRIMARY KEY (requestedVacationId, askerUserName)"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
-            Logger.getInstance().log("created new table offers");
+            Logger.getInstance().log("created new table buyingRequests");
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
-            Logger.getInstance().log("failed to create new table offers");
+            Logger.getInstance().log("failed to create new table buyingRequests");
         }
 
     }
@@ -399,17 +399,24 @@ public class Model implements ISQLModel {
      * @return success or not
      */
     @Override
-    public boolean insertBuyingRequest(String vacationId, String buyerUsername, String creationTime) {
+    public boolean insertBuyingRequest(String requestedVacationId, String askerUserName, String timeCreated) {
 
-        String sqlStatement = "INSERT INTO offers(vacationId, buyerUsername,purchseOfferTime) VALUES(?,?,?)";
-        Vacation vacation = getVacationAsObjectById(vacationId);
-        String theTimeNow = creationTime;
+
+        String sql = "CREATE TABLE IF NOT EXISTS buyingRequests (\n"
+                + "	requestedVacationId text NOT NULL,\n"
+                + "	askerUserName text NOT NULL,\n"
+                + "	timeCreated text NOT NULL ,\n"
+                + " PRIMARY KEY (requestedVacationId, askerUserName)"
+                + ");";
+        String sqlStatement = "INSERT INTO buyingRequests(requestedVacationId, askerUserName,timeCreated) VALUES(?,?,?)";
+        Vacation vacation = getVacationAsObjectById(requestedVacationId);
+        String theTimeNow = timeCreated;
         try {
             Connection conn = this.openConnection();
             PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
-            pstmt.setString(1, vacationId);
-            pstmt.setString(2, buyerUsername);
-            pstmt.setString(3, theTimeNow);
+            pstmt.setString(1, requestedVacationId);
+            pstmt.setString(2, askerUserName);
+            pstmt.setString(3, timeCreated);
 
             pstmt.executeUpdate();
             this.closeConnection(conn);
@@ -419,13 +426,13 @@ public class Model implements ISQLModel {
                 return false;
              **/
             insertMessage(controller.getLoggedUser(),vacation.getOwnerUserName(),theTimeNow,
-                    "confirm",buyerUsername+ " wants to buy your vacation, id: "+vacationId,"waiting",vacationId);
+                    "confirm",askerUserName+ " wants to buy your vacation, id: "+requestedVacationId,"waiting",requestedVacationId);
 //                    null,"standby")));
-            markVacationAsSold(vacationId);
-            Logger.getInstance().log("INSERT Buying Offer on vacationID: " + vacationId + " By user: " + buyerUsername + " - SUCCESS");
+            markVacationAsSold(requestedVacationId);
+            Logger.getInstance().log("INSERT Buying Offer on vacationID: " + requestedVacationId + " By user: " + askerUserName + " - SUCCESS");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Logger.getInstance().log("INSERT Buying Offer on vacationID: " + vacationId + " By user: " + buyerUsername + " - FAILED");
+            Logger.getInstance().log("INSERT Buying Offer on vacationID: " + requestedVacationId + " By user: " + askerUserName + " - FAILED");
             return false;
         }
         return true;
