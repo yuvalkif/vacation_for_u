@@ -774,6 +774,26 @@ public class Model implements ISQLModel {
     }
 
     @Override
+    public ObservableList getUserVacations() {
+        ResultSet resultSet = null;
+        String sql = "SELECT * FROM vacations WHERE publisherUserName = " + "'" + loggedUser + "'";
+        ObservableList result = null;
+
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertVacationResultsToObservableList(resultSet,false);
+            conn.close();
+        } catch (SQLException var6) {
+            System.out.println(var6.getMessage());
+            Logger.getInstance().log(var6.getMessage());
+        }
+
+        return result;
+    }
+
+    @Override
     public ObservableList<Vacation> getVacations(String dest) {
 
         String sql = "SELECT * FROM vacations WHERE destination = " + "'" + dest + "'";

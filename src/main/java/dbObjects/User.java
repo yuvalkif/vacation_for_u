@@ -10,8 +10,6 @@ import java.util.ArrayList;
  */
 
 public class User extends AUser{
-
-
     private String birthDate;
     private String firstName;
     private String lastName;

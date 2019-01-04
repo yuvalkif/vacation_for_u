@@ -95,6 +95,10 @@ public class Controller {
         return this.model.getAllVacations();
     }
 
+    public ObservableList getUserVacations(){
+        return model.getUserVacations();
+    }
+
     public void setModel(ISQLModel model) {
         this.model = model;
         sp_loggedUser = new SimpleStringProperty(""+model.getLoggedUser());
@@ -139,7 +143,7 @@ public class Controller {
     }
 
     public void insertOfferRequest(Purchase p){
-        model.insertBuyingOffer(p.getPayingOnVacation(),p.getCardOwnerUserName(),p);
+        model.insertBuyingOffer(p.getPayingOnVacation(),p.getBuyerUserName(),p);
     }
 
     public boolean containsticketID(String ticketID){
