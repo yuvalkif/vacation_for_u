@@ -75,6 +75,7 @@ public class Main extends Application {
         controller.createOffersTable();
         controller.createConfirmMessageTable();
         controller.createCreditCardTable();
+        controller.createTradeRequestTable();
         mainView.setCurrentStage(primaryStage);
         mainView.initializeListeners();
         primaryStage.show();

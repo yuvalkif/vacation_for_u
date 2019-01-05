@@ -68,7 +68,7 @@ public class VacationFormController {
             e.showErrorStage("All fields must be entered");
             return;
         }
-        if(controller.containsticketID(ticketID)) {
+        if(controller.containsTicketID(ticketID)) {
             e.showErrorStage("ticket ID already exists");
             return;
         }

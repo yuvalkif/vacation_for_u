@@ -70,7 +70,7 @@
                               <Label text="Adults" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                               <Label text="Kids (Under 16)" GridPane.columnIndex="6" GridPane.rowIndex="4" />
                               <Button mnemonicParsing="false" onAction="#handleSearchVacation" prefHeight="25.0" prefWidth="168.0" text="Search" GridPane.columnIndex="6" GridPane.rowIndex="6" />
-                              <Label fx:id="lbl_SignUp" onMouseClicked="#handleSignUp" text="Sing up" textFill="WHITE" GridPane.columnIndex="7">
+                              <Label fx:id="lbl_SignUp" onMouseClicked="#handleSignUp" text="Sign up" textFill="WHITE" GridPane.columnIndex="7">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

@@ -17,6 +17,10 @@ public class TradeRequest extends ARequest {
         this.askerVacationHeWantsToTrade = askerVacationHeWantsToTrade;
     }
 
+    public Vacation getAskerVacationHeWantsToTrade() {
+        return askerVacationHeWantsToTrade;
+    }
+
     @Override
     public String toString() {
         return "TradeRequest{" +

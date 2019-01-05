@@ -14,7 +14,6 @@ public abstract class AMessage {
         this.sender = sender;
         this.reciver = reciver;
         this.content = content;
-
         this.messageTime = messageTime;
     }
 

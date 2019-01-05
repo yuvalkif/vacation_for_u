@@ -3,11 +3,16 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
+import dbObjects.BuyingRequest;
 import dbObjects.Purchase;
+import dbObjects.TradeRequest;
 import dbObjects.Vacation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class SubmitRequestController {
     public Controller controller;
@@ -52,9 +57,9 @@ public class SubmitRequestController {
     }
 
     public void clickSubmitCash(){
-        //CREATE A NEW CASH REQUEST
-        //Purchase p = new Purchase(controller.getLoggedUser(),tb_toFillNameOnCard.getText(), tb_toFillType.getSelectionModel().toString(), tb_toFillVisaNumber.getText(), tb_toFillCVV.getText() , java.sql.Date.valueOf(tb_date.getValue()),tb_vacationID.getText());
-        //controller.insertOfferRequest(p);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        BuyingRequest br = new BuyingRequest(controller.getLoggedUser(),controller.getVacationAsObjectById(tb_vacationID.getText()),LocalDateTime.now().format(formatter));
+        controller.insertBuyingRequest(br);
         ErrorBox e = new ErrorBox();
         e.showErrorStage("We have sent your request to the seller,\n he will let you know :)");
         StageHolder.getInstance().getStage().close();
@@ -68,9 +73,9 @@ public class SubmitRequestController {
             e.showErrorStage("Please choose a vacation to trade");
             return;
         }
-        //MAKE A TRADE REQUEST
-        //Purchase p = new Purchase(controller.getLoggedUser(),tb_toFillNameOnCard.getText(), tb_toFillType.getSelectionModel().toString(), tb_toFillVisaNumber.getText(), tb_toFillCVV.getText() , java.sql.Date.valueOf(tb_date.getValue()),tb_vacationID.getText());
-        //controller.insertBuyingRequest(p);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        TradeRequest tr = new TradeRequest(controller.getLoggedUser(),LocalDateTime.now().format(formatter),controller.getVacationAsObjectById(vacationID.substring(0,vacationID.indexOf(" "))),controller.getVacationAsObjectById(tb_vacationID.getText()));
+        controller.insertTradeRequest(tr);
         ErrorBox e = new ErrorBox();
         e.showErrorStage("We have sent your request to the seller,\n he will let you know :)");
         StageHolder.getInstance().getStage().close();

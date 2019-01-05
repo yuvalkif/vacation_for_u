@@ -61,6 +61,7 @@ public interface ISQLModel {
 
     void createConfirmMessageTable();
     void createCreditCardPoolTable();
+    void createTradeRequestsTable();
 
     /**
      * search records by username
@@ -118,4 +119,10 @@ public interface ISQLModel {
     boolean checkTicketExist(String text);
 
     ObservableList<Vacation> getUserVacations();
+
+    void insertTradeRequests( String offeredVacationId , String requestedVacationId);
+
+    Vacation getVacationAsObjectById(String vacationId);
+
+
 }
