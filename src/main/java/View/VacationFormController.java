@@ -4,6 +4,7 @@ import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import dbObjects.Vacation;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
@@ -12,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 
@@ -29,16 +31,17 @@ public class VacationFormController {
     @FXML
     public CheckBox  nightsIncluded , roundTrip;
     public DatePicker fromDate , toDate;
+
     @FXML
     public AnchorPane mainpane;
-
     public ImageView img_backPublishVacation;
 
     public VacationFormController(){}
+
     /**
      * set a new Vacation object with all the fields entered by the user .
      * if a field left blank , set the object to null.
-*/
+    */
     public void handleInsert(){
 
         String ticketID = ticketId.getText();
@@ -47,14 +50,21 @@ public class VacationFormController {
         String dest = destination.getText();
         String tickettype = ticketType.getText();
         String vacationType =  vacationTye.getText();
-        String hotelname = hotelName.getText();
+        String hotelname = "Without accommadtion";
+        String hotelrank = "0";
+        if (nightsIncluded.isSelected()) {
+            hotelname = hotelName.getText();
+            hotelrank = hotelRank.getText();
+        }
         String numberoftickets  = numberOfTickets.getText();
-        String hotelrank = hotelRank.getText();
         String priceS = txtfld_price.getText();
+        LocalDate noReturn = LocalDate.of(1999,12,31);
+        if (roundTrip.isSelected() && toDate.getValue()!=null)
+            noReturn = toDate.getValue();
 
         ErrorBox e = new ErrorBox();
         if(ticketID.equals("") || flightCompany.equals("") || baggage1.equals("") || dest.equals("") || tickettype.equals("") || vacationType.equals("") || hotelname.equals("")
-        || numberoftickets.equals("") || hotelrank.equals("") || priceS.equals("") || fromDate.getValue()== null || toDate.getValue()== null) {
+        || numberoftickets.equals("") || hotelrank.equals("") || priceS.equals("") || fromDate.getValue()== null || (roundTrip.isSelected() && toDate.getValue()== null)) {
             e.showErrorStage("All fields must be entered");
             return;
         }
@@ -81,15 +91,15 @@ public class VacationFormController {
         java.sql.Date sqlFromDate , sqlToDate , sqlTodayDate;
         try {
             sqlFromDate = utilDateToSqlDate(Date.from(fromDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-            sqlToDate = utilDateToSqlDate(Date.from(toDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            sqlToDate = utilDateToSqlDate(Date.from(noReturn.atStartOfDay(ZoneId.systemDefault()).toInstant()));
             sqlTodayDate = utilDateToSqlDate(Date.from(Calendar.getInstance().getTime().toInstant()));
 
             if(sqlFromDate.compareTo(sqlTodayDate)<0){
                 e.showErrorStage("Please peek a date later than today");
                 return;
             }
-            if(sqlFromDate.compareTo(sqlToDate)>0) {
-                e.showErrorStage("Return date must be after from date");
+            if(roundTrip.isSelected() && sqlFromDate.compareTo(sqlToDate)>0) {
+                e.showErrorStage("\"Return date\" must be after \"From date\"");
                 return;
             }
             this.vacation = new Vacation(ticketID, controller.getLoggedUser(), flightCompany, sqlFromDate, sqlToDate, baggage1, numOfTickets, dest, roundTrip.isSelected(), tickettype,
@@ -106,7 +116,6 @@ public class VacationFormController {
     }
 
     private Date utilDateToSqlDate(java.util.Date utilDate ){
-
         return new java.sql.Date(utilDate.getTime());
     }
 
@@ -140,4 +149,23 @@ public class VacationFormController {
         }
     }
 
+    public void handelUseInAccommadtion(){
+        if (!nightsIncluded.isSelected()){
+            hotelName.setDisable(true);
+            hotelRank.setDisable(true);
+        }
+        else {
+            hotelName.setDisable(false);
+            hotelRank.setDisable(false);
+        }
+    }
+
+    public void handelUseInReturn() {
+        if (!roundTrip.isSelected()){
+            toDate.setDisable(true);
+        }
+        else {
+            toDate.setDisable(false);
+        }
+    }
 }
