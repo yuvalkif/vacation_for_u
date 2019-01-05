@@ -4,7 +4,7 @@ import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import dbObjects.AUserData;
-import dbObjects.User;
+import dbObjects.RegisteredUser;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -78,7 +78,7 @@ public class LogInController implements ISubController{
                 }
             });
             stage.showAndWait();
-            User toSubmit = sceneController.getToSubmit();
+            RegisteredUser toSubmit = sceneController.getToSubmit();
 
             if( toSubmit != null && !sceneController.getToSubmit().hasNullField())
                 this.controller.handleSubmitSignUp(toSubmit);

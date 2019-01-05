@@ -119,7 +119,7 @@ public class MainScreenController implements IView{
             });
             stage.showAndWait();
             this.primaryStage.show();
-            User toSubmit = sceneController.getToSubmit();
+            RegisteredUser toSubmit = sceneController.getToSubmit();
 
             if( toSubmit != null && !sceneController.getToSubmit().hasNullField())
                 this.controller.handleSubmitSignUp(toSubmit);
@@ -302,7 +302,7 @@ public class MainScreenController implements IView{
             Parent root = loader.load(this.getClass().getClassLoader().getResource("SearchForm.fxml").openStream());
             SplitPane splitPane = (SplitPane)root.getChildrenUnmodifiable().get(0);
             AnchorPane upperPane = (AnchorPane)splitPane.getItems().get(0);
-            TableView<User> tableView = (TableView<User>)upperPane.getChildren().get(0);
+            TableView<RegisteredUser> tableView = (TableView<RegisteredUser>)upperPane.getChildren().get(0);
             Scene scene = new Scene(root);
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();

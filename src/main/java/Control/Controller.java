@@ -31,10 +31,10 @@ public class Controller {
         this.model.setController(this);
     }
 
-    public void setModel(ISQLModel model) {
-        this.model = model;
-        sp_loggedUser = new SimpleStringProperty("" + model.getLoggedUser());
-    }
+    //public void setModel(ISQLModel model) {
+      //  this.model = model;
+       // sp_loggedUser = new SimpleStringProperty("" + model.getLoggedUser());
+   // }
 
     public void setView(IView view) {
         this.view = view;
@@ -58,7 +58,7 @@ public class Controller {
     }
 
     public void createOffersTable() {
-        model.createBuyingRequestsTable();
+        model.createCashRequestsTable();
     }
 
     public void createCreditCardTable() {
@@ -70,7 +70,7 @@ public class Controller {
     }
 
     /********************************USER ACTIONS**************************/
-    public void handleSubmitSignUp(User submit) {
+    public void handleSubmitSignUp(RegisteredUser submit) {
         if (submit != null) {
             try {
                 model.insertUser(submit);
@@ -90,7 +90,7 @@ public class Controller {
         this.model.deleteUsers(loggedUser);
     }
 
-    public ObservableList<User> searchInDataBase(User user) {
+    public ObservableList<RegisteredUser> searchInDataBase(RegisteredUser user) {
         return ((Model) this.model).searchRecordsByFields(user.getUserName());
     }
 
@@ -169,6 +169,6 @@ public class Controller {
     }
 
     public void insertBuyingRequest(CashRequest br){
-        model.insertBuyingRequest(br.getRequestedVacation().getVacationID());
+        model.insertCashRequest(br.getRequestedVacation().getVacationID());
     }
 }

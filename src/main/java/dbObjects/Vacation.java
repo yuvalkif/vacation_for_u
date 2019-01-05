@@ -231,7 +231,7 @@ public class Vacation {
     }
 
     public String getTicketType() {
-        return flight.getGetTicketType();
+        return flight.getTicketType();
     }
 
     public String getVacationType() {

@@ -5,7 +5,6 @@ import Control.Controller;
 import javafx.collections.ObservableList;
 
 
-import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -22,7 +21,7 @@ public interface ISQLModel {
     /**
      * insert a record to the database
      */
-    void insertUser(User user);
+    void insertUser(RegisteredUser user);
 
     /**
      * delete a user from the database
@@ -70,7 +69,7 @@ public interface ISQLModel {
      */
 
 
-    List<User> searchRecordsByFields(String username);
+    List<RegisteredUser> searchRecordsByFields(String username);
 
     /**
      * return wither a user is logged in or not

@@ -3,8 +3,7 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
-import dbObjects.User;
-import javafx.collections.ObservableList;
+import dbObjects.RegisteredUser;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -12,15 +11,13 @@ import javafx.scene.layout.AnchorPane;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
 
 /**
  * controller class for the update scene. controlled by 'UpdateFormController.fxml'
  */
 
 public class UpdateFormController implements ISubController{
-    private User user ;
+    private RegisteredUser user ;
 
     private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="";
     private Controller controller ;
@@ -30,7 +27,7 @@ public class UpdateFormController implements ISubController{
     public ImageView img_backUpdateUser;
 
     public void handleExecuteUpdate() {
-        user = new User(controller.getLoggedUser(), sPassword = password.getText(), sFirstName = firstname.getText(), sLastName = lastname.getText(),
+        user = new RegisteredUser(controller.getLoggedUser(), sPassword = password.getText(), sFirstName = firstname.getText(), sLastName = lastname.getText(),
                 sCity = city.getText(), sDate = date.getText());
 
         if (user.nullRecord()) {
@@ -83,7 +80,7 @@ public class UpdateFormController implements ISubController{
         return sUserName;
     }
 
-    public User getUser(){
+    public RegisteredUser getUser(){
         return this.user;
     }
 

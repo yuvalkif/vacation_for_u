@@ -256,7 +256,7 @@ public class Model implements ISQLModel {
      * insert a user to the database
      * @param user a record with fields of the user
      */
-    public void insertUser(User user) {
+    public void insertUser(RegisteredUser user) {
         String sql = "INSERT INTO users(username, password,first_name,last_name,address,birth_date,rank) VALUES(?,?,?,?,?,?,?)";
         Date sqlDate = dateConvert(user.getDate());
 
@@ -859,7 +859,7 @@ public class Model implements ISQLModel {
      * @param username the username of the record
      * @return a list with all the records
      */
-    public ObservableList<User> searchRecordsByFields(String username) {
+    public ObservableList<RegisteredUser> searchRecordsByFields(String username) {
         ResultSet resultSet;
         ObservableList result = null;
         String sql = "SELECT * FROM users WHERE username = " + "'" + username + "'";
@@ -1050,7 +1050,7 @@ public class Model implements ISQLModel {
     @Override
     public AUserData login(String username, String password) {
         ResultSet resultSet;
-        ObservableList<User> result;
+        ObservableList<RegisteredUser> result;
         boolean auth = false;
         String sql = "SELECT * FROM users WHERE username = " + "'" + username + "'";;
 
@@ -1088,13 +1088,13 @@ public class Model implements ISQLModel {
     /***************************************  RESULTSET TO OBSERVABLE LIST   ****************************/
 
 
-    private ObservableList<User> convertUsersResultsToObservableList(ResultSet resultSet) {
-        ObservableList<User> observableList = FXCollections.observableArrayList();
+    private ObservableList<RegisteredUser> convertUsersResultsToObservableList(ResultSet resultSet) {
+        ObservableList<RegisteredUser> observableList = FXCollections.observableArrayList();
 
         try {
             while (resultSet.next()) {
                 java.util.Date myDate = resultSet.getDate("birth_date");
-                observableList.add(new User(resultSet.getString(1), resultSet.getString(2), dateToStringConvert(resultSet.getDate(3)), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6)));
+                observableList.add(new RegisteredUser(resultSet.getString(1), resultSet.getString(2), dateToStringConvert(resultSet.getDate(3)), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6)));
             }
         } catch (SQLException var4) {
             var4.printStackTrace();
@@ -1391,7 +1391,7 @@ public class Model implements ISQLModel {
      * @param fields all fields wanted for the query
      * @return a string with the fields for the query
      */
-    private String getFieldsForQuery(User fields) {
+    private String getFieldsForQuery(RegisteredUser fields) {
         String ans = "";
         if (!fields.getUserName().equals("")) {
             ans = ans + "username = '" + fields.getUserName() + "',";
@@ -1507,8 +1507,8 @@ public class Model implements ISQLModel {
     }
 
 //    public String getLoggedUser() {
-//        return loggedUser;
-//    }
+  //      return loggedUser;
+   // }
 
 }
 

@@ -6,7 +6,7 @@ public class Flight {
     private String flightCompany;
     private String FlightId;
     private String destination;
-    private String getTicketType;
+    private String ticketType;
     private String baggageIncluded;
     private java.sql.Date fromDate;
     private java.sql.Date untilDate;
@@ -16,7 +16,7 @@ public class Flight {
     public Flight(String flightCompany, String destination, String getTicketType, String baggageIncluded, Date fromDate, Date untilDate, boolean isTwoDirections) {
         this.flightCompany = flightCompany;
         this.destination = destination;
-        this.getTicketType = getTicketType;
+        this.ticketType = getTicketType;
         this.baggageIncluded = baggageIncluded;
         this.fromDate = fromDate;
         this.untilDate = untilDate;
@@ -36,8 +36,8 @@ public class Flight {
         return destination;
     }
 
-    public String getGetTicketType() {
-        return getTicketType;
+    public String getTicketType() {
+        return ticketType;
     }
 
     public String getBaggageIncluded() {
@@ -64,7 +64,7 @@ public class Flight {
                 "flightCompany='" + flightCompany + '\'' +
                 ", FlightId='" + FlightId + '\'' +
                 ", destination='" + destination + '\'' +
-                ", getTicketType='" + getTicketType + '\'' +
+                ", ticketType='" + ticketType + '\'' +
                 ", baggageIncluded='" + baggageIncluded + '\'' +
                 ", fromDate=" + fromDate +
                 ", untilDate=" + untilDate +

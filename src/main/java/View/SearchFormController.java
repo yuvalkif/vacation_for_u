@@ -12,7 +12,7 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
-import dbObjects.User;
+import dbObjects.RegisteredUser;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -21,7 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 public class SearchFormController implements ISubController{
-    private User searchFields;
+    private RegisteredUser searchFields;
     private boolean isDone;
     private ListView listView;
 
@@ -38,16 +38,16 @@ public class SearchFormController implements ISubController{
     @FXML
     public TextField birthdate;
     @FXML
-    private TableView<User> tableView;
+    private TableView<RegisteredUser> tableView;
     @FXML
-    private TableColumn<User,String> userNameCol,passwordCol,firstNameCol,lastNameCol,cityCol,dateCol;
+    private TableColumn<RegisteredUser,String> userNameCol,passwordCol,firstNameCol,lastNameCol,cityCol,dateCol;
     private Controller controller;
 
     public SearchFormController() {
     }
 
     public void handleSearch() {
-        this.searchFields = new User(this.username.getText(), this.password.getText(), this.firstname.getText(), this.lastname.getText(), this.city.getText(), this.birthdate.getText());
+        this.searchFields = new RegisteredUser(this.username.getText(), this.password.getText(), this.firstname.getText(), this.lastname.getText(), this.city.getText(), this.birthdate.getText());
         if(searchFields.getUserName().equals("")) {
             raiseError("Must specify a username");
             return;
@@ -82,11 +82,11 @@ public class SearchFormController implements ISubController{
     }
 
 
-    public User getSearchFields() {
+    public RegisteredUser getSearchFields() {
         return this.searchFields;
     }
 
-    public void showSearchResults(ObservableList<User> searchResults) {
+    public void showSearchResults(ObservableList<RegisteredUser> searchResults) {
 
             if (searchResults != null) {
                 userNameCol.setCellValueFactory(cellData -> cellData.getValue().pUserNameProperty());
@@ -110,7 +110,7 @@ public class SearchFormController implements ISubController{
 //    }
 
 
-    public void setTableView(TableView<User> tableView) {
+    public void setTableView(TableView<RegisteredUser> tableView) {
         this.tableView = tableView;
     }
 

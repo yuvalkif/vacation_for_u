@@ -3,7 +3,7 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
-import dbObjects.User;
+import dbObjects.RegisteredUser;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -13,7 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
@@ -23,7 +22,7 @@ import java.time.format.DateTimeFormatter;
 
 public class SignUpFormController implements ISubController{
     private Controller controller;
-    private User toSubmit;
+    private RegisteredUser toSubmit;
     @FXML
     public TextField username, password, firstname, lastname, city;
     public DatePicker datepk_age;
@@ -45,7 +44,7 @@ public class SignUpFormController implements ISubController{
             date = datepk_age.getValue().toString();
         }
 
-        this.toSubmit = new User(username.getText(), password.getText(), firstname.getText(), lastname.getText(), city.getText(),date);
+        this.toSubmit = new RegisteredUser(username.getText(), password.getText(), firstname.getText(), lastname.getText(), city.getText(),date);
 
         if (toSubmit.hasNullField() || datepk_age.getValue()==null) {
             raiseError("Must fill all the fields");
@@ -87,7 +86,7 @@ public class SignUpFormController implements ISubController{
         StageHolder.getInstance().getStage().close();
     }
 
-    public User getToSubmit() {
+    public RegisteredUser getToSubmit() {
         return toSubmit;
     }
 

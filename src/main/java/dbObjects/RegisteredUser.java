@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * class for holding record fields from the database as an object .
  */
 
-public class User extends AUser{
+public class RegisteredUser extends AUser{
     private String birthDate;
     private String firstName;
     private String lastName;
@@ -23,7 +23,7 @@ public class User extends AUser{
     private StringProperty pCity;
 
 
-    public User(String userName, String password, String firstName, String lastName, String city, String birthDate){
+    public RegisteredUser(String userName, String password, String firstName, String lastName, String city, String birthDate){
         super(userName,password);
         this.birthDate = birthDate;
         this.firstName = firstName;
@@ -39,7 +39,7 @@ public class User extends AUser{
     }
 
 
-    public User(String userName, String password, String firstName, String lastName, String city, String birthDate,Rank rank){
+    public RegisteredUser(String userName, String password, String firstName, String lastName, String city, String birthDate, Rank rank){
         super(userName,password);
         this.birthDate = birthDate;
         this.firstName = firstName;
@@ -54,7 +54,7 @@ public class User extends AUser{
         this.userRank = rank;
     }
 
-    public User(ArrayList<String> userParams){
+    public RegisteredUser(ArrayList<String> userParams){
         super(userParams.get(0),userParams.get(1));
         if(userParams.size() > 6 )
             System.out.println("creation failed");
@@ -69,8 +69,6 @@ public class User extends AUser{
     public void rank(double score){
         this.userRank.addRanker(score);
     }
-
-
 
     public String getDate() {
         return birthDate;
@@ -98,7 +96,7 @@ public class User extends AUser{
 
     @Override
     public String toString() {
-        return "User{" +
+        return "RegisteredUser{" +
                 "userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", birthDate='" + birthDate + '\'' +
