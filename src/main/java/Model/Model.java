@@ -49,6 +49,7 @@ public class Model implements ISQLModel {
                 + "	birth_date DATE ,\n"
                 + "	first_name text NOT NULL,\n"
                 + "	last_name text NOT NULL,\n"
+                + "	rank DOUBLE NOT NULL,\n"
                 + "	address text NOT NULL\n"
                 + ");";
 
@@ -255,7 +256,7 @@ public class Model implements ISQLModel {
      * @param user a record with fields of the user
      */
     public void insertUser(User user) {
-        String sql = "INSERT INTO users(username, password,first_name,last_name,address,birth_date) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO users(username, password,first_name,last_name,address,birth_date,rank) VALUES(?,?,?,?,?,?,?)";
         Date sqlDate = dateConvert(user.getDate());
 
         try {
@@ -267,6 +268,7 @@ public class Model implements ISQLModel {
             pstmt.setString(4, user.getLastname());
             pstmt.setString(5, user.getCity());
             pstmt.setDate(6, sqlDate);
+            pstmt.setDouble(7, user.getUserRank().getAverageScore());
             pstmt.executeUpdate();
             this.closeConnection(conn);
             Logger.getInstance().log("INSERT : " + user.getUserName() + " , " + user.getPassword() + " - SUCCESS");
@@ -316,10 +318,10 @@ public class Model implements ISQLModel {
 
             //send a confirm message to the seller
             insertMessage(controller.getLoggedUser(),requestedVacation.getOwnerUserName(),theTimeNow,
-                    "confirm",requestedVacation.getOwnerUserName()+ " wants to trade his vacatoin: "+offeredVacation.toString()+"with your vacation " +requestedVacation.toString(),"waiting",requestedVacationId);
+                    "confirmTrade",requestedVacation.getOwnerUserName()+ " wants to trade his vacatoin: "+offeredVacation.toString()+"with your vacation " +requestedVacation.toString(),"waiting",requestedVacationId);
 
-            //send a request sent to message
-            insertMessage(SYSTEM,offeredVacation.getOwnerUserName(),theTimeNow,"regular","Your buying request sent to: "+requestedVacation.getOwnerUserName(),"regular",requestedVacationId);
+            //send a message to the buyer
+            insertMessage(SYSTEM,offeredVacation.getOwnerUserName(),theTimeNow,"regular","Your trade request sent to: "+requestedVacation.getOwnerUserName(),"regular",requestedVacationId);
 
 
 
@@ -440,9 +442,12 @@ public class Model implements ISQLModel {
             if(!creditAuthed)
                 return false;
              **/
+            //send message to the asker notify its request sent
             insertMessage(SYSTEM,askerUserName,theTimeNow,"regular","Your buying request sent to: "+requestedVacation.getOwnerUserName(),"regular",requestedVacationId);
+
+            //send a confirm message to the seller
             insertMessage(controller.getLoggedUser(),vacation.getOwnerUserName(),theTimeNow,
-                    "confirm",askerUserName+ " wants to buy your vacation, id: "+requestedVacationId,"waiting",requestedVacationId);
+                    "confirmBuying",askerUserName+ " wants to buy your vacation, id: "+requestedVacationId,"waiting",requestedVacationId);
             markVacationAsSold(requestedVacationId);
             Logger.getInstance().log("INSERT Buying Offer on vacationID: " + requestedVacationId + " By user: " + askerUserName + " - SUCCESS");
         } catch (SQLException e) {
@@ -754,6 +759,10 @@ public class Model implements ISQLModel {
             //delete the old message
             deleteMessage(msg.getSender(),msg.getReciver(),msg.getVacation().getVacationID());
             //send to the buyer
+            //TWO CASES:
+            //TRADE ACCEPTED OR BUYING ACCEPTED
+
+            //TRADE ACCEPTED
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String timeNow = LocalDateTime.now().format(formatter);
             String recpiet =timeNow+"\n"+msg.getSender()+"\n"+msg.getVacation().toString()+"\n"+" CONTACT: 09320148304 \n   ENJOY";
@@ -1199,62 +1208,62 @@ public class Model implements ISQLModel {
         return ans;
 
     }
-
-
-    private Vacation getTradeRequestAsObjectByAskerAndReplier(String askerUserName,String replierUserName) {
-        ResultSet resultSet;
-        ObservableList<Vacation> result = null;
-
-        String sql = "SELECT * FROM tradeRequests WHERE askerUserName = ?, replierUserName = ? ";
-        Vacation ans = null;
-        try {
-            Connection conn = this.openConnection();
-            PreparedStatement pstmt  = conn.prepareStatement(sql);
-            pstmt.setString(1,askerUserName);
-            pstmt.setString(2,replierUserName);
-            resultSet = pstmt.executeQuery();
-            result = this.convertVacationResultsToObservableList(resultSet,true);
-            conn.close();
-            if(result.size()>0)
-                ans = result.get(0);
-        } catch (SQLException var7) {
-            System.out.println(var7.getMessage());
-            Logger.getInstance().log(var7.getMessage());
-            System.out.println("unable to create tradeRequest Object from DB by ID");
-        }
-
-        return ans;
-
-    }
-
-
-
-
-    private Vacation getBuyingRequestAsObjectByAskerAndVacationId(String askerUserName,String requestedVacationId) {
-        ResultSet resultSet;
-        ObservableList<Vacation> result = null;
-
-        String sql = "SELECT * FROM buyingRequests WHERE askerUserName = ?, requestedVacationId = ? ";
-        Vacation ans = null;
-        try {
-            Connection conn = this.openConnection();
-            PreparedStatement pstmt  = conn.prepareStatement(sql);
-            pstmt.setString(1,askerUserName);
-            pstmt.setString(2,requestedVacationId);
-            resultSet = pstmt.executeQuery();
-            result = this.convertVacationResultsToObservableList(resultSet,true);
-            conn.close();
-            if(result.size()>0)
-                ans = result.get(0);
-        } catch (SQLException var7) {
-            System.out.println(var7.getMessage());
-            Logger.getInstance().log(var7.getMessage());
-            System.out.println("unable to create buyingRequest Object from DB by ID");
-        }
-
-        return ans;
-
-    }
+//
+//
+//    private TradeRequest getTradeRequestAsObjectByAskerAndReplier(String askerUserName,String replierUserName) {
+//        ResultSet resultSet;
+//        ObservableList<Vacation> result = null;
+//
+//        String sql = "SELECT * FROM tradeRequests WHERE askerUserName = ?, replierUserName = ? ";
+//        Vacation ans = null;
+//        try {
+//            Connection conn = this.openConnection();
+//            PreparedStatement pstmt  = conn.prepareStatement(sql);
+//            pstmt.setString(1,askerUserName);
+//            pstmt.setString(2,replierUserName);
+//            resultSet = pstmt.executeQuery();
+//            result = this.convertVacationResultsToObservableList(resultSet,true);
+//            conn.close();
+//            if(result.size()>0)
+//                ans = result.get(0);
+//        } catch (SQLException var7) {
+//            System.out.println(var7.getMessage());
+//            Logger.getInstance().log(var7.getMessage());
+//            System.out.println("unable to create tradeRequest Object from DB by ID");
+//        }
+//
+//        return ans;
+//
+//    }
+//
+//
+//
+//
+//    private BuyingRequest getBuyingRequestAsObjectByAskerAndVacationId(String askerUserName,String requestedVacationId) {
+//        ResultSet resultSet;
+//        ObservableList<Vacation> result = null;
+//
+//        String sql = "SELECT * FROM buyingRequests WHERE askerUserName = ?, requestedVacationId = ? ";
+//        Vacation ans = null;
+//        try {
+//            Connection conn = this.openConnection();
+//            PreparedStatement pstmt  = conn.prepareStatement(sql);
+//            pstmt.setString(1,askerUserName);
+//            pstmt.setString(2,requestedVacationId);
+//            resultSet = pstmt.executeQuery();
+//            result = this.convertVacationResultsToObservableList(resultSet,true);
+//            conn.close();
+//            if(result.size()>0)
+//                ans = result.get(0);
+//        } catch (SQLException var7) {
+//            System.out.println(var7.getMessage());
+//            Logger.getInstance().log(var7.getMessage());
+//            System.out.println("unable to create buyingRequest Object from DB by ID");
+//        }
+//
+//        return ans;
+//
+//    }
 
 
     /******************************************** PRIVATE FUNCTIONS ***********************************************/

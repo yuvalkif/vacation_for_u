@@ -12,8 +12,8 @@ public class TradeRequest extends ARequest {
         this.askerVacationHeWantsToTrade = askerVacationHeWantsToTrade;
     }
 
-    public TradeRequest(String askerUserName, Vacation askerVacationHeWantsToTrade) {
-        super(askerUserName, askerVacationHeWantsToTrade);
+    public TradeRequest(String askerUserName, Vacation askerVacationHeWantsToTrade ,Vacation requestedVacation) {
+        super(askerUserName, requestedVacation);
         this.askerVacationHeWantsToTrade = askerVacationHeWantsToTrade;
     }
 
