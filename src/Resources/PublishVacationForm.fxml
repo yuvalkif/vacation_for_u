@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <?import javafx.scene.image.Image?>
-<AnchorPane fx:id="mainpane" prefHeight="423.0" prefWidth="678.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.VacationFormController">
+<AnchorPane fx:id="mainpane" prefHeight="423.0" prefWidth="678.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.PublishVacationController">
    <children>
       <ImageView fitHeight="423.0" fitWidth="678.0" pickOnBounds="true">
          <image>

@@ -13,25 +13,24 @@ public interface IView {
     void setController(Controller controller);
 
     void initializeListeners();
-    /**
-     * handle the signup scene
-     */
-    //void signInScene();
-    //void setCurrentStage(Stage stage);
 
-    /**
-     * handle deletion scene
-     */
-    //void handleDelete();
+    void handleSignUp();
 
-    /**
-     * handle update scene
-     */
-    //void handleUpdate();
+    void handleSignIn();
 
-    /**
-     * handle search scene
-     */
-    ///void handleRead();
+    void handleConfirmOrder();
+
+    void handleSearchVacation();
+
+    void handleDelete();
+
+    void handleUserSearch();
+
+    void handleUserUpdate();
+
+    void handlePublishVacation();
+
+    void handleSignOut();
+
 
 }

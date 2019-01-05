@@ -18,7 +18,7 @@ import java.time.ZoneId;
 import java.util.Calendar;
 
 
-public class VacationFormController implements ISubController{
+public class PublishVacationController implements ISubController{
 
     private Controller controller;
     private Vacation vacation;
@@ -36,7 +36,7 @@ public class VacationFormController implements ISubController{
     public AnchorPane mainpane;
     public ImageView img_backPublishVacation;
 
-    public VacationFormController(){}
+    public PublishVacationController(){}
 
     /**
      * set a new Vacation object with all the fields entered by the user .

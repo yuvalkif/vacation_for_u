@@ -111,7 +111,7 @@ public interface ISQLModel {
 
     AUserData getUserData(String username);
 
-    ObservableList selectAllDataBase();
+    ObservableList getAllUsers();
 
 //    String getLoggedUser();
 
@@ -121,7 +121,7 @@ public interface ISQLModel {
 
     void insertTradeRequests( String offeredVacationId , String requestedVacationId);
 
-    Vacation getVacationAsObjectById(String vacationId);
+    Vacation getVacationById(String vacationId);
 
 
 }

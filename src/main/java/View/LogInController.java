@@ -68,7 +68,7 @@ public class LogInController implements ISubController{
             stage.setTitle("Sign Up");
             stage.setResizable(false);
             StageHolder.getInstance().holdStage(stage);
-            SignUpFormController sceneController = (SignUpFormController)loader.getController();
+            UserSignUpController sceneController = (UserSignUpController)loader.getController();
             sceneController.setDateInitial();
             sceneController.setController(controller);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {

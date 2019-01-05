@@ -20,7 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class SearchFormController implements ISubController{
+public class SearchUserController implements ISubController{
     private RegisteredUser searchFields;
     private boolean isDone;
     private ListView listView;
@@ -43,7 +43,7 @@ public class SearchFormController implements ISubController{
     private TableColumn<RegisteredUser,String> userNameCol,passwordCol,firstNameCol,lastNameCol,cityCol,dateCol;
     private Controller controller;
 
-    public SearchFormController() {
+    public SearchUserController() {
     }
 
     public void handleSearch() {
@@ -74,11 +74,11 @@ public class SearchFormController implements ISubController{
 
 
     public void handleSearchAll(){
-        if(this.controller.getAllDataBase().size() == 0){
+        if(this.controller.getAllUsers().size() == 0){
             raiseError("No records in database");
             return;
         }
-        showSearchResults(this.controller.getAllDataBase());
+        showSearchResults(this.controller.getAllUsers());
     }
 
 

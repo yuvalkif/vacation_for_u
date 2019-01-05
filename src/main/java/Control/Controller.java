@@ -10,7 +10,6 @@ import Model.ISQLModel;
 import Model.Model;
 import View.IView;
 import dbObjects.*;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
@@ -31,10 +30,10 @@ public class Controller {
         this.model.setController(this);
     }
 
-    //public void setModel(ISQLModel model) {
-      //  this.model = model;
-       // sp_loggedUser = new SimpleStringProperty("" + model.getLoggedUser());
-   // }
+    public void setModel(ISQLModel model) {
+        this.model = model;
+    //    sp_loggedUser = new SimpleStringProperty("" + model.getLoggedUser());
+    }
 
     public void setView(IView view) {
         this.view = view;
@@ -98,8 +97,8 @@ public class Controller {
         return (ObservableList) model.searchRecordsByFields(username);
     }
 
-    public ObservableList getAllDataBase() {
-        return this.model.selectAllDataBase();
+    public ObservableList getAllUsers() {
+        return this.model.getAllUsers();
     }
 
     public AUserData correctUserAndPassword(String username, String password) {
@@ -141,12 +140,12 @@ public class Controller {
         this.model.insertVacation(vacation);
     }
 
-    public ObservableList searchVacationInDB(String dest) {
+    public ObservableList searchAllVacations(String dest) {
         return model.getVacations(dest);
     }
 
-    public Vacation getVacationAsObjectById(String vacationId){
-        return model.getVacationAsObjectById(vacationId);
+    public Vacation searchVacation(String vacationId){
+        return model.getVacationById(vacationId);
     }
 
     /********************************MESSAGE ACTIONS**************************/

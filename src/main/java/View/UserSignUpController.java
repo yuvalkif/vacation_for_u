@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
  * controller class for the sign up scene . controlled by 'SignUpForm.fxml'
  */
 
-public class SignUpFormController implements ISubController{
+public class UserSignUpController implements ISubController{
     private Controller controller;
     private RegisteredUser toSubmit;
     @FXML

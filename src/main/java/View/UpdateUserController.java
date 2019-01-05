@@ -13,10 +13,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 /**
- * controller class for the update scene. controlled by 'UpdateFormController.fxml'
+ * controller class for the update scene. controlled by 'UpdateUserController.fxml'
  */
 
-public class UpdateFormController implements ISubController{
+public class UpdateUserController implements ISubController{
     private RegisteredUser user ;
 
     private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="";

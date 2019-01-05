@@ -288,8 +288,8 @@ public class Model implements ISQLModel {
     public void insertTradeRequests( String offeredVacationId , String requestedVacationId){
 
         //first find and get the vacations
-        Vacation offeredVacation = getVacationAsObjectById(offeredVacationId);
-        Vacation requestedVacation = getVacationAsObjectById(requestedVacationId);
+        Vacation offeredVacation = getVacationById(offeredVacationId);
+        Vacation requestedVacation = getVacationById(requestedVacationId);
 
 
         //check that the vacations are aviable
@@ -345,7 +345,7 @@ public class Model implements ISQLModel {
 
 
     public boolean checkTicketExist(String ticketId){
-        Vacation v = getVacationAsObjectById(ticketId);
+        Vacation v = getVacationById(ticketId);
         return v!=null;
 
     }
@@ -424,9 +424,6 @@ public class Model implements ISQLModel {
     /**
      * this will add the requested vacation by id to the currently offerd table.
      *
-     * @param vacationId
-     * @param buyerUsername
-     * @param purchaseOfferDetails
      * @return success or not
      */
     @Override
@@ -436,7 +433,7 @@ public class Model implements ISQLModel {
 
         //get the vacation
 
-        Vacation requestedVacation = getVacationAsObjectById(requestedVacationId);
+        Vacation requestedVacation = getVacationById(requestedVacationId);
 
 
         String sql = "CREATE TABLE IF NOT EXISTS CashRequests (\n"
@@ -446,7 +443,7 @@ public class Model implements ISQLModel {
                 + " PRIMARY KEY (requestedVacationId, askerUserName)"
                 + ");";
         String sqlStatement = "INSERT INTO CashRequests(requestedVacationId, askerUserName,timeCreated) VALUES(?,?,?)";
-        Vacation vacation = getVacationAsObjectById(requestedVacationId);
+        Vacation vacation = getVacationById(requestedVacationId);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String theTimeNow = LocalDateTime.now().format(formatter);;
         try {
@@ -745,7 +742,7 @@ public class Model implements ISQLModel {
             insertMessage(SYSTEM,msg.getReciver(),timeNow,"regular","you have declined :"+msg.getSender()+" request","regular",msg.getVacation().getVacationID());
             //send to the seller
             //msg.getVacation().getVacationID();
-            Vacation v = getVacationAsObjectById(msg.getVacation().getVacationID());
+            Vacation v = getVacationById(msg.getVacation().getVacationID());
             markVacationAsAviable(msg.getVacation().getVacationID());
             Logger.getInstance().log("accepting message:  : " + msg.getVacation().getVacationID() +" "+msg.getSender() +" "+ msg.getReciver()+ " - SUCCESS");
         } catch (SQLException e) {
@@ -790,7 +787,7 @@ public class Model implements ISQLModel {
             if(tradeRequestExist(msg.getSender(),msg.getReciver(),msg.getVacation().getVacationID())) {
                 //so its a trade request need to be accepted
                 TradeRequest tr = getTradeRequestAsObjectByAskerAndReplier(msg.getSender(),msg.getReciver(),msg.getVacation().getVacationID());
-                Vacation tradedVacationOfTheAsker = getVacationAsObjectById(tr.getAskerVacationHeWantsToTrade().getVacationID());
+                Vacation tradedVacationOfTheAsker = getVacationById(tr.getAskerVacationHeWantsToTrade().getVacationID());
                 String recpietAsker ="TRADE SUCCESS"+"\n"+timeNow+"\n"+msg.getSender()+"\n"+msg.getVacation().toString()+"\n"+" CONTACT: 09320148304 \n   ENJOY";
                 String recpietReciver ="TRADE SUCCESS"+"\n"+timeNow+"\n"+msg.getReciver()+"\n"+tradedVacationOfTheAsker.toString()+"\n"+" CONTACT: 09320148304 \n   ENJOY";
                 //send to the asker
@@ -817,7 +814,7 @@ public class Model implements ISQLModel {
 
 
 
-            Vacation v = getVacationAsObjectById(msg.getVacation().getVacationID());
+            Vacation v = getVacationById(msg.getVacation().getVacationID());
             markVacationAsSold(msg.getVacation().getVacationID());
             Logger.getInstance().log("accepting message:  : " + msg.getVacation().getVacationID() +" "+msg.getSender() +" "+ msg.getReciver()+ " - SUCCESS");
         } catch (SQLException e) {
@@ -834,7 +831,7 @@ public class Model implements ISQLModel {
      * returns all the records in the database
      * @return a list with all the records
      */
-    public ObservableList selectAllDataBase() {
+    public ObservableList getAllUsers() {
         ResultSet resultSet = null;
         String sql = "SELECT * FROM users";
         ObservableList result = null;
@@ -1125,14 +1122,14 @@ public class Model implements ISQLModel {
 //                    unFreezeVacation(vacationId);
                 AMessage msg = null;
 
-                Vacation v = getVacationAsObjectById(vacationId);
+                Vacation v = getVacationById(vacationId);
                 if (!expired)   //the vaction will be set from vacation table;
                     msg = new ConfirmOfferMessage(sender, reciver, content, v, status);
                 else {
                     String expireExplain = "user: +" + sender + " tried to buy vacation: " + v.toString() + " but 48 have passed" +
                             "so offer is expired";
 //                    markVacationAsAviable(v.getVacationID());
-                    msg = new ExpiredOfferMessage(sender, reciver, expireExplain,getVacationAsObjectById(vacationId));
+                    msg = new ExpiredOfferMessage(sender, reciver, expireExplain, getVacationById(vacationId));
                 }
 
 
@@ -1208,12 +1205,12 @@ public class Model implements ISQLModel {
 
                 AMessage msg = null;
 
-                Vacation v = getVacationAsObjectById(vacationId);
+                Vacation v = getVacationById(vacationId);
                 if (!expired)   //the vaction will be set from vacation table;
                     msg = new ConfirmOfferMessage(sender, reciver, content, v, status);
                 else {
                     String expireExplain = "We are sorry, but the seller:  "+ sender +  "Vacation: "+v.toString()+" has not replied to your request in 48 hours so its expired" ;
-                    msg = new ExpiredOfferMessage(sender, reciver, expireExplain,getVacationAsObjectById(vacationId));
+                    msg = new ExpiredOfferMessage(sender, reciver, expireExplain, getVacationById(vacationId));
                 }
 
 
@@ -1233,7 +1230,7 @@ public class Model implements ISQLModel {
 
     /*******************************************  FROM DB TO OBJECT **********************************************/
 
-    public Vacation getVacationAsObjectById(String vacationId) {
+    public Vacation getVacationById(String vacationId) {
         ResultSet resultSet;
         ObservableList<Vacation> result = null;
         String sql = "SELECT * FROM vacations WHERE vacationId = " + "'" + vacationId + "'";
@@ -1275,7 +1272,7 @@ public class Model implements ISQLModel {
             String timeCreated = resultSet.getString("creationTime");
             String askerVacationHeWantsToTrade = resultSet.getString("offeredVacationId");
             String requestedVacation = resultSet.getString("requestedVacationId");
-            ans=  new TradeRequest(senderUserName,timeCreated,getVacationAsObjectById(askerVacationHeWantsToTrade),getVacationAsObjectById(requestedVacationId));
+            ans=  new TradeRequest(senderUserName,timeCreated, getVacationById(askerVacationHeWantsToTrade), getVacationById(requestedVacationId));
 
             conn.close();
         } catch (SQLException var7) {
@@ -1309,7 +1306,7 @@ public class Model implements ISQLModel {
             String senderUserName = resultSet.getString("senderUserName");
             String timeCreated = resultSet.getString("timeCreated");
             String requestedVacation = resultSet.getString("requestedVacationId");
-            ans=  new CashRequest(senderUserName,getVacationAsObjectById(requestedVacationId),timeCreated);
+            ans=  new CashRequest(senderUserName, getVacationById(requestedVacationId),timeCreated);
 
             conn.close();
         } catch (SQLException var7) {

@@ -57,7 +57,7 @@ public class SubmitRequestController implements ISubController{
 
     public void clickSubmitCash(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        CashRequest br = new CashRequest(controller.getLoggedUser(),controller.getVacationAsObjectById(tb_vacationID.getText()),LocalDateTime.now().format(formatter));
+        CashRequest br = new CashRequest(controller.getLoggedUser(),controller.searchVacation(tb_vacationID.getText()),LocalDateTime.now().format(formatter));
         controller.insertBuyingRequest(br);
         ErrorBox e = new ErrorBox();
         e.showErrorStage("We have sent your request to the seller,\n he will let you know :)");
@@ -73,7 +73,7 @@ public class SubmitRequestController implements ISubController{
             return;
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        TradeRequest tr = new TradeRequest(controller.getLoggedUser(),LocalDateTime.now().format(formatter),controller.getVacationAsObjectById(vacationID.substring(0,vacationID.indexOf(" "))),controller.getVacationAsObjectById(tb_vacationID.getText()));
+        TradeRequest tr = new TradeRequest(controller.getLoggedUser(),LocalDateTime.now().format(formatter),controller.searchVacation(vacationID.substring(0,vacationID.indexOf(" "))),controller.searchVacation(tb_vacationID.getText()));
         controller.insertTradeRequest(tr);
         ErrorBox e = new ErrorBox();
         e.showErrorStage("We have sent your request to the seller,\n he will let you know :)");
