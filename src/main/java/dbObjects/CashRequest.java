@@ -3,21 +3,21 @@ package dbObjects;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class BuyingRequest extends ARequest {
+public class CashRequest extends ARequest {
 
 
-    public BuyingRequest(String askerUserName,Vacation requestedVacation, String timeCreated) {
+    public CashRequest(String askerUserName, Vacation requestedVacation, String timeCreated) {
         super(askerUserName,requestedVacation, timeCreated);
     }
 
-    public BuyingRequest(String askerUserName,Vacation requestedVacation) {
+    public CashRequest(String askerUserName, Vacation requestedVacation) {
         super(askerUserName,requestedVacation);
     }
 
 
     @Override
     public String toString() {
-        return "BuyingRequest{" +
+        return "CashRequest{" +
                 "askerUserName='" + askerUserName + '\'' +
                 ", timeCreated='" + timeCreated + '\'' +
                 '}';

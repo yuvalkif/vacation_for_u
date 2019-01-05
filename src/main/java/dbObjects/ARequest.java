@@ -25,13 +25,6 @@ public class ARequest {
         this.timeCreated = LocalDateTime.now().format(formatter);
     }
 
-    public ARequest(String askerUserName,String timeCreated,Vacation requestedVacation) {
-        this.askerUserName = askerUserName;
-        this.timeCreated = timeCreated;
-        this.requestedVacation = requestedVacation;
-
-    }
-
     public String getAskerUserName() {
         return askerUserName;
     }
@@ -39,7 +32,6 @@ public class ARequest {
     public String getTimeCreated() {
         return timeCreated;
     }
-
 
     public Vacation getRequestedVacation() {
         return requestedVacation;

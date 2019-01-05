@@ -88,21 +88,22 @@ public class SearchVacationController {
                 }
                 c.setController(this.controller);
                 c.submit(controller.getLoggedUser(),v.getVacationID(),v.getPrice());
+                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent event) {
+                        StageHolder.getInstance().getStage();
+                    }
+                });
+                stage.showAndWait();
+                this.primaryStage.show();
             }
             else {
                 ErrorBox e = new ErrorBox();
                 e.showErrorStage("you need to choose vacation to submit a request");
                 return;
             }
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent event) {
-                    StageHolder.getInstance().getStage();
-                }
-            });
-            stage.showAndWait();
-            this.primaryStage.show();
-            StageHolder.getInstance().getStage().close();
+
+
         } catch (IOException e) {
             e.getCause();
             e.printStackTrace();
