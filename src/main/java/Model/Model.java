@@ -1239,7 +1239,7 @@ public class Model implements ISQLModel {
 //
 //
 //
-//    private BuyingRequest getBuyingRequestAsObjectByAskerAndVacationId(String askerUserName,String requestedVacationId) {
+//    private CashRequest getBuyingRequestAsObjectByAskerAndVacationId(String askerUserName,String requestedVacationId) {
 //        ResultSet resultSet;
 //        ObservableList<Vacation> result = null;
 //

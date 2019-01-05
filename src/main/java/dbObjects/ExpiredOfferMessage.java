@@ -1,6 +1,6 @@
 package dbObjects;
 
-public class ExpiredOfferMessage extends ATransactionMessage {
+public class ExpiredOfferMessage extends TransactionMessage {
     public ExpiredOfferMessage(String sender, String reciver, String content,Vacation vacation) {
         super(sender, reciver, content,vacation);
     }
