@@ -65,6 +65,10 @@ public class Controller {
         model.createCreditCardPoolTable();
     }
 
+    public void createTradeRequestTable(){
+        model.createTradeRequestsTable();
+    }
+
     /********************************USER ACTIONS**************************/
     public void handleSubmitSignUp(User submit) {
         if (submit != null) {
@@ -161,9 +165,10 @@ public class Controller {
 
     /*************************************REQUESTS****************************/
     public void insertTradeRequest(TradeRequest tr) {
-        //model.insertTradeRequests();
+        model.insertTradeRequests(tr.getRequestedVacation().getVacationID(),tr.getAskerVacationHeWantsToTrade().getVacationID());
     }
 
-
-
+    public void insertBuyingRequest(BuyingRequest br){
+        model.insertBuyingRequest(br.getRequestedVacation().getVacationID());
+    }
 }
