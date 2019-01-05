@@ -14,6 +14,7 @@ public class User extends AUser{
     private String firstName;
     private String lastName;
     private String city;
+    private Rank userRank;
     private StringProperty pUserName;
     private StringProperty pPassword;
     private StringProperty pBirthDate;
@@ -34,6 +35,23 @@ public class User extends AUser{
         this.pLastName = new SimpleStringProperty(lastName);
         this.pCity = new SimpleStringProperty(city);
         this.pBirthDate = new SimpleStringProperty(birthDate);
+        this.userRank = new Rank();
+    }
+
+
+    public User(String userName, String password, String firstName, String lastName, String city, String birthDate,Rank rank){
+        super(userName,password);
+        this.birthDate = birthDate;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.city = city;
+        this.pUserName = new SimpleStringProperty(userName);
+        this.pPassword = new SimpleStringProperty(password);
+        this.pFirstName = new SimpleStringProperty(firstName);
+        this.pLastName = new SimpleStringProperty(lastName);
+        this.pCity = new SimpleStringProperty(city);
+        this.pBirthDate = new SimpleStringProperty(birthDate);
+        this.userRank = rank;
     }
 
     public User(ArrayList<String> userParams){
@@ -44,6 +62,12 @@ public class User extends AUser{
         this.firstName = userParams.get(3);
         this.lastName = userParams.get(4);
         this.city = userParams.get(5);
+        this.userRank = new Rank();
+    }
+
+
+    public void rank(double score){
+        this.userRank.addRanker(score);
     }
 
 
@@ -130,5 +154,9 @@ public class User extends AUser{
 
     public StringProperty pCityProperty() {
         return pCity;
+    }
+
+    public Rank getUserRank() {
+        return userRank;
     }
 }
