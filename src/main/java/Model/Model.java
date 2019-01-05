@@ -1084,7 +1084,7 @@ public class Model implements ISQLModel {
                 else {
                     String expireExplain = "user: +" + sender + " tried to buy vacation: " + v.toString() + " but 48 have passed" +
                             "so offer is expired";
-                    markVacationAsAviable(v.getVacationID());
+//                    markVacationAsAviable(v.getVacationID());
                     msg = new ExpiredOfferMessage(sender, reciver, expireExplain,getVacationAsObjectById(vacationId));
                 }
 

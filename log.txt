@@ -1,14 +1,12 @@
-created new table users 2019/01/05 15:42:04
-created new table vacations 2019/01/05 15:42:04
-created new table purchases 2019/01/05 15:42:04
-created new table buyingRequests 2019/01/05 15:42:04
-created new table messages 2019/01/05 15:42:04
-created new trade Requests table table messages 2019/01/05 15:42:04
-connection opened 2019/01/05 15:42:08
-connection opened 2019/01/05 15:42:08
-connection opened 2019/01/05 15:42:08
-connection opened 2019/01/05 15:42:12
-SUCCSSES retrive vacations to dest: abc 2019/01/05 15:42:12
-connection opened 2019/01/05 15:42:14
-SUCCSSES retrive vacations to dest: abc 2019/01/05 15:42:14
-connection opened 2019/01/05 15:42:15
+created new table users 2019/01/05 15:30:09
+created new table vacations 2019/01/05 15:30:09
+created new table purchases 2019/01/05 15:30:09
+created new table buyingRequests 2019/01/05 15:30:09
+created new table messages 2019/01/05 15:30:09
+created new trade Requests table table messages 2019/01/05 15:30:09
+connection opened 2019/01/05 15:30:16
+connection opened 2019/01/05 15:30:16
+connection opened 2019/01/05 15:30:16
+connection opened 2019/01/05 15:30:16
+connection opened 2019/01/05 15:30:36
+SUCCSSES retrive vacations to dest: Paris 2019/01/05 15:30:36
