@@ -27,6 +27,7 @@ public class Model implements ISQLModel {
     public Model() {
     }
 
+
     public void setController(Controller controller) {
         this.controller = controller;
     }
@@ -132,12 +133,12 @@ public class Model implements ISQLModel {
     }
 
 
-    public void createBuyingRequestsTable() {
+    public void createCashRequestsTable() {
         // SQLite connection string
         String url = "jdbc:sqlite:vacation_for_u.db";
 
         // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS buyingRequests (\n"
+        String sql = "CREATE TABLE IF NOT EXISTS CashRequests (\n"
                 + "	requestedVacationId text NOT NULL,\n"
                 + "	askerUserName text NOT NULL,\n"
                 + "	timeCreated text NOT NULL ,\n"
@@ -148,11 +149,11 @@ public class Model implements ISQLModel {
              Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
-            Logger.getInstance().log("created new table buyingRequests");
+            Logger.getInstance().log("created new table CashRequest");
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
-            Logger.getInstance().log("failed to create new table buyingRequests");
+            Logger.getInstance().log("failed to create new table CashRequests");
         }
 
     }
@@ -357,7 +358,7 @@ public class Model implements ISQLModel {
     }
 
 
-    public boolean buyingRequestExist(String askerUserName,String replierUserName,String requestedVacationID){
+    public boolean CashRequestExist(String askerUserName,String replierUserName,String requestedVacationID){
         TradeRequest t = getTradeRequestAsObjectByAskerAndReplier(askerUserName,replierUserName,requestedVacationID);
         return t!=null;
 
@@ -429,7 +430,7 @@ public class Model implements ISQLModel {
      * @return success or not
      */
     @Override
-    public boolean insertBuyingRequest(String requestedVacationId) {
+    public boolean insertCashRequest(String requestedVacationId) {
 
         String askerUserName = controller.getLoggedUser();
 
@@ -438,13 +439,13 @@ public class Model implements ISQLModel {
         Vacation requestedVacation = getVacationAsObjectById(requestedVacationId);
 
 
-        String sql = "CREATE TABLE IF NOT EXISTS buyingRequests (\n"
+        String sql = "CREATE TABLE IF NOT EXISTS CashRequests (\n"
                 + "	requestedVacationId text NOT NULL,\n"
                 + "	askerUserName text NOT NULL,\n"
                 + "	timeCreated text NOT NULL ,\n"
                 + " PRIMARY KEY (requestedVacationId, askerUserName)"
                 + ");";
-        String sqlStatement = "INSERT INTO buyingRequests(requestedVacationId, askerUserName,timeCreated) VALUES(?,?,?)";
+        String sqlStatement = "INSERT INTO CashRequests(requestedVacationId, askerUserName,timeCreated) VALUES(?,?,?)";
         Vacation vacation = getVacationAsObjectById(requestedVacationId);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String theTimeNow = LocalDateTime.now().format(formatter);;
@@ -802,7 +803,7 @@ public class Model implements ISQLModel {
             }
 
             //Cash ACCEPTED
-            else if(buyingRequestExist(msg.getSender(),msg.getReciver(),msg.getVacation().getVacationID())){
+            else if(CashRequestExist(msg.getSender(),msg.getReciver(),msg.getVacation().getVacationID())){
                 String recpiet =timeNow+"\n"+msg.getSender()+"\n"+msg.getVacation().toString()+"\n"+" CONTACT: 09320148304 \n   ENJOY";
                 insertMessage(SYSTEM,msg.getSender(),timeNow,"confirm",recpiet,"accept",msg.getVacation().getVacationID());
                 //send to the seller
@@ -1291,12 +1292,12 @@ public class Model implements ISQLModel {
 
 
 
-    private BuyingRequest getBuyingRequestAsObjectByAskerAndReplier(String askerUserName,String replierUserName,String requestedVacationId) {
+        private CashRequest getCashRequestAsObjectByAskerAndReplier(String askerUserName,String replierUserName,String requestedVacationId) {
         ResultSet resultSet;
 
 
         String sql = "SELECT * FROM tradeRequests WHERE askerUserName = ?, requestedVacationId = ?";
-        BuyingRequest ans = null;
+            CashRequest ans = null;
         try {
             Connection conn = this.openConnection();
             PreparedStatement pstmt  = conn.prepareStatement(sql);
@@ -1308,7 +1309,7 @@ public class Model implements ISQLModel {
             String senderUserName = resultSet.getString("senderUserName");
             String timeCreated = resultSet.getString("timeCreated");
             String requestedVacation = resultSet.getString("requestedVacationId");
-            ans=  new BuyingRequest(senderUserName,getVacationAsObjectById(requestedVacationId),timeCreated);
+            ans=  new CashRequest(senderUserName,getVacationAsObjectById(requestedVacationId),timeCreated);
 
             conn.close();
         } catch (SQLException var7) {
