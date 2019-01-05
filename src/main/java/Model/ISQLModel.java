@@ -99,7 +99,7 @@ public interface ISQLModel {
      */
     boolean insertVacation(Vacation vacationValues);
 
-    boolean insertBuyingRequest(String vacationId , String buyerUsername ,String creationTime);
+    boolean insertBuyingRequest(String vacationId);
 
 
     void acceptMessage(ConfirmOfferMessage msg);
