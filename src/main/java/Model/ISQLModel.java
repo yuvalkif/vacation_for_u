@@ -114,7 +114,7 @@ public interface ISQLModel {
 
     ObservableList selectAllDataBase();
 
-    String getLoggedUser();
+//    String getLoggedUser();
 
     boolean checkTicketExist(String text);
 

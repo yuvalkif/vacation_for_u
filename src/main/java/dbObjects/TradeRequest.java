@@ -21,6 +21,8 @@ public class TradeRequest extends ARequest {
         return askerVacationHeWantsToTrade;
     }
 
+
+
     @Override
     public String toString() {
         return "TradeRequest{" +
