@@ -29,16 +29,17 @@ public class VacationFormController {
     @FXML
     public CheckBox  nightsIncluded , roundTrip;
     public DatePicker fromDate , toDate;
+
     @FXML
     public AnchorPane mainpane;
-
     public ImageView img_backPublishVacation;
 
     public VacationFormController(){}
+
     /**
      * set a new Vacation object with all the fields entered by the user .
      * if a field left blank , set the object to null.
-*/
+    */
     public void handleInsert(){
 
         String ticketID = ticketId.getText();
@@ -47,9 +48,13 @@ public class VacationFormController {
         String dest = destination.getText();
         String tickettype = ticketType.getText();
         String vacationType =  vacationTye.getText();
-        String hotelname = hotelName.getText();
+        String hotelname = "Without accommadtion";
+        String hotelrank = "0";
+        if (nightsIncluded.isSelected()) {
+            hotelname = hotelName.getText();
+            hotelrank = hotelRank.getText();
+        }
         String numberoftickets  = numberOfTickets.getText();
-        String hotelrank = hotelRank.getText();
         String priceS = txtfld_price.getText();
 
         ErrorBox e = new ErrorBox();
@@ -106,7 +111,6 @@ public class VacationFormController {
     }
 
     private Date utilDateToSqlDate(java.util.Date utilDate ){
-
         return new java.sql.Date(utilDate.getTime());
     }
 
@@ -140,4 +144,14 @@ public class VacationFormController {
         }
     }
 
+    public void handelUseInAccommadtion(){
+        if (!nightsIncluded.isSelected()){
+            hotelName.setDisable(true);
+            hotelRank.setDisable(true);
+        }
+        else {
+            hotelName.setDisable(false);
+            hotelRank.setDisable(false);
+        }
+    }
 }

@@ -7,15 +7,15 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="mainpane" prefHeight="423.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.VacationFormController">
+<AnchorPane fx:id="mainpane" prefHeight="423.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.VacationFormController">
    <children>
       <TextField fx:id="flightComp" layoutX="130.0" layoutY="14.0" />
       <TextField fx:id="numberOfTickets" layoutX="130.0" layoutY="151.0" />
       <TextField fx:id="destination" layoutX="461.0" layoutY="14.0" />
       <TextField fx:id="ticketType" layoutX="461.0" layoutY="58.0" />
       <TextField fx:id="vacationTye" layoutX="461.0" layoutY="106.0" />
-      <TextField fx:id="hotelName" layoutX="461.0" layoutY="151.0" />
-      <TextField fx:id="hotelRank" layoutX="461.0" layoutY="200.0" />
+      <TextField fx:id="hotelName" layoutX="461.0" layoutY="151.0" disable="true" />
+      <TextField fx:id="hotelRank" layoutX="461.0" layoutY="200.0" disable="true" />
       <Label layoutX="14.0" layoutY="14.0" prefHeight="31.0" prefWidth="96.0" text="Flight Comp." />
       <Label layoutX="14.0" layoutY="58.0" prefHeight="31.0" prefWidth="84.0" text="From date" />
       <Label layoutX="14.0" layoutY="106.0" prefHeight="31.0" prefWidth="96.0" text="To date" />
@@ -28,7 +28,7 @@
       <Button layoutX="119.0" layoutY="392.0" mnemonicParsing="false" onAction="#handleInsert" prefHeight="31.0" prefWidth="160.0" text="Insert" />
       <DatePicker fx:id="fromDate" layoutX="130.0" layoutY="58.0" prefHeight="31.0" prefWidth="187.0" />
       <DatePicker fx:id="toDate" layoutX="130.0" layoutY="106.0" prefHeight="31.0" prefWidth="187.0" />
-      <CheckBox fx:id="nightsIncluded" layoutX="471.0" layoutY="291.0" mnemonicParsing="false" text="Nights included" />
+      <CheckBox fx:id="nightsIncluded"  onAction="#handelUseInAccommadtion" layoutX="471.0" layoutY="291.0" mnemonicParsing="false" text="Add Accomnadtion" />
       <CheckBox fx:id="roundTrip" layoutX="471.0" layoutY="249.0" mnemonicParsing="false" text="Round trip" />
       <TextField fx:id="baggage" layoutX="130.0" layoutY="200.0" />
       <Label layoutX="14.0" layoutY="200.0" prefHeight="31.0" prefWidth="96.0" text="Baggage" />

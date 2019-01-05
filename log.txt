@@ -1,10 +1,13 @@
-created new table users 2019/01/04 20:16:56
-created new table vacations 2019/01/04 20:16:56
-created new table purchases 2019/01/04 20:16:56
-created new table buyingRequests 2019/01/04 20:16:56
-created new table messages 2019/01/04 20:16:56
-connection opened 2019/01/04 20:17:06
-connection opened 2019/01/04 20:17:06
-connection opened 2019/01/04 20:17:10
-SUCCSSES retrive vacations to dest: abc 2019/01/04 20:17:10
-connection opened 2019/01/04 20:17:13
+created new table users 2019/01/05 13:03:52
+created new table vacations 2019/01/05 13:03:52
+created new table purchases 2019/01/05 13:03:52
+created new table buyingRequests 2019/01/05 13:03:52
+created new table messages 2019/01/05 13:03:52
+connection opened 2019/01/05 13:04:18
+connection opened 2019/01/05 13:04:22
+connection opened 2019/01/05 13:04:22
+connection opened 2019/01/05 13:05:00
+connection opened 2019/01/05 13:05:00
+connection opened 2019/01/05 13:05:00
+INSERT : Vacation{VacationID='6', ownerUserName='S', flight=Flight{flightCompany='E', FlightId='null', destination='S', getTicketType='S', baggageIncluded='1', fromDate=2019-01-12, untilDate=2019-01-19, isTwoDirections=false}, accommodation=Accommodation{AccomodationName='Without accommadtion', AccomodationRank=0.0, AccomodationLocation='S', fromDate=2019-01-12, until=2019-01-19}, numberOfTickets=1, vacationType='S', includeSleep=false, sold=false, freezed=false, price=2.0, PVacationID=StringProperty [value: 6], PownerUserName=StringProperty [value: S], PflightCompany=StringProperty [value: E], PfromDate=StringProperty [value: 2019-01-12], PuntilDate=StringProperty [value: 2019-01-19], PbaggageIncluded=StringProperty [value: 1], PnumberOfTickets=StringProperty [value: 1], PtwoDirections=StringProperty [value: false], Pdestination=StringProperty [value: S], PticketType=StringProperty [value: S], PvacationType=StringProperty [value: S], PincludeSleep=StringProperty [value: false], PhotelName=StringProperty [value: Without accommadtion], PhotelRank=StringProperty [value: 0.0], Pprice=StringProperty [value: 2.0]}- SUCCESS 2019/01/05 13:05:00
+connection opened 2019/01/05 13:05:12
