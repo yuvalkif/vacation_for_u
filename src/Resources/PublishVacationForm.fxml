@@ -5,10 +5,17 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import javafx.scene.image.Image?>
 <AnchorPane fx:id="mainpane" prefHeight="423.0" prefWidth="678.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.VacationFormController">
    <children>
+      <ImageView fitHeight="423.0" fitWidth="678.0" pickOnBounds="true">
+         <image>
+            <Image url="backToPublish.jpg" />
+         </image>
+      </ImageView>
       <TextField fx:id="flightComp" layoutX="130.0" layoutY="14.0" />
       <TextField fx:id="numberOfTickets" layoutX="130.0" layoutY="151.0" />
       <TextField fx:id="destination" layoutX="461.0" layoutY="14.0" />

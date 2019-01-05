@@ -30,9 +30,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Vacation ID" GridPane.rowIndex="1" />
-            <Label text="User Name" />
-            <Label text="Amount to pay" GridPane.rowIndex="2" />
+            <Label text="Vacation ID" textFill="white" GridPane.rowIndex="1" />
+            <Label text="User Name" textFill="white"/>
+            <Label text="Amount to pay" GridPane.rowIndex="2" textFill="white"/>
             <TextField fx:id="tb_vacationID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="tb_userName" GridPane.columnIndex="1" />
             <TextField fx:id="tb_price" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -60,9 +60,9 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Vacation ID" GridPane.rowIndex="1" />
-            <Label text="User Name" />
-            <Label text="Choose vacation" GridPane.rowIndex="2" />
+            <Label text="Vacation ID" textFill="white" GridPane.rowIndex="1" />
+            <Label text="User Name" textFill="white"/>
+            <Label text="Choose vacation" GridPane.rowIndex="2" textFill="white"/>
             <TextField fx:id="tb_vacationID1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="tb_userName1" GridPane.columnIndex="1" />
             <ChoiceBox fx:id="cb_tradeVacation" prefHeight="31.0" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

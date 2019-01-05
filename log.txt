@@ -1,35 +1,12 @@
-created new table users 2019/01/05 16:13:35
-created new table vacations 2019/01/05 16:13:35
-created new table purchases 2019/01/05 16:13:35
-created new table buyingRequests 2019/01/05 16:13:35
-created new table messages 2019/01/05 16:13:35
-created new trade Requests table table messages 2019/01/05 16:13:35
-connection opened 2019/01/05 16:13:51
-connection opened 2019/01/05 16:13:51
-connection opened 2019/01/05 16:13:58
-SUCCSSES retrive vacations to dest: S 2019/01/05 16:13:58
-connection opened 2019/01/05 16:14:01
-connection opened 2019/01/05 16:14:07
-connection opened 2019/01/05 16:14:07
-connection opened 2019/01/05 16:14:07
-connection opened 2019/01/05 16:14:07
-connection opened 2019/01/05 16:14:07
-connection closed 2019/01/05 16:14:07
-connection opened 2019/01/05 16:14:07
-connection closed 2019/01/05 16:14:07
-INSERT Message, content : A wants to trade his vacatoin: Vacation{VacationID='6', ownerUserName='S', flight=Flight{flightCompany='E', FlightId='null', destination='S', getTicketType='S', baggageIncluded='1', fromDate=2019-01-12, untilDate=2019-01-19, isTwoDirections=true}, accommodation=Accommodation{AccomodationName='Without accommadtion', AccomodationRank=0.0, AccomodationLocation='S', fromDate=2019-01-12, until=2019-01-19}, numberOfTickets=1, vacationType='S', includeSleep=false, sold=false, freezed=false, price=2.0, PVacationID=StringProperty [value: 6], PownerUserName=StringProperty [value: S], PflightCompany=StringProperty [value: E], PfromDate=StringProperty [value: 2019-01-12], PuntilDate=StringProperty [value: 2019-01-19], PbaggageIncluded=StringProperty [value: 1], PnumberOfTickets=StringProperty [value: 1], PtwoDirections=StringProperty [value: true], Pdestination=StringProperty [value: S], PticketType=StringProperty [value: S], PvacationType=StringProperty [value: S], PincludeSleep=StringProperty [value: false], PhotelName=StringProperty [value: Without accommadtion], PhotelRank=StringProperty [value: 0.0], Pprice=StringProperty [value: 2.0]}with your vacation Vacation{VacationID='111', ownerUserName='A', flight=Flight{flightCompany='W', FlightId='null', destination='S', getTicketType='d', baggageIncluded='1', fromDate=2019-01-10, untilDate=2019-01-30, isTwoDirections=true}, accommodation=Accommodation{AccomodationName='Without accommadtion', AccomodationRank=0.0, AccomodationLocation='S', fromDate=2019-01-10, until=2019-01-30}, numberOfTickets=1, vacationType='d', includeSleep=false, sold=false, freezed=false, price=1.0, PVacationID=StringProperty [value: 111], PownerUserName=StringProperty [value: A], PflightCompany=StringProperty [value: W], PfromDate=StringProperty [value: 2019-01-10], PuntilDate=StringProperty [value: 2019-01-30], PbaggageIncluded=StringProperty [value: 1], PnumberOfTickets=StringProperty [value: 1], PtwoDirections=StringProperty [value: true], Pdestination=StringProperty [value: S], PticketType=StringProperty [value: d], PvacationType=StringProperty [value: d], PincludeSleep=StringProperty [value: false], PhotelName=StringProperty [value: Without accommadtion], PhotelRank=StringProperty [value: 0.0], Pprice=StringProperty [value: 1.0]}- SUCCESS 2019/01/05 16:14:07
-connection opened 2019/01/05 16:14:07
-connection closed 2019/01/05 16:14:07
-INSERT Message, content : Your trade request sent to: A- SUCCESS 2019/01/05 16:14:07
-connection opened 2019/01/05 16:14:07
-connection closed 2019/01/05 16:14:07
-Update  , mark as sold vacation : 111 - SUCCESS 2019/01/05 16:14:07
-INSERT : S , A - SUCCESS 2019/01/05 16:14:07
-connection opened 2019/01/05 16:14:25
-connection opened 2019/01/05 16:14:32
-connection opened 2019/01/05 16:14:32
-connection opened 2019/01/05 16:14:32
-connection opened 2019/01/05 16:14:40
-connection opened 2019/01/05 16:14:40
-connection opened 2019/01/05 16:14:46
-connection opened 2019/01/05 16:14:46
+created new table users 2019/01/05 15:30:09
+created new table vacations 2019/01/05 15:30:09
+created new table purchases 2019/01/05 15:30:09
+created new table buyingRequests 2019/01/05 15:30:09
+created new table messages 2019/01/05 15:30:09
+created new trade Requests table table messages 2019/01/05 15:30:09
+connection opened 2019/01/05 15:30:16
+connection opened 2019/01/05 15:30:16
+connection opened 2019/01/05 15:30:16
+connection opened 2019/01/05 15:30:16
+connection opened 2019/01/05 15:30:36
+SUCCSSES retrive vacations to dest: Paris 2019/01/05 15:30:36

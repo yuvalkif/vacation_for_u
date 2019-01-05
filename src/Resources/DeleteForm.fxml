@@ -9,7 +9,7 @@
 
 <AnchorPane fx:id="mainpane" maxHeight="150.0" maxWidth="300.0" minHeight="150.0" minWidth="300.0" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.DeleteFormController">
     <children>
-      <ImageView fx:id="img_backDelete" pickOnBounds="true">
+      <ImageView fx:id="img_backDelete" fitHeight="150.0" fitWidth="300.0" pickOnBounds="true">
          <image>
             <Image url="backDelete.jpg" />
          </image>
