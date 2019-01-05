@@ -4,10 +4,14 @@ import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import dbObjects.Purchase;
+import dbObjects.TradeRequest;
 import dbObjects.Vacation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class SubmitRequestController {
     public Controller controller;
@@ -68,9 +72,9 @@ public class SubmitRequestController {
             e.showErrorStage("Please choose a vacation to trade");
             return;
         }
-        //MAKE A TRADE REQUEST
-        //Purchase p = new Purchase(controller.getLoggedUser(),tb_toFillNameOnCard.getText(), tb_toFillType.getSelectionModel().toString(), tb_toFillVisaNumber.getText(), tb_toFillCVV.getText() , java.sql.Date.valueOf(tb_date.getValue()),tb_vacationID.getText());
-        //controller.insertBuyingRequest(p);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        TradeRequest tr = new TradeRequest(controller.getLoggedUser(),LocalDateTime.now().format(formatter),controller.getVacationAsObjectById(vacationID));
+        controller.insertTradeRequest(tr);
         ErrorBox e = new ErrorBox();
         e.showErrorStage("We have sent your request to the seller,\n he will let you know :)");
         StageHolder.getInstance().getStage().close();

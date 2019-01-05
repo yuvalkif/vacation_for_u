@@ -1,10 +1,5 @@
-created new table users 2019/01/04 20:16:56
-created new table vacations 2019/01/04 20:16:56
-created new table purchases 2019/01/04 20:16:56
-created new table buyingRequests 2019/01/04 20:16:56
-created new table messages 2019/01/04 20:16:56
-connection opened 2019/01/04 20:17:06
-connection opened 2019/01/04 20:17:06
-connection opened 2019/01/04 20:17:10
-SUCCSSES retrive vacations to dest: abc 2019/01/04 20:17:10
-connection opened 2019/01/04 20:17:13
+created new table users 2019/01/04 20:18:13
+created new table vacations 2019/01/04 20:18:13
+created new table purchases 2019/01/04 20:18:13
+created new table buyingRequests 2019/01/04 20:18:13
+created new table messages 2019/01/04 20:18:13

@@ -1167,7 +1167,7 @@ public class Model implements ISQLModel {
 
     /*******************************************  FROM DB TO OBJECT **********************************************/
 
-    private Vacation getVacationAsObjectById(String vacationId) {
+    public Vacation getVacationAsObjectById(String vacationId) {
         ResultSet resultSet;
         ObservableList<Vacation> result = null;
         String sql = "SELECT * FROM vacations WHERE vacationId = " + "'" + vacationId + "'";
