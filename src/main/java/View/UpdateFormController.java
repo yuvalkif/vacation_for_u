@@ -19,7 +19,7 @@ import java.time.Period;
  * controller class for the update scene. controlled by 'UpdateFormController.fxml'
  */
 
-public class UpdateFormController {
+public class UpdateFormController implements ISubController{
     private User user ;
 
     private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="";

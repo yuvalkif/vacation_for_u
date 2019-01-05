@@ -18,7 +18,7 @@ import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
-public class LogInController {
+public class LogInController implements ISubController{
 
     public TextField txtfld_userName;
     public TextField txtfld_password;

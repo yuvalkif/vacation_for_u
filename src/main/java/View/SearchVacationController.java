@@ -18,7 +18,7 @@ import javafx.stage.WindowEvent;
 import java.io.IOException;
 
 
-public class SearchVacationController {
+public class SearchVacationController implements ISubController{
     public Button btn_submitReq;
     public Button btn_beck;
     private Controller controller;

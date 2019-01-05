@@ -20,7 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class SearchFormController {
+public class SearchFormController implements ISubController{
     private User searchFields;
     private boolean isDone;
     private ListView listView;

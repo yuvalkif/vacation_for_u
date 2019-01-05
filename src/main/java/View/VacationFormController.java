@@ -18,7 +18,7 @@ import java.time.ZoneId;
 import java.util.Calendar;
 
 
-public class VacationFormController {
+public class VacationFormController implements ISubController{
 
     private Controller controller;
     private Vacation vacation;

@@ -14,7 +14,7 @@ import javafx.scene.control.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class SubmitRequestController {
+public class SubmitRequestController implements ISubController{
     public Controller controller;
 
     public TextField tb_vacationID;
