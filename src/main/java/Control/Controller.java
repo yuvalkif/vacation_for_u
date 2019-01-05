@@ -154,7 +154,7 @@ public class Controller {
         this.model.acceptMessage(msg);
     }
 
-//    public void insertBuyingRequest(BuyingRequest buyingRequest){
+//    public void insertBuyingRequest(CashRequest buyingRequest){
 //        model.insertBuyingRequest(buyingRequest.get,p.get(),p);
 //    }
 
@@ -168,7 +168,7 @@ public class Controller {
         model.insertTradeRequests(tr.getRequestedVacation().getVacationID(),tr.getAskerVacationHeWantsToTrade().getVacationID());
     }
 
-    public void insertBuyingRequest(BuyingRequest br){
+    public void insertBuyingRequest(CashRequest br){
         model.insertBuyingRequest(br.getRequestedVacation().getVacationID());
     }
 }

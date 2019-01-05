@@ -48,6 +48,7 @@ public class Flight {
         return fromDate;
     }
 
+
     public Date getUntilDate() {
         return untilDate;
     }

@@ -3,8 +3,7 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
-import dbObjects.BuyingRequest;
-import dbObjects.Purchase;
+import dbObjects.CashRequest;
 import dbObjects.TradeRequest;
 import dbObjects.Vacation;
 import javafx.collections.FXCollections;
@@ -58,7 +57,7 @@ public class SubmitRequestController implements ISubController{
 
     public void clickSubmitCash(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        BuyingRequest br = new BuyingRequest(controller.getLoggedUser(),controller.getVacationAsObjectById(tb_vacationID.getText()),LocalDateTime.now().format(formatter));
+        CashRequest br = new CashRequest(controller.getLoggedUser(),controller.getVacationAsObjectById(tb_vacationID.getText()),LocalDateTime.now().format(formatter));
         controller.insertBuyingRequest(br);
         ErrorBox e = new ErrorBox();
         e.showErrorStage("We have sent your request to the seller,\n he will let you know :)");

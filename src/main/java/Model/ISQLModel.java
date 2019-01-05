@@ -57,7 +57,7 @@ public interface ISQLModel {
      */
     void createPurchaseTable();
 
-    void createBuyingRequestsTable();
+    void createCashRequestsTable();
 
     void createConfirmMessageTable();
     void createCreditCardPoolTable();
@@ -100,7 +100,7 @@ public interface ISQLModel {
      */
     boolean insertVacation(Vacation vacationValues);
 
-    boolean insertBuyingRequest(String vacationId);
+    boolean insertCashRequest(String vacationId);
 
 
     void acceptMessage(ConfirmOfferMessage msg);
@@ -114,7 +114,7 @@ public interface ISQLModel {
 
     ObservableList selectAllDataBase();
 
-    String getLoggedUser();
+//    String getLoggedUser();
 
     boolean checkTicketExist(String text);
 

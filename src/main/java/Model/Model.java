@@ -27,6 +27,7 @@ public class Model implements ISQLModel {
     public Model() {
     }
 
+
     public void setController(Controller controller) {
         this.controller = controller;
     }
@@ -132,12 +133,12 @@ public class Model implements ISQLModel {
     }
 
 
-    public void createBuyingRequestsTable() {
+    public void createCashRequestsTable() {
         // SQLite connection string
         String url = "jdbc:sqlite:vacation_for_u.db";
 
         // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS buyingRequests (\n"
+        String sql = "CREATE TABLE IF NOT EXISTS CashRequests (\n"
                 + "	requestedVacationId text NOT NULL,\n"
                 + "	askerUserName text NOT NULL,\n"
                 + "	timeCreated text NOT NULL ,\n"
@@ -148,11 +149,11 @@ public class Model implements ISQLModel {
              Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
-            Logger.getInstance().log("created new table buyingRequests");
+            Logger.getInstance().log("created new table CashRequest");
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
-            Logger.getInstance().log("failed to create new table buyingRequests");
+            Logger.getInstance().log("failed to create new table CashRequests");
         }
 
     }
@@ -350,6 +351,26 @@ public class Model implements ISQLModel {
     }
 
 
+    public boolean tradeRequestExist(String askerUserName,String replierUserName,String requestedVacationID){
+        TradeRequest t = getTradeRequestAsObjectByAskerAndReplier(askerUserName,replierUserName,requestedVacationID);
+        return t!=null;
+
+    }
+
+
+    public boolean CashRequestExist(String askerUserName,String replierUserName,String requestedVacationID){
+        TradeRequest t = getTradeRequestAsObjectByAskerAndReplier(askerUserName,replierUserName,requestedVacationID);
+        return t!=null;
+
+    }
+
+
+
+
+
+
+
+
 
 
 
@@ -409,7 +430,7 @@ public class Model implements ISQLModel {
      * @return success or not
      */
     @Override
-    public boolean insertBuyingRequest(String requestedVacationId) {
+    public boolean insertCashRequest(String requestedVacationId) {
 
         String askerUserName = controller.getLoggedUser();
 
@@ -418,13 +439,13 @@ public class Model implements ISQLModel {
         Vacation requestedVacation = getVacationAsObjectById(requestedVacationId);
 
 
-        String sql = "CREATE TABLE IF NOT EXISTS buyingRequests (\n"
+        String sql = "CREATE TABLE IF NOT EXISTS CashRequests (\n"
                 + "	requestedVacationId text NOT NULL,\n"
                 + "	askerUserName text NOT NULL,\n"
                 + "	timeCreated text NOT NULL ,\n"
                 + " PRIMARY KEY (requestedVacationId, askerUserName)"
                 + ");";
-        String sqlStatement = "INSERT INTO buyingRequests(requestedVacationId, askerUserName,timeCreated) VALUES(?,?,?)";
+        String sqlStatement = "INSERT INTO CashRequests(requestedVacationId, askerUserName,timeCreated) VALUES(?,?,?)";
         Vacation vacation = getVacationAsObjectById(requestedVacationId);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String theTimeNow = LocalDateTime.now().format(formatter);;
@@ -762,14 +783,40 @@ public class Model implements ISQLModel {
             //TWO CASES:
             //TRADE ACCEPTED OR BUYING ACCEPTED
 
-            //TRADE ACCEPTED
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String timeNow = LocalDateTime.now().format(formatter);
-            String recpiet =timeNow+"\n"+msg.getSender()+"\n"+msg.getVacation().toString()+"\n"+" CONTACT: 09320148304 \n   ENJOY";
-            insertMessage(SYSTEM,msg.getSender(),timeNow,"confirm",recpiet,"accept",msg.getVacation().getVacationID());
-            //send to the seller
-            insertMessage(SYSTEM,msg.getReciver(),timeNow,"confirm","username: "+msg.getSender()+" has bought your vacation: "+msg.getVacation()+" we sent you: "+msg.getVacation().getPrice(),"accept",
-                    msg.getVacation().getVacationID());
+            //TRADE ACCEPTED
+            if(tradeRequestExist(msg.getSender(),msg.getReciver(),msg.getVacation().getVacationID())) {
+                //so its a trade request need to be accepted
+                TradeRequest tr = getTradeRequestAsObjectByAskerAndReplier(msg.getSender(),msg.getReciver(),msg.getVacation().getVacationID());
+                Vacation tradedVacationOfTheAsker = getVacationAsObjectById(tr.getAskerVacationHeWantsToTrade().getVacationID());
+                String recpietAsker ="TRADE SUCCESS"+"\n"+timeNow+"\n"+msg.getSender()+"\n"+msg.getVacation().toString()+"\n"+" CONTACT: 09320148304 \n   ENJOY";
+                String recpietReciver ="TRADE SUCCESS"+"\n"+timeNow+"\n"+msg.getReciver()+"\n"+tradedVacationOfTheAsker.toString()+"\n"+" CONTACT: 09320148304 \n   ENJOY";
+                //send to the asker
+                insertMessage(SYSTEM,msg.getSender(),timeNow,"confirm",recpietAsker,"accept",msg.getVacation().getVacationID());
+                //send to the reciver
+                insertMessage(SYSTEM,msg.getSender(),timeNow,"confirm",recpietAsker,"accept",msg.getVacation().getVacationID());
+
+
+
+            }
+
+            //Cash ACCEPTED
+            else if(CashRequestExist(msg.getSender(),msg.getReciver(),msg.getVacation().getVacationID())){
+                String recpiet =timeNow+"\n"+msg.getSender()+"\n"+msg.getVacation().toString()+"\n"+" CONTACT: 09320148304 \n   ENJOY";
+                insertMessage(SYSTEM,msg.getSender(),timeNow,"confirm",recpiet,"accept",msg.getVacation().getVacationID());
+                //send to the seller
+                insertMessage(SYSTEM,msg.getReciver(),timeNow,"confirm","username: "+msg.getSender()+" has bought your vacation: "+msg.getVacation()+" we sent you: "+msg.getVacation().getPrice(),"accept",
+                        msg.getVacation().getVacationID());
+            }
+
+
+            else
+                 System.out.println("unable to find either in trades or in cash with this confirm mesg: "+msg.toString());
+
+
+
             Vacation v = getVacationAsObjectById(msg.getVacation().getVacationID());
             markVacationAsSold(msg.getVacation().getVacationID());
             Logger.getInstance().log("accepting message:  : " + msg.getVacation().getVacationID() +" "+msg.getSender() +" "+ msg.getReciver()+ " - SUCCESS");
@@ -1210,60 +1257,71 @@ public class Model implements ISQLModel {
     }
 //
 //
-//    private TradeRequest getTradeRequestAsObjectByAskerAndReplier(String askerUserName,String replierUserName) {
-//        ResultSet resultSet;
-//        ObservableList<Vacation> result = null;
-//
-//        String sql = "SELECT * FROM tradeRequests WHERE askerUserName = ?, replierUserName = ? ";
-//        Vacation ans = null;
-//        try {
-//            Connection conn = this.openConnection();
-//            PreparedStatement pstmt  = conn.prepareStatement(sql);
-//            pstmt.setString(1,askerUserName);
-//            pstmt.setString(2,replierUserName);
-//            resultSet = pstmt.executeQuery();
-//            result = this.convertVacationResultsToObservableList(resultSet,true);
-//            conn.close();
-//            if(result.size()>0)
-//                ans = result.get(0);
-//        } catch (SQLException var7) {
-//            System.out.println(var7.getMessage());
-//            Logger.getInstance().log(var7.getMessage());
-//            System.out.println("unable to create tradeRequest Object from DB by ID");
-//        }
-//
-//        return ans;
-//
-//    }
-//
-//
-//
-//
-//    private BuyingRequest getBuyingRequestAsObjectByAskerAndVacationId(String askerUserName,String requestedVacationId) {
-//        ResultSet resultSet;
-//        ObservableList<Vacation> result = null;
-//
-//        String sql = "SELECT * FROM buyingRequests WHERE askerUserName = ?, requestedVacationId = ? ";
-//        Vacation ans = null;
-//        try {
-//            Connection conn = this.openConnection();
-//            PreparedStatement pstmt  = conn.prepareStatement(sql);
-//            pstmt.setString(1,askerUserName);
-//            pstmt.setString(2,requestedVacationId);
-//            resultSet = pstmt.executeQuery();
-//            result = this.convertVacationResultsToObservableList(resultSet,true);
-//            conn.close();
-//            if(result.size()>0)
-//                ans = result.get(0);
-//        } catch (SQLException var7) {
-//            System.out.println(var7.getMessage());
-//            Logger.getInstance().log(var7.getMessage());
-//            System.out.println("unable to create buyingRequest Object from DB by ID");
-//        }
-//
-//        return ans;
-//
-//    }
+    private TradeRequest getTradeRequestAsObjectByAskerAndReplier(String askerUserName,String replierUserName,String requestedVacationId) {
+        ResultSet resultSet;
+
+        String sql = "SELECT * FROM tradeRequests WHERE askerUserName = ?, replierUserName = ?,requestedVacationId = ?";
+        TradeRequest ans = null;
+        try {
+            Connection conn = this.openConnection();
+            PreparedStatement pstmt  = conn.prepareStatement(sql);
+            pstmt.setString(1,askerUserName);
+            pstmt.setString(2,replierUserName);
+            pstmt.setString(3,requestedVacationId);
+            resultSet = pstmt.executeQuery();
+            if (!resultSet.next())
+                return null;
+            String senderUserName = resultSet.getString("senderUserName");
+            String timeCreated = resultSet.getString("creationTime");
+            String askerVacationHeWantsToTrade = resultSet.getString("offeredVacationId");
+            String requestedVacation = resultSet.getString("requestedVacationId");
+            ans=  new TradeRequest(senderUserName,timeCreated,getVacationAsObjectById(askerVacationHeWantsToTrade),getVacationAsObjectById(requestedVacationId));
+
+            conn.close();
+        } catch (SQLException var7) {
+            System.out.println(var7.getMessage());
+            Logger.getInstance().log(var7.getMessage());
+            System.out.println("unable to create tradeRequest Object from DB by ID");
+        }
+
+        return ans;
+
+    }
+
+
+
+
+
+        private CashRequest getCashRequestAsObjectByAskerAndReplier(String askerUserName,String replierUserName,String requestedVacationId) {
+        ResultSet resultSet;
+
+
+        String sql = "SELECT * FROM tradeRequests WHERE askerUserName = ?, requestedVacationId = ?";
+            CashRequest ans = null;
+        try {
+            Connection conn = this.openConnection();
+            PreparedStatement pstmt  = conn.prepareStatement(sql);
+            pstmt.setString(1,requestedVacationId);
+            pstmt.setString(2,askerUserName);
+            resultSet = pstmt.executeQuery();
+            if (!resultSet.next())
+                return null;
+            String senderUserName = resultSet.getString("senderUserName");
+            String timeCreated = resultSet.getString("timeCreated");
+            String requestedVacation = resultSet.getString("requestedVacationId");
+            ans=  new CashRequest(senderUserName,getVacationAsObjectById(requestedVacationId),timeCreated);
+
+            conn.close();
+        } catch (SQLException var7) {
+            System.out.println(var7.getMessage());
+            Logger.getInstance().log(var7.getMessage());
+            System.out.println("unable to create tradeRequest Object from DB by ID");
+        }
+
+        return ans;
+
+    }
+
 
 
     /******************************************** PRIVATE FUNCTIONS ***********************************************/
@@ -1448,9 +1506,9 @@ public class Model implements ISQLModel {
 
     }
 
-    public String getLoggedUser() {
-        return loggedUser;
-    }
+//    public String getLoggedUser() {
+//        return loggedUser;
+//    }
 
 }
 
