@@ -10,6 +10,7 @@ import Model.ISQLModel;
 import Model.Model;
 import View.IView;
 import dbObjects.*;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
@@ -20,8 +21,6 @@ public class Controller {
     private StringProperty sp_loggedUser;
 
     public Controller() {
-
-
     }
 
     /********************************SET ACTIONS**************************/
@@ -32,7 +31,7 @@ public class Controller {
 
     public void setModel(ISQLModel model) {
         this.model = model;
-    //    sp_loggedUser = new SimpleStringProperty("" + model.getLoggedUser());
+        sp_loggedUser = new SimpleStringProperty("");
     }
 
     public void setView(IView view) {
@@ -82,7 +81,6 @@ public class Controller {
 
     public void updateUser(String newUserName, String password, String firstName, String lastName, String city, String date) {
         this.model.updateUsers(loggedUser, newUserName, password, firstName, lastName, city, date);
-
     }
 
     public void deleteUser() {

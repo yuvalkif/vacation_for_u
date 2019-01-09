@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="mainpane" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.UserSignUpController">
     <children>
-      <ImageView fx:id="img_backSignUp" fitWidth="450.0" fitHeight="450.0">
+      <ImageView fx:id="img_backSignUp" fitHeight="450.0" fitWidth="450.0">
          <image>
             <Image url="backsighup.jpg" />
          </image>
@@ -30,6 +30,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <TextField fx:id="username" GridPane.columnIndex="1" />
@@ -38,12 +39,14 @@
                 <TextField fx:id="lastname" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <TextField fx:id="city" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 <DatePicker fx:id="datepk_age" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <Label text="User name" textFill="WHITE" />
+                <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                <Label text="User name" textFill="WHITE" GridPane.rowIndex="0" />
                 <Label text="Password" textFill="WHITE" GridPane.rowIndex="1" />
                 <Label text="First name" textFill="WHITE" GridPane.rowIndex="2" />
                 <Label text="Last name" textFill="WHITE" GridPane.rowIndex="3" />
                 <Label text="Birth date(yyyy-mm-dd)" textFill="WHITE" GridPane.rowIndex="4" />
                 <Label text="City" textFill="WHITE" GridPane.rowIndex="5" />
+                <Label text="Email" textFill="WHITE" GridPane.rowIndex="6" />
             </children>
         </GridPane>
         <Button layoutX="90.0" layoutY="385.0" mnemonicParsing="false" onAction="#handleSubmit" prefHeight="31.0" prefWidth="109.0" text="Submit" />

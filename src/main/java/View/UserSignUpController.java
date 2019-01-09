@@ -24,7 +24,7 @@ public class UserSignUpController implements ISubController{
     private Controller controller;
     private RegisteredUser toSubmit;
     @FXML
-    public TextField username, password, firstname, lastname, city;
+    public TextField username, password, firstname, lastname, city, email;
     public DatePicker datepk_age;
     public ImageView img_backSignUp;
     public AnchorPane mainpane;
@@ -44,10 +44,23 @@ public class UserSignUpController implements ISubController{
             date = datepk_age.getValue().toString();
         }
 
-        this.toSubmit = new RegisteredUser(username.getText(), password.getText(), firstname.getText(), lastname.getText(), city.getText(),date);
+        this.toSubmit = new RegisteredUser(username.getText(), password.getText(), firstname.getText(), lastname.getText(), city.getText(),date,email.getText());
 
         if (toSubmit.hasNullField() || datepk_age.getValue()==null) {
             raiseError("Must fill all the fields");
+            toSubmit=null;
+            return;
+        }
+
+        boolean goodEmail = false;
+        String theEmail = email.getText();
+        for (int i=0;i<theEmail.length();i++){
+            if (theEmail.charAt(i)=='@')
+                goodEmail=true;
+        }
+
+        if (!goodEmail) {
+            raiseError("Please enter valid E-mail");
             toSubmit=null;
             return;
         }

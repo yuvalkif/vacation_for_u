@@ -19,19 +19,32 @@ import java.text.SimpleDateFormat;
 public class UpdateUserController implements ISubController{
     private RegisteredUser user ;
 
-    private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="";
+    private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="",sEmail="";
     private Controller controller ;
     @FXML
-    public TextField newUserName, password , firstname , lastname , city , date;
+    public TextField newUserName, password , firstname , lastname , city , date, email;
     public AnchorPane mainpane;
     public ImageView img_backUpdateUser;
 
     public void handleExecuteUpdate() {
         user = new RegisteredUser(controller.getLoggedUser(), sPassword = password.getText(), sFirstName = firstname.getText(), sLastName = lastname.getText(),
-                sCity = city.getText(), sDate = date.getText());
+                sCity = city.getText(), sDate = date.getText(),sEmail=email.getText());
+
+        boolean goodEmail = false;
+        String theEmail = email.getText();
+        for (int i=0;i<theEmail.length();i++){
+            if (theEmail.charAt(i)=='@')
+                goodEmail=true;
+        }
+
+        if (!goodEmail) {
+            showError("please fill valid E-mail \n" + "to be updated");
+            user = null;
+            return;
+        }
 
         if (user.nullRecord()) {
-            showError("Please fill atleast 1 field \n" + "to be updated");
+            showError("Please fill at least 1 field \n" + "to be updated");
             user = null;
             return;
         }

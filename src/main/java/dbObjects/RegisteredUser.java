@@ -14,6 +14,7 @@ public class RegisteredUser extends AUser{
     private String firstName;
     private String lastName;
     private String city;
+    private String email;
     private Rank userRank;
     private StringProperty pUserName;
     private StringProperty pPassword;
@@ -21,47 +22,54 @@ public class RegisteredUser extends AUser{
     private StringProperty pFirstName;
     private StringProperty pLastName;
     private StringProperty pCity;
+    private StringProperty pEmail;
 
 
-    public RegisteredUser(String userName, String password, String firstName, String lastName, String city, String birthDate){
+
+    public RegisteredUser(String userName, String password, String firstName, String lastName, String city, String birthDate, String email){
         super(userName,password);
         this.birthDate = birthDate;
         this.firstName = firstName;
         this.lastName = lastName;
         this.city = city;
+        this.email = email;
         this.pUserName = new SimpleStringProperty(userName);
         this.pPassword = new SimpleStringProperty(password);
         this.pFirstName = new SimpleStringProperty(firstName);
         this.pLastName = new SimpleStringProperty(lastName);
         this.pCity = new SimpleStringProperty(city);
+        this.pEmail = new SimpleStringProperty(email);
         this.pBirthDate = new SimpleStringProperty(birthDate);
         this.userRank = new Rank();
     }
 
 
-    public RegisteredUser(String userName, String password, String firstName, String lastName, String city, String birthDate, Rank rank){
+    public RegisteredUser(String userName, String password, String firstName, String lastName, String city, String birthDate, Rank rank, String email){
         super(userName,password);
         this.birthDate = birthDate;
         this.firstName = firstName;
         this.lastName = lastName;
         this.city = city;
+        this.email = email;
         this.pUserName = new SimpleStringProperty(userName);
         this.pPassword = new SimpleStringProperty(password);
         this.pFirstName = new SimpleStringProperty(firstName);
         this.pLastName = new SimpleStringProperty(lastName);
         this.pCity = new SimpleStringProperty(city);
+        this.pEmail = new SimpleStringProperty(email);
         this.pBirthDate = new SimpleStringProperty(birthDate);
         this.userRank = rank;
     }
 
     public RegisteredUser(ArrayList<String> userParams){
         super(userParams.get(0),userParams.get(1));
-        if(userParams.size() > 6 )
+        if(userParams.size() > 7 )
             System.out.println("creation failed");
         this .birthDate = userParams.get(2);
         this.firstName = userParams.get(3);
         this.lastName = userParams.get(4);
         this.city = userParams.get(5);
+        this.email = userParams.get(6);
         this.userRank = new Rank();
     }
 
@@ -86,6 +94,8 @@ public class RegisteredUser extends AUser{
         return city;
     }
 
+    public String getEmail(){return email;}
+
     public boolean nullRecord(){
         return userName.equals("") && password.equals("") && firstName.equals("") && lastName.equals("") && city.equals("") && birthDate.equals("");
     }
@@ -103,6 +113,7 @@ public class RegisteredUser extends AUser{
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", city='" + city + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 

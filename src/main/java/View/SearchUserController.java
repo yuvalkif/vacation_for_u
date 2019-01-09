@@ -38,6 +38,8 @@ public class SearchUserController implements ISubController{
     @FXML
     public TextField birthdate;
     @FXML
+    public TextField email;
+    @FXML
     private TableView<RegisteredUser> tableView;
     @FXML
     private TableColumn<RegisteredUser,String> userNameCol,passwordCol,firstNameCol,lastNameCol,cityCol,dateCol;
@@ -47,7 +49,7 @@ public class SearchUserController implements ISubController{
     }
 
     public void handleSearch() {
-        this.searchFields = new RegisteredUser(this.username.getText(), this.password.getText(), this.firstname.getText(), this.lastname.getText(), this.city.getText(), this.birthdate.getText());
+        this.searchFields = new RegisteredUser(this.username.getText(), this.password.getText(), this.firstname.getText(), this.lastname.getText(), this.city.getText(), this.birthdate.getText(), this.email.getText());
         if(searchFields.getUserName().equals("")) {
             raiseError("Must specify a username");
             return;

@@ -51,7 +51,8 @@ public class Model implements ISQLModel {
                 + "	first_name text NOT NULL,\n"
                 + "	last_name text NOT NULL,\n"
                 + "	rank DOUBLE NOT NULL,\n"
-                + "	address text NOT NULL\n"
+                + "	address text NOT NULL,\n"
+                + "	email text NOT NULL\n"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);
@@ -257,7 +258,7 @@ public class Model implements ISQLModel {
      * @param user a record with fields of the user
      */
     public void insertUser(RegisteredUser user) {
-        String sql = "INSERT INTO users(username, password,first_name,last_name,address,birth_date,rank) VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO users(username, password,first_name,last_name,address,birth_date,rank,email) VALUES(?,?,?,?,?,?,?,?)";
         Date sqlDate = dateConvert(user.getDate());
 
         try {
@@ -270,6 +271,7 @@ public class Model implements ISQLModel {
             pstmt.setString(5, user.getCity());
             pstmt.setDate(6, sqlDate);
             pstmt.setDouble(7, user.getUserRank().getAverageScore());
+            pstmt.setString(8, user.getEmail());
             pstmt.executeUpdate();
             this.closeConnection(conn);
             Logger.getInstance().log("INSERT : " + user.getUserName() + " , " + user.getPassword() + " - SUCCESS");
@@ -1091,7 +1093,7 @@ public class Model implements ISQLModel {
         try {
             while (resultSet.next()) {
                 java.util.Date myDate = resultSet.getDate("birth_date");
-                observableList.add(new RegisteredUser(resultSet.getString(1), resultSet.getString(2), dateToStringConvert(resultSet.getDate(3)), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6)));
+                observableList.add(new RegisteredUser(resultSet.getString(1), resultSet.getString(2), dateToStringConvert(resultSet.getDate(3)), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6),resultSet.getString(7)));
             }
         } catch (SQLException var4) {
             var4.printStackTrace();

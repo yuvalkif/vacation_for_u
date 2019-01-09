@@ -1,6 +1,6 @@
-created new table users 2019/01/05 15:47:06
-created new table vacations 2019/01/05 15:47:06
-created new table purchases 2019/01/05 15:47:06
-created new table buyingRequests 2019/01/05 15:47:06
-created new table messages 2019/01/05 15:47:06
-created new trade Requests table table messages 2019/01/05 15:47:06
+created new table users 2019/01/09 18:45:12
+created new table vacations 2019/01/09 18:45:12
+created new table purchases 2019/01/09 18:45:12
+created new table CashRequest 2019/01/09 18:45:12
+created new table messages 2019/01/09 18:45:12
+created new trade Requests table table messages 2019/01/09 18:45:12
