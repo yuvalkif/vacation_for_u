@@ -59,9 +59,6 @@ public class Controller {
         model.createCashRequestsTable();
     }
 
-    public void createCreditCardTable() {
-        model.createCreditCardPoolTable();
-    }
 
     public void createTradeRequestTable(){
         model.createTradeRequestsTable();
@@ -151,9 +148,10 @@ public class Controller {
         this.model.acceptMessage(msg);
     }
 
-//    public void insertBuyingRequest(CashRequest buyingRequest){
-//        model.insertBuyingRequest(buyingRequest.get,p.get(),p);
-//    }
+    public void declineOrderMassage(ConfirmOfferMessage msg) {
+        this.model.declineMessage(msg);
+    }
+
 
     /********************************OTHERS**************************/
     public boolean containsTicketID(String ticketID) {

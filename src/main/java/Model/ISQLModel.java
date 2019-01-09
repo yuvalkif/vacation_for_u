@@ -59,7 +59,6 @@ public interface ISQLModel {
     void createCashRequestsTable();
 
     void createConfirmMessageTable();
-    void createCreditCardPoolTable();
     void createTradeRequestsTable();
 
     /**

@@ -132,14 +132,20 @@ public class MainScreenController implements IView{
     }
 
     public void handleConfirmOrder(){
-
         AMessage msg = (AMessage)this.inbox.getSelectionModel().getSelectedItem();
-
         if(msg != null && msg instanceof ConfirmOfferMessage)
             this.controller.confirmOrderMassage((ConfirmOfferMessage)msg);
-
         refreshInboxAndOutbox();
     }
+
+    public void handleDeclineOrder(){
+        AMessage msg = (AMessage)this.inbox.getSelectionModel().getSelectedItem();
+        if(msg != null && msg instanceof ConfirmOfferMessage)
+            this.controller.declineOrderMassage((ConfirmOfferMessage)msg);
+        refreshInboxAndOutbox();
+    }
+
+
 
     public void handleSignIn() {
         FXMLLoader loader = new FXMLLoader();
