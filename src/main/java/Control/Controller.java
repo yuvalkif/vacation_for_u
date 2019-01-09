@@ -60,7 +60,7 @@ public class Controller {
     }
 
 
-    public void createTradeRequestTable(){
+    public void createTradeRequestTable() {
         model.createTradeRequestsTable();
     }
 
@@ -98,8 +98,7 @@ public class Controller {
 
     public AUserData correctUserAndPassword(String username, String password) {
         AUserData logged = model.login(username, password);
-        if (logged == null)
-            return null;
+        if (logged == null) return null;
         loggedUser = logged.getUserName();
         sp_loggedUser.set(loggedUser);
         return logged;
@@ -139,7 +138,7 @@ public class Controller {
         return model.getVacations(dest);
     }
 
-    public Vacation searchVacation(String vacationId){
+    public Vacation searchVacation(String vacationId) {
         return model.getVacationById(vacationId);
     }
 
@@ -160,10 +159,11 @@ public class Controller {
 
     /*************************************REQUESTS****************************/
     public void insertTradeRequest(TradeRequest tr) {
-        model.insertTradeRequests(tr.getRequestedVacation().getVacationID(),tr.getAskerVacationHeWantsToTrade().getVacationID());
+        model.insertTradeRequests(tr.getRequestedVacation().getVacationID(), tr.getAskerVacationHeWantsToTrade().getVacationID());
     }
 
-    public void insertBuyingRequest(CashRequest br){
+    public void insertBuyingRequest(CashRequest br) {
         model.insertCashRequest(br.getRequestedVacation().getVacationID());
     }
+
 }
