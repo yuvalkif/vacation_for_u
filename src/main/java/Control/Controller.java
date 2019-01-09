@@ -159,7 +159,7 @@ public class Controller {
 
     /*************************************REQUESTS****************************/
     public void insertTradeRequest(TradeRequest tr) {
-        model.insertTradeRequests(tr.getRequestedVacation().getVacationID(), tr.getAskerVacationHeWantsToTrade().getVacationID());
+        model.insertTradeRequests( tr.getAskerVacationHeWantsToTrade().getVacationID(),tr.getRequestedVacation().getVacationID());
     }
 
     public void insertBuyingRequest(CashRequest br) {

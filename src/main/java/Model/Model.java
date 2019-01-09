@@ -292,8 +292,9 @@ public class Model implements ISQLModel {
 
 
             //send a confirm message to the seller
+            System.out.println("currently logges user: "+controller.getLoggedUser() +" and requested is: "+requestedVacation.getOwnerUserName());
             insertMessage(controller.getLoggedUser(),requestedVacation.getOwnerUserName(),theTimeNow,
-                    "confirmTrade",requestedVacation.getOwnerUserName()+ " wants to trade his vacatoin: "+offeredVacation.toString()+"\nwith your vacation " +requestedVacation.toString(),"waiting",requestedVacationId);
+                    "confirmTrade",offeredVacation.getOwnerUserName()+ " wants to trade his vacatoin: "+offeredVacation.toString()+"\nwith your vacation " +requestedVacation.toString(),"waiting",requestedVacationId);
 
             //send a message to the buyer
 //            insertMessage(SYSTEM,offeredVacation.getOwnerUserName(),theTimeNow,"regular","Your trade request sent to: "+requestedVacation.getOwnerUserName(),"regular",requestedVacationId);
@@ -720,12 +721,12 @@ public class Model implements ISQLModel {
                 //so its a trade request need to be accepted
                 TradeRequest tr = getTradeRequestAsObjectByAskerAndReplier(msg.getSender(),msg.getReciver(),msg.getVacation().getVacationID());
                 Vacation tradedVacationOfTheAsker = getVacationById(tr.getAskerVacationHeWantsToTrade().getVacationID());
-                String recpietAsker ="TRADE SUCCESS"+"\n"+timeNow+"\n"+msg.getSender()+"\n"+msg.getVacation().toString()+"\n"+" CONTACT: 09-3201483 \n   ENJOY";
-                String recpietReciver ="TRADE SUCCESS"+"\n"+timeNow+"\n"+msg.getReciver()+"\n"+tradedVacationOfTheAsker.toString()+"\n"+" CONTACT: 09-3201483 \n   ENJOY";
+                String recpietAsker ="TRADE SUCCESS"+"\n"+timeNow+"\n"+msg.getSender()+"\n"+msg.getVacation().getDestination()+"\n"+" CONTACT: 09-3201483 \n   ENJOY";
+                String recpietReciver ="TRADE SUCCESS"+"\n"+timeNow+"\n"+msg.getReciver()+"\n"+tradedVacationOfTheAsker.getDestination()+"\n"+" CONTACT: 09-3201483 \n   ENJOY";
                 //send to the asker
                 insertMessage(SYSTEM,msg.getSender(),timeNow,"confirm",recpietAsker,"accept",msg.getVacation().getVacationID());
                 //send to the reciver
-                insertMessage(SYSTEM,msg.getReciver(),timeNow,"confirm",recpietAsker,"accept",msg.getVacation().getVacationID());
+                insertMessage(SYSTEM,msg.getReciver(),timeNow,"confirm",recpietReciver,"accept",tradedVacationOfTheAsker.getVacationID());
 
 
 
