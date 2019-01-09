@@ -76,8 +76,8 @@ public class Controller {
         }
     }
 
-    public void updateUser(String newUserName, String password, String firstName, String lastName, String city, String date) {
-        this.model.updateUsers(loggedUser, newUserName, password, firstName, lastName, city, date);
+    public void updateUser(String newUserName, String password, String firstName, String lastName, String city, String date,String email) {
+        this.model.updateUsers(loggedUser, newUserName, password, firstName, lastName, city, date,email);
     }
 
     public void deleteUser() {

@@ -528,12 +528,12 @@ public class Model implements ISQLModel {
      * @param city
      * @param birthDate
      */
-    public void updateUsers(String username, String newUserName, String password, String firstName, String lastName, String city, String birthDate) {
+    public void updateUsers(String username, String newUserName, String password, String firstName, String lastName, String city, String birthDate,String email) {
         String sqlStatement = "";
         String sqlStatementPreFix = "UPDATE users SET ";
         StringJoiner joiner = new StringJoiner(", ");
         int sqlArgsCount = 1;
-        int[] statementIdx = new int[7];
+        int[] statementIdx = new int[8];
 
         try {
 
@@ -556,7 +556,12 @@ public class Model implements ISQLModel {
             if (!birthDate.trim().isEmpty()) {
                 joiner.add("birth_date = ?");
             }
-            statementIdx[6] = sqlArgsCount;
+            if(!email.trim().isEmpty()){
+                joiner.add("email = ?");
+            }
+
+            statementIdx[7] = sqlArgsCount;
+
             if (joiner.toString() != "") {
                 String sqlArgs = joiner.toString();
                 sqlStatement = sqlStatementPreFix + sqlArgs + " WHERE username = ? ;";
@@ -583,6 +588,10 @@ public class Model implements ISQLModel {
             }
             if (!birthDate.trim().isEmpty()) {
                 pstmt.setDate(sqlArgsCount++, dateConvert(birthDate));
+            }
+
+            if(!email.trim().isEmpty()){
+                pstmt.setString(sqlArgsCount++,email);
             }
             if (sqlStatement != "") {
                 pstmt.setString(sqlArgsCount, username);

@@ -39,7 +39,7 @@ public interface ISQLModel {
      * @param city
      * @param Date
      */
-    void updateUsers(String username,String newUserName  , String password , String firstName, String lastName, String city, String Date);
+    void updateUsers(String username,String newUserName  , String password , String firstName, String lastName, String city, String Date,  String email);
 
     /**
      * create a new table in the database

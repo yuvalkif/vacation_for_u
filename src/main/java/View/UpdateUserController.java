@@ -72,7 +72,7 @@ public class UpdateUserController implements ISubController{
 
 
         //the update if all ok
-        this.controller.updateUser(controller.getLoggedUser(), user.getpPassword(), user.getFirstname(), user.getLastname(), user.getCity(), user.getDate());
+        this.controller.updateUser(controller.getLoggedUser(), user.getpPassword(), user.getFirstname(), user.getLastname(), user.getCity(), user.getDate(),user.getEmail());
 
         StageHolder.getInstance().getStage().close();
     }
