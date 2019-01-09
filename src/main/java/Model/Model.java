@@ -242,7 +242,7 @@ public class Model implements ISQLModel {
             pstmt.setString(4, user.getLastname());
             pstmt.setString(5, user.getCity());
             pstmt.setDate(6, sqlDate);
-            pstmt.setDouble(7, user.getUserRank().getAverageScore());
+            pstmt.setDouble(7, new Rank().getAverageScore());
             pstmt.setString(8, user.getEmail());
             pstmt.executeUpdate();
             this.closeConnection(conn);
@@ -296,7 +296,7 @@ public class Model implements ISQLModel {
                     "confirmTrade",requestedVacation.getOwnerUserName()+ " wants to trade his vacatoin: "+offeredVacation.toString()+"with your vacation " +requestedVacation.toString(),"waiting",requestedVacationId);
 
             //send a message to the buyer
-            insertMessage(SYSTEM,offeredVacation.getOwnerUserName(),theTimeNow,"regular","Your trade request sent to: "+requestedVacation.getOwnerUserName(),"regular",requestedVacationId);
+//            insertMessage(SYSTEM,offeredVacation.getOwnerUserName(),theTimeNow,"regular","Your trade request sent to: "+requestedVacation.getOwnerUserName(),"regular",requestedVacationId);
 
 
 
@@ -407,14 +407,14 @@ public class Model implements ISQLModel {
         //get the vacation
 
         Vacation requestedVacation = getVacationById(requestedVacationId);
-
-
-        String sql = "CREATE TABLE IF NOT EXISTS CashRequests (\n"
-                + "	requestedVacationId text NOT NULL,\n"
-                + "	askerUserName text NOT NULL,\n"
-                + "	timeCreated text NOT NULL ,\n"
-                + " PRIMARY KEY (requestedVacationId, askerUserName)"
-                + ");";
+//
+//
+//        String sql = "CREATE TABLE IF NOT EXISTS CashRequests (\n"
+//                + "	requestedVacationId text NOT NULL,\n"
+//                + "	askerUserName text NOT NULL,\n"
+//                + "	timeCreated text NOT NULL ,\n"
+//                + " PRIMARY KEY (requestedVacationId, askerUserName)"
+//                + ");";
         String sqlStatement = "INSERT INTO CashRequests(requestedVacationId, askerUserName,timeCreated) VALUES(?,?,?)";
         Vacation vacation = getVacationById(requestedVacationId);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -434,7 +434,7 @@ public class Model implements ISQLModel {
                 return false;
              **/
             //send message to the asker notify its request sent
-            insertMessage(SYSTEM,askerUserName,theTimeNow,"regular","Your buying request sent to: "+requestedVacation.getOwnerUserName(),"regular",requestedVacationId);
+//            insertMessage(SYSTEM,askerUserName,theTimeNow,"regular","Your buying request sent to: "+requestedVacation.getOwnerUserName(),"regular",requestedVacationId);
 
             //send a confirm message to the seller
             insertMessage(controller.getLoggedUser(),vacation.getOwnerUserName(),theTimeNow,
@@ -936,13 +936,25 @@ public class Model implements ISQLModel {
     }
 
     public void deleteMessage(String sender,String reciver , String vacaitonId) {
-        String sql = "DELETE FROM messages WHERE vacationId = ?";
+
+//        + "	senderUserName text NOT NULL,\n"
+//                + "	reciverUserName text NOT NULL,\n"
+//                + "	creationTime text NOT NULL ,\n"
+//                + " messageType text NOT NULL ,\n"
+//                + " messageContent text NOT NULL , \n"
+//                + " status text NOT NULL , \n"
+//                + " vacationId text NOT NULL , \n"
+//                + " PRIMARY KEY (senderUserName, reciverUserName, vacationId)\n"
+//                + ");";
+
+
+        String sql = "DELETE FROM messages WHERE vacationId = ? AND reciverUserName = ? AND senderUserName = ?";
         try {
             Connection conn = openConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, vacaitonId);
-            //stmt.setString(2, reciver);
-            //stmt.setString(3, vacaitonId);
+            stmt.setString(2, reciver);
+            stmt.setString(3, sender);
             stmt.executeUpdate();
             Logger.getInstance().log("DELETED " + sender + reciver + vacaitonId);
             conn.close();
@@ -1203,7 +1215,7 @@ public class Model implements ISQLModel {
         ResultSet resultSet;
 
 
-        String sql = "SELECT * FROM TradeRequests WHERE requestedVacationId = " + "'" + requestedVacationId + "' AND askerUserName = "+ "'" + askerUserName + "' AND replierUserName = "+ "'" + replierUserName + "'";
+        String sql = "SELECT * FROM TradeRequests WHERE requestedVacationId = " + "'" + requestedVacationId + "' AND senderUserName = "+ "'" + askerUserName + "' AND reciverUserName = "+ "'" + replierUserName + "'";
 
         TradeRequest ans = null;
         try {
