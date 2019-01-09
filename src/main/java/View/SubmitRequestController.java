@@ -44,7 +44,7 @@ public class SubmitRequestController implements ISubController{
         tb_price.setText(""+price);
         ObservableList<Vacation> userVacations= controller.getUserVacations();
         ObservableList<String> vacationIDAndDest = getVacationsData(userVacations);
-        cb_tradeVacation.getItems().addAll(vacationIDAndDest);
+        cb_tradeVacation.setItems(vacationIDAndDest);
     }
 
     private ObservableList<String> getVacationsData(ObservableList<Vacation> userVacations) {
