@@ -392,8 +392,11 @@ public class MainScreenController implements IView{
             Vacation toInsert = vacationFormController.getVacationToInsert();
             refreshInboxAndOutbox();
 
-            if(toInsert != null)
+            if(toInsert != null) {
                 this.controller.insertVacation(toInsert);
+                ErrorBox box = new ErrorBox();
+                box.showErrorStage("Vacation published successfully\nyou can see it at the board");
+            }
 
             primaryStage.show();
 
