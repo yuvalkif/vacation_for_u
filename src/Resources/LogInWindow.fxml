@@ -38,7 +38,7 @@
             <Label text="Password" GridPane.rowIndex="2" />
             <Label text="Log in" GridPane.columnIndex="1" />
             <Label text="Forgot password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label fx:id="singUp" onMouseClicked="#handleSingUp" text="Sing Up" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="singUp" onMouseClicked="#handleSingUp" text="Sign Up" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Button mnemonicParsing="false" onAction="#handleBack" text="Back" GridPane.columnIndex="2" GridPane.rowIndex="4" />
          </children>
       </GridPane>

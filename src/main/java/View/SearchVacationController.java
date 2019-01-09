@@ -76,8 +76,6 @@ public class SearchVacationController implements ISubController{
             stage.setScene(scene);
             stage.setTitle("Submit Request");
             stage.setResizable(false);
-            this.primaryStage.hide();
-            StageHolder.getInstance().holdStage(stage);
             SubmitRequestController c = (SubmitRequestController) loader.getController();
             if ((Vacation) tableView.getSelectionModel().getSelectedItem()!=null) {
                 Vacation v = (Vacation) tableView.getSelectionModel().getSelectedItem();
@@ -94,13 +92,14 @@ public class SearchVacationController implements ISubController{
                         StageHolder.getInstance().getStage();
                     }
                 });
+                this.primaryStage.hide();
+                StageHolder.getInstance().holdStage(stage);
                 stage.showAndWait();
                 this.primaryStage.show();
             }
             else {
                 ErrorBox e = new ErrorBox();
                 e.showErrorStage("you need to choose vacation to submit a request");
-                return;
             }
 
 
