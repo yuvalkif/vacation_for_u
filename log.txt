@@ -1,6 +1,14 @@
-created new table users 2019/01/09 18:45:12
-created new table vacations 2019/01/09 18:45:12
-created new table purchases 2019/01/09 18:45:12
-created new table CashRequest 2019/01/09 18:45:12
-created new table messages 2019/01/09 18:45:12
-created new trade Requests table table messages 2019/01/09 18:45:12
+created new table users 2019/01/09 19:03:47
+created new table vacations 2019/01/09 19:03:47
+created new table purchases 2019/01/09 19:03:47
+created new table CashRequest 2019/01/09 19:03:47
+created new table messages 2019/01/09 19:03:47
+created new trade Requests table table messages 2019/01/09 19:03:47
+connection opened 2019/01/09 19:03:51
+connection opened 2019/01/09 19:03:51
+connection opened 2019/01/09 19:04:03
+connection opened 2019/01/09 19:04:07
+connection opened 2019/01/09 19:04:15
+connection opened 2019/01/09 19:04:15
+connection opened 2019/01/09 19:04:15
+INSERT : Vacation{VacationID='3232', ownerUserName='a', flight=Flight{flightCompany='a', FlightId='null', destination='abc', ticketType='31232', baggageIncluded='23', fromDate=2019-01-17, untilDate=1999-12-31, isTwoDirections=false}, accommodation=Accommodation{AccomodationName='Without accommadtion', AccomodationRank=0.0, AccomodationLocation='abc', fromDate=2019-01-17, until=1999-12-31}, numberOfTickets=2, vacationType='32', includeSleep=false, sold=false, freezed=false, price=32.0, PVacationID=StringProperty [value: 3232], PownerUserName=StringProperty [value: a], PflightCompany=StringProperty [value: a], PfromDate=StringProperty [value: 2019-01-17], PuntilDate=StringProperty [value: 1999-12-31], PbaggageIncluded=StringProperty [value: 23], PnumberOfTickets=StringProperty [value: 2], PtwoDirections=StringProperty [value: false], Pdestination=StringProperty [value: abc], PticketType=StringProperty [value: 31232], PvacationType=StringProperty [value: 32], PincludeSleep=StringProperty [value: false], PhotelName=StringProperty [value: Without accommadtion], PhotelRank=StringProperty [value: 0.0], Pprice=StringProperty [value: 32.0]}- SUCCESS 2019/01/09 19:04:15
