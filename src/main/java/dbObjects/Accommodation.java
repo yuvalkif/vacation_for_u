@@ -51,4 +51,12 @@ public class Accommodation {
                 ", until=" + until +
                 '}';
     }
+
+    public String toPrint() {
+        return  " \n{AccomodationName='" + AccomodationName + '\'' +
+                ",\nAccomodationRank=" + AccomodationRank +
+                ",\nAccomodationLocation='" + AccomodationLocation + '\'' +
+                ",\nfromDate=" + fromDate +
+                ",\nuntil=" + until +"}" ;
+    }
 }

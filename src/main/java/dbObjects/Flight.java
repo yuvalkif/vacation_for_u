@@ -4,7 +4,6 @@ import java.sql.Date;
 
 public class Flight {
     private String flightCompany;
-    private String FlightId;
     private String destination;
     private String ticketType;
     private String baggageIncluded;
@@ -26,10 +25,6 @@ public class Flight {
 
     public String getFlightCompany() {
         return flightCompany;
-    }
-
-    public String getFlightId() {
-        return FlightId;
     }
 
     public String getDestination() {
@@ -62,13 +57,23 @@ public class Flight {
     public String toString() {
         return "Flight{" +
                 "flightCompany='" + flightCompany + '\'' +
-                ", FlightId='" + FlightId + '\'' +
                 ", destination='" + destination + '\'' +
                 ", ticketType='" + ticketType + '\'' +
                 ", baggageIncluded='" + baggageIncluded + '\'' +
                 ", fromDate=" + fromDate +
                 ", untilDate=" + untilDate +
                 ", isTwoDirections=" + isTwoDirections +
+                '}';
+    }
+
+    public String toPrint() {
+        return " \n{flightCompany='" + flightCompany + '\'' +
+                ",\ndestination='" + destination + '\'' +
+                ",\nticketType='" + ticketType + '\'' +
+                ",\nbaggageIncluded='" + baggageIncluded + '\'' +
+                ",\nfromDate=" + fromDate +
+                ",\nuntilDate=" + untilDate +
+                ",\nisTwoDirections=" + isTwoDirections +
                 '}';
     }
 }

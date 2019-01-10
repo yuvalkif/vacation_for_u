@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<?import javafx.scene.text.Font?>
 <AnchorPane fx:id="mainpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="309.0" prefWidth="512.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.LogInController">
    <children>
       <ImageView fx:id="img_backLogIn" fitHeight="309.0" fitWidth="512.0" pickOnBounds="true">
@@ -36,7 +37,11 @@
             <TextField fx:id="txtfld_password" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="User Name" GridPane.rowIndex="1" />
             <Label text="Password" GridPane.rowIndex="2" />
-            <Label text="Log in" GridPane.columnIndex="1" />
+            <Label fx:id="t_lo" text="Log in" GridPane.columnIndex="1" >
+                <font>
+                    <Font size="31.0" />
+                </font>
+            </Label>
             <Label text="Forgot password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label fx:id="singUp" onMouseClicked="#handleSingUp" text="Sing Up" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Button mnemonicParsing="false" onAction="#handleBack" text="Back" GridPane.columnIndex="2" GridPane.rowIndex="4" />
