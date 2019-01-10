@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -13,98 +12,66 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SubmitRequestController">
+<AnchorPane prefHeight="350.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SubmitRequestController">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
+      <ImageView fitHeight="382.0" fitWidth="800.0" pickOnBounds="true">
          <image>
             <Image url="backUserDetails.jpg" />
          </image>
       </ImageView>
-      <GridPane layoutX="238.0" layoutY="220.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane layoutY="68.0" prefHeight="101.0" prefWidth="300.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="80.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="394.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="85.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="129.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="131.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="169.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="113.0" minHeight="10.0" prefHeight="99.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="53.0" minHeight="3.0" prefHeight="17.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="184.0" minHeight="10.0" prefHeight="184.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="75.0" minHeight="0.0" prefHeight="13.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Submit Request">
-               <font>
-                  <Font size="31.0" />
-               </font>
-            </Label>
-            <GridPane GridPane.rowIndex="1">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="131.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="169.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label text="Vacation ID" GridPane.rowIndex="1" />
-                  <Label text="User Name" />
-                  <Label text="Amount to py" GridPane.rowIndex="2" />
-                  <TextField fx:id="tb_vacationID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="tb_userName" GridPane.columnIndex="1" />
-                  <TextField fx:id="tb_price" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-               </children>
-            </GridPane>
-            <Button mnemonicParsing="false" onAction="#clickSubmit" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            <GridPane prefHeight="139.0" prefWidth="391.0" GridPane.rowIndex="3">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="138.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="301.0" minWidth="10.0" prefWidth="253.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label prefHeight="27.0" prefWidth="122.0" text="Visa Number" textFill="WHITE" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="18.0" />
-                     </font></Label>
-                  <Label text="CVV:" textFill="WHITE" GridPane.rowIndex="3">
-                     <font>
-                        <Font size="18.0" />
-                     </font></Label>
-                  <Label text="Date of expire" textFill="WHITE" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="18.0" />
-                     </font></Label>
-                  <TextField fx:id="tb_toFillVisaNumber" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="tb_toFillNameOnCard" prefHeight="31.0" prefWidth="178.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label text="Name on card:" textFill="WHITE" GridPane.rowIndex="4" >
-                      <font>
-                          <Font size="18.0" />
-                      </font></Label>
-                  <DatePicker fx:id="tb_date" prefHeight="31.0" prefWidth="255.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="tb_toFillCVV" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <ChoiceBox fx:id="tb_toFillType" prefHeight="25.0" prefWidth="132.0" GridPane.columnIndex="1" />
-                  <Label text="Card Type:" textFill="WHITE" >
-                      <font>
-                          <Font size="18.0" />
-                      </font></Label>
-               </children>
-            </GridPane>
-            <Button mnemonicParsing="false" onAction="#handleBack" text="Back" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label text="Vacation ID" textFill="white" GridPane.rowIndex="1" />
+            <Label text="User Name" textFill="white"/>
+            <Label text="Amount to pay" GridPane.rowIndex="2" textFill="white"/>
+            <TextField fx:id="tb_vacationID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="tb_userName" GridPane.columnIndex="1" />
+            <TextField fx:id="tb_price" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
+      <Button layoutX="350.0" layoutY="293.0" mnemonicParsing="false" onAction="#handleBack" text="Back" />
+      <Button layoutX="108.0" layoutY="230.0" mnemonicParsing="false" onAction="#clickSubmitCash" text="Submit Cash Request">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Label text="Submit Request">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </Label>
+      <GridPane layoutX="300.0" layoutY="78.0" prefHeight="101.0" prefWidth="300.0" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="80.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="131.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="169.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label text="Vacation ID" textFill="white" GridPane.rowIndex="1" />
+            <Label text="User Name" textFill="white"/>
+            <Label text="Choose vacation" GridPane.rowIndex="2" textFill="white"/>
+            <TextField fx:id="tb_vacationID1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="tb_userName1" GridPane.columnIndex="1" />
+            <ChoiceBox fx:id="cb_tradeVacation" prefHeight="31.0" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <Button layoutX="467.0" layoutY="230.0" mnemonicParsing="false" onAction="#clickSubmitTrade" text="Submit Trade Request">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

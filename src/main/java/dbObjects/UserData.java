@@ -7,6 +7,11 @@ public class UserData extends AUserData {
         super(userName, inMessages, outMessages);
     }
 
+
+
+
+
+
     @Override
     public String toString() {
         return "UserData{" +

@@ -57,10 +57,11 @@ public interface ISQLModel {
      */
     void createPurchaseTable();
 
-    void createOffersTable();
+    void createBuyingRequestsTable();
 
     void createConfirmMessageTable();
     void createCreditCardPoolTable();
+    void createTradeRequestsTable();
 
     /**
      * search records by username
@@ -99,7 +100,7 @@ public interface ISQLModel {
      */
     boolean insertVacation(Vacation vacationValues);
 
-    boolean insertBuyingOffer(String vacationId , String buyerUsername , Purchase purchaseOfferDetails);
+    boolean insertBuyingRequest(String vacationId);
 
 
     void acceptMessage(ConfirmOfferMessage msg);
@@ -116,4 +117,12 @@ public interface ISQLModel {
     String getLoggedUser();
 
     boolean checkTicketExist(String text);
+
+    ObservableList<Vacation> getUserVacations();
+
+    void insertTradeRequests( String offeredVacationId , String requestedVacationId);
+
+    Vacation getVacationAsObjectById(String vacationId);
+
+
 }

@@ -5,8 +5,6 @@ import Logger.StageHolder;
 import Objects.ErrorBox;
 import dbObjects.*;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -34,7 +32,7 @@ public class MainScreenController implements IView{
     public TabPane tabPane_tab ;
     public Tab tab_searchVacation;
     public ImageView img_backImg;
-    public Tab tab_user , tab_vacationBoard;
+    public Tab tab_user;
     public Label lbl_SignUp;
     public Button btn_update;
     public Button btn_delete;
@@ -93,13 +91,9 @@ public class MainScreenController implements IView{
         this.vacationList.setItems(allVacations);
     }
 
-
     public void setCurrentStage(Stage stage) {
         this.primaryStage = stage;
-        img_backImg.fitWidthProperty().bind(primaryStage.widthProperty());
-        img_backImg.fitHeightProperty().bind(primaryStage.heightProperty());
     }
-
 
     public void handleSignUp() {
         FXMLLoader loader = new FXMLLoader();
@@ -249,7 +243,7 @@ public class MainScreenController implements IView{
             SearchVacationController sceneController = (SearchVacationController)loader.getController();
             sceneController.setController(controller);
             sceneController.showResults(l);
-            sceneController.setPrimaryStage(primaryStage);
+            sceneController.setPrimaryStage(stage);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
@@ -309,7 +303,7 @@ public class MainScreenController implements IView{
             SplitPane splitPane = (SplitPane)root.getChildrenUnmodifiable().get(0);
             AnchorPane upperPane = (AnchorPane)splitPane.getItems().get(0);
             TableView<User> tableView = (TableView<User>)upperPane.getChildren().get(0);
-            Scene scene = new Scene(root, 570, 550);
+            Scene scene = new Scene(root);
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
@@ -381,7 +375,6 @@ public class MainScreenController implements IView{
             StageHolder.getInstance().holdStage(stage);
             VacationFormController vacationFormController =(VacationFormController) loader.getController();
             vacationFormController.setController(this.controller);
-            StageHolder.getInstance().holdStage(stage);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {

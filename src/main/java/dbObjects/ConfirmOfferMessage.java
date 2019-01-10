@@ -4,9 +4,9 @@ public class ConfirmOfferMessage extends ATransactionMessage {
     private String status;
     private Vacation vacation;
     public ConfirmOfferMessage(String sender, String reciver, String content,Vacation vacation,String status) {
-        super(sender, reciver, content);
+        super(sender, reciver, content,vacation);
         this.status = status;
-        this.vacation=vacation;
+
     }
 
     public String getStatus() {
@@ -17,7 +17,15 @@ public class ConfirmOfferMessage extends ATransactionMessage {
         this.status = status;
     }
 
-    public Vacation getVacation() {
-        return vacation;
+    @Override
+    public String toString() {
+        return "ConfirmOfferMessage{" +
+                "status='" + status + '\'' +
+                ", vacation=" + vacation +
+                ", sender='" + sender + '\'' +
+                ", reciver='" + reciver + '\'' +
+                ", content='" + content + '\'' +
+                ", messageTime='" + messageTime + '\'' +
+                '}';
     }
 }

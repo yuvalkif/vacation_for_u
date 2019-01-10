@@ -20,36 +20,56 @@ public class Controller {
     private String loggedUser;
     private StringProperty sp_loggedUser;
 
-    public String getSp_loggedUser() {
-        return sp_loggedUser.get();
-    }
-
-    public StringProperty sp_loggedUserProperty() {
-        return sp_loggedUser;
-    }
-
     public Controller() {
 
 
     }
 
+    /********************************SET ACTIONS**************************/
+    public void setAll() {
+        this.view.setController(this);
+        this.model.setController(this);
+    }
+
+    public void setModel(ISQLModel model) {
+        this.model = model;
+        sp_loggedUser = new SimpleStringProperty("" + model.getLoggedUser());
+    }
+
+    public void setView(IView view) {
+        this.view = view;
+    }
+
+    /********************************TABLES CREATE**************************/
     public void createUsersTable() {
         this.model.createUsersTable();
     }
+
     public void createVacationsTable() {
         this.model.createVacationsTable();
     }
+
     public void createPurchaseTable() {
         this.model.createPurchaseTable();
     }
-    public void  createConfirmMessageTable(){
+
+    public void createConfirmMessageTable() {
         this.model.createConfirmMessageTable();
     }
-    public void createOffersTable(){
-        model.createOffersTable();
-    }
-    public void createCreditCardTable(){model.createCreditCardPoolTable();}
 
+    public void createOffersTable() {
+        model.createBuyingRequestsTable();
+    }
+
+    public void createCreditCardTable() {
+        model.createCreditCardPoolTable();
+    }
+
+    public void createTradeRequestTable(){
+        model.createTradeRequestsTable();
+    }
+
+    /********************************USER ACTIONS**************************/
     public void handleSubmitSignUp(User submit) {
         if (submit != null) {
             try {
@@ -61,16 +81,20 @@ public class Controller {
         }
     }
 
-    public void updateUser( String newUserName, String password, String firstName, String lastName, String city, String date){
-        this.model.updateUsers(loggedUser,newUserName,password,firstName,lastName,city,date);
+    public void updateUser(String newUserName, String password, String firstName, String lastName, String city, String date) {
+        this.model.updateUsers(loggedUser, newUserName, password, firstName, lastName, city, date);
 
+    }
+
+    public void deleteUser() {
+        this.model.deleteUsers(loggedUser);
     }
 
     public ObservableList<User> searchInDataBase(User user) {
-        return ((Model)this.model).searchRecordsByFields(user.getUsername());
+        return ((Model) this.model).searchRecordsByFields(user.getUserName());
     }
 
-    public ObservableList searchInDataBase(String username){
+    public ObservableList searchInDataBase(String username) {
         return (ObservableList) model.searchRecordsByFields(username);
     }
 
@@ -78,31 +102,9 @@ public class Controller {
         return this.model.selectAllDataBase();
     }
 
-    public void setAll() {
-        this.view.setController(this);
-        this.model.setController(this);
-    }
-
-    public void deleteUser(){
-        this.model.deleteUsers(loggedUser);
-    }
-
-    public void setView(IView view) {
-        this.view = view;
-    }
-
-    public ObservableList getAllVacations(){
-        return this.model.getAllVacations();
-    }
-
-    public void setModel(ISQLModel model) {
-        this.model = model;
-        sp_loggedUser = new SimpleStringProperty(""+model.getLoggedUser());
-    }
-
-    public AUserData correctUserAndPassword(String username, String password){
-        AUserData logged = model.login(username,password);
-        if(logged==null)
+    public AUserData correctUserAndPassword(String username, String password) {
+        AUserData logged = model.login(username, password);
+        if (logged == null)
             return null;
         loggedUser = logged.getUserName();
         sp_loggedUser.set(loggedUser);
@@ -117,7 +119,25 @@ public class Controller {
         return sp_loggedUser;
     }
 
-    public void insertVacation(Vacation vacation){
+    public void signOut() {
+        loggedUser = "";
+        sp_loggedUser.set("");
+    }
+
+    public UserData getCurrentUserData() {
+        return (UserData) this.model.getUserData(loggedUser);
+    }
+
+    /********************************VACATION ACTIONS**************************/
+    public ObservableList getAllVacations() {
+        return this.model.getAllVacations();
+    }
+
+    public ObservableList<Vacation> getUserVacations() {
+        return model.getUserVacations();
+    }
+
+    public void insertVacation(Vacation vacation) {
         this.model.insertVacation(vacation);
     }
 
@@ -125,24 +145,30 @@ public class Controller {
         return model.getVacations(dest);
     }
 
-    public void signOut() {
-        loggedUser="";
-        sp_loggedUser.set("");
+    public Vacation getVacationAsObjectById(String vacationId){
+        return model.getVacationAsObjectById(vacationId);
     }
 
-    public UserData getCurrentUserData(){
-        return (UserData)this.model.getUserData(loggedUser);
-    }
-
-    public void confirmOrderMassage(ConfirmOfferMessage msg){
+    /********************************MESSAGE ACTIONS**************************/
+    public void confirmOrderMassage(ConfirmOfferMessage msg) {
         this.model.acceptMessage(msg);
     }
 
-    public void insertOfferRequest(Purchase p){
-        model.insertBuyingOffer(p.getPayingOnVacation(),p.getCardOwnerUserName(),p);
+//    public void insertBuyingRequest(BuyingRequest buyingRequest){
+//        model.insertBuyingRequest(buyingRequest.get,p.get(),p);
+//    }
+
+    /********************************OTHERS**************************/
+    public boolean containsTicketID(String ticketID) {
+        return model.checkTicketExist(ticketID);
     }
 
-    public boolean containsticketID(String ticketID){
-        return model.checkTicketExist(ticketID);
+    /*************************************REQUESTS****************************/
+    public void insertTradeRequest(TradeRequest tr) {
+        model.insertTradeRequests(tr.getRequestedVacation().getVacationID(),tr.getAskerVacationHeWantsToTrade().getVacationID());
+    }
+
+    public void insertBuyingRequest(BuyingRequest br){
+        model.insertBuyingRequest(br.getRequestedVacation().getVacationID());
     }
 }

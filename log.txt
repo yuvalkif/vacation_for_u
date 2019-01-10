@@ -1,6 +1,6 @@
-created new table users 2019/01/03 16:32:54
-created new table vacations 2019/01/03 16:32:54
-created new table purchases 2019/01/03 16:32:55
-created new table offers 2019/01/03 16:32:55
-created new table messages 2019/01/03 16:32:55
-created new table credit_cards 2019/01/03 16:32:55
+created new table users 2018/12/28 15:52:27
+created new table vacations 2018/12/28 15:52:27
+created new table purchases 2018/12/28 15:52:27
+created new table offers 2018/12/28 15:52:27
+created new table messages 2018/12/28 15:52:27
+created new table credit_cards 2018/12/28 15:52:27

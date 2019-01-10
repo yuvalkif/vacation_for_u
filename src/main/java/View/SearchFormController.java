@@ -48,7 +48,7 @@ public class SearchFormController {
 
     public void handleSearch() {
         this.searchFields = new User(this.username.getText(), this.password.getText(), this.firstname.getText(), this.lastname.getText(), this.city.getText(), this.birthdate.getText());
-        if(searchFields.getUsername().equals("")) {
+        if(searchFields.getUserName().equals("")) {
             raiseError("Must specify a username");
             return;
         }

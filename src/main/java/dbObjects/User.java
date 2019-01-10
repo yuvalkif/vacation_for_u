@@ -10,13 +10,11 @@ import java.util.ArrayList;
  */
 
 public class User extends AUser{
-
-    private String userName;
-    private String password;
     private String birthDate;
     private String firstName;
     private String lastName;
     private String city;
+    private Rank userRank;
     private StringProperty pUserName;
     private StringProperty pPassword;
     private StringProperty pBirthDate;
@@ -26,8 +24,7 @@ public class User extends AUser{
 
 
     public User(String userName, String password, String firstName, String lastName, String city, String birthDate){
-        this.userName = userName;
-        this.password = password;
+        super(userName,password);
         this.birthDate = birthDate;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -38,26 +35,42 @@ public class User extends AUser{
         this.pLastName = new SimpleStringProperty(lastName);
         this.pCity = new SimpleStringProperty(city);
         this.pBirthDate = new SimpleStringProperty(birthDate);
+        this.userRank = new Rank();
+    }
+
+
+    public User(String userName, String password, String firstName, String lastName, String city, String birthDate,Rank rank){
+        super(userName,password);
+        this.birthDate = birthDate;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.city = city;
+        this.pUserName = new SimpleStringProperty(userName);
+        this.pPassword = new SimpleStringProperty(password);
+        this.pFirstName = new SimpleStringProperty(firstName);
+        this.pLastName = new SimpleStringProperty(lastName);
+        this.pCity = new SimpleStringProperty(city);
+        this.pBirthDate = new SimpleStringProperty(birthDate);
+        this.userRank = rank;
     }
 
     public User(ArrayList<String> userParams){
+        super(userParams.get(0),userParams.get(1));
         if(userParams.size() > 6 )
             System.out.println("creation failed");
-        this.userName = userParams.get(0);
-        this.password = userParams.get(1);
         this .birthDate = userParams.get(2);
         this.firstName = userParams.get(3);
         this.lastName = userParams.get(4);
         this.city = userParams.get(5);
+        this.userRank = new Rank();
     }
 
-    public String getUsername() {
-        return userName;
+
+    public void rank(double score){
+        this.userRank.addRanker(score);
     }
 
-    public String getPassword() {
-        return password;
-    }
+
 
     public String getDate() {
         return birthDate;
@@ -141,5 +154,9 @@ public class User extends AUser{
 
     public StringProperty pCityProperty() {
         return pCity;
+    }
+
+    public Rank getUserRank() {
+        return userRank;
     }
 }
