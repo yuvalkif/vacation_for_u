@@ -108,7 +108,7 @@ public class MainScreenController implements IView{
             stage.setResizable(false);
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
-            SignUpFormController sceneController = (SignUpFormController)loader.getController();
+            UserSignUpController sceneController = (UserSignUpController)loader.getController();
             sceneController.setDateInitial();
             sceneController.setController(controller);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -119,7 +119,7 @@ public class MainScreenController implements IView{
             });
             stage.showAndWait();
             this.primaryStage.show();
-            User toSubmit = sceneController.getToSubmit();
+            RegisteredUser toSubmit = sceneController.getToSubmit();
 
             if( toSubmit != null && !sceneController.getToSubmit().hasNullField())
                 this.controller.handleSubmitSignUp(toSubmit);
@@ -132,14 +132,20 @@ public class MainScreenController implements IView{
     }
 
     public void handleConfirmOrder(){
-
         AMessage msg = (AMessage)this.inbox.getSelectionModel().getSelectedItem();
-
         if(msg != null && msg instanceof ConfirmOfferMessage)
             this.controller.confirmOrderMassage((ConfirmOfferMessage)msg);
-
         refreshInboxAndOutbox();
     }
+
+    public void handleDeclineOrder(){
+        AMessage msg = (AMessage)this.inbox.getSelectionModel().getSelectedItem();
+        if(msg != null && msg instanceof ConfirmOfferMessage)
+            this.controller.declineOrderMassage((ConfirmOfferMessage)msg);
+        refreshInboxAndOutbox();
+    }
+
+
 
     public void handleSignIn() {
         FXMLLoader loader = new FXMLLoader();
@@ -221,7 +227,7 @@ public class MainScreenController implements IView{
             e.showErrorStage("please enter a valid destination");
             return;
         }
-        ObservableList l = controller.searchVacationInDB(dest);
+        ObservableList l = controller.searchAllVacations(dest);
         if(l== null || l.size()==0){
             ErrorBox e = new ErrorBox();
             e.showErrorStage("no results for this destination");
@@ -302,14 +308,14 @@ public class MainScreenController implements IView{
             Parent root = loader.load(this.getClass().getClassLoader().getResource("SearchForm.fxml").openStream());
             SplitPane splitPane = (SplitPane)root.getChildrenUnmodifiable().get(0);
             AnchorPane upperPane = (AnchorPane)splitPane.getItems().get(0);
-            TableView<User> tableView = (TableView<User>)upperPane.getChildren().get(0);
+            TableView<RegisteredUser> tableView = (TableView<RegisteredUser>)upperPane.getChildren().get(0);
             Scene scene = new Scene(root);
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Search");
             stage.setResizable(false);
-            SearchFormController searchFormController = (SearchFormController)loader.getController();
+            SearchUserController searchFormController = (SearchUserController)loader.getController();
             searchFormController.setController(controller);
             searchFormController.setTableView(tableView);
             StageHolder.getInstance().holdStage(stage);
@@ -343,7 +349,7 @@ public class MainScreenController implements IView{
             stage.setResizable(false);
             this.primaryStage.hide();
             StageHolder.getInstance().holdStage(stage);
-            UpdateFormController uc = (UpdateFormController) loader.getController();
+            UpdateUserController uc = (UpdateUserController) loader.getController();
             uc.setController(this.controller);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -361,7 +367,7 @@ public class MainScreenController implements IView{
         }
     }
 
-    public void handleVacationButton(){
+    public void handlePublishVacation(){
         FXMLLoader loader = new FXMLLoader();
         try{
             Parent root = loader.load(this.getClass().getClassLoader().getResource("PublishVacationForm.fxml").openStream());
@@ -369,11 +375,11 @@ public class MainScreenController implements IView{
             scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
-            stage.setTitle("Vacation");
+            stage.setTitle("Publish Vacation");
             this.primaryStage.hide();
             stage.setResizable(false);
             StageHolder.getInstance().holdStage(stage);
-            VacationFormController vacationFormController =(VacationFormController) loader.getController();
+            PublishVacationController vacationFormController =(PublishVacationController) loader.getController();
             vacationFormController.setController(this.controller);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -386,8 +392,11 @@ public class MainScreenController implements IView{
             Vacation toInsert = vacationFormController.getVacationToInsert();
             refreshInboxAndOutbox();
 
-            if(toInsert != null)
+            if(toInsert != null) {
                 this.controller.insertVacation(toInsert);
+                ErrorBox box = new ErrorBox();
+                box.showErrorStage("Vacation published successfully\nyou can see it at the board");
+            }
 
             primaryStage.show();
 

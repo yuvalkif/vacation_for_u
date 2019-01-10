@@ -4,7 +4,7 @@ import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
 import dbObjects.AUserData;
-import dbObjects.User;
+import dbObjects.RegisteredUser;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +18,7 @@ import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
-public class LogInController {
+public class LogInController implements ISubController{
 
     public TextField txtfld_userName;
     public TextField txtfld_password;
@@ -68,7 +68,7 @@ public class LogInController {
             stage.setTitle("Sign Up");
             stage.setResizable(false);
             StageHolder.getInstance().holdStage(stage);
-            SignUpFormController sceneController = (SignUpFormController)loader.getController();
+            UserSignUpController sceneController = (UserSignUpController)loader.getController();
             sceneController.setDateInitial();
             sceneController.setController(controller);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -78,7 +78,7 @@ public class LogInController {
                 }
             });
             stage.showAndWait();
-            User toSubmit = sceneController.getToSubmit();
+            RegisteredUser toSubmit = sceneController.getToSubmit();
 
             if( toSubmit != null && !sceneController.getToSubmit().hasNullField())
                 this.controller.handleSubmitSignUp(toSubmit);

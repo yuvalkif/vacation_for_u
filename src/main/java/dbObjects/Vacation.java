@@ -231,7 +231,7 @@ public class Vacation {
     }
 
     public String getTicketType() {
-        return flight.getGetTicketType();
+        return flight.getTicketType();
     }
 
     public String getVacationType() {
@@ -279,5 +279,15 @@ public class Vacation {
                 ", PhotelRank=" + PhotelRank +
                 ", Pprice=" + Pprice +
                 '}';
+    }
+
+    public String toPrint() {
+        return "\n VacationID='" + VacationID + '\'' +
+                ", \n ownerUserName='" + ownerUserName + '\'' +
+                ", \n flight:  " + flight.toPrint() +
+                ", \n numberOfTickets=" + numberOfTickets +
+                ", \n vacationType='" + vacationType + '\'' +
+                ", \n includeSleep=" + includeSleep+
+                ", \n accommodation:  " + accommodation.toPrint();
     }
 }

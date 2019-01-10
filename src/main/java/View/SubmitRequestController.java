@@ -3,8 +3,7 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
-import dbObjects.BuyingRequest;
-import dbObjects.Purchase;
+import dbObjects.CashRequest;
 import dbObjects.TradeRequest;
 import dbObjects.Vacation;
 import javafx.collections.FXCollections;
@@ -14,7 +13,7 @@ import javafx.scene.control.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class SubmitRequestController {
+public class SubmitRequestController implements ISubController{
     public Controller controller;
 
     public TextField tb_vacationID;
@@ -29,6 +28,7 @@ public class SubmitRequestController {
     }
 
     public void handleBack() {
+        StageHolder.getInstance().getStage().close();
         StageHolder.getInstance().getStage().close();
     }
 
@@ -45,7 +45,7 @@ public class SubmitRequestController {
         tb_price.setText(""+price);
         ObservableList<Vacation> userVacations= controller.getUserVacations();
         ObservableList<String> vacationIDAndDest = getVacationsData(userVacations);
-        cb_tradeVacation.getItems().addAll(vacationIDAndDest);
+        cb_tradeVacation.setItems(vacationIDAndDest);
     }
 
     private ObservableList<String> getVacationsData(ObservableList<Vacation> userVacations) {
@@ -58,7 +58,7 @@ public class SubmitRequestController {
 
     public void clickSubmitCash(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        BuyingRequest br = new BuyingRequest(controller.getLoggedUser(),controller.getVacationAsObjectById(tb_vacationID.getText()),LocalDateTime.now().format(formatter));
+        CashRequest br = new CashRequest(controller.getLoggedUser(),controller.searchVacation(tb_vacationID.getText()),LocalDateTime.now().format(formatter));
         controller.insertBuyingRequest(br);
         ErrorBox e = new ErrorBox();
         e.showErrorStage("We have sent your request to the seller,\n he will let you know :)");
@@ -74,7 +74,7 @@ public class SubmitRequestController {
             return;
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        TradeRequest tr = new TradeRequest(controller.getLoggedUser(),LocalDateTime.now().format(formatter),controller.getVacationAsObjectById(vacationID.substring(0,vacationID.indexOf(" "))),controller.getVacationAsObjectById(tb_vacationID.getText()));
+        TradeRequest tr = new TradeRequest(controller.getLoggedUser(),LocalDateTime.now().format(formatter),controller.searchVacation(vacationID.substring(0,vacationID.indexOf(" "))),controller.searchVacation(tb_vacationID.getText()));
         controller.insertTradeRequest(tr);
         ErrorBox e = new ErrorBox();
         e.showErrorStage("We have sent your request to the seller,\n he will let you know :)");

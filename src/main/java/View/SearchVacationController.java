@@ -18,7 +18,7 @@ import javafx.stage.WindowEvent;
 import java.io.IOException;
 
 
-public class SearchVacationController {
+public class SearchVacationController implements ISubController{
     public Button btn_submitReq;
     public Button btn_beck;
     private Controller controller;
@@ -69,23 +69,25 @@ public class SearchVacationController {
         FXMLLoader loader = new FXMLLoader();
 
         try {
-            Parent root = loader.load(this.getClass().getClassLoader().getResource("SubmitRequest.fxml").openStream());
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Submit Request");
-            stage.setResizable(false);
-            this.primaryStage.hide();
-            StageHolder.getInstance().holdStage(stage);
-            SubmitRequestController c = (SubmitRequestController) loader.getController();
-            if ((Vacation) tableView.getSelectionModel().getSelectedItem()!=null) {
+
+            if (tableView.getSelectionModel().getSelectedItem()!=null) {
                 Vacation v = (Vacation) tableView.getSelectionModel().getSelectedItem();
                 if(v.getPownerUserName().equals(controller.getLoggedUser())){
                     ErrorBox e = new ErrorBox();
                     e.showErrorStage("you can't buy your own vacation");
+                    StageHolder.getInstance().getStage().close();
                     return;
                 }
+                Parent root = loader.load(this.getClass().getClassLoader().getResource("SubmitRequest.fxml").openStream());
+                Scene scene = new Scene(root);
+                scene.getStylesheets().add(this.getClass().getClassLoader().getResource("Forms.css").toExternalForm());
+                Stage stage = new Stage();
+                stage.requestFocus();
+                stage.setScene(scene);
+                stage.setTitle("Submit Request");
+                stage.setResizable(false);
+                StageHolder.getInstance().holdStage(stage);
+                SubmitRequestController c = (SubmitRequestController) loader.getController();
                 c.setController(this.controller);
                 c.submit(controller.getLoggedUser(),v.getVacationID(),v.getPrice());
                 stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -94,19 +96,23 @@ public class SearchVacationController {
                         StageHolder.getInstance().getStage();
                     }
                 });
+                this.primaryStage.hide();
                 stage.showAndWait();
-                this.primaryStage.show();
+                //StageHolder.getInstance().getStage().close();
+                //this.primaryStage.show();
             }
             else {
                 ErrorBox e = new ErrorBox();
                 e.showErrorStage("you need to choose vacation to submit a request");
-                return;
             }
-
 
         } catch (IOException e) {
             e.getCause();
             e.printStackTrace();
         }
+    }
+
+    private void showPrimaryStage(){
+        this.primaryStage.show();
     }
 }

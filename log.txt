@@ -1,6 +1,18 @@
-created new table users 2018/12/28 15:52:27
-created new table vacations 2018/12/28 15:52:27
-created new table purchases 2018/12/28 15:52:27
-created new table offers 2018/12/28 15:52:27
-created new table messages 2018/12/28 15:52:27
-created new table credit_cards 2018/12/28 15:52:27
+created new table users 2019/01/10 21:44:12
+created new table vacations 2019/01/10 21:44:12
+created new table purchases 2019/01/10 21:44:12
+created new table CashRequest 2019/01/10 21:44:12
+created new table messages 2019/01/10 21:44:12
+created new trade Requests table table messages 2019/01/10 21:44:12
+connection opened 2019/01/10 21:44:20
+connection opened 2019/01/10 21:44:20
+connection opened 2019/01/10 21:44:20
+connection opened 2019/01/10 21:44:24
+SUCCSSES retrive vacations to dest: berlin 2019/01/10 21:44:24
+connection opened 2019/01/10 21:44:27
+connection opened 2019/01/10 21:44:33
+SUCCSSES retrive vacations to dest: berlin 2019/01/10 21:44:33
+connection opened 2019/01/10 21:44:42
+connection opened 2019/01/10 21:44:49
+SUCCSSES retrive vacations to dest: berlin 2019/01/10 21:44:49
+connection opened 2019/01/10 21:44:55

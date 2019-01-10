@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 /**
  * controller class for the Delete scene . controlled by 'DeleteForm.fxml'
  */
-public class DeleteFormController {
+public class DeleteFormController implements ISubController{
 
     private Controller controller;
     private boolean deleted;
@@ -22,7 +22,7 @@ public class DeleteFormController {
         StageHolder.getInstance().getStage().close();
     }
 
-    public void handleCancel(){
+    public void handleBack(){
         deleted = false;
         StageHolder.getInstance().getStage().close();
     }
@@ -34,4 +34,5 @@ public class DeleteFormController {
     public void setController(Controller controller){
         this.controller = controller;
     }
+
 }

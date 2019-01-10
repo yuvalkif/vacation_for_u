@@ -5,7 +5,6 @@ import Control.Controller;
 import javafx.collections.ObservableList;
 
 
-import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -22,7 +21,7 @@ public interface ISQLModel {
     /**
      * insert a record to the database
      */
-    void insertUser(User user);
+    void insertUser(RegisteredUser user);
 
     /**
      * delete a user from the database
@@ -40,7 +39,7 @@ public interface ISQLModel {
      * @param city
      * @param Date
      */
-    void updateUsers(String username,String newUserName  , String password , String firstName, String lastName, String city, String Date);
+    void updateUsers(String username,String newUserName  , String password , String firstName, String lastName, String city, String Date,  String email);
 
     /**
      * create a new table in the database
@@ -57,10 +56,9 @@ public interface ISQLModel {
      */
     void createPurchaseTable();
 
-    void createBuyingRequestsTable();
+    void createCashRequestsTable();
 
     void createConfirmMessageTable();
-    void createCreditCardPoolTable();
     void createTradeRequestsTable();
 
     /**
@@ -70,7 +68,7 @@ public interface ISQLModel {
      */
 
 
-    List<User> searchRecordsByFields(String username);
+    List<RegisteredUser> searchRecordsByFields(String username);
 
     /**
      * return wither a user is logged in or not
@@ -100,7 +98,7 @@ public interface ISQLModel {
      */
     boolean insertVacation(Vacation vacationValues);
 
-    boolean insertBuyingRequest(String vacationId);
+    boolean insertCashRequest(String vacationId);
 
 
     void acceptMessage(ConfirmOfferMessage msg);
@@ -112,9 +110,9 @@ public interface ISQLModel {
 
     AUserData getUserData(String username);
 
-    ObservableList selectAllDataBase();
+    ObservableList getAllUsers();
 
-    String getLoggedUser();
+//    String getLoggedUser();
 
     boolean checkTicketExist(String text);
 
@@ -122,7 +120,7 @@ public interface ISQLModel {
 
     void insertTradeRequests( String offeredVacationId , String requestedVacationId);
 
-    Vacation getVacationAsObjectById(String vacationId);
+    Vacation getVacationById(String vacationId);
 
 
 }

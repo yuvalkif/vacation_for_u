@@ -21,8 +21,6 @@ public class Controller {
     private StringProperty sp_loggedUser;
 
     public Controller() {
-
-
     }
 
     /********************************SET ACTIONS**************************/
@@ -33,7 +31,7 @@ public class Controller {
 
     public void setModel(ISQLModel model) {
         this.model = model;
-        sp_loggedUser = new SimpleStringProperty("" + model.getLoggedUser());
+        sp_loggedUser = new SimpleStringProperty("");
     }
 
     public void setView(IView view) {
@@ -58,19 +56,16 @@ public class Controller {
     }
 
     public void createOffersTable() {
-        model.createBuyingRequestsTable();
+        model.createCashRequestsTable();
     }
 
-    public void createCreditCardTable() {
-        model.createCreditCardPoolTable();
-    }
 
-    public void createTradeRequestTable(){
+    public void createTradeRequestTable() {
         model.createTradeRequestsTable();
     }
 
     /********************************USER ACTIONS**************************/
-    public void handleSubmitSignUp(User submit) {
+    public void handleSubmitSignUp(RegisteredUser submit) {
         if (submit != null) {
             try {
                 model.insertUser(submit);
@@ -81,16 +76,15 @@ public class Controller {
         }
     }
 
-    public void updateUser(String newUserName, String password, String firstName, String lastName, String city, String date) {
-        this.model.updateUsers(loggedUser, newUserName, password, firstName, lastName, city, date);
-
+    public void updateUser(String newUserName, String password, String firstName, String lastName, String city, String date,String email) {
+        this.model.updateUsers(loggedUser, newUserName, password, firstName, lastName, city, date,email);
     }
 
     public void deleteUser() {
         this.model.deleteUsers(loggedUser);
     }
 
-    public ObservableList<User> searchInDataBase(User user) {
+    public ObservableList<RegisteredUser> searchInDataBase(RegisteredUser user) {
         return ((Model) this.model).searchRecordsByFields(user.getUserName());
     }
 
@@ -98,14 +92,13 @@ public class Controller {
         return (ObservableList) model.searchRecordsByFields(username);
     }
 
-    public ObservableList getAllDataBase() {
-        return this.model.selectAllDataBase();
+    public ObservableList getAllUsers() {
+        return this.model.getAllUsers();
     }
 
     public AUserData correctUserAndPassword(String username, String password) {
         AUserData logged = model.login(username, password);
-        if (logged == null)
-            return null;
+        if (logged == null) return null;
         loggedUser = logged.getUserName();
         sp_loggedUser.set(loggedUser);
         return logged;
@@ -141,12 +134,12 @@ public class Controller {
         this.model.insertVacation(vacation);
     }
 
-    public ObservableList searchVacationInDB(String dest) {
+    public ObservableList searchAllVacations(String dest) {
         return model.getVacations(dest);
     }
 
-    public Vacation getVacationAsObjectById(String vacationId){
-        return model.getVacationAsObjectById(vacationId);
+    public Vacation searchVacation(String vacationId) {
+        return model.getVacationById(vacationId);
     }
 
     /********************************MESSAGE ACTIONS**************************/
@@ -154,9 +147,10 @@ public class Controller {
         this.model.acceptMessage(msg);
     }
 
-//    public void insertBuyingRequest(BuyingRequest buyingRequest){
-//        model.insertBuyingRequest(buyingRequest.get,p.get(),p);
-//    }
+    public void declineOrderMassage(ConfirmOfferMessage msg) {
+        this.model.declineMessage(msg);
+    }
+
 
     /********************************OTHERS**************************/
     public boolean containsTicketID(String ticketID) {
@@ -165,10 +159,11 @@ public class Controller {
 
     /*************************************REQUESTS****************************/
     public void insertTradeRequest(TradeRequest tr) {
-        model.insertTradeRequests(tr.getRequestedVacation().getVacationID(),tr.getAskerVacationHeWantsToTrade().getVacationID());
+        model.insertTradeRequests( tr.getAskerVacationHeWantsToTrade().getVacationID(),tr.getRequestedVacation().getVacationID());
     }
 
-    public void insertBuyingRequest(BuyingRequest br){
-        model.insertBuyingRequest(br.getRequestedVacation().getVacationID());
+    public void insertBuyingRequest(CashRequest br) {
+        model.insertCashRequest(br.getRequestedVacation().getVacationID());
     }
+
 }

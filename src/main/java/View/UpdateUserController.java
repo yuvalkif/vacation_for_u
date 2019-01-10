@@ -3,8 +3,7 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
-import dbObjects.User;
-import javafx.collections.ObservableList;
+import dbObjects.RegisteredUser;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -12,29 +11,40 @@ import javafx.scene.layout.AnchorPane;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
 
 /**
- * controller class for the update scene. controlled by 'UpdateFormController.fxml'
+ * controller class for the update scene. controlled by 'UpdateUserController.fxml'
  */
 
-public class UpdateFormController {
-    private User user ;
+public class UpdateUserController implements ISubController{
+    private RegisteredUser user ;
 
-    private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="";
+    private String sUserName="",sNewUserName="",sPassword="",sFirstName="",sLastName="",sCity="",sDate="",sEmail="";
     private Controller controller ;
     @FXML
-    public TextField newUserName, password , firstname , lastname , city , date;
+    public TextField newUserName, password , firstname , lastname , city , date, email;
     public AnchorPane mainpane;
     public ImageView img_backUpdateUser;
 
     public void handleExecuteUpdate() {
-        user = new User(controller.getLoggedUser(), sPassword = password.getText(), sFirstName = firstname.getText(), sLastName = lastname.getText(),
-                sCity = city.getText(), sDate = date.getText());
+        user = new RegisteredUser(controller.getLoggedUser(), sPassword = password.getText(), sFirstName = firstname.getText(), sLastName = lastname.getText(),
+                sCity = city.getText(), sDate = date.getText(),sEmail=email.getText());
+
+        boolean goodEmail = false;
+        String theEmail = email.getText();
+        for (int i=0;i<theEmail.length();i++){
+            if (theEmail.charAt(i)=='@')
+                goodEmail=true;
+        }
+
+        if (!goodEmail) {
+            showError("please fill valid E-mail \n" + "to be updated");
+            user = null;
+            return;
+        }
 
         if (user.nullRecord()) {
-            showError("Please fill atleast 1 field \n" + "to be updated");
+            showError("Please fill at least 1 field \n" + "to be updated");
             user = null;
             return;
         }
@@ -62,7 +72,7 @@ public class UpdateFormController {
 
 
         //the update if all ok
-        this.controller.updateUser(controller.getLoggedUser(), user.getpPassword(), user.getFirstname(), user.getLastname(), user.getCity(), user.getDate());
+        this.controller.updateUser(controller.getLoggedUser(), user.getpPassword(), user.getFirstname(), user.getLastname(), user.getCity(), user.getDate(),user.getEmail());
 
         StageHolder.getInstance().getStage().close();
     }
@@ -83,7 +93,7 @@ public class UpdateFormController {
         return sUserName;
     }
 
-    public User getUser(){
+    public RegisteredUser getUser(){
         return this.user;
     }
 

@@ -63,10 +63,10 @@
                               <Label text="Depart" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label text="Return" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                               <Label text="Destination" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <RadioButton mnemonicParsing="false" textFill="WHITE" text="One Way Only" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                              <RadioButton mnemonicParsing="false" text="One Way Only" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                               <ChoiceBox fx:id="numOfAdults" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
                               <ChoiceBox fx:id="numOfKids" prefWidth="150.0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-                              <RadioButton mnemonicParsing="false" textFill="WHITE" text="Baggage" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                              <RadioButton mnemonicParsing="false" text="Baggage" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="3" />
                               <Label text="Adults" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                               <Label text="Kids (Under 16)" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="4" />
                               <Button mnemonicParsing="false" onAction="#handleSearchVacation" prefHeight="25.0" prefWidth="168.0" text="Search" GridPane.columnIndex="6" GridPane.rowIndex="6" />
@@ -99,7 +99,7 @@
             <content>
                 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="650.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
                     <children>
-                        <Button fx:id="updateVacationButton" layoutX="6.0" layoutY="298.0" mnemonicParsing="false" onAction="#handleVacationButton" opacity="0.69" prefHeight="88.0" prefWidth="199.0" text="Publish Vacation">
+                        <Button fx:id="updateVacationButton" layoutX="6.0" layoutY="298.0" mnemonicParsing="false" onAction="#handlePublishVacation" opacity="0.69" prefHeight="88.0" prefWidth="199.0" text="Publish Vacation">
                             <font>
                                 <Font size="22.0" />
                             </font></Button>
@@ -143,6 +143,7 @@
                           </columns>
                         </TableView>
                         <TextArea fx:id="massageArea" editable="false" layoutX="387.0" layoutY="34.0" prefHeight="98.0" prefWidth="317.0" />
+                        <Button fx:id="declineOffer" layoutX="408.0" layoutY="572.0" mnemonicParsing="false" onAction="#handleDeclineOrder" prefHeight="39.0" prefWidth="127.0" text="Decline Offer" />
                     </children>
                 </AnchorPane>
             </content>

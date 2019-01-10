@@ -12,7 +12,7 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
-import dbObjects.User;
+import dbObjects.RegisteredUser;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -20,8 +20,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class SearchFormController {
-    private User searchFields;
+public class SearchUserController implements ISubController{
+    private RegisteredUser searchFields;
     private boolean isDone;
     private ListView listView;
 
@@ -38,16 +38,18 @@ public class SearchFormController {
     @FXML
     public TextField birthdate;
     @FXML
-    private TableView<User> tableView;
+    public TextField email;
     @FXML
-    private TableColumn<User,String> userNameCol,passwordCol,firstNameCol,lastNameCol,cityCol,dateCol;
+    private TableView<RegisteredUser> tableView;
+    @FXML
+    private TableColumn<RegisteredUser,String> userNameCol,firstNameCol,lastNameCol,cityCol,dateCol;
     private Controller controller;
 
-    public SearchFormController() {
+    public SearchUserController() {
     }
 
     public void handleSearch() {
-        this.searchFields = new User(this.username.getText(), this.password.getText(), this.firstname.getText(), this.lastname.getText(), this.city.getText(), this.birthdate.getText());
+        this.searchFields = new RegisteredUser(this.username.getText(), this.password.getText(), this.firstname.getText(), this.lastname.getText(), this.city.getText(), this.birthdate.getText(), "");
         if(searchFields.getUserName().equals("")) {
             raiseError("Must specify a username");
             return;
@@ -74,19 +76,19 @@ public class SearchFormController {
 
 
     public void handleSearchAll(){
-        if(this.controller.getAllDataBase().size() == 0){
+        if(this.controller.getAllUsers().size() == 0){
             raiseError("No records in database");
             return;
         }
-        showSearchResults(this.controller.getAllDataBase());
+        showSearchResults(this.controller.getAllUsers());
     }
 
 
-    public User getSearchFields() {
+    public RegisteredUser getSearchFields() {
         return this.searchFields;
     }
 
-    public void showSearchResults(ObservableList<User> searchResults) {
+    public void showSearchResults(ObservableList<RegisteredUser> searchResults) {
 
             if (searchResults != null) {
                 userNameCol.setCellValueFactory(cellData -> cellData.getValue().pUserNameProperty());
@@ -110,7 +112,7 @@ public class SearchFormController {
 //    }
 
 
-    public void setTableView(TableView<User> tableView) {
+    public void setTableView(TableView<RegisteredUser> tableView) {
         this.tableView = tableView;
     }
 

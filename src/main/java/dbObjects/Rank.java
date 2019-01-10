@@ -18,8 +18,6 @@ public class Rank {
         this.averageScore = 0;
     }
 
-
-
     public void addRanker(double score){
         rankersCount++;
         totalScore+=score;
@@ -39,7 +37,6 @@ public class Rank {
     public double getAverageScore() {
         return averageScore;
     }
-
 
     @Override
     public String toString() {

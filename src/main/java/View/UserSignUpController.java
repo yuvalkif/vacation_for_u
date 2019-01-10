@@ -3,7 +3,7 @@ package View;
 import Control.Controller;
 import Logger.StageHolder;
 import Objects.ErrorBox;
-import dbObjects.User;
+import dbObjects.RegisteredUser;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -13,7 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
@@ -21,11 +20,11 @@ import java.time.format.DateTimeFormatter;
  * controller class for the sign up scene . controlled by 'SignUpForm.fxml'
  */
 
-public class SignUpFormController {
+public class UserSignUpController implements ISubController{
     private Controller controller;
-    private User toSubmit;
+    private RegisteredUser toSubmit;
     @FXML
-    public TextField username, password, firstname, lastname, city;
+    public TextField username, password, firstname, lastname, city, email;
     public DatePicker datepk_age;
     public ImageView img_backSignUp;
     public AnchorPane mainpane;
@@ -45,10 +44,23 @@ public class SignUpFormController {
             date = datepk_age.getValue().toString();
         }
 
-        this.toSubmit = new User(username.getText(), password.getText(), firstname.getText(), lastname.getText(), city.getText(),date);
+        this.toSubmit = new RegisteredUser(username.getText(), password.getText(), firstname.getText(), lastname.getText(), city.getText(),date,email.getText());
 
         if (toSubmit.hasNullField() || datepk_age.getValue()==null) {
             raiseError("Must fill all the fields");
+            toSubmit=null;
+            return;
+        }
+
+        boolean goodEmail = false;
+        String theEmail = email.getText();
+        for (int i=0;i<theEmail.length();i++){
+            if (theEmail.charAt(i)=='@')
+                goodEmail=true;
+        }
+
+        if (!goodEmail) {
+            raiseError("Please enter valid E-mail");
             toSubmit=null;
             return;
         }
@@ -87,7 +99,7 @@ public class SignUpFormController {
         StageHolder.getInstance().getStage().close();
     }
 
-    public User getToSubmit() {
+    public RegisteredUser getToSubmit() {
         return toSubmit;
     }
 
