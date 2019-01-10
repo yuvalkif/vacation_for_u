@@ -737,7 +737,7 @@ public class Model implements ISQLModel {
                 String recpiet =timeNow+"\n sender: "+msg.getSender()+"\n travel to:"+msg.getVacation().toString()+"\n"+" CONTACT: 09320148304 \n   ENJOY";
                 insertMessage(SYSTEM,msg.getSender(),timeNow,"confirm",recpiet,"accept",msg.getVacation().getVacationID());
                 //send to the seller
-                insertMessage(SYSTEM,msg.getReciver(),timeNow,"confirm","username: "+msg.getSender()+" \nhas bought your vacation: "+msg.getVacation()+" \nfor the price of: "+msg.getVacation().getPrice(),"accept",
+                insertMessage(SYSTEM,msg.getReciver(),timeNow,"confirm","username: "+msg.getSender()+" \nhas bought your vacation: "+msg.getVacation().toPrint()+" \nfor the price of: "+msg.getVacation().getPrice(),"accept",
                         msg.getVacation().getVacationID());
             }
 
