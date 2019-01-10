@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.StringJoiner;
@@ -433,7 +434,7 @@ public class Model implements ISQLModel {
 
     }
 
-    private void insertPurchase(Purchase purchase, String vacationId) {
+    private void insertPurchase(Purchase purchase) {
         String sqlStatement = "INSERT INTO purchases(askerUserName, replierUserName,vacationId,creationTime) VALUES(?,?,?,?)";
 
         try {
@@ -728,7 +729,10 @@ public class Model implements ISQLModel {
                 //send to the reciver
                 insertMessage(SYSTEM,msg.getReciver(),timeNow,"confirm",recpietReciver,"accept",tradedVacationOfTheAsker.getVacationID());
 
-
+                Purchase p1 = new Purchase(msg.getSender(),msg.getReciver(),Date.valueOf(LocalDate.now()),tradedVacationOfTheAsker);
+                insertPurchase(p1);
+                Purchase p2 = new Purchase(msg.getReciver(),msg.getSender(),Date.valueOf(LocalDate.now()),msg.getVacation());
+                insertPurchase(p2);
 
             }
 
@@ -739,6 +743,9 @@ public class Model implements ISQLModel {
                 //send to the seller
                 insertMessage(SYSTEM,msg.getReciver(),timeNow,"confirm","username: "+msg.getSender()+" \nhas bought your vacation: "+msg.getVacation().toPrint()+" \nfor the price of: "+msg.getVacation().getPrice(),"accept",
                         msg.getVacation().getVacationID());
+
+                Purchase p = new Purchase(msg.getSender(),msg.getReciver(),Date.valueOf(LocalDate.now()),msg.getVacation());
+                insertPurchase(p);
             }
 
             else
