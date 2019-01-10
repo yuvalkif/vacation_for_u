@@ -294,7 +294,7 @@ public class Model implements ISQLModel {
             //send a confirm message to the seller
 //            System.out.println("currently logges user: "+controller.getLoggedUser() +" and requested is: "+requestedVacation.getOwnerUserName());
             insertMessage(controller.getLoggedUser(),requestedVacation.getOwnerUserName(),theTimeNow,
-                    "confirmTrade",offeredVacation.getOwnerUserName()+ " wants to trade his vacatoin: "+offeredVacation.toString()+"\nwith your vacation " +requestedVacation.toString(),"waiting",requestedVacationId);
+                    "confirmTrade",offeredVacation.getOwnerUserName()+ " wants to trade his vacatoin: "+offeredVacation.toPrint()+"\nwith your vacation " +requestedVacation.toPrint(),"waiting",requestedVacationId);
 
             //send a message to the buyer
 //            insertMessage(SYSTEM,offeredVacation.getOwnerUserName(),theTimeNow,"regular","Your trade request sent to: "+requestedVacation.getOwnerUserName(),"regular",requestedVacationId);
@@ -302,7 +302,7 @@ public class Model implements ISQLModel {
 
 
             markVacationAsSold(requestedVacationId);
-
+            markVacationAsSold(offeredVacationId);
 
 
             Logger.getInstance().log("INSERT : " + offeredVacation.getOwnerUserName() + " , " + requestedVacation.getOwnerUserName() + " - SUCCESS");
@@ -421,7 +421,7 @@ public class Model implements ISQLModel {
 
             //send a confirm message to the seller
             insertMessage(controller.getLoggedUser(),vacation.getOwnerUserName(),theTimeNow,
-                    "confirmBuying",askerUserName+ " wants to buy your vacation, \nid: "+requestedVacationId+"\n you can contact him via"+ getUserEmailByUserName(loggedUser),"waiting",requestedVacationId);
+                    "confirmBuying",askerUserName+ " wants to buy your vacation, \nid: "+requestedVacationId+"\n you can contact him via: "+ getUserEmailByUserName(loggedUser),"waiting",requestedVacationId);
             markVacationAsSold(requestedVacationId);
             Logger.getInstance().log("INSERT Buying Offer on vacationID: " + requestedVacationId + " By user: " + askerUserName + " - SUCCESS");
         } catch (SQLException e) {
@@ -721,8 +721,8 @@ public class Model implements ISQLModel {
                 //so its a trade request need to be accepted
                 TradeRequest tr = getTradeRequestAsObjectByAskerAndReplier(msg.getSender(),msg.getReciver(),msg.getVacation().getVacationID());
                 Vacation tradedVacationOfTheAsker = getVacationById(tr.getAskerVacationHeWantsToTrade().getVacationID());
-                String recpietAsker ="TRADE SUCCESS"+"\n"+timeNow+"\n"+msg.getSender()+"\n"+msg.getVacation().getDestination()+"\n"+" CONTACT: 09-3201483 \n   ENJOY";
-                String recpietReciver ="TRADE SUCCESS"+"\n"+timeNow+"\n"+msg.getReciver()+"\n"+tradedVacationOfTheAsker.getDestination()+"\n"+" CONTACT: 09-3201483 \n   ENJOY";
+                String recpietAsker ="TRADE SUCCESS"+"\n"+timeNow+"\n sender: "+msg.getSender()+"\n travel to: "+msg.getVacation().getDestination()+"\n"+" CONTACT: 09-3201483 \n   ENJOY";
+                String recpietReciver ="TRADE SUCCESS"+"\n"+timeNow+"\n resiver: "+msg.getReciver()+"\n travel to: "+tradedVacationOfTheAsker.getDestination()+"\n"+" CONTACT: 09-3201483 \n   ENJOY";
                 //send to the asker
                 insertMessage(SYSTEM,msg.getSender(),timeNow,"confirm",recpietAsker,"accept",msg.getVacation().getVacationID());
                 //send to the reciver
@@ -734,7 +734,7 @@ public class Model implements ISQLModel {
 
             //Cash ACCEPTED
             else if(CashRequestExist(msg.getSender(),msg.getReciver(),msg.getVacation().getVacationID())){
-                String recpiet =timeNow+"\n"+msg.getSender()+"\n"+msg.getVacation().toString()+"\n"+" CONTACT: 09320148304 \n   ENJOY";
+                String recpiet =timeNow+"\n sender: "+msg.getSender()+"\n travel to:"+msg.getVacation().toString()+"\n"+" CONTACT: 09320148304 \n   ENJOY";
                 insertMessage(SYSTEM,msg.getSender(),timeNow,"confirm",recpiet,"accept",msg.getVacation().getVacationID());
                 //send to the seller
                 insertMessage(SYSTEM,msg.getReciver(),timeNow,"confirm","username: "+msg.getSender()+" \nhas bought your vacation: "+msg.getVacation()+" \nfor the price of: "+msg.getVacation().getPrice(),"accept",
@@ -1161,7 +1161,7 @@ public class Model implements ISQLModel {
         } catch (SQLException var7) {
             System.out.println(var7.getMessage());
             Logger.getInstance().log(var7.getMessage());
-            System.out.println("unable to create Vacation Object from DB by ID");
+            System.out.println("unable to create Email Object from DB by ID");
         }
         return email;
     }

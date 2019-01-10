@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="350.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SubmitRequestController">
+<AnchorPane prefHeight="350.0" prefWidth="800.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="View.SubmitRequestController">
    <children>
       <ImageView fitHeight="382.0" fitWidth="800.0" pickOnBounds="true">
          <image>
@@ -31,8 +31,8 @@
         </rowConstraints>
          <children>
             <Label text="Vacation ID" textFill="white" GridPane.rowIndex="1" />
-            <Label text="User Name" textFill="white"/>
-            <Label text="Amount to pay" GridPane.rowIndex="2" textFill="white"/>
+            <Label text="User Name" textFill="white" />
+            <Label text="Amount to pay" textFill="white" GridPane.rowIndex="2" />
             <TextField fx:id="tb_vacationID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="tb_userName" GridPane.columnIndex="1" />
             <TextField fx:id="tb_price" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -49,6 +49,11 @@
             <Font size="31.0" />
          </font>
       </Label>
+      <Button layoutX="467.0" layoutY="230.0" mnemonicParsing="false" onAction="#clickSubmitTrade" text="Submit Trade Request">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
       <GridPane layoutX="300.0" layoutY="78.0" prefHeight="101.0" prefWidth="300.0" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="80.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="131.0" />
@@ -61,17 +66,12 @@
          </rowConstraints>
          <children>
             <Label text="Vacation ID" textFill="white" GridPane.rowIndex="1" />
-            <Label text="User Name" textFill="white"/>
-            <Label text="Choose vacation" GridPane.rowIndex="2" textFill="white"/>
+            <Label text="User Name" textFill="white" />
+            <Label text="Choose vacation" textFill="white" GridPane.rowIndex="2" />
             <TextField fx:id="tb_vacationID1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="tb_userName1" GridPane.columnIndex="1" />
-            <ChoiceBox fx:id="cb_tradeVacation" prefHeight="31.0" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ChoiceBox fx:id="cb_tradeVacation" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button layoutX="467.0" layoutY="230.0" mnemonicParsing="false" onAction="#clickSubmitTrade" text="Submit Trade Request">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>
