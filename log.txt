@@ -1,184 +1,145 @@
-created new table users 2019/01/10 21:52:44
-created new table vacations 2019/01/10 21:52:44
-created new table purchases 2019/01/10 21:52:44
-created new table CashRequest 2019/01/10 21:52:44
-created new table messages 2019/01/10 21:52:44
-created new trade Requests table table messages 2019/01/10 21:52:44
-connection opened 2019/01/10 21:53:03
-connection opened 2019/01/10 21:53:03
-connection closed 2019/01/10 21:53:03
-INSERT : a , aaaaaaaa - SUCCESS 2019/01/10 21:53:03
-connection opened 2019/01/10 21:53:07
-connection opened 2019/01/10 21:53:07
-connection opened 2019/01/10 21:53:07
-connection opened 2019/01/10 21:53:23
-connection opened 2019/01/10 21:53:23
-connection opened 2019/01/10 21:53:23
-connection opened 2019/01/10 21:53:23
-INSERT : Vacation{VacationID='1', ownerUserName='a', flight=Flight{flightCompany='fewagrg', destination='s', ticketType='1', baggageIncluded='1', fromDate=2019-01-16, untilDate=1999-12-31, isTwoDirections=false}, accommodation=Accommodation{AccomodationName='Without accommadtion', AccomodationRank=0.0, AccomodationLocation='s', fromDate=2019-01-16, until=1999-12-31}, numberOfTickets=1, vacationType='1', includeSleep=false, sold=false, freezed=false, price=1.0, PVacationID=StringProperty [value: 1], PownerUserName=StringProperty [value: a], PflightCompany=StringProperty [value: fewagrg], PfromDate=StringProperty [value: 2019-01-16], PuntilDate=StringProperty [value: 1999-12-31], PbaggageIncluded=StringProperty [value: 1], PnumberOfTickets=StringProperty [value: 1], PtwoDirections=StringProperty [value: false], Pdestination=StringProperty [value: s], PticketType=StringProperty [value: 1], PvacationType=StringProperty [value: 1], PincludeSleep=StringProperty [value: false], PhotelName=StringProperty [value: Without accommadtion], PhotelRank=StringProperty [value: 0.0], Pprice=StringProperty [value: 1.0]}- SUCCESS 2019/01/10 21:53:23
-connection opened 2019/01/10 21:53:44
-connection opened 2019/01/10 21:53:44
-connection closed 2019/01/10 21:53:44
-INSERT : s , ssssssss - SUCCESS 2019/01/10 21:53:44
-connection opened 2019/01/10 21:53:46
-connection opened 2019/01/10 21:53:46
-connection opened 2019/01/10 21:53:46
-connection opened 2019/01/10 21:53:57
-connection opened 2019/01/10 21:53:57
-connection opened 2019/01/10 21:53:57
-connection opened 2019/01/10 21:53:57
-INSERT : Vacation{VacationID='2', ownerUserName='s', flight=Flight{flightCompany='gaefdgs', destination='s', ticketType='2', baggageIncluded='2', fromDate=2019-01-25, untilDate=1999-12-31, isTwoDirections=false}, accommodation=Accommodation{AccomodationName='Without accommadtion', AccomodationRank=0.0, AccomodationLocation='s', fromDate=2019-01-25, until=1999-12-31}, numberOfTickets=2, vacationType='2', includeSleep=false, sold=false, freezed=false, price=2.0, PVacationID=StringProperty [value: 2], PownerUserName=StringProperty [value: s], PflightCompany=StringProperty [value: gaefdgs], PfromDate=StringProperty [value: 2019-01-25], PuntilDate=StringProperty [value: 1999-12-31], PbaggageIncluded=StringProperty [value: 2], PnumberOfTickets=StringProperty [value: 2], PtwoDirections=StringProperty [value: false], Pdestination=StringProperty [value: s], PticketType=StringProperty [value: 2], PvacationType=StringProperty [value: 2], PincludeSleep=StringProperty [value: false], PhotelName=StringProperty [value: Without accommadtion], PhotelRank=StringProperty [value: 0.0], Pprice=StringProperty [value: 2.0]}- SUCCESS 2019/01/10 21:53:57
-connection opened 2019/01/10 21:54:02
-SUCCSSES retrive vacations to dest: s 2019/01/10 21:54:02
-connection opened 2019/01/10 21:54:10
-connection opened 2019/01/10 21:54:18
-connection opened 2019/01/10 21:54:18
-connection opened 2019/01/10 21:54:18
-connection opened 2019/01/10 21:54:18
-connection opened 2019/01/10 21:54:18
-connection closed 2019/01/10 21:54:19
-connection opened 2019/01/10 21:54:19
-connection closed 2019/01/10 21:54:19
+created new table users 2019/01/10 22:02:06
+created new table vacations 2019/01/10 22:02:06
+created new table purchases 2019/01/10 22:02:06
+created new table CashRequest 2019/01/10 22:02:06
+created new table messages 2019/01/10 22:02:06
+created new trade Requests table table messages 2019/01/10 22:02:06
+connection opened 2019/01/10 22:02:12
+connection opened 2019/01/10 22:02:12
+connection opened 2019/01/10 22:02:12
+connection opened 2019/01/10 22:02:12
+connection opened 2019/01/10 22:02:12
+connection opened 2019/01/10 22:02:24
+connection opened 2019/01/10 22:02:24
+connection opened 2019/01/10 22:02:24
+connection opened 2019/01/10 22:02:24
+connection opened 2019/01/10 22:02:24
+connection opened 2019/01/10 22:02:24
+INSERT : Vacation{VacationID='4', ownerUserName='a', flight=Flight{flightCompany='fsbgfbx', destination='r', ticketType='r', baggageIncluded='4', fromDate=2019-02-04, untilDate=1999-12-31, isTwoDirections=false}, accommodation=Accommodation{AccomodationName='Without accommadtion', AccomodationRank=0.0, AccomodationLocation='r', fromDate=2019-02-04, until=1999-12-31}, numberOfTickets=4, vacationType='r', includeSleep=false, sold=false, freezed=false, price=4.0, PVacationID=StringProperty [value: 4], PownerUserName=StringProperty [value: a], PflightCompany=StringProperty [value: fsbgfbx], PfromDate=StringProperty [value: 2019-02-04], PuntilDate=StringProperty [value: 1999-12-31], PbaggageIncluded=StringProperty [value: 4], PnumberOfTickets=StringProperty [value: 4], PtwoDirections=StringProperty [value: false], Pdestination=StringProperty [value: r], PticketType=StringProperty [value: r], PvacationType=StringProperty [value: r], PincludeSleep=StringProperty [value: false], PhotelName=StringProperty [value: Without accommadtion], PhotelRank=StringProperty [value: 0.0], Pprice=StringProperty [value: 4.0]}- SUCCESS 2019/01/10 22:02:24
+connection opened 2019/01/10 22:02:33
+connection opened 2019/01/10 22:02:33
+connection opened 2019/01/10 22:02:33
+connection opened 2019/01/10 22:02:33
+connection opened 2019/01/10 22:02:33
+connection opened 2019/01/10 22:02:45
+connection opened 2019/01/10 22:02:45
+connection opened 2019/01/10 22:02:45
+connection opened 2019/01/10 22:02:45
+connection opened 2019/01/10 22:02:45
+connection opened 2019/01/10 22:02:45
+INSERT : Vacation{VacationID='7', ownerUserName='s', flight=Flight{flightCompany='sghsxhb', destination='r', ticketType='r', baggageIncluded='7', fromDate=2019-01-23, untilDate=1999-12-31, isTwoDirections=false}, accommodation=Accommodation{AccomodationName='Without accommadtion', AccomodationRank=0.0, AccomodationLocation='r', fromDate=2019-01-23, until=1999-12-31}, numberOfTickets=7, vacationType='r', includeSleep=false, sold=false, freezed=false, price=7.0, PVacationID=StringProperty [value: 7], PownerUserName=StringProperty [value: s], PflightCompany=StringProperty [value: sghsxhb], PfromDate=StringProperty [value: 2019-01-23], PuntilDate=StringProperty [value: 1999-12-31], PbaggageIncluded=StringProperty [value: 7], PnumberOfTickets=StringProperty [value: 7], PtwoDirections=StringProperty [value: false], Pdestination=StringProperty [value: r], PticketType=StringProperty [value: r], PvacationType=StringProperty [value: r], PincludeSleep=StringProperty [value: false], PhotelName=StringProperty [value: Without accommadtion], PhotelRank=StringProperty [value: 0.0], Pprice=StringProperty [value: 7.0]}- SUCCESS 2019/01/10 22:02:45
+connection opened 2019/01/10 22:02:50
+SUCCSSES retrive vacations to dest: r 2019/01/10 22:02:50
+connection opened 2019/01/10 22:02:52
+connection opened 2019/01/10 22:02:57
+connection opened 2019/01/10 22:02:57
+connection opened 2019/01/10 22:02:57
+connection opened 2019/01/10 22:02:57
+connection opened 2019/01/10 22:02:57
+connection closed 2019/01/10 22:02:57
+connection opened 2019/01/10 22:02:57
+connection closed 2019/01/10 22:02:57
 INSERT Message, content : s wants to trade his vacatoin: 
- VacationID='2', 
+ VacationID='7', 
  ownerUserName='s', 
  flight:   
-{flightCompany='gaefdgs',
-destination='s',
-ticketType='2',
-baggageIncluded='2',
-fromDate=2019-01-25,
+{flightCompany='sghsxhb',
+destination='r',
+ticketType='r',
+baggageIncluded='7',
+fromDate=2019-01-23,
 untilDate=1999-12-31,
 isTwoDirections=false}, 
- numberOfTickets=2, 
- vacationType='2', 
+ numberOfTickets=7, 
+ vacationType='r', 
  includeSleep=false, 
  accommodation:   
 {AccomodationName='Without accommadtion',
 AccomodationRank=0.0,
-AccomodationLocation='s',
-fromDate=2019-01-25,
+AccomodationLocation='r',
+fromDate=2019-01-23,
 until=1999-12-31}
 with your vacation 
- VacationID='1', 
+ VacationID='4', 
  ownerUserName='a', 
  flight:   
-{flightCompany='fewagrg',
-destination='s',
-ticketType='1',
-baggageIncluded='1',
-fromDate=2019-01-16,
+{flightCompany='fsbgfbx',
+destination='r',
+ticketType='r',
+baggageIncluded='4',
+fromDate=2019-02-04,
 untilDate=1999-12-31,
-isTwoDirections=true}, 
- numberOfTickets=1, 
- vacationType='1', 
+isTwoDirections=false}, 
+ numberOfTickets=4, 
+ vacationType='r', 
  includeSleep=false, 
  accommodation:   
 {AccomodationName='Without accommadtion',
 AccomodationRank=0.0,
-AccomodationLocation='s',
-fromDate=2019-01-16,
-until=1999-12-31}- SUCCESS 2019/01/10 21:54:19
-connection opened 2019/01/10 21:54:19
-connection closed 2019/01/10 21:54:19
-Update  , mark as sold vacation : 1 - SUCCESS 2019/01/10 21:54:19
-connection opened 2019/01/10 21:54:19
-connection closed 2019/01/10 21:54:19
-Update  , mark as sold vacation : 2 - SUCCESS 2019/01/10 21:54:19
-INSERT : s , a - SUCCESS 2019/01/10 21:54:19
-connection opened 2019/01/10 21:54:24
-SUCCSSES retrive vacations to dest: s 2019/01/10 21:54:24
-connection opened 2019/01/10 21:54:39
-connection opened 2019/01/10 21:54:39
-connection opened 2019/01/10 21:54:39
-connection opened 2019/01/10 21:54:39
-connection opened 2019/01/10 21:54:39
-INSERT : Vacation{VacationID='3', ownerUserName='s', flight=Flight{flightCompany='hsrfsgr', destination='s', ticketType='2', baggageIncluded='3', fromDate=2019-01-23, untilDate=1999-12-31, isTwoDirections=false}, accommodation=Accommodation{AccomodationName='Without accommadtion', AccomodationRank=0.0, AccomodationLocation='s', fromDate=2019-01-23, until=1999-12-31}, numberOfTickets=3, vacationType='2', includeSleep=false, sold=false, freezed=false, price=3.0, PVacationID=StringProperty [value: 3], PownerUserName=StringProperty [value: s], PflightCompany=StringProperty [value: hsrfsgr], PfromDate=StringProperty [value: 2019-01-23], PuntilDate=StringProperty [value: 1999-12-31], PbaggageIncluded=StringProperty [value: 3], PnumberOfTickets=StringProperty [value: 3], PtwoDirections=StringProperty [value: false], Pdestination=StringProperty [value: s], PticketType=StringProperty [value: 2], PvacationType=StringProperty [value: 2], PincludeSleep=StringProperty [value: false], PhotelName=StringProperty [value: Without accommadtion], PhotelRank=StringProperty [value: 0.0], Pprice=StringProperty [value: 3.0]}- SUCCESS 2019/01/10 21:54:39
-connection opened 2019/01/10 21:54:50
-connection opened 2019/01/10 21:54:50
-connection opened 2019/01/10 21:54:50
-connection opened 2019/01/10 21:54:50
-connection opened 2019/01/10 21:54:55
-SUCCSSES retrive vacations to dest: s 2019/01/10 21:54:55
-connection opened 2019/01/10 21:54:57
-connection opened 2019/01/10 21:55:09
-SUCCSSES retrive vacations to dest: s 2019/01/10 21:55:09
-connection opened 2019/01/10 21:55:13
-SUCCSSES retrive vacations to dest: s 2019/01/10 21:55:13
-connection opened 2019/01/10 21:55:16
-connection opened 2019/01/10 21:55:25
-SUCCSSES retrive vacations to dest: s 2019/01/10 21:55:25
-connection opened 2019/01/10 21:55:27
-connection opened 2019/01/10 21:55:30
-connection opened 2019/01/10 21:55:30
-connection opened 2019/01/10 21:55:30
-connection opened 2019/01/10 21:55:30
-connection closed 2019/01/10 21:55:30
-connection opened 2019/01/10 21:55:30
-connection opened 2019/01/10 21:55:30
-connection closed 2019/01/10 21:55:31
-INSERT Message, content : a wants to buy your vacation, 
-id: 3
- you can contact him via: a@- SUCCESS 2019/01/10 21:55:31
-connection opened 2019/01/10 21:55:31
-connection closed 2019/01/10 21:55:31
-Update  , mark as sold vacation : 3 - SUCCESS 2019/01/10 21:55:31
-INSERT Buying Offer on vacationID: 3 By user: a - SUCCESS 2019/01/10 21:55:31
-connection opened 2019/01/10 21:55:39
-connection closed 2019/01/10 21:55:39
-connection opened 2019/01/10 21:55:39
-DELETED sa1 2019/01/10 21:55:39
-connection opened 2019/01/10 21:55:39
-connection closed 2019/01/10 21:55:39
-INSERT Message, content : 2019-01-10 21:55:39
-s Has Declined your request
+AccomodationLocation='r',
+fromDate=2019-02-04,
+until=1999-12-31}- SUCCESS 2019/01/10 22:02:57
+connection opened 2019/01/10 22:02:57
+connection closed 2019/01/10 22:02:57
+Update  , mark as sold vacation : 4 - SUCCESS 2019/01/10 22:02:57
+connection opened 2019/01/10 22:02:57
+connection closed 2019/01/10 22:02:57
+Update  , mark as sold vacation : 7 - SUCCESS 2019/01/10 22:02:57
+INSERT : s , a - SUCCESS 2019/01/10 22:02:57
+connection opened 2019/01/10 22:03:12
+connection opened 2019/01/10 22:03:12
+connection opened 2019/01/10 22:03:12
+connection opened 2019/01/10 22:03:12
+connection opened 2019/01/10 22:03:12
+connection opened 2019/01/10 22:03:12
+connection opened 2019/01/10 22:03:24
+connection closed 2019/01/10 22:03:24
+connection opened 2019/01/10 22:03:24
+DELETED sa4 2019/01/10 22:03:24
+connection opened 2019/01/10 22:03:24
+connection closed 2019/01/10 22:03:24
+INSERT Message, content : 2019-01-10 22:03:24
+a Has Declined your request
  on: 
-Vacation{VacationID='1', ownerUserName='a', flight=Flight{flightCompany='fewagrg', destination='s', ticketType='1', baggageIncluded='1', fromDate=2019-01-16, untilDate=1999-12-31, isTwoDirections=true}, accommodation=Accommodation{AccomodationName='Without accommadtion', AccomodationRank=0.0, AccomodationLocation='s', fromDate=2019-01-16, until=1999-12-31}, numberOfTickets=1, vacationType='1', includeSleep=false, sold=true, freezed=false, price=1.0, PVacationID=StringProperty [value: 1], PownerUserName=StringProperty [value: a], PflightCompany=StringProperty [value: fewagrg], PfromDate=StringProperty [value: 2019-01-16], PuntilDate=StringProperty [value: 1999-12-31], PbaggageIncluded=StringProperty [value: 1], PnumberOfTickets=StringProperty [value: 1], PtwoDirections=StringProperty [value: true], Pdestination=StringProperty [value: s], PticketType=StringProperty [value: 1], PvacationType=StringProperty [value: 1], PincludeSleep=StringProperty [value: false], PhotelName=StringProperty [value: Without accommadtion], PhotelRank=StringProperty [value: 0.0], Pprice=StringProperty [value: 1.0]}
+
+ VacationID='4', 
+ ownerUserName='a', 
+ flight:   
+{flightCompany='fsbgfbx',
+destination='r',
+ticketType='r',
+baggageIncluded='4',
+fromDate=2019-02-04,
+untilDate=1999-12-31,
+isTwoDirections=false}, 
+ numberOfTickets=4, 
+ vacationType='r', 
+ includeSleep=false, 
+ accommodation:   
+{AccomodationName='Without accommadtion',
+AccomodationRank=0.0,
+AccomodationLocation='r',
+fromDate=2019-02-04,
+until=1999-12-31}
  
 CONTACT: 09-3201483 
- We are sorry- SUCCESS 2019/01/10 21:55:39
-connection opened 2019/01/10 21:55:39
-connection closed 2019/01/10 21:55:39
-INSERT Message, content : you have declined :s request- SUCCESS 2019/01/10 21:55:39
-connection opened 2019/01/10 21:55:39
-connection opened 2019/01/10 21:55:39
-connection closed 2019/01/10 21:55:39
-Update  , mark as aviable vacation : 1 - SUCCESS 2019/01/10 21:55:39
-declining message:  : 1 s a - SUCCESS 2019/01/10 21:55:39
-connection opened 2019/01/10 21:55:39
-connection opened 2019/01/10 21:55:39
-connection opened 2019/01/10 21:55:39
-connection opened 2019/01/10 21:55:39
-connection opened 2019/01/10 21:57:05
-connection opened 2019/01/10 21:57:05
-connection opened 2019/01/10 21:57:05
-connection opened 2019/01/10 21:57:05
-connection opened 2019/01/10 21:57:05
-connection opened 2019/01/10 21:57:40
-connection closed 2019/01/10 21:57:40
-connection opened 2019/01/10 21:57:40
-DELETED as3 2019/01/10 21:57:40
-connection opened 2019/01/10 21:57:40
-connection opened 2019/01/10 21:57:40
-connection opened 2019/01/10 21:57:40
-connection opened 2019/01/10 21:57:40
-connection closed 2019/01/10 21:57:40
-INSERT Message, content : 2019-01-10 21:57:40
- sender: a
- travel to:Vacation{VacationID='3', ownerUserName='s', flight=Flight{flightCompany='hsrfsgr', destination='s', ticketType='2', baggageIncluded='3', fromDate=2019-01-23, untilDate=1999-12-31, isTwoDirections=false}, accommodation=Accommodation{AccomodationName='Without accommadtion', AccomodationRank=0.0, AccomodationLocation='s', fromDate=2019-01-23, until=1999-12-31}, numberOfTickets=3, vacationType='2', includeSleep=false, sold=true, freezed=false, price=3.0, PVacationID=StringProperty [value: 3], PownerUserName=StringProperty [value: s], PflightCompany=StringProperty [value: hsrfsgr], PfromDate=StringProperty [value: 2019-01-23], PuntilDate=StringProperty [value: 1999-12-31], PbaggageIncluded=StringProperty [value: 3], PnumberOfTickets=StringProperty [value: 3], PtwoDirections=StringProperty [value: false], Pdestination=StringProperty [value: s], PticketType=StringProperty [value: 2], PvacationType=StringProperty [value: 2], PincludeSleep=StringProperty [value: false], PhotelName=StringProperty [value: Without accommadtion], PhotelRank=StringProperty [value: 0.0], Pprice=StringProperty [value: 3.0]}
- CONTACT: 09320148304 
-   ENJOY- SUCCESS 2019/01/10 21:57:40
-connection opened 2019/01/10 21:57:40
-connection closed 2019/01/10 21:57:40
-INSERT Message, content : username: a 
-has bought your vacation: Vacation{VacationID='3', ownerUserName='s', flight=Flight{flightCompany='hsrfsgr', destination='s', ticketType='2', baggageIncluded='3', fromDate=2019-01-23, untilDate=1999-12-31, isTwoDirections=false}, accommodation=Accommodation{AccomodationName='Without accommadtion', AccomodationRank=0.0, AccomodationLocation='s', fromDate=2019-01-23, until=1999-12-31}, numberOfTickets=3, vacationType='2', includeSleep=false, sold=true, freezed=false, price=3.0, PVacationID=StringProperty [value: 3], PownerUserName=StringProperty [value: s], PflightCompany=StringProperty [value: hsrfsgr], PfromDate=StringProperty [value: 2019-01-23], PuntilDate=StringProperty [value: 1999-12-31], PbaggageIncluded=StringProperty [value: 3], PnumberOfTickets=StringProperty [value: 3], PtwoDirections=StringProperty [value: false], Pdestination=StringProperty [value: s], PticketType=StringProperty [value: 2], PvacationType=StringProperty [value: 2], PincludeSleep=StringProperty [value: false], PhotelName=StringProperty [value: Without accommadtion], PhotelRank=StringProperty [value: 0.0], Pprice=StringProperty [value: 3.0]} 
-for the price of: 3.0- SUCCESS 2019/01/10 21:57:40
-connection opened 2019/01/10 21:57:40
-connection opened 2019/01/10 21:57:40
-connection closed 2019/01/10 21:57:40
-Update  , mark as sold vacation : 3 - SUCCESS 2019/01/10 21:57:40
-accepting message:  : 3 a s - SUCCESS 2019/01/10 21:57:40
-connection opened 2019/01/10 21:57:40
-connection opened 2019/01/10 21:57:40
-connection opened 2019/01/10 21:57:40
-connection opened 2019/01/10 21:57:40
+ We are sorry- SUCCESS 2019/01/10 22:03:24
+connection opened 2019/01/10 22:03:24
+connection closed 2019/01/10 22:03:24
+INSERT Message, content : you have declined :s request- SUCCESS 2019/01/10 22:03:24
+connection opened 2019/01/10 22:03:24
+connection opened 2019/01/10 22:03:24
+connection closed 2019/01/10 22:03:24
+Update  , mark as aviable vacation : 4 - SUCCESS 2019/01/10 22:03:24
+declining message:  : 4 s a - SUCCESS 2019/01/10 22:03:24
+connection opened 2019/01/10 22:03:24
+connection opened 2019/01/10 22:03:24
+connection opened 2019/01/10 22:03:24
+connection opened 2019/01/10 22:03:24
+connection opened 2019/01/10 22:03:24
+connection opened 2019/01/10 22:03:36
+connection opened 2019/01/10 22:03:36
+connection opened 2019/01/10 22:03:36
+connection opened 2019/01/10 22:03:36
+connection opened 2019/01/10 22:03:36
+connection opened 2019/01/10 22:03:36

@@ -675,7 +675,7 @@ public class Model implements ISQLModel {
             //send to the buyer
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String timeNow = LocalDateTime.now().format(formatter);
-            String decline = timeNow+"\n"+msg.getSender()+" Has Declined your request\n on: " +"\n"+msg.getVacation().toString()+"\n"+" \nCONTACT: 09-3201483 \n We are sorry";
+            String decline = timeNow+"\n"+msg.getReciver()+" Has Declined your request\n on: Vacation" +"\n"+msg.getVacation().toPrint()+"\n"+" \nCONTACT: 09-3201483 \n We are sorry";
             insertMessage(SYSTEM,msg.getSender(),timeNow,"confirm",decline,"Decline",msg.getVacation().getVacationID());
             insertMessage(SYSTEM,msg.getReciver(),timeNow,"regular","you have declined :"+msg.getSender()+" request","regular",msg.getVacation().getVacationID());
             //send to the seller
