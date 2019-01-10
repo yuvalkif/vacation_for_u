@@ -292,7 +292,7 @@ public class Model implements ISQLModel {
 
 
             //send a confirm message to the seller
-            System.out.println("currently logges user: "+controller.getLoggedUser() +" and requested is: "+requestedVacation.getOwnerUserName());
+//            System.out.println("currently logges user: "+controller.getLoggedUser() +" and requested is: "+requestedVacation.getOwnerUserName());
             insertMessage(controller.getLoggedUser(),requestedVacation.getOwnerUserName(),theTimeNow,
                     "confirmTrade",offeredVacation.getOwnerUserName()+ " wants to trade his vacatoin: "+offeredVacation.toString()+"\nwith your vacation " +requestedVacation.toString(),"waiting",requestedVacationId);
 
@@ -1095,8 +1095,8 @@ public class Model implements ISQLModel {
                 String status = resultSet.getString("status");
                 String vacationId = resultSet.getString("vacationId");
                 boolean expired = false;
-                if (getHoursGap(creationTime, now) > 48)
-                    expired = true;
+//                if (getHoursGap(creationTime, now) > 48)
+//                    expired = true;
 
                 AMessage msg = null;
 
@@ -1249,7 +1249,6 @@ public class Model implements ISQLModel {
         ObservableList<AMessage> inboundMessages = null;
         ObservableList<AMessage> outboundMessages = null;
         String sqlInboundMessages = "SELECT * FROM messages WHERE reciverUserName =" + "'" + username + "'";
-//        String sqlOutboundMessages = "SELECT * FROM messages WHERE senderUserName =" + "'" + username + "'";
         try {
             Connection conn = this.openConnection();
             Statement stmt = conn.createStatement();
@@ -1266,8 +1265,28 @@ public class Model implements ISQLModel {
             return null;
         }
 
+
+
+
+        String sqlOutboundMessages = "SELECT * FROM messages WHERE senderUserName =" + "'" + username + "'";
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSetOut = stmt.executeQuery(sqlOutboundMessages);
+            outboundMessages = this.convertOutMessageResultsToObservableList(resultSetOut);
+//            stmt = conn.createStatement();
+//            resultSetOut = stmt.executeQuery(sqlOutboundMessages);
+            conn.close();
+
+//            outboundMessages = this.convertOutMessageResultsToObservableList(resultSetOut);
+        } catch (SQLException var7) {
+            System.out.println(var7.getMessage());
+            Logger.getInstance().log(var7.getMessage());
+            return null;
+        }
+
         /***** NEED TO ADD OUTBOUND MESSAGES ****************/
-        return new UserData(username, inboundMessages, null);
+        return new UserData(username, inboundMessages, outboundMessages);
         //check if they are not expired
 
         //if not , add as it is to user messages
