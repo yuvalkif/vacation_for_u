@@ -43,11 +43,11 @@ public class MainScreenController implements IView{
     @FXML
     public TextArea massageArea;
     @FXML
-    public TableView inbox , outbox;
+    public TableView inbox;
     @FXML
     public ListView vacationList;
     @FXML
-    public TableColumn<AMessage,String> inboxFrom , inboxTime,inboxContent , outboxTo,outboxTime,outboxContent;
+    public TableColumn<AMessage,String> inboxFrom , inboxTime,inboxContent ;
 
     //add the needed listeners
     public void initializeListeners(){
@@ -145,8 +145,6 @@ public class MainScreenController implements IView{
         refreshInboxAndOutbox();
     }
 
-
-
     public void handleSignIn() {
         FXMLLoader loader = new FXMLLoader();
 
@@ -197,27 +195,13 @@ public class MainScreenController implements IView{
         ObservableList<AMessage> inList = userData.getInMessages();
         ObservableList<AMessage> outList = userData.getOutMessages();
         initializeColumnsInbox(inList);
-        initializeColumnsOutbox(outList);
         this.inbox.setItems(inList);
-        this.outbox.setItems(outList);
-
     }
 
     private void initializeColumnsInbox(ObservableList<AMessage> list){
         this.inboxFrom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSender()));
         this.inboxContent.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContent()));
         this.inboxTime.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMessageTime()));
-    }
-
-    private void initializeColumnsOutbox(ObservableList<AMessage> list){
-        this.outboxTo.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getReciver()));
-        this.outboxTime.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMessageTime()));
-        this.outboxContent.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContent()));
-    }
-
-    public void handlePurchaseVacation(){
-
-
     }
 
     public void handleSearchVacation(){
@@ -258,7 +242,6 @@ public class MainScreenController implements IView{
             });
             stage.showAndWait();
             this.primaryStage.show();
-
         } catch (IOException e) {
             e.getCause();
             e.printStackTrace();

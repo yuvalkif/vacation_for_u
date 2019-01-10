@@ -19,9 +19,7 @@ public class StageHolder {
 
     private Stack<Stage> stageStack = new Stack<>();
 
-    private StageHolder() {
-
-    }
+    private StageHolder() {}
 
     /**
      * submit a stage to hold
